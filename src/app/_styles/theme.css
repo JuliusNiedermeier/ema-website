@@ -1,0 +1,32 @@
+:root {
+  --neutral-100: 76deg 100% 98%;
+  --neutral-200: 76deg 59% 94%;
+  --neutral-300: 76deg 36% 93%;
+  --neutral-400: 76deg 19% 91%;
+  --neutral-900: 0deg 0% 18%;
+
+  --primary-100: 76deg 97% 74%;
+  --primary-200: 78deg 82% 71%;
+  --primary-300: 82deg 70% 69%;
+  --primary-400: 85deg 58% 66%;
+  --primary-500: 90deg 49% 64%;
+  --primary-600: 96deg 29% 52%;
+  --primary-700: 108deg 25% 39%;
+  --primary-800: 131deg 28% 26%;
+  --primary-900: 163deg 69% 10%;
+
+  --sozialassistenz-primary: 9deg 66% 66%;
+  --sozialassistenz-darker: 9deg 64% 55%;
+
+  --kaufmännische-assistenz-primary: 14deg 69% 64%;
+  --kaufmännische-assistenz-darker: 14deg 69% 55%;
+
+  --sozialpädagogik-primary: 259deg 59% 75%;
+  --sozialpädagogik-darker: 259deg 64% 55%;
+
+  --wirtschaft-primary: 237deg 84% 78%;
+  --wirtschaft-darker: 237deg 64% 55%;
+
+  --heilerziehungspflege-primary: 148deg 42% 66%;
+  --heilerziehungspflege-darker: 148deg 39% 54%;
+}
