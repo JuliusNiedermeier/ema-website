@@ -7,3 +7,7 @@
     text-wrap: balance;
   }
 }
+
+:root {
+  font-size: 18px;
+}
