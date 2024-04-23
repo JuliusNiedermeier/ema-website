@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Catamaran";
+  src: url("/fonts/catamaran-medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Catamaran";
+  src: url("/fonts/catamaran-regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Tiempos";
+  src: url("/fonts/tiempos-light.woff2") format("woff2");
+  font-weight: 300;
+}
