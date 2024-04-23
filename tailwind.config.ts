@@ -30,6 +30,122 @@ const config: Config = {
         { fontWeight: 300, letterSpacing: "0.72px", lineHeight: "145%" },
       ],
     },
+    colors: {
+      neutral: {
+        100: {
+          DEFAULT: "hsl(var(--neutral-100))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-900))",
+            muted: "hsl(var(--neutral-900) / 40%)",
+          },
+        },
+        200: {
+          DEFAULT: "hsl(var(--neutral-200))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-900))",
+            muted: "hsl(var(--neutral-900) / 40%)",
+          },
+        },
+        300: {
+          DEFAULT: "hsl(var(--neutral-300))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-900))",
+            muted: "hsl(var(--neutral-900) / 40%)",
+          },
+        },
+        400: {
+          DEFAULT: "hsl(var(--neutral-400))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-900))",
+            muted: "hsl(var(--neutral-900) / 40%)",
+          },
+        },
+        500: {
+          DEFAULT: "hsl(var(--neutral-500))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-900))",
+            muted: "hsl(var(--neutral-900) / 40%)",
+          },
+        },
+        900: {
+          DEFAULT: "hsl(var(--neutral-900))",
+          text: {
+            DEFAULT: "hsl(var(--neutral-100))",
+            muted: "hsl(var(--neutral-100) / 40%)",
+          },
+        },
+      },
+      primary: {
+        100: {
+          DEFAULT: "hsl(var(--primary-100))",
+          text: {
+            DEFAULT: "hsl(var(--primary-900))",
+            muted: "hsl(var(--primary-900) / 25%)",
+          },
+        },
+        200: {
+          DEFAULT: "hsl(var(--primary-200))",
+          text: {
+            DEFAULT: "hsl(var(--primary-900))",
+            muted: "hsl(var(--primary-900) / 25%)",
+          },
+        },
+        300: {
+          DEFAULT: "hsl(var(--primary-300))",
+          text: {
+            DEFAULT: "hsl(var(--primary-900))",
+            muted: "hsl(var(--primary-900) / 25%)",
+          },
+        },
+        400: {
+          DEFAULT: "hsl(var(--primary-400))",
+          text: {
+            DEFAULT: "hsl(var(--primary-900))",
+            muted: "hsl(var(--primary-900) / 25%)",
+          },
+        },
+        500: {
+          DEFAULT: "hsl(var(--primary-500))",
+          text: {
+            DEFAULT: "hsl(var(--primary-900))",
+            muted: "hsl(var(--primary-900) / 25%)",
+          },
+        },
+        600: {
+          DEFAULT: "hsl(var(--primary-600))",
+          text: {
+            DEFAULT: "hsl(var(--primary-100))",
+            muted: "hsl(var(--primary-100) / 25%)",
+          },
+        },
+        700: {
+          DEFAULT: "hsl(var(--primary-700))",
+          text: {
+            DEFAULT: "hsl(var(--primary-100))",
+            muted: "hsl(var(--primary-100) / 25%)",
+          },
+        },
+        800: {
+          DEFAULT: "hsl(var(--primary-800))",
+          text: {
+            DEFAULT: "hsl(var(--primary-100))",
+            muted: "hsl(var(--primary-100) / 25%)",
+          },
+        },
+        900: {
+          DEFAULT: "hsl(var(--primary-900))",
+          text: {
+            DEFAULT: "hsl(var(--primary-100))",
+            muted: "hsl(var(--primary-100) / 25%)",
+          },
+        },
+      },
+      themed: {
+        // Possibly switch to 25% opacity for more of a pastelly look and stronger contrast
+        primary: "hsl(var(--themed-primary))",
+        darker: "hsl(var(--themed-darker))",
+      },
+    },
   },
   plugins: [],
 };
