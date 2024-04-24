@@ -9,8 +9,8 @@ const config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Catamaran", ...fontFamily.sans],
-      serif: ["Tiempos", ...fontFamily.serif],
+      sans: ["var(--font-catamaran)", ...fontFamily.sans],
+      serif: ["var(--font-tiempos)", ...fontFamily.serif],
     },
     fontSize: {
       "heading-lg": [

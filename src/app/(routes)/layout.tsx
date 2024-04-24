@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { FC, PropsWithChildren } from "react";
+import { cn } from "../_utils/cn";
+import { catamaran, tiempos } from "~/app/_fonts/fonts";
 
 import "~/app/_styles/globals.css";
-import "~/app/_styles/font-faces.css";
 import "~/app/_styles/theme.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body className={cn(catamaran.variable, tiempos.variable, "font-sans")}>
+        {children}
+      </body>
     </html>
   );
 };
