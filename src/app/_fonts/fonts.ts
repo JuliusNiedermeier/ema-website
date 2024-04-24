@@ -3,6 +3,11 @@ import localFont from "next/font/local";
 export const catamaran = localFont({
   src: [
     {
+      path: "./catamaran-bold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
       path: "./catamaran-medium.woff2",
       weight: "500",
       style: "normal",
