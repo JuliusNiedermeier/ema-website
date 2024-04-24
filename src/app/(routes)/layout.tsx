@@ -5,6 +5,7 @@ import { catamaran, tiempos } from "~/app/_fonts/fonts";
 
 import "~/app/_styles/globals.css";
 import "~/app/_styles/theme.css";
+import { SiteHeader } from "../_components/blocks/site-header";
 
 export const metadata: Metadata = {
   title: "Emil Molt Akademie",
@@ -21,6 +22,9 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           "font-sans bg-neutral-100 text-neutral-200-text overflow-x-hidden",
         )}
       >
+        <div className="z-10 sticky top-0">
+          <SiteHeader />
+        </div>
         {children}
       </body>
     </html>
