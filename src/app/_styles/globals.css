@@ -6,6 +6,16 @@
   :root {
     font-size: 18px;
   }
+
+  ::-moz-selection {
+    color: inherit;
+    background: hsl(var(--primary-500) / 50%);
+  }
+
+  ::selection {
+    color: inherit;
+    background: hsl(var(--primary-500) / 50%);
+  }
 }
 
 @layer utilities {
