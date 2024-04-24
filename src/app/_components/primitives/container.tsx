@@ -1,10 +1,13 @@
+import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps, FC, PropsWithChildren } from "react";
 import { cn } from "~/app/_utils/cn";
 
 export interface Props
   extends ComponentProps<"div">,
-    VariantProps<typeof variants> {}
+    VariantProps<typeof variants> {
+  asChild?: boolean;
+}
 
 const variants = cva("w-full mx-auto", {
   variants: {
@@ -20,14 +23,17 @@ const variants = cva("w-full mx-auto", {
 });
 
 export const Container: FC<PropsWithChildren<Props>> = ({
+  asChild,
   width,
   className,
   children,
   ...restProps
 }) => {
+  const Component = asChild ? Slot : "div";
+
   return (
-    <div className={cn(variants({ width }), className)} {...restProps}>
+    <Component className={cn(variants({ width }), className)} {...restProps}>
       {children}
-    </div>
+    </Component>
   );
 };
