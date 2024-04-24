@@ -14,9 +14,7 @@ export const metadata: Metadata = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="de">
-      <body className={cn(catamaran.variable, tiempos.variable, "font-sans")}>
-        {children}
-      </body>
+      <body className={cn(catamaran.variable, tiempos.variable, "font-sans")}>{children}</body>
     </html>
   );
 };
