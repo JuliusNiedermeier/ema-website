@@ -3,9 +3,11 @@ import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps, FC, PropsWithChildren } from "react";
 import { cn } from "~/app/_utils/cn";
 
-export interface Props extends ComponentProps<"div">, VariantProps<typeof variants> {
-  asChild?: boolean;
-}
+export type ContainerProps = ComponentProps<"div"> &
+  VariantProps<typeof variants> &
+  PropsWithChildren<{
+    asChild?: boolean;
+  }>;
 
 const variants = cva("w-full mx-auto", {
   variants: {
@@ -18,7 +20,7 @@ const variants = cva("w-full mx-auto", {
   defaultVariants: { width: "medium" },
 });
 
-export const Container: FC<PropsWithChildren<Props>> = ({ asChild, width, className, children, ...restProps }) => {
+export const Container: FC<ContainerProps> = ({ asChild, width, className, children, ...restProps }) => {
   const Component = asChild ? Slot : "div";
 
   return (
