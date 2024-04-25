@@ -25,8 +25,8 @@ const LogoSVG: FC = () => {
       <path
         d="M40 3L18.8121 19.7619L9.3697 8.82011M2 26.0476H14.4364L16.5091 47M37.697 15.3386L23.8788 26.0476L28.0242 34.4286"
         stroke="#2F5342"
-        stroke-width="3"
-        stroke-linecap="square"
+        strokeWidth="3"
+        strokeLinecap="square"
       />
     </svg>
   );
