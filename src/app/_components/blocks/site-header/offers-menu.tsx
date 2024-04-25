@@ -12,10 +12,10 @@ export type OffersMenuProps = ComponentProps<typeof Container> & {};
 export const OffersMenu: FC<OffersMenuProps> = ({ className, ...restProps }) => {
   return (
     <Container
-      className={cn("flex flex-col-reverse xl:flex-row gap-4 sm:items-end py-4 border-t border-[gray]/20", className)}
+      className={cn("flex flex-col-reverse gap-4 border-t border-[gray]/20 py-4 sm:items-end xl:flex-row", className)}
       {...restProps}
     >
-      <Card className="w-full xl:max-w-96 bg-primary-900 text-neutral-900-text" data-animate>
+      <Card className="w-full bg-primary-900 text-neutral-900-text xl:max-w-96" data-animate>
         <Heading size="sm">Finde heraus was zu Dir passt.</Heading>
         <Paragraph className="text-neutral-900-text-muted">
           Mit unserem Checkup tool findest du garantiert die perfekte Ausbildung für Dich!
@@ -39,7 +39,7 @@ export const OffersMenu: FC<OffersMenuProps> = ({ className, ...restProps }) => 
             </Heading>
           </Link>
         </div>
-        <div className="h-px bg-neutral-400 my-8"></div>
+        <div className="my-8 h-px bg-neutral-400"></div>
         <Heading size="lg" tag="h3" data-animate className="!duration-100">
           Bildungswege
         </Heading>

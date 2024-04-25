@@ -19,10 +19,10 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         className={cn(
           catamaran.variable,
           tiempos.variable,
-          "font-sans bg-neutral-100 text-neutral-200-text overflow-x-hidden",
+          "overflow-x-hidden bg-neutral-100 font-sans text-neutral-200-text",
         )}
       >
-        <div className="z-10 sticky top-0">
+        <div className="sticky top-0 z-10">
           <SiteHeader />
         </div>
         {children}

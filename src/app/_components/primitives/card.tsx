@@ -5,7 +5,7 @@ export type CardProps = ComponentProps<"div"> & {};
 
 export const Card: FC<CardProps> = ({ className, children, ...restProps }) => {
   return (
-    <div className={cn("rounded-2xl p-8 bg-neutral-200", className)} {...restProps}>
+    <div className={cn("rounded-2xl bg-neutral-200 p-8", className)} {...restProps}>
       {children}
     </div>
   );

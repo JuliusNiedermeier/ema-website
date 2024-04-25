@@ -17,7 +17,7 @@ const classes = {
 export const Hamburger: FC<HamburgerProps> = ({ className, open, onOpenChange, ...restProps }) => {
   return (
     <button
-      className={cn("w-6 h-6 p-1 grid grid-rows-3 items-center group", className)}
+      className={cn("group grid h-6 w-6 grid-rows-3 items-center p-1", className)}
       onClick={() => onOpenChange?.(!open)}
       {...restProps}
     >
@@ -25,12 +25,12 @@ export const Hamburger: FC<HamburgerProps> = ({ className, open, onOpenChange, .
         <div
           key={key}
           className={cn(
-            "h-full w-full flex-1 grid items-center transition-all",
+            "grid h-full w-full flex-1 items-center transition-all",
             classes[key as keyof typeof classes].base,
             open && classes[key as keyof typeof classes].open,
           )}
         >
-          <div className="h-[2px] bg-neutral-900 w-full" />
+          <div className="h-[2px] w-full bg-neutral-900" />
         </div>
       ))}
     </button>

@@ -7,12 +7,12 @@ export type SiteLogoProps = ComponentProps<"div"> & {
 
 export const SiteLogo: FC<SiteLogoProps> = ({ className, show = "both", ...restProps }) => {
   return (
-    <div className={cn("flex items-center gap-4 font-bold text-primary-foreground", className)} {...restProps}>
+    <div className={cn("text-primary-foreground flex items-center gap-4 font-bold", className)} {...restProps}>
       {(show === "mark" || show === "both") && <LogoSVG />}
       {(show === "text" || show === "both") && (
         <div>
           <span className="font-bold">Emil Molt</span>
-          <span className="font-bold text-neutral-200-text-muted ml-2">Akademie</span>
+          <span className="ml-2 font-bold text-neutral-200-text-muted">Akademie</span>
         </div>
       )}
     </div>

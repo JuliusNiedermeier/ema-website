@@ -47,7 +47,7 @@ export type ParagraphProps = ComponentProps<"p"> & {
 export const Paragraph: FC<ParagraphProps> = ({ className, children, asChild, ...restProps }) => {
   const Component = asChild ? Slot : "p";
   return (
-    <Component className={cn("text-paragraph my-2 font-serif", className)} {...restProps}>
+    <Component className={cn("my-2 font-serif text-paragraph", className)} {...restProps}>
       {children}
     </Component>
   );
