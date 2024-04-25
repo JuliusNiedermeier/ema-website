@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { FC, PropsWithChildren } from "react";
-import { cn } from "../_utils/cn";
+import { cn } from "~/app/_utils/cn";
 import { catamaran, tiempos } from "~/app/_fonts/fonts";
 
 import "~/app/_styles/globals.css";
 import "~/app/_styles/theme.css";
-import { SiteHeader } from "../_components/blocks/site-header";
+import { SiteHeader } from "../_components/blocks/site-header/site-header";
 
 export const metadata: Metadata = {
   title: "Emil Molt Akademie",
