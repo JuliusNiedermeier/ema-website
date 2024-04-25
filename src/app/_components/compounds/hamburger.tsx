@@ -23,6 +23,7 @@ export const Hamburger: FC<HamburgerProps> = ({ className, open, onOpenChange, .
     >
       {Object.keys(classes).map((key) => (
         <div
+          key={key}
           className={cn(
             "h-full w-full flex-1 grid items-center transition-all",
             classes[key as keyof typeof classes].base,
