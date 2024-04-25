@@ -5,7 +5,7 @@ import { catamaran, tiempos } from "~/app/_fonts/fonts";
 
 import "~/app/_styles/globals.css";
 import "~/app/_styles/theme.css";
-import { SiteHeader } from "../_components/blocks/site-header/site-header";
+import { SiteHeader } from "~/app/_components/blocks/site-header/site-header";
 
 export const metadata: Metadata = {
   title: "Emil Molt Akademie",
