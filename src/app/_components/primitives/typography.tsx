@@ -1,6 +1,6 @@
+import { ComponentProps, FC } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 
 type ValidHeadingTag = "h1" | "h2" | "h3";

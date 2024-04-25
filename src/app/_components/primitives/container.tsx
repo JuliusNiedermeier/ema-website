@@ -1,6 +1,6 @@
+import { ComponentProps, FC, PropsWithChildren } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import { ComponentProps, FC, PropsWithChildren } from "react";
 import { cn } from "~/app/_utils/cn";
 
 export type ContainerProps = ComponentProps<"div"> &
