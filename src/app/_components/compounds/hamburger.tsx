@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, FC, useState } from "react";
+import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 
 export type HamburgerProps = ComponentProps<"button"> & {
