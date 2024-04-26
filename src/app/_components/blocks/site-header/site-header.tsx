@@ -8,7 +8,7 @@ import { Container } from "~/app/_components/primitives/container";
 import { SiteLogo } from "~/app/_components/compounds/site-logo";
 import { Hamburger } from "~/app/_components/compounds/hamburger";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
-import { Button } from "~/app/_components/primitives/button";
+import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Label } from "~/app/_components/primitives/typography";
 import { OffersMenu } from "./offers-menu";
 
@@ -34,8 +34,8 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
             <NavigationItem href="/bildungswege" label="Bildungswege" menu onClick={() => setMenuOpen(!menuOpen)} />
             <NavigationItem href="/blog" label="Blog" />
             <Button href="/go" size="sm" vairant="outline">
-              <Label className="py-6">Bewerben</Label>
-              <InteractionBubble className="group-hover:ml-4" />
+              <Label>Bewerben</Label>
+              <ButtonInteractionBubble />
             </Button>
           </nav>
 
