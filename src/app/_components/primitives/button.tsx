@@ -3,6 +3,8 @@ import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import Link from "next/link";
 import { cn } from "~/app/_utils/cn";
+import { Label } from "./typography";
+import { InteractionBubble } from "../compounds/interaction-bubble";
 
 export type ButtonProps = ComponentProps<typeof Link> &
   VariantProps<typeof variants> & {
@@ -32,4 +34,10 @@ export const Button: FC<ButtonProps> = ({ className, children, asChild, size, va
       {children}
     </Component>
   );
+};
+
+export type ButtonInteractionBubbleProps = ComponentProps<typeof InteractionBubble> & {};
+
+export const ButtonInteractionBubble: FC<ButtonInteractionBubbleProps> = ({ className, ...restProps }) => {
+  return <InteractionBubble className={cn("group-hover:ml-4", className)} {...restProps} />;
 };
