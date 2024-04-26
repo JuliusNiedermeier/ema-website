@@ -32,7 +32,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
           <nav className="text-sm hidden items-center gap-8 font-medium md:flex">
             <NavigationItem href="/" label="Akademie" exact />
             <NavigationItem href="/bildungswege" label="Bildungswege" menu onClick={() => setMenuOpen(!menuOpen)} />
-            <NavigationItem href="/blog" label="Blog" exact />
+            <NavigationItem href="/blog" label="Blog" />
             <Button href="/go" size="sm" vairant="outline">
               <Label className="py-6">Bewerben</Label>
               <InteractionBubble className="group-hover:ml-4" />
