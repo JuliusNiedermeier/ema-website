@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "typegen": "sanity schema extract --path generated/sanity/schema.json & sanity typegen generate"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
