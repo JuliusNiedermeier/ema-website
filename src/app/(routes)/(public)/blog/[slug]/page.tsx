@@ -1,11 +1,18 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Label } from "~/app/_components/primitives/typography";
+import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
-import { PostSlugsQueryResult } from "../../../../../../generated/sanity/types";
+import { PostQueryResult, PostSlugsQueryResult } from "../../../../../../generated/sanity/types";
 
 const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
+
+const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
+  ...,
+  mainImage {asset->{url}},
+  author->{name, image{asset->{url}}},
+  category->
+}`;
 
 export const generateStaticParams = async () => {
   const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery);
@@ -14,11 +21,13 @@ export const generateStaticParams = async () => {
   }[];
 };
 
-const PostPage: FC<{ params: { slug: string } }> = ({ params }) => {
+const PostPage: FC<{ params: { slug: string } }> = async ({ params: { slug } }) => {
+  const post = await sanity.fetch<PostQueryResult>(postQuery, { slug });
+
   return (
     <Container>
-      <Heading>Post</Heading>
-      <Label>{params.slug}</Label>
+      <Heading>{post?.title}</Heading>
+      <Paragraph>{post?.excerpt}</Paragraph>
     </Container>
   );
 };
