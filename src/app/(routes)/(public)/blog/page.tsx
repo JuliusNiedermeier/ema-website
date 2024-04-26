@@ -79,7 +79,7 @@ const BlogPage: FC = async () => {
       <Container className="mt-8">
         <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-x-4 gap-y-4">
           {posts.map((post) => (
-            <Link href={`/blog/${post.slug?.current}`} className="-z-10">
+            <Link key={post._id} href={`/blog/${post.slug?.current}`} className="-z-10">
               <PostCard>
                 <PostCardThumbnail>
                   <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
