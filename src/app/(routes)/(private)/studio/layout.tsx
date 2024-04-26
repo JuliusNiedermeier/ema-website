@@ -8,7 +8,7 @@ export const metadata = {
 const StudioLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body style={{ margin: 0 }}>{children}</body>
     </html>
   );
 };
