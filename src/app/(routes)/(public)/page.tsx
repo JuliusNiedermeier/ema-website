@@ -1,16 +1,30 @@
 import { PlayIcon } from "lucide-react";
 import { groq } from "next-sanity";
-import { FC } from "react";
+import { type ComponentProps, FC } from "react";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
 import { HomePageQueryResult } from "../../../../generated/sanity/types";
+import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 
-const homePageQuery = groq`*[_type == "home-page"][0]{..., video{asset->{url}}}`;
+const homePageQuery = groq`*[_type == "home-page"][0]{
+  ..., 
+  partners[]{
+    name,
+    logo{asset->{url}}
+  }, 
+  video{asset->{url}}
+}`;
 
 const HomePage: FC = async () => {
   const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery, {}, { next: { tags: ["home-page"] } });
+
+  const partners: ComponentProps<typeof PartnersBanner>["partners"] =
+    homePage?.partners?.map((partner) => ({
+      imageURL: partner.logo?.asset?.url || "",
+      name: partner.name || "Partner",
+    })) || [];
 
   return (
     <>
@@ -55,6 +69,14 @@ const HomePage: FC = async () => {
           </div>
         </Container>
       </div>
+
+      <Container width="medium">
+        <div className="mt-16 flex justify-center">
+          <PartnersBanner partners={partners} />
+        </div>
+
+        {/* <OfferGrid className="mt-16" /> */}
+      </Container>
     </>
   );
 };
