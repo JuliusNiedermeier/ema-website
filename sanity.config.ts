@@ -5,17 +5,17 @@
 import { visionTool } from "@sanity/vision";
 import { SchemaType, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { env } from "~/env";
+import { apiVersion } from "~/sanity/config";
 
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import { apiVersion, dataset, projectId } from "~/sanity/env";
 import { schema, singletonTypeNames } from "~/sanity/schema";
 
 export default defineConfig({
   basePath: "/studio",
   name: "ema-content-studio",
   title: "EMA Content Studio",
-  projectId,
-  dataset,
+  projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   schema,
   document: {
     newDocumentOptions: (items, { creationContext }) => {
