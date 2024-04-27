@@ -32,7 +32,11 @@ const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
 }`;
 
 const BlogPage: FC = async () => {
-  const [latestPost, ...posts] = await sanity.fetch<PostsQueryResult>(postsQuery);
+  const [latestPost, ...posts] = await sanity.fetch<PostsQueryResult>(
+    postsQuery,
+    {},
+    { next: { tags: ["post", "author", "category"] } },
+  );
 
   return (
     <>

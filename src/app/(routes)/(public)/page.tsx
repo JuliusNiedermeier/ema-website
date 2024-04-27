@@ -10,7 +10,7 @@ import { HomePageQueryResult } from "../../../../generated/sanity/types";
 const homePageQuery = groq`*[_type == "home-page"][0]{..., video{asset->{url}}}`;
 
 const HomePage: FC = async () => {
-  const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery);
+  const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery, {}, { next: { tags: ["home-page"] } });
 
   return (
     <>
