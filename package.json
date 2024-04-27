@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "mkdir -p generated/sanity && pnpm typegen && pnpm next build",
+    "build:local": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
