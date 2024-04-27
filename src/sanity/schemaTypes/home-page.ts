@@ -34,6 +34,22 @@ export const homePage: SchemaTypeDef = {
         type: "file",
         group: "hero",
       },
+      {
+        name: "partners",
+        title: "Partners",
+        type: "array",
+        of: [
+          {
+            name: "partner",
+            title: "Partner",
+            type: "object",
+            fields: [
+              { name: "logo", title: "Logo", type: "image" },
+              { name: "name", title: "Name", type: "string" },
+            ],
+          },
+        ],
+      },
     ],
     preview: {
       prepare: () => ({ title: "Home page" }),
