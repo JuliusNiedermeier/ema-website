@@ -3,12 +3,12 @@
  */
 
 import { visionTool } from "@sanity/vision";
-import { defineConfig } from "sanity";
+import { SchemaType, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "~/sanity/env";
-import { schema } from "~/sanity/schema";
+import { schema, singletonTypeNames } from "~/sanity/schema";
 
 export default defineConfig({
   basePath: "/studio",
@@ -16,7 +16,45 @@ export default defineConfig({
   title: "EMA Content Studio",
   projectId,
   dataset,
-  // Add and edit the content schema in the './sanity/schema' folder
   schema,
-  plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
+  document: {
+    newDocumentOptions: (items, { creationContext }) => {
+      if (creationContext.type === "global") {
+        // Removes all singleton types from the global create button.
+        return items.filter((item) => !singletonTypeNames.has(item.templateId));
+      }
+      return items;
+    },
+  },
+  plugins: [
+    structureTool({
+      structure: (S) => {
+        const singletonTypes = S.documentTypeListItems().filter((S) =>
+          singletonTypeNames.has((S.getSchemaType() as SchemaType).name),
+        );
+
+        const modifiedSingletonTypes = singletonTypes.map((type) =>
+          // Sets a specific document of the singleton type as a direct child of the list item.
+          // The name of the schema type is used as the document ID here.
+          // This implicitly creates the first document of the singleton type when navigating into it.
+          // For subsequent visits the created document will be displayed.
+          type.child(
+            S.document()
+              .schemaType((type.getSchemaType() as SchemaType).name)
+              .documentId(type.getId()!),
+          ),
+        );
+
+        const repeatableTypes = S.documentTypeListItems().filter(
+          (S) => !singletonTypeNames.has((S.getSchemaType() as SchemaType).name),
+        );
+
+        return S.list()
+          .id("content")
+          .title("Content")
+          .items([...modifiedSingletonTypes, S.divider(), ...repeatableTypes]);
+      },
+    }),
+    visionTool({ defaultApiVersion: apiVersion }),
+  ],
 });
