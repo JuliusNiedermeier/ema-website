@@ -12,7 +12,7 @@ export const MenuShell: FC<MenuShellProps> = ({ className, ...restProps }) => {
 
   const pathName = usePathname();
 
-  useEffect(() => setOpen(false), [pathName]);
+  useEffect(() => setOpen(false), [pathName, setOpen]);
 
   return (
     <div
