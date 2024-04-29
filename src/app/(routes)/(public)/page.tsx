@@ -7,6 +7,7 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { sanity } from "~/sanity/lib/client";
 import { HomePageQueryResult } from "../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
+import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ..., 
@@ -75,7 +76,7 @@ const HomePage: FC = async () => {
           <PartnersBanner partners={partners} />
         </div>
 
-        {/* <OfferGrid className="mt-16" /> */}
+        <OffersGrid className="mt-16" />
       </Container>
     </>
   );

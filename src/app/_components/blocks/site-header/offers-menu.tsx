@@ -6,6 +6,7 @@ import { Card } from "~/app/_components/primitives/card";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { OffersGrid } from "../../compounds/offers-grid";
 
 export type OffersMenuProps = ComponentProps<typeof Container> & {};
 
@@ -44,6 +45,8 @@ export const OffersMenu: FC<OffersMenuProps> = ({ className, ...restProps }) => 
           Bildungswege
         </Heading>
       </div>
+
+      <OffersGrid />
     </Container>
   );
 };
