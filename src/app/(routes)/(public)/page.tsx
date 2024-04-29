@@ -8,14 +8,21 @@ import { sanity } from "~/sanity/lib/client";
 import { HomePageQueryResult } from "../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 import { OffersGrid } from "~/app/_components/compounds/offers-grid";
+import { ArtEducation } from "~/app/_components/blocks/art-education";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
-  ..., 
+  ...,
+  video{asset->{url}},
   partners[]{
     name,
     logo{asset->{url}}
   }, 
-  video{asset->{url}}
+  artEducation {
+    ...,
+    backgroundImage{asset->{url}},
+    leftImage{asset->{url}},
+    rightImage{asset->{url}}
+  }
 }`;
 
 const HomePage: FC = async () => {
@@ -77,6 +84,28 @@ const HomePage: FC = async () => {
         </div>
 
         <OffersGrid className="mt-16" />
+      </Container>
+
+      <Container>
+        <ArtEducation
+          className="mt-4"
+          backgroundImage={{
+            src: homePage?.artEducation?.backgroundImage?.asset?.url || "",
+            alt: homePage?.artEducation?.title || "",
+          }}
+          leftImage={{
+            src: homePage?.artEducation?.leftImage?.asset?.url || "",
+            alt: homePage?.artEducation?.title || "",
+          }}
+          rightImage={{
+            src: homePage?.artEducation?.rightImage?.asset?.url || "",
+            alt: homePage?.artEducation?.title || "",
+          }}
+          title={homePage?.artEducation?.title || ""}
+          body={homePage?.artEducation?.body || ""}
+          actionLabel={homePage?.artEducation?.actionLabel || ""}
+        />
+        {/* <TestimonialCarousel class="mt-64" /> */}
       </Container>
     </>
   );

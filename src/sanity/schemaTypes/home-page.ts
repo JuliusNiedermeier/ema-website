@@ -50,6 +50,19 @@ export const homePage: SchemaTypeDef = {
           },
         ],
       },
+      {
+        name: "artEducation",
+        title: "Art education",
+        type: "object",
+        fields: [
+          { name: "backgroundImage", title: "Background image", type: "image" },
+          { name: "leftImage", title: "Left image", type: "image" },
+          { name: "rightImage", title: "Right image", type: "image" },
+          { name: "title", title: "Title", type: "string" },
+          { name: "body", title: "Body", type: "string" },
+          { name: "actionLabel", title: "Action label", type: "string" },
+        ],
+      },
     ],
     preview: {
       prepare: () => ({ title: "Home page" }),
