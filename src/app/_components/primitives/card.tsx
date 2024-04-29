@@ -10,3 +10,5 @@ export const Card: FC<CardProps> = forwardRef(({ className, children, ...restPro
     </div>
   );
 });
+
+Card.displayName = "Card";
