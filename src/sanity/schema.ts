@@ -5,10 +5,12 @@ import { category } from "./schemaTypes/category";
 import { post } from "./schemaTypes/post";
 import { author } from "./schemaTypes/author";
 import { homePage } from "./schemaTypes/home-page";
+import { educationPath } from "./schemaTypes/education-path";
+import { education } from "./schemaTypes/education";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
-const types = [post, author, category, blockContent, homePage];
+const types = [post, author, category, blockContent, homePage, educationPath, education];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: types.map((type) => type.definition),
