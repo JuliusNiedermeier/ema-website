@@ -27,6 +27,8 @@ export const OffersMenu: FC<OffersMenuProps> = ({ className, ...restProps }) => 
         </Button>
       </Card>
 
+      <OffersGrid />
+
       <div className="sm:hidden">
         <div className="text-right">
           <Link href="/">
@@ -45,8 +47,6 @@ export const OffersMenu: FC<OffersMenuProps> = ({ className, ...restProps }) => 
           Bildungswege
         </Heading>
       </div>
-
-      <OffersGrid />
     </Container>
   );
 };
