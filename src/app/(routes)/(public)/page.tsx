@@ -84,11 +84,20 @@ const HomePage: FC = async () => {
         </div>
 
         <OffersGrid className="mt-16" />
+
+        <div className="mx-auto mt-64 max-w-[40rem] text-center">
+          <Heading>Die Schule für deine Zukunft</Heading>
+          <Paragraph>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae ex iure ad esse, atque maiores
+            repellat! Perspiciatis est eaque voluptatem quia placeat sint ducimus labore incidunt corporis. Quos,
+            ratione explicabo!
+          </Paragraph>
+        </div>
       </Container>
 
       <Container>
         <ArtEducation
-          className="mt-4"
+          className="mt-64"
           backgroundImage={{
             src: homePage?.artEducation?.backgroundImage?.asset?.url || "",
             alt: homePage?.artEducation?.title || "",
