@@ -9,6 +9,7 @@ import { HomePageQueryResult } from "../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 import { ArtEducation } from "~/app/_components/blocks/art-education";
+import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -114,7 +115,8 @@ const HomePage: FC = async () => {
           body={homePage?.artEducation?.body || ""}
           actionLabel={homePage?.artEducation?.actionLabel || ""}
         />
-        {/* <TestimonialCarousel class="mt-64" /> */}
+
+        <TestimonialCarousel className="mt-8" />
       </Container>
     </>
   );
