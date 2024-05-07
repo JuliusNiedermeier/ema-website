@@ -63,6 +63,30 @@ export const homePage: SchemaTypeDef = {
           { name: "actionLabel", title: "Action label", type: "string" },
         ],
       },
+      {
+        name: "faq",
+        title: "Frequently asked questions",
+        type: "object",
+        fields: [
+          { name: "heading", title: "Heading", type: "string" },
+          {
+            name: "items",
+            title: "Questions",
+            type: "array",
+            of: [
+              {
+                name: "item",
+                title: "Question",
+                type: "object",
+                fields: [
+                  { name: "question", title: "Question", type: "string" },
+                  { name: "answer", title: "Answer", type: "text" },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
     preview: {
       prepare: () => ({ title: "Home page" }),
