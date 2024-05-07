@@ -11,6 +11,7 @@ export const StarRating: FC<StarRatingProps> = ({ className, rating, ...restProp
     <div className={cn("flex items-center justify-end gap-2", className)} {...restProps}>
       {Array.from(new Array(rating[1])).map((_, index) => (
         <StarIcon
+          key={index}
           size={16}
           className={cn({
             "text-primary-100-text": index < rating[0],
