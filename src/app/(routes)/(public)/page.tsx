@@ -38,6 +38,12 @@ const HomePage: FC = async () => {
       name: partner.name || "Partner",
     })) || [];
 
+  const FAQItems: ComponentProps<typeof BasicAccordion>["items"] =
+    homePage?.faq?.items?.map((item) => ({
+      title: item.question || "",
+      content: item.answer || "",
+    })) || [];
+
   return (
     <>
       <div className="bg-neutral-200">
@@ -123,11 +129,8 @@ const HomePage: FC = async () => {
       </Container>
 
       <Container width="narrow" className="mt-64">
-        <Heading className="text-center">Häufig gestellte Fragen</Heading>
-        <BasicAccordion
-          className="mt-16"
-          items={Array.from(new Array(4), (_, i) => ({ title: `Item ${i + 1}`, content: "Example content" }))}
-        />
+        <Heading className="text-center">{homePage?.faq?.heading}</Heading>
+        <BasicAccordion className="mt-16" items={FAQItems} />
       </Container>
     </>
   );
