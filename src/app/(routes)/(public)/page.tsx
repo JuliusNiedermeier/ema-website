@@ -1,3 +1,5 @@
+"use client";
+
 import { PlayIcon } from "lucide-react";
 import { groq } from "next-sanity";
 import { type ComponentProps, FC } from "react";
@@ -10,6 +12,7 @@ import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 import { ArtEducation } from "~/app/_components/blocks/art-education";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
+import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -117,6 +120,14 @@ const HomePage: FC = async () => {
         />
 
         <TestimonialCarousel className="mt-8" />
+      </Container>
+
+      <Container width="narrow" className="mt-64">
+        <Heading className="text-center">Häufig gestellte Fragen</Heading>
+        <BasicAccordion
+          className="mt-16"
+          items={Array.from(new Array(4), (_, i) => ({ title: `Item ${i + 1}`, content: "Example content" }))}
+        />
       </Container>
     </>
   );
