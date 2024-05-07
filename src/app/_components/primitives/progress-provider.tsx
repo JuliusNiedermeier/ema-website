@@ -14,5 +14,5 @@ export const useProgress = () => {
 
 export const ProgressProvider: FC<PropsWithChildren> = ({ children }) => {
   const [progress, setProgress] = useState(0);
-  return <ProgressContext.Provider value={{ progress, setProgress }} children={children} />;
+  return <ProgressContext.Provider value={{ progress, setProgress }}>{children}</ProgressContext.Provider>;
 };
