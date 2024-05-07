@@ -3,7 +3,6 @@ import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import Link from "next/link";
 import { cn } from "~/app/_utils/cn";
-import { Label } from "./typography";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 
 export type ButtonProps = ComponentProps<typeof Link> &
