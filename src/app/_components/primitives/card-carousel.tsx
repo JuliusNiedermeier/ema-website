@@ -14,6 +14,8 @@ export const CardCarousel: FC<CardCarouselProps> = forwardRef(({ className, ...r
   );
 });
 
+CardCarousel.displayName = "CardCarousel";
+
 export type CardCarouselItemProps = ComponentProps<"div"> & {
   asChild?: boolean;
 };
