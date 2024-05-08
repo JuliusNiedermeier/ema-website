@@ -15,6 +15,15 @@ export const education: SchemaTypeDef = {
         type: "string",
       },
       {
+        name: "slug",
+        title: "Slug",
+        type: "slug",
+        options: {
+          source: "title",
+          maxLength: 96,
+        },
+      },
+      {
         name: "short_description",
         title: "Short description",
         type: "text",
