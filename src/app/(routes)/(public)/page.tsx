@@ -13,6 +13,7 @@ import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 import { ArtEducation } from "~/app/_components/blocks/art-education";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
+import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -131,6 +132,10 @@ const HomePage: FC = async () => {
       <Container width="narrow" className="mt-64">
         <Heading className="text-center">{homePage?.faq?.heading}</Heading>
         <BasicAccordion className="mt-16" items={FAQItems} />
+      </Container>
+
+      <Container className="mt-32 sm:mt-64">
+        <BentoCTA />
       </Container>
     </>
   );
