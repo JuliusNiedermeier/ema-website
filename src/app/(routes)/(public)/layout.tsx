@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Wirtschaft verstehen. Sozial handeln.",
 };
 
-const RootLayout: FC<PropsWithChildren> = ({ children }) => {
+const PublicLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="de">
       <body
@@ -31,4 +31,4 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default RootLayout;
+export default PublicLayout;
