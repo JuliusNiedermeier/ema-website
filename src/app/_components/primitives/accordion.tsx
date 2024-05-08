@@ -1,4 +1,4 @@
-"use cient";
+"use client";
 
 import { ComponentProps, FC, createContext, useCallback, useContext, useEffect, useState } from "react";
 import { cn } from "~/app/_utils/cn";
