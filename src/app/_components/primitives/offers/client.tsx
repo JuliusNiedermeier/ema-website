@@ -42,10 +42,6 @@ export const OfferGroupCard: FC<OfferGroupCardProps> = ({ className, ...restProp
     [index, windowRef],
   );
 
-  useEffect(() => {
-    console.log("curent index", index);
-  }, [index]);
-
   return (
     <OfferGroupCardContext.Provider value={contextValue}>
       <Card className={cn("flex flex-1 flex-col overflow-hidden rounded-3xl p-2", className)} {...restProps} />
