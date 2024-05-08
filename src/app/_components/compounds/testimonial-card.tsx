@@ -3,6 +3,7 @@ import { Card } from "../primitives/card";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-tag";
 import { StarRating } from "./star-rating";
 import { Paragraph } from "../primitives/typography";
+import { cn } from "~/app/_utils/cn";
 
 export type TestimonialCardCoreProps = {
   rating: number;
@@ -13,9 +14,16 @@ export type TestimonialCardCoreProps = {
 
 export type TestimonialCardProps = TestimonialCardCoreProps & ComponentProps<typeof Card>;
 
-export const TestimonialCard: FC<TestimonialCardProps> = ({ rating, authorName, authorImage, body, ...restProps }) => {
+export const TestimonialCard: FC<TestimonialCardProps> = ({
+  rating,
+  authorName,
+  authorImage,
+  body,
+  className,
+  ...restProps
+}) => {
   return (
-    <Card {...restProps}>
+    <Card className={cn("grid grid-rows-[min-content_1fr_min-content]", className)} {...restProps}>
       <StarRating rating={[rating, 5]} />
       <Paragraph className="mt-8">{body}</Paragraph>
       <AuthorTag className="mt-8">
