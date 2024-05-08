@@ -130,8 +130,8 @@ const config = {
       },
       themed: {
         // Possibly switch to 25% opacity for more of a pastelly look and stronger contrast
-        primary: "hsl(var(--themed-primary))",
-        darker: "hsl(var(--themed-darker))",
+        primary: "var(--themed-primary)",
+        darker: "var(--themed-darker)",
       },
     },
   },
