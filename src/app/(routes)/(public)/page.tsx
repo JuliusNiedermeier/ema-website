@@ -1,5 +1,3 @@
-"use client";
-
 import { PlayIcon } from "lucide-react";
 import { groq } from "next-sanity";
 import { type ComponentProps, FC } from "react";
