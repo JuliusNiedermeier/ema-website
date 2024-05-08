@@ -56,7 +56,7 @@ export const OffersGrid: FC<OfferGridProps> = async ({ ...restProps }) => {
             {Object.keys(path.variants).map((variant, index) => (
               <OfferGroup key={variant} index={index} className="min-w-[100%] max-w-[100%]">
                 {path.variants[variant]?.map((offer, index) => (
-                  <Link key={offer._id} className="flex-1" href={`/bildungswege/${offer._id}`}>
+                  <Link key={offer._id} className="flex-1" href={`/bildungswege/${offer.slug?.current}`}>
                     <OfferCard className="h-full" style={{ backgroundColor: offer.colors?.primary }}>
                       <OfferTitle>{offer.title}</OfferTitle>
                       <OfferDescription>{offer.short_description}</OfferDescription>
