@@ -18,7 +18,7 @@ import { TabList } from "../primitives/tabs";
 
 export type OfferGridProps = ComponentProps<typeof OfferGroupCollection> & {};
 
-const educationPathsQuery = groq`*[_type == "education_path"] | order(order asc) {...}`;
+const educationPathsQuery = groq`*[_type == "educationPath"] | order(order asc) {...}`;
 const educationOffersQuery = groq`*[_type == "education"] | order(order asc) {...}`;
 
 export const OffersGrid: FC<OfferGridProps> = async ({ ...restProps }) => {
@@ -26,8 +26,8 @@ export const OffersGrid: FC<OfferGridProps> = async ({ ...restProps }) => {
   const educationOffers = await sanity.fetch<EducationOffersQueryResult>(educationOffersQuery);
 
   const offerGroups = educationPaths.map((path) => {
-    const offers = educationOffers.filter((offer) => offer.education_path?._ref === path._id);
-    const variants = groupBy(offers, (offer) => offer.vriant || "default");
+    const offers = educationOffers.filter((offer) => offer.educationPath?._ref === path._id);
+    const variants = groupBy(offers, (offer) => offer.variant || "default");
     return { ...path, variants };
   });
 
@@ -59,7 +59,7 @@ export const OffersGrid: FC<OfferGridProps> = async ({ ...restProps }) => {
                   <Link key={offer._id} className="flex-1" href={`/bildungswege/${offer.slug?.current}`}>
                     <OfferCard className="h-full" style={{ backgroundColor: offer.colors?.primary }}>
                       <OfferTitle>{offer.title}</OfferTitle>
-                      <OfferDescription>{offer.short_description}</OfferDescription>
+                      <OfferDescription>{offer.description}</OfferDescription>
                     </OfferCard>
                   </Link>
                 ))}
