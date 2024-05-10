@@ -4,7 +4,7 @@ import { RouteIcon } from "lucide-react";
 
 export const educationPath: SchemaTypeDef = {
   definition: defineType({
-    name: "education_path",
+    name: "educationPath",
     title: "Education path",
     type: "document",
     icon: RouteIcon,
