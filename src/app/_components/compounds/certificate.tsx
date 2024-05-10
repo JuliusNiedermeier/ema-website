@@ -40,8 +40,8 @@ export const Certificate: FC<CertificateProps> = ({
         <Paragraph className="mt-8">{description}</Paragraph>
 
         <div className="mt-4">
-          {qualifications.map((qualification) => (
-            <div className="flex items-center gap-4">
+          {qualifications.map((qualification, index) => (
+            <div key={index} className="flex items-center gap-4">
               <CheckIcon />
               <Label>{qualification}</Label>
             </div>
@@ -50,8 +50,8 @@ export const Certificate: FC<CertificateProps> = ({
       </div>
       <div className="borderx relative h-full min-h-[30rem] overflow-hidden">
         <div className="absolute left-0 top-0 flex h-full w-full flex-col gap-4">
-          {jobs.map((job) => (
-            <div className="flex gap-4 rounded-[2rem] border border-neutral-400 bg-neutral-100 p-4">
+          {jobs.map((job, index) => (
+            <div key={index} className="flex gap-4 rounded-[2rem] border border-neutral-400 bg-neutral-100 p-4">
               <Image
                 src={job.image}
                 alt={job.content}

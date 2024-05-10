@@ -53,7 +53,7 @@ export const ProgramDetails: FC<ProgramDetailsProps> = ({ className, details, ..
         const detailItem = datailItems[detailItemKey as keyof typeof datailItems];
 
         return (
-          <IconListItem align="top">
+          <IconListItem key={detailItemKey} align="top">
             <detailItem.icon className="flex-shrink-0" />
             <div>
               <Label>{detailItem.heading}</Label>
