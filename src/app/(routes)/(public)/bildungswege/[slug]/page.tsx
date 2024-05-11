@@ -140,7 +140,7 @@ const EducationalOffersPage: FC<{ params: { slug: string } }> = async ({ params:
         ))}
 
         <div className="mt-32 text-center sm:mt-64">
-          <Heading tag="h3">Was du brauchst</Heading>
+          <Heading tag="h3">{offer.prerequisites?.heading}</Heading>
           <Paragraph className="mx-auto max-w-[40rem]">{offer.prerequisites?.description}</Paragraph>
           <RequirementList
             className="mt-16"
