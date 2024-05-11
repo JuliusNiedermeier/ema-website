@@ -56,7 +56,7 @@ export const education: SchemaTypeDef = {
       {
         name: "heading",
         title: "Heading",
-        type: "text",
+        type: "string",
       },
       {
         name: "description",
