@@ -28,15 +28,13 @@ export const Certificate: FC<CertificateProps> = ({
       {...restProps}
     >
       <div className="overflow-hidden py-8">
-        <Label>{heading}</Label>
-        <div className="flex items-center gap-4">
-          <div className="rounded-full bg-themed-darker p-4">
-            <ChevronRightIcon className="translate-x-[15%] rotate-90" />
-          </div>
-          <Heading tag="h3" className="break-words">
-            {name}
-          </Heading>
+        <div className="flex w-[fit-content] items-center gap-4 rounded-full bg-themed-darker px-4 py-2">
+          <ChevronRightIcon />
+          <Label>{heading}</Label>
         </div>
+        <Heading tag="h3" className="break-words">
+          {name}
+        </Heading>
         <Paragraph className="mt-8">{description}</Paragraph>
 
         <div className="mt-4">
