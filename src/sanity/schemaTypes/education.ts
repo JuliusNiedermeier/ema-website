@@ -128,6 +128,7 @@ export const education: SchemaTypeDef = {
         title: "Prerequisites",
         type: "object",
         fields: [
+          { name: "heading", title: "Heading", type: "string" },
           { name: "description", title: "Description", type: "text" },
           {
             name: "groups",
