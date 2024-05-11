@@ -17,6 +17,7 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { ProgramDetails } from "~/app/_components/compounds/program-details";
+import { RequirementList } from "~/app/_components/compounds/requirement-list";
 
 const educationalOfferSlugsQuery = groq`*[_type == "education"]{ slug }`;
 
@@ -138,7 +139,15 @@ const EducationalOffersPage: FC<{ params: { slug: string } }> = async ({ params:
           </div>
         ))}
 
-        {/* <Require className="mt-32 sm:mt-64" {...offer.data.prerequisites} /> */}
+        <div className="mt-32 text-center sm:mt-64">
+          <Heading tag="h3">Was du brauchst</Heading>
+          <Paragraph className="mx-auto max-w-[40rem]">{offer.prerequisites?.description}</Paragraph>
+          <RequirementList
+            className="mt-16"
+            groups={offer.prerequisites?.groups?.map(({ items }) => items || []) || []}
+          />
+        </div>
+
         <TestimonialCarousel className="mt-32 sm:mt-64" />
       </Container>
 
