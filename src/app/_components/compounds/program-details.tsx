@@ -57,7 +57,7 @@ export const ProgramDetails: FC<ProgramDetailsProps> = ({ className, details, ..
             <detailItem.icon className="flex-shrink-0" />
             <div>
               <Label>{detailItem.heading}</Label>
-              <Label className="text-neutral-100-text-muted">{detailItem.description}</Label>
+              <Label className="block text-neutral-100-text-muted">{detailItem.description}</Label>
             </div>
           </IconListItem>
         );
