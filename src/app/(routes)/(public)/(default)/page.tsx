@@ -5,7 +5,7 @@ import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/bu
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
-import { HomePageQueryResult } from "../../../../generated/sanity/types";
+import { HomePageQueryResult } from "../../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 import { ArtEducation } from "~/app/_components/blocks/art-education";

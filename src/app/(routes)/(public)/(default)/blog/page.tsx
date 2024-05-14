@@ -17,7 +17,7 @@ import {
   PostCardThumbnailTag,
   PostCardTitle,
 } from "~/app/_components/primitives/post-card";
-import { PostsQueryResult } from "../../../../../generated/sanity/types";
+import { PostsQueryResult } from "../../../../../../generated/sanity/types";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 
 const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {

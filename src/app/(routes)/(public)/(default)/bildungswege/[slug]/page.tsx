@@ -4,7 +4,7 @@ import { Container } from "~/app/_components/primitives/container";
 import {
   EducationalOfferQueryResult,
   EducationalOfferSlugsQueryResult,
-} from "../../../../../../generated/sanity/types";
+} from "../../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";

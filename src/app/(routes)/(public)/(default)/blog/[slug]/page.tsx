@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
-import { PostQueryResult, PostSlugsQueryResult } from "../../../../../../generated/sanity/types";
+import { PostQueryResult, PostSlugsQueryResult } from "../../../../../../../generated/sanity/types";
 import { Chip } from "~/app/_components/primitives/chip";
 import { notFound } from "next/navigation";
 import { PostCardMeta, PostCardMetaDate, PostCardMetaSeparator } from "~/app/_components/primitives/post-card";
