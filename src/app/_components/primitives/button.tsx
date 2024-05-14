@@ -5,9 +5,10 @@ import Link from "next/link";
 import { cn } from "~/app/_utils/cn";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 
-export type ButtonProps = ComponentProps<typeof Link> &
+export type ButtonProps = ComponentProps<"button"> &
   VariantProps<typeof variants> & {
     asChild?: boolean;
+    href?: ComponentProps<typeof Link>["href"] | undefined;
   };
 
 const variants = cva("group px-8 rounded-full flex items-center w-min whitespace-nowrap", {
@@ -25,13 +26,31 @@ const variants = cva("group px-8 rounded-full flex items-center w-min whitespace
   defaultVariants: { size: "md", vairant: "filled" },
 });
 
-export const Button: FC<ButtonProps> = ({ className, children, asChild, size, vairant, ...restProps }) => {
-  const Component = asChild ? Slot : Link;
+export const Button: FC<ButtonProps> = ({ className, children, asChild, size, vairant, href, ...restProps }) => {
+  if (asChild) {
+    return (
+      <Slot className={cn(variants({ size, vairant }), className)} {...restProps}>
+        {children}
+      </Slot>
+    );
+  }
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={cn(variants({ size, vairant }), className)}
+        {...(restProps as Omit<ComponentProps<typeof Link>, "href">)}
+      >
+        {children}
+      </Link>
+    );
+  }
 
   return (
-    <Component className={cn(variants({ size, vairant }), className)} {...restProps}>
+    <button className={cn(variants({ size, vairant }), className)} {...restProps}>
       {children}
-    </Component>
+    </button>
   );
 };
 
