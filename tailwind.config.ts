@@ -19,6 +19,7 @@ const config = {
       paragraph: ["clamp(18px, 1.39vw, 20px)", { fontWeight: 300, letterSpacing: "0.72px", lineHeight: "145%" }],
     },
     colors: {
+      transparent: "transparent",
       neutral: {
         100: {
           DEFAULT: "hsl(var(--neutral-100))",
