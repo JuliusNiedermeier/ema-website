@@ -46,7 +46,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({ className, programs,
       query.set("step", step.toString());
       router[method](`${pathname}?${query.toString()}`);
     },
-    [router, pathname, searchParams, steps],
+    [router, pathname, searchParams, steps.length],
   );
 
   const currentStepIndex = useMemo(() => {
@@ -54,7 +54,7 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({ className, programs,
     const clampedStep = clamp(0, steps.length - 1, parsedStep);
     if (clampedStep !== parsedStep) navigateToStep(clampedStep);
     return clampedStep;
-  }, [searchParams]);
+  }, [searchParams, steps.length, navigateToStep]);
 
   const currentStep = useMemo(() => steps[currentStepIndex], [steps, currentStepIndex]);
   const progress = useMemo(() => (1 / steps.length) * (currentStepIndex + 1), [steps.length, currentStepIndex]);
