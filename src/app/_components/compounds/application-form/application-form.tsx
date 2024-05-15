@@ -12,6 +12,8 @@ import { AgeStep } from "./steps/age";
 import { Button } from "../../primitives/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Label } from "../../primitives/typography";
+import { MotivationStep } from "./steps/motivation";
+import { EmailStep } from "./steps/email";
 
 type FormStepConfig = {
   valid: boolean;
@@ -24,7 +26,7 @@ export type ApplicationFormProps = ComponentProps<"div"> & {
 
 export const ApplicationForm: FC<ApplicationFormProps> = ({ className, programs, ...restProps }) => {
   const { setProgress } = useProgress();
-  const { program, name, age } = useApplicationFormState();
+  const formState = useApplicationFormState();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -32,11 +34,28 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({ className, programs,
 
   const steps = useMemo<FormStepConfig[]>(
     () => [
-      { showNavigationButtons: false, valid: Boolean(program), content: <ProgramsStep programs={programs} /> },
-      { showNavigationButtons: true, valid: Boolean(program) && Boolean(name), content: <NameStep /> },
-      { showNavigationButtons: true, valid: Boolean(program) && Boolean(name) && Boolean(age), content: <AgeStep /> },
+      {
+        valid: Boolean(formState.program),
+        content: <ProgramsStep programs={programs} />,
+      },
+      {
+        valid: Boolean(formState.name),
+        content: <NameStep />,
+      },
+      {
+        valid: Boolean(formState.age),
+        content: <AgeStep />,
+      },
+      {
+        valid: Boolean(formState.motivation),
+        content: <MotivationStep />,
+      },
+      {
+        valid: Boolean(formState.email),
+        content: <EmailStep />,
+      },
     ],
-    [program, name, age, programs],
+    [formState, programs],
   );
 
   const navigateToStep = useCallback(

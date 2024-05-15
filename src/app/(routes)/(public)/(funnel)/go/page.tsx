@@ -1,13 +1,14 @@
 import { groq } from "next-sanity";
 import { ComponentProps, FC, Suspense } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Label } from "~/app/_components/primitives/typography";
+import { Heading, Label } from "~/app/_components/primitives/typography";
 import { GoPageQueryResult, ProgramsQueryResult } from "../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import { SiteLogo } from "~/app/_components/compounds/site-logo";
 import Link from "next/link";
 import { ProgressProvider } from "~/app/_components/primitives/progress-provider";
 import { ApplicationForm } from "~/app/_components/compounds/application-form/application-form";
+import { Chip } from "~/app/_components/primitives/chip";
 
 const goPageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -52,10 +53,13 @@ const GoPage: FC = async () => {
         />
       </div>
       <Container width="narrow" className="flex min-h-[100svh] flex-col py-2">
-        <div className="sticky top-4 z-20 flex justify-center py-4 lg:py-8">
+        <div className="sticky top-4 z-20 flex flex-col gap-2 items-center justify-between py-4 lg:flex-row lg:py-8">
           <Link href="/" className="rounded-full bg-neutral-200/60 px-4 py-2 backdrop-blur-lg">
             <SiteLogo />
           </Link>
+          <Chip className="bg-neutral-400">
+            <Label>Online-Anmeldung</Label>
+          </Chip>
         </div>
 
         <ProgressProvider>
