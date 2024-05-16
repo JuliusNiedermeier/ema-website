@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { ComponentProps, FC, Suspense } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Label } from "~/app/_components/primitives/typography";
+import { Label } from "~/app/_components/primitives/typography";
 import { GoPageQueryResult, ProgramsQueryResult } from "../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import { SiteLogo } from "~/app/_components/compounds/site-logo";
@@ -9,6 +9,8 @@ import Link from "next/link";
 import { ProgressProvider } from "~/app/_components/primitives/progress-provider";
 import { ApplicationForm } from "~/app/_components/compounds/application-form/application-form";
 import { Chip } from "~/app/_components/primitives/chip";
+import { ApplicationFormNavigation } from "~/app/_components/compounds/application-form/application-form-navigation";
+import { ApplicationFormProvider } from "~/app/_components/compounds/application-form/application-form-provider";
 
 const goPageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -26,7 +28,7 @@ const GoPage: FC = async () => {
 
   const formattedPrograms = programs
     .filter((program) => program.educationPath)
-    .map<ComponentProps<typeof ApplicationForm>["programs"][number]>((program) => ({
+    .map<ComponentProps<typeof ApplicationFormProvider>["programs"][number]>((program) => ({
       ID: program._id,
       name: program.title || "Untitled",
       programType: {
@@ -41,40 +43,50 @@ const GoPage: FC = async () => {
     }));
 
   return (
-    <div className="gap-4 bg-neutral-200 lg:grid lg:grid-cols-[1fr_2fr]">
-      <div className="sticky top-0 hidden h-screen p-4 lg:block">
-        <video
-          playsInline
-          autoPlay
-          muted
-          loop
-          src={goPage?.video?.asset?.url || ""}
-          className="h-full w-full rounded-2xl bg-primary-900 object-cover"
-        />
+    <ApplicationFormProvider programs={formattedPrograms}>
+      <div className="h-[100svh] overflow-hidden bg-neutral-200 lg:grid lg:grid-cols-[1fr_2fr]">
+        <div className="sticky top-0 hidden h-full lg:block">
+          <video
+            playsInline
+            autoPlay
+            muted
+            loop
+            src={goPage?.video?.asset?.url || ""}
+            className="h-full w-full bg-primary-900 object-cover"
+          />
+        </div>
+
+        <div className="h-full overflow-y-auto overflow-x-hidden lg:z-10 lg:-ml-8 lg:rounded-l-3xl lg:bg-neutral-200">
+          <div className="sticky top-0 z-20 border-b border-[gray]/50 bg-neutral-200/50 backdrop-blur-lg">
+            <Container width="narrow" className="flex items-center justify-between gap-2 py-4 lg:py-4">
+              <Link href="/" className="rounded-full bg-neutral-200/60 px-4 py-2 backdrop-blur-lg">
+                <SiteLogo show="text" />
+              </Link>
+              <Label>Online-Anmeldung</Label>
+            </Container>
+          </div>
+
+          <Container width="narrow" className="relative flex min-h-[100svh] flex-col">
+            <ProgressProvider>
+              <Suspense fallback="Loading...">
+                <ApplicationForm className="mt-16 flex-1" />
+              </Suspense>
+            </ProgressProvider>
+          </Container>
+
+          <div className="sticky bottom-0 z-20 mt-4 border-t border-[gray]/50 bg-neutral-200/50 backdrop-blur-lg">
+            <Container width="narrow" className="relative  py-4">
+              <ApplicationFormNavigation className="sticky bottom-4" />
+              <div className="mt-4 flex items-center justify-center gap-4 opacity-50">
+                <Label>Datenschutz</Label>
+                <Label>Impressum</Label>
+                <Label>AGBs</Label>
+              </div>
+            </Container>
+          </div>
+        </div>
       </div>
-      <Container width="narrow" className="flex min-h-[100svh] flex-col py-2">
-        <div className="sticky top-4 z-20 flex flex-col gap-2 items-center justify-between py-4 lg:flex-row lg:py-8">
-          <Link href="/" className="rounded-full bg-neutral-200/60 px-4 py-2 backdrop-blur-lg">
-            <SiteLogo />
-          </Link>
-          <Chip className="bg-neutral-400">
-            <Label>Online-Anmeldung</Label>
-          </Chip>
-        </div>
-
-        <ProgressProvider>
-          <Suspense fallback="Loading...">
-            <ApplicationForm className="flex-1" programs={formattedPrograms} />
-          </Suspense>
-        </ProgressProvider>
-
-        <div className="mt-4 flex items-center justify-center gap-4 opacity-50">
-          <Label>Datenschutz</Label>
-          <Label>Impressum</Label>
-          <Label>AGBs</Label>
-        </div>
-      </Container>
-    </div>
+    </ApplicationFormProvider>
   );
 };
 

@@ -1,112 +1,48 @@
 "use client";
 
-import { ComponentProps, FC, ReactNode, useCallback, useEffect, useMemo } from "react";
+import { ComponentProps, FC, ReactNode } from "react";
+import {
+  Step,
+  StepContent,
+  StepContentStatus,
+  StepContentStepNumber,
+  StepIcon,
+  StepLine,
+  StepList,
+} from "../../primitives/step-list";
 import { cn } from "~/app/_utils/cn";
-import { useProgress } from "../../primitives/progress-provider";
-import { useApplicationFormState } from "./state";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { clamp } from "framer-motion";
-import { ProgramsStep, ProgramsStepProps } from "./steps/programs";
-import { NameStep } from "./steps/name";
-import { AgeStep } from "./steps/age";
-import { Button } from "../../primitives/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { Label } from "../../primitives/typography";
-import { MotivationStep } from "./steps/motivation";
-import { EmailStep } from "./steps/email";
+import { Label, Paragraph } from "../../primitives/typography";
+import { useApplicationForm } from "./application-form-provider";
 
-type FormStepConfig = {
-  valid: boolean;
-  content: ReactNode;
+type Step = {
+  ID: string;
+  component: ReactNode;
+  icon: ReactNode;
+  complete: boolean;
 };
 
-export type ApplicationFormProps = ComponentProps<"div"> & {
-  programs: ProgramsStepProps["programs"];
-};
+export type ApplicationFormProps = ComponentProps<"div"> & {};
 
-export const ApplicationForm: FC<ApplicationFormProps> = ({ className, programs, ...restProps }) => {
-  const { setProgress } = useProgress();
-  const formState = useApplicationFormState();
-
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const steps = useMemo<FormStepConfig[]>(
-    () => [
-      {
-        valid: Boolean(formState.program),
-        content: <ProgramsStep programs={programs} />,
-      },
-      {
-        valid: Boolean(formState.name),
-        content: <NameStep />,
-      },
-      {
-        valid: Boolean(formState.age),
-        content: <AgeStep />,
-      },
-      {
-        valid: Boolean(formState.motivation),
-        content: <MotivationStep />,
-      },
-      {
-        valid: Boolean(formState.email),
-        content: <EmailStep />,
-      },
-    ],
-    [formState, programs],
-  );
-
-  const navigateToStep = useCallback(
-    (step: number, method: "push" | "replace" = "push") => {
-      if (step < 0 || step > steps.length - 1) return;
-      const query = new URLSearchParams(Array.from(searchParams.entries()));
-      query.set("step", step.toString());
-      router[method](`${pathname}?${query.toString()}`);
-    },
-    [router, pathname, searchParams, steps.length],
-  );
-
-  const currentStepIndex = useMemo(() => {
-    const parsedStep = parseInt(searchParams.get("step") ?? "0");
-    const clampedStep = clamp(0, steps.length - 1, parsedStep);
-    if (clampedStep !== parsedStep) navigateToStep(clampedStep);
-    return clampedStep;
-  }, [searchParams, steps.length, navigateToStep]);
-
-  const currentStep = useMemo(() => steps[currentStepIndex], [steps, currentStepIndex]);
-  const progress = useMemo(() => (1 / steps.length) * (currentStepIndex + 1), [steps.length, currentStepIndex]);
-
-  useEffect(() => setProgress(progress), [progress]);
-
-  const next = () => navigateToStep(currentStepIndex + 1);
-  const previous = () => navigateToStep(currentStepIndex - 1);
+export const ApplicationForm: FC<ApplicationFormProps> = ({ className }) => {
+  const { currentStepIndex, steps } = useApplicationForm();
 
   return (
-    <div className={cn("flex flex-col gap-4", className)} {...restProps}>
-      <div className="mt-16 flex-1">{currentStep.content}</div>
-
-      <div
-        className={cn(
-          "sticky bottom-4 flex items-center justify-between gap-4 overflow-hidden rounded-full bg-neutral-200 p-2",
-        )}
-      >
-        <Button vairant="outline" size="sm" className="gap-2" onClick={previous}>
-          <ChevronLeftIcon />
-          <Label>Zurück</Label>
-        </Button>
-        <Button
-          vairant="filled"
-          size="sm"
-          className={cn("w-full justify-center gap-2 disabled:opacity-30")}
-          onClick={next}
-          disabled={!currentStep.valid}
-        >
-          <Label>Weiter</Label>
-          <ChevronRightIcon />
-        </Button>
-      </div>
+    <div className={cn("flex gap-16", className)}>
+      <StepList className="sticky top-36 hidden h-min md:block">
+        {steps.map((step, index) => (
+          <Step key={step.ID} className={cn({ "opacity-30": !step.complete })}>
+            <StepIcon status={step.complete ? "complete" : "pending"}>{step.icon}</StepIcon>
+            {index < steps.length - 1 && <StepLine status={step.complete ? "complete" : "pending"} />}
+            <StepContent>
+              <StepContentStepNumber>Schritt {index + 1}</StepContentStepNumber>
+              <Label>{step.ID}</Label>
+              <Paragraph className="m-0 max-w-96 overflow-hidden text-ellipsis whitespace-nowrap">John Doe</Paragraph>
+              <StepContentStatus>{step.complete ? "Abgeschlossen" : "Ausstehend"}</StepContentStatus>
+            </StepContent>
+          </Step>
+        ))}
+      </StepList>
+      <div>{steps[currentStepIndex]?.component}</div>
     </div>
   );
 };
