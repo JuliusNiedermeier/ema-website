@@ -12,12 +12,14 @@
     "typegen": "sanity schema extract --path generated/sanity/schema.json && sanity typegen generate"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.9.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.39.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "drizzle-orm": "^0.30.10",
     "framer-motion": "^11.1.9",
     "lucide-react": "^0.373.0",
     "next": "14.2.3",
@@ -31,9 +33,11 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@next/env": "^14.2.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.21.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
