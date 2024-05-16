@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     SANITY_REVALIDATION_WEBHOOK_SECRET: z.string(),
+    POSTGRES_CONNECTION_STRING: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -28,5 +29,6 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
     SANITY_REVALIDATION_WEBHOOK_SECRET: process.env.SANITY_REVALIDATION_WEBHOOK_SECRET,
+    POSTGRES_CONNECTION_STRING: process.env.POSTGRES_CONNECTION_STRING,
   },
 });
