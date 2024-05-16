@@ -9,7 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "typegen": "sanity schema extract --path generated/sanity/schema.json && sanity typegen generate"
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx ./scripts/migrate-database.ts",
+    "db:introspect": "drizzle-kit introspect",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",
