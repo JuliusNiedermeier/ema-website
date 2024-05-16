@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "typegen": "sanity schema extract --path generated/sanity/schema.json && sanity typegen generate",
+    "email": "email dev --dir src/emails",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx ./scripts/migrate-database.ts",
