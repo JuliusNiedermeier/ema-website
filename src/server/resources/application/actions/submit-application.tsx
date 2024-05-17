@@ -4,18 +4,12 @@ import { drizzle } from "~/server/services/drizzle";
 import { applicationTable } from "../schema";
 import { resend, senderString } from "~/server/services/resend";
 import { ApplicationVerificationMail } from "~/emails/application-verification";
+import { applicationInputSchema } from "../application-input-schema";
+import { z } from "zod";
 
 const BASE_URL = "http://192.168.178.75:3000"; // Should be switched to an actual env variable
 
-export type SubmitApplicationActionInput = {
-  programID: string;
-  name: string;
-  age: number;
-  motivation?: string;
-  email: string;
-};
-
-export const submitApplication = async (input: SubmitApplicationActionInput) => {
+export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
   const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
   if (!applicationRecord) return null;
 
