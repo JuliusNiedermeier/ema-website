@@ -1,16 +1,15 @@
 import { groq } from "next-sanity";
-import { ComponentProps, FC, Suspense } from "react";
+import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Label } from "~/app/_components/primitives/typography";
 import { GoPageQueryResult, ProgramsQueryResult } from "../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import { SiteLogo } from "~/app/_components/compounds/site-logo";
 import Link from "next/link";
-import { ProgressProvider } from "~/app/_components/primitives/progress-provider";
-import { ApplicationForm } from "~/app/_components/compounds/application-form/application-form";
-import { Chip } from "~/app/_components/primitives/chip";
+import { ApplicationFormCarousel } from "~/app/_components/compounds/application-form/application-form-carousel";
 import { ApplicationFormNavigation } from "~/app/_components/compounds/application-form/application-form-navigation";
 import { ApplicationFormProvider } from "~/app/_components/compounds/application-form/application-form-provider";
+import { ApplicationFormProgress } from "~/app/_components/compounds/application-form/application-form-progress";
 
 const goPageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -56,7 +55,7 @@ const GoPage: FC = async () => {
           />
         </div>
 
-        <div className="h-full overflow-y-auto overflow-x-hidden lg:z-10 lg:-ml-8 lg:rounded-l-3xl lg:bg-neutral-200">
+        <div className="flex h-full flex-col overflow-y-auto overflow-x-hidden lg:z-10 lg:-ml-8 lg:rounded-l-3xl lg:bg-neutral-200">
           <div className="sticky top-0 z-20 border-b border-[gray]/50 bg-neutral-200/50 backdrop-blur-lg">
             <Container width="narrow" className="flex items-center justify-between gap-2 py-4 lg:py-4">
               <Link href="/" className="rounded-full bg-neutral-200/60 px-4 py-2 backdrop-blur-lg">
@@ -66,16 +65,13 @@ const GoPage: FC = async () => {
             </Container>
           </div>
 
-          <Container width="narrow" className="relative flex min-h-[100svh] flex-col">
-            <ProgressProvider>
-              <Suspense fallback="Loading...">
-                <ApplicationForm className="mt-16 flex-1" />
-              </Suspense>
-            </ProgressProvider>
+          <Container width="narrow" className="flex flex-1 gap-16">
+            <ApplicationFormProgress className="sticky top-36 hidden h-min md:block" />
+            <ApplicationFormCarousel className="mt-16 flex-1" />
           </Container>
 
           <div className="sticky bottom-0 z-20 mt-4 border-t border-[gray]/50 bg-neutral-200/50 backdrop-blur-lg">
-            <Container width="narrow" className="relative  py-4">
+            <Container width="narrow" className="relative py-4">
               <ApplicationFormNavigation className="sticky bottom-4" />
               <div className="mt-4 flex items-center justify-center gap-4 opacity-50">
                 <Label>Datenschutz</Label>

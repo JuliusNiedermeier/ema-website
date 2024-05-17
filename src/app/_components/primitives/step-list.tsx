@@ -3,6 +3,8 @@ import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Label } from "./typography";
 
+export type StepStatus = "pending" | "active" | "complete";
+
 export type StepListProps = ComponentProps<"div"> & {};
 
 export const StepList: FC<StepListProps> = ({ className, ...restProps }) => {
@@ -26,7 +28,7 @@ const stepIconVariants = cva("grid place-content-center col-start-1 row-start-1 
       pending: "border border-neutral-900",
       active: "border border-primary-900 text-primary-900",
       complete: "bg-primary-900 text-primary-900-text",
-    },
+    } satisfies Record<StepStatus, string>,
   },
 });
 
@@ -42,7 +44,7 @@ const stepLineVariants = cva("justify-self-center col-start-1 row-start-2 min-h-
       pending: "bg-neutral-900",
       active: "bg-neutral-900",
       complete: "bg-primary-900",
-    },
+    } satisfies Record<StepStatus, string>,
   },
 });
 

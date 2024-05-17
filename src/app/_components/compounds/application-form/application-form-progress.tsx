@@ -9,6 +9,7 @@ import {
   StepIcon,
   StepLine,
   StepList,
+  StepStatus,
 } from "../../primitives/step-list";
 import { cn } from "~/app/_utils/cn";
 import { Label, Paragraph } from "../../primitives/typography";
@@ -21,18 +22,19 @@ type Step = {
   complete: boolean;
 };
 
-export type ApplicationFormProps = ComponentProps<"div"> & {};
+export type ApplicationFormProgressProps = ComponentProps<"div"> & {};
 
-export const ApplicationForm: FC<ApplicationFormProps> = ({ className }) => {
+export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({ className, ...restProps }) => {
   const { currentStepIndex, steps } = useApplicationForm();
 
   return (
-    <div className={cn("flex gap-16", className)}>
-      <StepList className="sticky top-36 hidden h-min md:block">
-        {steps.map((step, index) => (
+    <StepList className={cn("", className)} {...restProps}>
+      {steps.map((step, index) => {
+        const status: StepStatus = currentStepIndex === index ? "active" : step.complete ? "complete" : "pending";
+        return (
           <Step key={step.ID} className={cn({ "opacity-30": !step.complete })}>
-            <StepIcon status={step.complete ? "complete" : "pending"}>{step.icon}</StepIcon>
-            {index < steps.length - 1 && <StepLine status={step.complete ? "complete" : "pending"} />}
+            <StepIcon status={status}>{step.icon}</StepIcon>
+            {index < steps.length - 1 && <StepLine status={status} />}
             <StepContent>
               <StepContentStepNumber>Schritt {index + 1}</StepContentStepNumber>
               <Label>{step.ID}</Label>
@@ -40,9 +42,8 @@ export const ApplicationForm: FC<ApplicationFormProps> = ({ className }) => {
               <StepContentStatus>{step.complete ? "Abgeschlossen" : "Ausstehend"}</StepContentStatus>
             </StepContent>
           </Step>
-        ))}
-      </StepList>
-      <div>{steps[currentStepIndex]?.component}</div>
-    </div>
+        );
+      })}
+    </StepList>
   );
 };
