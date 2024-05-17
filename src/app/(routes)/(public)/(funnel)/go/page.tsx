@@ -66,7 +66,7 @@ const GoPage: FC = async () => {
           </div>
 
           <Container width="narrow" className="flex flex-1 gap-16">
-            <ApplicationFormProgress className="sticky top-36 hidden h-min md:block" />
+            <ApplicationFormProgress className="sticky top-36 hidden h-min md:flex" />
             <ApplicationFormCarousel className="mt-16 flex-1" />
           </Container>
 
