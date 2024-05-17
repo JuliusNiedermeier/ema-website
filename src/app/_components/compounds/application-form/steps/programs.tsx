@@ -1,13 +1,13 @@
 "use client";
 
-import { FC } from "react";
-import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
+import { Heading, Label } from "~/app/_components/primitives/typography";
 import { OfferCard } from "~/app/_components/primitives/offers/offers";
-import { Chip } from "~/app/_components/primitives/chip";
 import { cn } from "~/app/_utils/cn";
 import { useApplicationFormState } from "../state";
 import { StepIcon } from "~/app/_components/primitives/step-list";
 import { CheckIcon } from "lucide-react";
+import { FormStepComponent } from "../application-form-provider";
+import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
 
 export type ProgramsStepProps = {
   programs: {
@@ -19,7 +19,7 @@ export type ProgramsStepProps = {
   }[];
 };
 
-export const ProgramsStep: FC<ProgramsStepProps> = ({ programs }) => {
+export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ programs }) => {
   const { program: selectedProgram, setProgram } = useApplicationFormState();
 
   return (
@@ -27,7 +27,7 @@ export const ProgramsStep: FC<ProgramsStepProps> = ({ programs }) => {
       <Heading>Für welchen Bildungsgang möchtest du dich anmelden?</Heading>
       <div className="mt-16 flex flex-col gap-4">
         {programs.map((program, index) => (
-          <button key={index} onClick={() => setProgram(program.ID)}>
+          <button key={index} onClick={() => setProgram(selectedProgram === program.ID ? null : program.ID)}>
             <OfferCard
               key={index}
               className={cn("flex h-full items-center gap-4 overflow-hidden text-left")}
@@ -43,7 +43,7 @@ export const ProgramsStep: FC<ProgramsStepProps> = ({ programs }) => {
                 {program.variant && <Label>{program.variant}</Label>}
               </div>
               <StepIcon
-                status="complete"
+                variant="filled"
                 className={cn("transition-all", { "translate-x-[200%] rotate-90": program.ID !== selectedProgram })}
               >
                 <CheckIcon />
@@ -55,3 +55,7 @@ export const ProgramsStep: FC<ProgramsStepProps> = ({ programs }) => {
     </div>
   );
 };
+
+const schema = applicationInputSchema.pick({ programID: true });
+
+ProgramsStep.validate = (state) => schema.safeParse({ programID: state.program }).success;

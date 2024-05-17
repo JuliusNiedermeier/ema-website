@@ -1,10 +1,11 @@
 "use client";
 
-import { FC } from "react";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { useApplicationFormState } from "../state";
+import { FormStepComponent } from "../application-form-provider";
+import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
 
-export const ContactStep: FC = () => {
+export const ContactStep: FormStepComponent = () => {
   const { email, setEmail } = useApplicationFormState();
 
   return (
@@ -28,4 +29,10 @@ export const ContactStep: FC = () => {
       </div>
     </div>
   );
+};
+
+const schema = applicationInputSchema.pick({ email: true });
+
+ContactStep.validate = (state) => {
+  return schema.safeParse({ email: state.email }).success;
 };

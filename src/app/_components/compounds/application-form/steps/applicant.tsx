@@ -1,10 +1,11 @@
 "use client";
 
-import { FC } from "react";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { useApplicationFormState } from "../state";
+import { FormStepComponent } from "../application-form-provider";
+import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
 
-export const ApplicantStep: FC = () => {
+export const ApplicantStep: FormStepComponent = () => {
   const { name, setName, age, setAge, motivation, setMotivation } = useApplicationFormState();
 
   return (
@@ -51,4 +52,10 @@ export const ApplicantStep: FC = () => {
       </div>
     </div>
   );
+};
+
+const schema = applicationInputSchema.pick({ name: true, age: true, motivation: true });
+
+ApplicantStep.validate = (state) => {
+  return schema.safeParse({ name: state.name, age: state.age, motivation: state.motivation }).success;
 };

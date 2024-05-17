@@ -3,7 +3,7 @@ import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Label } from "./typography";
 
-export type StepStatus = "pending" | "active" | "complete";
+export type StepVariant = "outlined" | "filled";
 
 export type StepListProps = ComponentProps<"div"> & {};
 
@@ -24,34 +24,28 @@ export const Step: FC<StepProps> = ({ className, ...restProps }) => {
 
 const stepIconVariants = cva("grid place-content-center col-start-1 row-start-1 h-12 w-12 rounded-full mt-1", {
   variants: {
-    status: {
-      pending: "border border-neutral-900",
-      active: "border border-primary-900 text-primary-900",
-      complete: "bg-primary-900 text-primary-900-text",
-    } satisfies Record<StepStatus, string>,
+    variant: {
+      outlined: "border border-neutral-900",
+      filled: "bg-primary-900 text-primary-900-text",
+    } satisfies Record<StepVariant, string>,
   },
 });
 
 export type StepIconProps = ComponentProps<"div"> & VariantProps<typeof stepIconVariants>;
 
-export const StepIcon: FC<StepIconProps> = ({ className, status, ...restProps }) => {
-  return <div className={cn(stepIconVariants({ status }), className)} {...restProps} />;
+export const StepIcon: FC<StepIconProps> = ({ className, variant, ...restProps }) => {
+  return <div className={cn(stepIconVariants({ variant }), className)} {...restProps} />;
 };
 
-const stepLineVariants = cva("justify-self-center col-start-1 row-start-2 min-h-12 w-px", {
-  variants: {
-    status: {
-      pending: "bg-neutral-900",
-      active: "bg-neutral-900",
-      complete: "bg-primary-900",
-    } satisfies Record<StepStatus, string>,
-  },
-});
+export type StepLineProps = ComponentProps<"div">;
 
-export type StepLineProps = ComponentProps<"div"> & VariantProps<typeof stepLineVariants>;
-
-export const StepLine: FC<StepLineProps> = ({ className, status, ...restProps }) => {
-  return <div className={cn(stepLineVariants({ status }), className)} {...restProps} />;
+export const StepLine: FC<StepLineProps> = ({ className, ...restProps }) => {
+  return (
+    <div
+      className={cn("col-start-1 row-start-2 min-h-12 w-px justify-self-center bg-neutral-900", className)}
+      {...restProps}
+    />
+  );
 };
 
 export type StepContentProps = ComponentProps<"div"> & {};
