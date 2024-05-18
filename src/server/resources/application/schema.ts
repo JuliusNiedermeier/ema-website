@@ -11,6 +11,7 @@ export const applicationTable = pgTable("application", {
   emailVerified: boolean("email_verified").notNull().default(false),
   motivation: text("motivation"),
   internallyDelivered: boolean("internally_delivered").notNull().default(false),
+  verificationToken: uuid("verification_token").notNull().defaultRandom(),
 });
 
 export const applicationTableInsertSchema = createInsertSchema(applicationTable, {

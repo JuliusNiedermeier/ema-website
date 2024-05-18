@@ -6,14 +6,20 @@ import { resend, senderString } from "~/server/services/resend";
 import { ApplicationVerificationMail } from "~/emails/application-verification";
 import { applicationInputSchema } from "../application-input-schema";
 import { z } from "zod";
+import { cookies } from "next/headers";
+import { applicationCookieName } from "../application-cookie";
 
 const BASE_URL = "http://192.168.178.75:3000"; // Should be switched to an actual env variable
 
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
-  const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
-  if (!applicationRecord) return null;
+  if (cookies().has(applicationCookieName)) return false;
 
-  const verificationURL = `${BASE_URL}/go/verify/${applicationRecord.ID}`;
+  const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
+  if (!applicationRecord) return false;
+
+  const verificationURL = new URL(`${BASE_URL}/go/verify`);
+  verificationURL.searchParams.set("application", applicationRecord.ID);
+  verificationURL.searchParams.set("token", applicationRecord.verificationToken);
 
   const resendResponse = await resend.emails.send({
     from: senderString,
@@ -23,10 +29,19 @@ export const submitApplication = async (input: z.infer<typeof applicationInputSc
       <ApplicationVerificationMail
         name={applicationRecord.name}
         programName={applicationRecord.programID}
-        verificationURL={verificationURL}
+        verificationURL={verificationURL.href}
       />
     ),
   });
 
-  if (resendResponse.error) return null;
+  if (resendResponse.error) return false;
+
+  const applicationStatusExpiryDate = new Date();
+  applicationStatusExpiryDate.setMonth(applicationStatusExpiryDate.getMonth() + 6);
+
+  cookies().set(applicationCookieName, applicationRecord.ID, {
+    expires: applicationStatusExpiryDate,
+    path: "/",
+  });
+  return true;
 };
