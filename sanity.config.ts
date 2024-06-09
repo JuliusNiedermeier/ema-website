@@ -7,6 +7,7 @@ import { SchemaType, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
+import { colorInput } from "@sanity/color-input";
 
 import { schema, singletonTypeNames } from "~/sanity/schema";
 
@@ -56,5 +57,6 @@ export default defineConfig({
       },
     }),
     visionTool({ defaultApiVersion: apiVersion }),
+    colorInput(),
   ],
 });
