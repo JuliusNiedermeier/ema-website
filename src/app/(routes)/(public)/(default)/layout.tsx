@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from "react";
+import { SiteFooter } from "~/app/_components/blocks/site-footer";
 import { SiteHeader } from "~/app/_components/blocks/site-header/site-header";
 
 const PublicDefaultLayout: FC<PropsWithChildren> = ({ children }) => {
@@ -8,6 +9,7 @@ const PublicDefaultLayout: FC<PropsWithChildren> = ({ children }) => {
         <SiteHeader />
       </div>
       {children}
+      <SiteFooter />
     </>
   );
 };
