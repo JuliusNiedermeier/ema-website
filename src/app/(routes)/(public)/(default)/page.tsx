@@ -12,6 +12,7 @@ import { ArtEducation } from "~/app/_components/blocks/art-education";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
+import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -92,7 +93,7 @@ const HomePage: FC = async () => {
           <PartnersBanner partners={partners} />
         </div>
 
-        <OffersGrid className="mt-16" />
+        <EducationalProgramTypeCards className="mt-16" />
 
         <div className="mx-auto mt-64 max-w-[40rem] text-center">
           <Heading>Die Schule für deine Zukunft</Heading>
