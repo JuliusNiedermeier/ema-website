@@ -136,7 +136,13 @@ const HomePage: FC = async () => {
           actionLabel={homePage?.artEducation?.actionLabel || ""}
         />
 
-        <TestimonialCarousel className="mt-8" />
+        <div className="mt-64">
+          <div className="mx-auto max-w-96 text-balance text-center">
+            <Heading>Über 600 zufriedene Schüler</Heading>
+            <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. In ea adipisci praesentium.</Paragraph>
+          </div>
+          <TestimonialCarousel className="mt-16" />
+        </div>
       </Container>
 
       <Container width="narrow" className="mt-64">
