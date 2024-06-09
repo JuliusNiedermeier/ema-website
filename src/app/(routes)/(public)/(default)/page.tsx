@@ -7,7 +7,6 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { sanity } from "~/sanity/lib/client";
 import { HomePageQueryResult } from "../../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
-import { OffersGrid } from "~/app/_components/compounds/offers-grid";
 import { ArtEducation } from "~/app/_components/blocks/art-education";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
@@ -114,9 +113,10 @@ const HomePage: FC = async () => {
             <Label>Mache den Checkup</Label>
             <ButtonInteractionBubble />
           </Button>
-      </Container>
+        </Container>
 
-      <Container>
+        <Label className="my-32 block text-center">Wirtschaft X Soziales</Label>
+
         <ArtEducation
           className="mt-64"
           backgroundImage={{
@@ -135,6 +135,9 @@ const HomePage: FC = async () => {
           body={homePage?.artEducation?.body || ""}
           actionLabel={homePage?.artEducation?.actionLabel || ""}
         />
+
+        <Label className="my-32 block text-center">Wir & Dein Campus</Label>
+        <Label className="my-32 block text-center">Lerne uns kennen (Infoabend & Offene Beratung)</Label>
 
         <div className="mt-64">
           <div className="mx-auto max-w-96 text-balance text-center">
