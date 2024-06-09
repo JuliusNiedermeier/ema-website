@@ -21,6 +21,7 @@
     "@neondatabase/serverless": "^0.9.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-email/components": "0.0.17",
+    "@sanity/color-input": "^3.1.1",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.39.0",
     "@t3-oss/env-nextjs": "^0.10.1",
