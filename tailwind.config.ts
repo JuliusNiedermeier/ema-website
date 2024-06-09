@@ -16,7 +16,7 @@ const config = {
       "heading-lg": ["clamp(40px, 10vw, 50px)", { fontWeight: 500, letterSpacing: "-3px", lineHeight: "95%" }],
       "heading-sm": ["25px", { fontWeight: 500, letterSpacing: "-0.9px", lineHeight: "90%" }],
       label: ["clamp(17px, 3vw, 18px)", { fontWeight: 500, letterSpacing: "0.3px", lineHeight: "100%" }],
-      paragraph: ["clamp(18px, 1.39vw, 20px)", { fontWeight: 300, letterSpacing: "0.72px", lineHeight: "145%" }],
+      paragraph: ["clamp(19px, 1.39vw, 20px)", { fontWeight: 300, letterSpacing: "0.72px", lineHeight: "145%" }],
     },
     colors: {
       transparent: "transparent",
