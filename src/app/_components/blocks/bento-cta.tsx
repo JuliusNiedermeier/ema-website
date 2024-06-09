@@ -43,7 +43,7 @@ export const BentoCTA: FC<BentoCTAProps> = ({ className, ...restProps }) => {
           </Card>
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
-          <a className="flex-[1]" href="/">
+          <a className="flex-[1]" href="/kontakt">
             <Card className="group bg-neutral-400">
               <Label className="">Lieber persönlich?</Label>
               <Heading size="sm" tag="h3" className="mt-3">
@@ -58,7 +58,7 @@ export const BentoCTA: FC<BentoCTAProps> = ({ className, ...restProps }) => {
               </div>
             </Card>
           </a>
-          <a className="flex-[1]" href="/">
+          <a className="flex-[1]" href="/kontakt">
             <Card className="group bg-neutral-300">
               <Label className="">Lieber persönlich?</Label>
               <Heading size="sm" tag="h3" className="mt-3">
@@ -78,8 +78,8 @@ export const BentoCTA: FC<BentoCTAProps> = ({ className, ...restProps }) => {
       <Card className="flex-[1] !rounded-2xl p-8">
         <Heading tag="h3">Persönliches Gespräch</Heading>
         <Paragraph className="mt-8">Dein Weg zum Studium mit einer Ausbildung für eine soziale Zukunft.</Paragraph>
-        <Button vairant="filled" href="/go" className="mt-12 !rounded-full">
-          <Label>Online bewerben</Label>
+        <Button vairant="filled" href="/kontakt" className="mt-12 !rounded-full">
+          <Label>Termin vereinbaren</Label>
           <ButtonInteractionBubble />
         </Button>
       </Card>

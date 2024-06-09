@@ -132,7 +132,7 @@ const config = {
       themed: {
         // Possibly switch to 25% opacity for more of a pastelly look and stronger contrast
         primary: "var(--themed-primary)",
-        darker: "var(--themed-darker)",
+        secondary: "var(--themed-secondary)",
       },
     },
   },

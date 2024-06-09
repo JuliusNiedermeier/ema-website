@@ -28,16 +28,16 @@ export const Certificate: FC<CertificateProps> = ({
       {...restProps}
     >
       <div className="overflow-hidden py-8">
-        <div className="flex w-[fit-content] items-center gap-4 rounded-full bg-themed-darker px-4 py-2">
+        <div className="flex w-[fit-content] items-center gap-4 rounded-full bg-themed-secondary px-4 py-2">
           <ChevronRightIcon />
           <Label>{heading}</Label>
         </div>
-        <Heading tag="h3" className="break-words">
+        <Heading tag="h3" className="mt-8 break-words">
           {name}
         </Heading>
         <Paragraph className="mt-8">{description}</Paragraph>
 
-        <div className="mt-4">
+        <div className="mt-8">
           {qualifications.map((qualification, index) => (
             <div key={index} className="flex items-center gap-4">
               <CheckIcon />
@@ -46,7 +46,7 @@ export const Certificate: FC<CertificateProps> = ({
           ))}
         </div>
       </div>
-      <div className="borderx relative h-full min-h-[30rem] overflow-hidden">
+      <div className="relative h-full min-h-[30rem] overflow-hidden">
         <div className="absolute left-0 top-0 flex h-full w-full flex-col gap-4">
           {jobs.map((job, index) => (
             <div key={index} className="flex gap-4 rounded-[2rem] border border-neutral-400 bg-neutral-100 p-4">
@@ -61,7 +61,7 @@ export const Certificate: FC<CertificateProps> = ({
             </div>
           ))}
         </div>
-        <div className="left- 0 to-transparent absolute top-0 h-full w-full bg-gradient-to-b from-neutral-200 sm:hidden"></div>
+        <div className="left- 0 absolute top-0 h-full w-full bg-gradient-to-b from-neutral-200 to-transparent sm:hidden"></div>
       </div>
     </Card>
   );

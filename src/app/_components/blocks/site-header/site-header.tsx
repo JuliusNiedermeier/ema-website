@@ -8,7 +8,7 @@ import { Label } from "~/app/_components/primitives/typography";
 import { OffersMenu } from "./offers-menu";
 import { NavigationItem } from "./navigation-item";
 import { SiteHeaderContextProvider } from "./site-header-context";
-import { MenuShell } from "./menu-shell";
+import { MenuBackdrop, MenuShell } from "./menu-shell";
 import { SiteHeaderHamburger } from "./hamburger";
 
 export type SiteHeaderProps = ComponentProps<"header"> & {};
@@ -16,6 +16,7 @@ export type SiteHeaderProps = ComponentProps<"header"> & {};
 export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => {
   return (
     <SiteHeaderContextProvider>
+      <MenuBackdrop />
       <header className={cn("border-b border-[gray]/20 bg-neutral-200/90 backdrop-blur-3xl", className)} {...restProps}>
         <Container className="py-3">
           <div className="flex items-center justify-between">
@@ -36,7 +37,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
             <SiteHeaderHamburger className="md:hidden" />
           </div>
         </Container>
-        <div className="relative w-full sm:block">
+        <div className="relative w-full translate-y-px sm:block">
           <MenuShell>
             <OffersMenu />
           </MenuShell>

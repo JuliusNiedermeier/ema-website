@@ -21,7 +21,7 @@ export const Tab: FC<TabProps> = ({ className, active, interactive, ...restProps
   return (
     <div
       className={cn(
-        "flex-1 whitespace-nowrap rounded-full px-6 py-2 text-center",
+        "flex flex-1 items-center gap-2 whitespace-nowrap rounded-full px-6 justify-center py-2 text-center",
         {
           "bg-primary-900 text-neutral-900-text": active,
           "cursor-pointer select-none transition-colors hover:bg-neutral-200 data-[active]:hover:bg-primary-800":
