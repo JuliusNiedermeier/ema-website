@@ -1,5 +1,6 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
+import Image from "next/image"
 
 export type SiteLogoProps = ComponentProps<"div"> & {
   show?: "mark" | "text" | "both";
@@ -8,7 +9,8 @@ export type SiteLogoProps = ComponentProps<"div"> & {
 export const SiteLogo: FC<SiteLogoProps> = ({ className, show = "both", ...restProps }) => {
   return (
     <div className={cn("text-primary-foreground flex items-center gap-4 font-bold", className)} {...restProps}>
-      {(show === "mark" || show === "both") && <LogoSVG />}
+      {/* {(show === "mark" || show === "both") && <LogoSVG />} */}
+      {(show === "mark" || show === "both") && <Image src="/ema-logo.png" alt="Logo" width={50} height={50}/>}
       {(show === "text" || show === "both") && (
         <div>
           <span className="font-bold">Emil Molt</span>
