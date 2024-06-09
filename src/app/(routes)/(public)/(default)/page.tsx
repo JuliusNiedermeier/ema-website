@@ -13,6 +13,7 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
+import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -103,6 +104,9 @@ const HomePage: FC = async () => {
             ratione explicabo!
           </Paragraph>
         </div>
+
+        <EducationalProgramTypePreviewList className="mt-64" />
+
       </Container>
 
       <Container>
