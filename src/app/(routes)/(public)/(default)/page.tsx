@@ -107,6 +107,13 @@ const HomePage: FC = async () => {
 
         <EducationalProgramTypePreviewList className="mt-64" />
 
+        <Container width="narrow" className="mt-32 flex flex-col items-center text-center">
+          <Heading size="sm">Finde heraus was zu dir passt.</Heading>
+          <Paragraph className="mt-0">Mit unserem Checkup tool findest du den richtigen Weg für Dich.</Paragraph>
+          <Button vairant="outline" className="mt-8">
+            <Label>Mache den Checkup</Label>
+            <ButtonInteractionBubble />
+          </Button>
       </Container>
 
       <Container>
