@@ -134,7 +134,7 @@ const ContactPage: FC = () => {
       <Container className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32">
         <div className="flex-1">
           <SectionIndicator name="Mail & Telefon" icon={AtSignIcon} />
-          <Heading className="mt-8">Schreib' eine Mail oder ruf' uns an.</Heading>
+          <Heading className="mt-8">{"Schreib' eine Mail oder ruf' uns an."}</Heading>
           <Paragraph>Gerne kannst du uns auch eine Mail mit deinem Anliegen schreiben oder uns anrufen.</Paragraph>
         </div>
         <div className="flex-1">
@@ -162,7 +162,7 @@ const ContactPage: FC = () => {
 
 export default ContactPage;
 
-export type SectionIndicatorProps = ComponentProps<"div"> &
+type SectionIndicatorProps = ComponentProps<"div"> &
   VariantProps<typeof sectionIndicatorVariants> & {
     name: string;
     icon: LucideIcon;
@@ -180,7 +180,7 @@ const sectionIndicatorVariants = cva("flex items-center gap-4", {
   },
 });
 
-export const SectionIndicator: FC<SectionIndicatorProps> = ({ className, name, icon: Icon, on, ...restProps }) => {
+const SectionIndicator: FC<SectionIndicatorProps> = ({ className, name, icon: Icon, on, ...restProps }) => {
   return (
     <div className={cn(sectionIndicatorVariants({ on }), className)} {...restProps}>
       <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full">
