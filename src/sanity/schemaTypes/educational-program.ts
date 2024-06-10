@@ -2,6 +2,7 @@ import { defineType } from "sanity";
 import { SchemaTypeDef } from "../schema";
 import { GraduationCapIcon } from "lucide-react";
 import { certificateType } from "./parts/certificate";
+import { faqFields } from "./parts/faq-fields";
 
 export const educationalProgram: SchemaTypeDef = {
   definition: defineType({
@@ -221,28 +222,21 @@ export const educationalProgram: SchemaTypeDef = {
       {
         name: "FAQs",
         title: "FAQs",
-        type: "array",
-        of: [
+        type: "object",
+        fields: [
           {
-            name: "FAQ",
-            title: "FAQ",
-            type: "object",
-            fields: [
-              {
-                name: "question",
-                title: "Question",
-                type: "string",
-                // validation: (r) => r.required().min(10).max(30),
-              },
-              {
-                name: "answer",
-                title: "Answer",
-                type: "text",
-                // validation: (r) => r.required().min(50).max(300),
-              },
-            ],
+            name: "heading",
+            title: "Heading",
+            type: "string",
           },
+          {
+            name: "subheading",
+            title: "Subheading",
+            type: "text",
+          },
+          faqFields,
         ],
+
         // validation: (r) => r.length(1),
       },
     ],

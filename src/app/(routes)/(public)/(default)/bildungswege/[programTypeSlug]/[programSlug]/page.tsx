@@ -156,11 +156,13 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
       </Container>
 
       <Container className="mt-64" width="narrow">
-        <Heading className="text-center">Häufig gestellte Fragen</Heading>
+        <Heading className="text-center">{program.FAQs?.heading}</Heading>
+        <Paragraph>{program.FAQs?.subheading}</Paragraph>
         <div className="mt-16">
           <BasicAccordion
             items={
-              program.FAQs?.map(({ question, answer }) => ({ title: question || "", content: answer || "" })) || []
+              program.FAQs?.items?.map(({ question, answer }) => ({ title: question || "", content: answer || "" })) ||
+              []
             }
           />
         </div>
