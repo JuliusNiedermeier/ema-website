@@ -55,7 +55,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                 <Label>Bewerben</Label>
               </Button>
             </div>
-            <div className="grid grid-cols-3 gap-16">
+            <div className="hidden grid-cols-3 gap-16 sm:grid">
               <List>
                 <ListHeading>Bewerben</ListHeading>
                 <ListContent>
