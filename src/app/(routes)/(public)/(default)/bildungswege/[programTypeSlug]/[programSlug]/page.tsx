@@ -146,7 +146,13 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
           />
         </div>
 
-        <TestimonialCarousel className="mt-32 sm:mt-64" />
+        <div className="mt-32 sm:mt-64">
+          <div className="mx-auto max-w-96 text-balance text-center">
+            <Heading>{program.testimonials?.heading}</Heading>
+            <Paragraph>{program.testimonials?.subheading}</Paragraph>
+          </div>
+          <TestimonialCarousel className="mt-16" />
+        </div>
       </Container>
 
       <Container className="mt-64" width="narrow">

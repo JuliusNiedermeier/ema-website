@@ -202,6 +202,23 @@ export const educationalProgram: SchemaTypeDef = {
         // validation: (r) => r.length(1),
       },
       {
+        name: "testimonials",
+        title: "Testimonials",
+        type: "object",
+        fields: [
+          {
+            name: "heading",
+            title: "Heading",
+            type: "string",
+          },
+          {
+            name: "subheading",
+            title: "Subheading",
+            type: "text",
+          },
+        ],
+      },
+      {
         name: "FAQs",
         title: "FAQs",
         type: "array",
