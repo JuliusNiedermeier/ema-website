@@ -97,7 +97,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
       <Container>
         <Certificate
           className="mt-32"
-          heading="Dein Abschluss"
+          heading={program.certificate?.heading || ""}
           name={program.certificate?.name || ""}
           description={program.certificate?.description || ""}
           qualifications={program.certificate?.qualifications || []}
