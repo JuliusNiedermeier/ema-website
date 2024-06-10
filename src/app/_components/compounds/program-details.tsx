@@ -48,7 +48,7 @@ export const ProgramDetails: FC<ProgramDetailsProps> = ({ className, details, ..
   };
 
   return (
-    <div className={cn("mt-20 grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-8", className)} {...restProps}>
+    <div className={cn("grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-8", className)} {...restProps}>
       {Object.keys(datailItems).map((detailItemKey) => {
         const detailItem = datailItems[detailItemKey as keyof typeof datailItems];
 
