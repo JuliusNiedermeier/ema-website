@@ -96,6 +96,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
 
       <Container>
         <Certificate
+          className="mt-32"
           heading="Dein Abschluss"
           name={program.certificate?.name || ""}
           description={program.certificate?.description || ""}
@@ -106,9 +107,9 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
               content: job.name || "",
             })) || []
           }
-          className="mt-32"
         />
         <ProgramDetails
+          className="mt-32"
           details={{
             holidays: program.programDetails?.holidays || "",
             startDate: program.programDetails?.startDate || "",
@@ -119,7 +120,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
         />
 
         {program.gallery?.map((galleryItem, index) => (
-          <div key={index} className={cn("mt-16 flex items-center gap-16", { "flex-row-reverse": index % 2 !== 0 })}>
+          <div key={index} className={cn("mt-32 flex items-center gap-16", { "flex-row-reverse": index % 2 !== 0 })}>
             <div className="aspect-video flex-1">
               <Image
                 className="h-full w-full rounded-2xl object-cover"
