@@ -119,23 +119,30 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
           }}
         />
 
-        {program.gallery?.map((galleryItem, index) => (
-          <div key={index} className={cn("mt-32 flex items-center gap-16", { "flex-row-reverse": index % 2 !== 0 })}>
-            <div className="aspect-video flex-1">
-              <Image
-                className="h-full w-full rounded-2xl object-cover"
-                src={galleryItem.image?.asset?.url || ""}
-                alt={galleryItem.heading || ""}
-                width="500"
-                height="500"
-              />
+        <div className="mt-32 flex flex-col gap-32">
+          {program.gallery?.map((galleryItem, index) => (
+            <div
+              key={index}
+              className={cn("flex flex-col items-center gap-[5vw] sm:flex-row", {
+                "sm:flex-row-reverse": index % 2 !== 0,
+              })}
+            >
+              <div className="aspect-video w-full sm:flex-1">
+                <Image
+                  className="h-full w-full rounded-2xl object-cover"
+                  src={galleryItem.image?.asset?.url || ""}
+                  alt={galleryItem.heading || ""}
+                  width="500"
+                  height="500"
+                />
+              </div>
+              <div className="sm:flex-[1.25]">
+                <Heading tag="h3">{galleryItem.heading}</Heading>
+                <Paragraph>{galleryItem.content}</Paragraph>
+              </div>
             </div>
-            <div className="flex-1">
-              <Heading tag="h3">{galleryItem.heading}</Heading>
-              <Paragraph>{galleryItem.content}</Paragraph>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         <div className="mt-32 text-center sm:mt-64">
           <Heading tag="h3">{program.prerequisites?.heading}</Heading>
