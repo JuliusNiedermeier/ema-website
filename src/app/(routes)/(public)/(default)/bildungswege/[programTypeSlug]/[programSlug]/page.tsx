@@ -14,7 +14,7 @@ import { Certificate } from "~/app/_components/compounds/certificate";
 import { ProgramDetails } from "~/app/_components/compounds/program-details";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import { ProgramPageQueryResult, ProgramPageSlugsQueryResult } from "../../../../../../../../generated/sanity/types";
-import { createColorSwatch, createHSLString, ensureValidHSL } from "~/app/_utils/color-swatch";
+import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{ slug }`;
@@ -49,15 +49,8 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
 
   if (!program) notFound();
 
-  const themeColors = createColorSwatch(ensureValidHSL(program.educationalProgramType?.color?.hsl));
-
   return (
-    <div
-      style={{
-        "--themed-primary": createHSLString(themeColors.primary),
-        "--themed-secondary": createHSLString(themeColors.secondary),
-      }}
-    >
+    <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
       <div className="bg-neutral-200">
         <Container className="items-end justify-between gap-16 pt-16 sm:flex sm:pt-24">
           <Heading className="mb-0 text-primary-900">
