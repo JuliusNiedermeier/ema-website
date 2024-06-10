@@ -3,9 +3,9 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { sanity } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
-import { PlusIcon } from "lucide-react";
+import { CheckIcon, PlusIcon, SparkleIcon, Sunrise, SunriseIcon } from "lucide-react";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { cn } from "~/app/_utils/cn";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
@@ -16,6 +16,8 @@ import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import { ProgramPageQueryResult, ProgramPageSlugsQueryResult } from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
+import { IconListItem } from "~/app/_components/primitives/icon-list-item";
+import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{ slug }`;
 
@@ -101,7 +103,45 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             })) || []
           }
         />
-        <ProgramDetails
+
+        <div className="mt-8 flex flex-col gap-8 md:flex-row">
+          <EducationalProgramDetails className="md:flex-[2]" />
+
+          <Card className="flex flex-col p-4 md:flex-1 border">
+            <div className="p-4">
+              <Heading size="sm">Deine Fächer</Heading>
+              <Paragraph>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</Paragraph>
+            </div>
+
+            <Card>
+              {program.subjects
+                ?.filter(({ isExamSubject }) => !isExamSubject)
+                .map((subject, index) => (
+                  <IconListItem key={index}>
+                    <CheckIcon />
+                    <Label>{subject.name}</Label>
+                  </IconListItem>
+                ))}
+            </Card>
+
+            <Card className="flex-1 bg-themed-primary">
+              <div className="flex items-center gap-4">
+                <SparkleIcon />
+                <Heading size="sm">Prüfungsfächer</Heading>
+              </div>
+              {program.subjects
+                ?.filter(({ isExamSubject }) => isExamSubject)
+                .map((subject, index) => (
+                  <IconListItem key={index}>
+                    <CheckIcon />
+                    <Label>{subject.name}</Label>
+                  </IconListItem>
+                ))}
+            </Card>
+          </Card>
+        </div>
+
+        {/* <ProgramDetails
           className="mt-32"
           details={{
             holidays: program.programDetails?.holidays || "",
@@ -111,6 +151,15 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             type: program.programDetails?.type || "",
           }}
         />
+
+        <div className="mt-32 text-center">
+          <Heading tag="h3">{"Deine Fächer"}</Heading>
+          <Paragraph className="mx-auto max-w-[40rem]">{"Alle fächer sind sehr gut für dich."}</Paragraph>
+          <RequirementList
+            className="mt-16"
+            groups={program.prerequisites?.groups?.map(({ items }) => items || []) || []}
+          />
+        </div> */}
 
         <div className="mt-32 flex flex-col gap-32">
           {program.gallery?.map((galleryItem, index) => (
