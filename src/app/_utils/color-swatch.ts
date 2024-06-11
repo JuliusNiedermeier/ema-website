@@ -15,7 +15,7 @@ export const createColorSwatch = (hsl: HSLValue): HSLColorSwatch => {
   };
 };
 
-export const createHSLString = ({ h, s, l }: HSLValue) => `hsl(${h}deg ${s}% ${l}%)`;
+export const createHSLString = ({ h, s, l }: HSLValue) => `${h}deg ${s}% ${l}%`;
 
 export const createColorThemeStyles = (hsl: HSLValue): CSSProperties => {
   const { primary, secondary } = createColorSwatch(hsl);
