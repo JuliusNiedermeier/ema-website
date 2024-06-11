@@ -88,9 +88,9 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
         </Container>
       </div>
 
-      <Container>
+      <Container className="mt-8">
         <Certificate
-          className="mt-32"
+          className="border border-neutral-400"
           heading={program.certificate?.heading || ""}
           name={program.certificate?.name || ""}
           description={program.certificate?.description || ""}
@@ -117,13 +117,13 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             startDate={program.programDetails?.startDate || ""}
           />
 
-          <Card className="flex flex-col border p-4 md:flex-1">
-            <div className="p-4">
+          <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
+            <Card>
               <Heading size="sm">{program.subjects?.heading}</Heading>
               <Paragraph>{program.subjects?.description}</Paragraph>
-            </div>
+            </Card>
 
-            <Card>
+            <Card className="bg-themed-secondary/20 pb-16 -mb-8 border border-themed-secondary/50">
               {program.subjects?.items
                 ?.filter(({ isExamSubject }) => !isExamSubject)
                 .map((subject, index) => (
@@ -134,7 +134,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
                 ))}
             </Card>
 
-            <Card className="flex-1 bg-themed-primary">
+            <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
               <div className="flex items-center gap-4">
                 <SparkleIcon />
                 <Heading size="sm">{program.subjects?.examSubjectsHeading}</Heading>
