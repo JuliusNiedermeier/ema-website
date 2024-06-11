@@ -105,7 +105,18 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
         />
 
         <div className="mt-8 flex flex-col gap-8 md:flex-row">
-          <EducationalProgramDetails className="md:flex-[2]" />
+          <EducationalProgramDetails
+            className="md:flex-[2]"
+            durationHeading={program.programDetails?.durationHeading || ""}
+            holidaysHeading={program.programDetails?.holidaysHeading || ""}
+            lessonTimesHeading={program.programDetails?.lessonTimesHeading || ""}
+            startDateHeading={program.programDetails?.startDateHeading || ""}
+            trainingType={program.programDetails?.type || ""}
+            duration={program.programDetails?.totalDuration || ""}
+            startEndTime={[program.programDetails?.startTime || "", program.programDetails?.endTime || ""]}
+            holidays={program.programDetails?.holidays || ""}
+            startDate={program.programDetails?.startDate || ""}
+          />
 
           <Card className="flex flex-col p-4 md:flex-1 border">
             <div className="p-4">

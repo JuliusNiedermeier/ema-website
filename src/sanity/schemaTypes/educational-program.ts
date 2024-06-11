@@ -80,22 +80,48 @@ export const educationalProgram: SchemaTypeDef = {
         type: "object",
         fields: [
           {
+            name: "durationHeading",
+            title: "Duration heading",
+            type: "string",
+          },
+          {
             name: "type",
             title: "Type",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           },
           {
-            name: "startEndTime",
-            title: "Start and end time",
+            name: "lessonTimesHeading",
+            title: "Lesson times heading",
+            type: "string",
+          },
+          {
+            name: "startTime",
+            title: "Start time",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
+          },
+          {
+            name: "endTime",
+            title: "End time",
+            type: "string",
+            // validation: (r) => r.required().min(5).max(20),
+          },
+          {
+            name: "startDateHeading",
+            title: "Start date heading",
+            type: "string",
           },
           {
             name: "startDate",
             title: "Start date",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
+          },
+          {
+            name: "holidaysHeading",
+            title: "Holidays heading",
+            type: "string",
           },
           {
             name: "holidays",
