@@ -118,14 +118,14 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             startDate={program.programDetails?.startDate || ""}
           />
 
-          <Card className="flex flex-col p-4 md:flex-1 border">
+          <Card className="flex flex-col border p-4 md:flex-1">
             <div className="p-4">
-              <Heading size="sm">Deine Fächer</Heading>
-              <Paragraph>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</Paragraph>
+              <Heading size="sm">{program.subjects?.heading}</Heading>
+              <Paragraph>{program.subjects?.description}</Paragraph>
             </div>
 
             <Card>
-              {program.subjects
+              {program.subjects?.items
                 ?.filter(({ isExamSubject }) => !isExamSubject)
                 .map((subject, index) => (
                   <IconListItem key={index}>
@@ -138,9 +138,9 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             <Card className="flex-1 bg-themed-primary">
               <div className="flex items-center gap-4">
                 <SparkleIcon />
-                <Heading size="sm">Prüfungsfächer</Heading>
+                <Heading size="sm">{program.subjects?.examSubjectsHeading}</Heading>
               </div>
-              {program.subjects
+              {program.subjects?.items
                 ?.filter(({ isExamSubject }) => isExamSubject)
                 .map((subject, index) => (
                   <IconListItem key={index}>

@@ -205,28 +205,50 @@ export const educationalProgram: SchemaTypeDef = {
       {
         name: "subjects",
         title: "Subjects",
-        type: "array",
-        of: [
+        type: "object",
+        fields: [
           {
-            name: "subject",
-            title: "Subject",
-            type: "object",
-            fields: [
+            name: "heading",
+            title: "Heading",
+            type: "string",
+          },
+          {
+            name: "description",
+            title: "Description",
+            type: "text",
+          },
+          {
+            name: "examSubjectsHeading",
+            title: "Exam subjects heading",
+            type: "string",
+          },
+          {
+            name: "items",
+            title: "Subjects",
+            type: "array",
+            of: [
               {
-                name: "name",
-                title: "Name",
-                type: "string",
-                // validation: (r) => r.required().min(5).max(20),
-              },
-              {
-                name: "isExamSubject",
-                title: "Is exam subject",
-                type: "boolean",
+                name: "subject",
+                title: "Subject",
+                type: "object",
+                fields: [
+                  {
+                    name: "name",
+                    title: "Name",
+                    type: "string",
+                    // validation: (r) => r.required().min(5).max(20),
+                  },
+                  {
+                    name: "isExamSubject",
+                    title: "Is exam subject",
+                    type: "boolean",
+                  },
+                ],
               },
             ],
+            // validation: (r) => r.length(1),
           },
         ],
-        // validation: (r) => r.length(1),
       },
       {
         name: "testimonials",
