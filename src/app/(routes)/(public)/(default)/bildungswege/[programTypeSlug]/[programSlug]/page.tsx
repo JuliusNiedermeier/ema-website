@@ -5,13 +5,12 @@ import { sanity } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
-import { CheckIcon, PlusIcon, SparkleIcon, Sunrise, SunriseIcon } from "lucide-react";
+import { CheckIcon, PlusIcon, SparkleIcon } from "lucide-react";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { cn } from "~/app/_utils/cn";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
-import { ProgramDetails } from "~/app/_components/compounds/program-details";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import { ProgramPageQueryResult, ProgramPageSlugsQueryResult } from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
@@ -151,26 +150,6 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
             </Card>
           </Card>
         </div>
-
-        {/* <ProgramDetails
-          className="mt-32"
-          details={{
-            holidays: program.programDetails?.holidays || "",
-            startDate: program.programDetails?.startDate || "",
-            startEndTime: program.programDetails?.startEndTime || "",
-            totalDuration: program.programDetails?.totalDuration || "",
-            type: program.programDetails?.type || "",
-          }}
-        />
-
-        <div className="mt-32 text-center">
-          <Heading tag="h3">{"Deine Fächer"}</Heading>
-          <Paragraph className="mx-auto max-w-[40rem]">{"Alle fächer sind sehr gut für dich."}</Paragraph>
-          <RequirementList
-            className="mt-16"
-            groups={program.prerequisites?.groups?.map(({ items }) => items || []) || []}
-          />
-        </div> */}
 
         <div className="mt-32 flex flex-col gap-32">
           {program.gallery?.map((galleryItem, index) => (
