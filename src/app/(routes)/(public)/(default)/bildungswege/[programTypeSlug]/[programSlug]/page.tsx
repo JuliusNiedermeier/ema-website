@@ -119,11 +119,11 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
 
           <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
             <Card>
-              <Heading size="sm">{program.subjects?.heading}</Heading>
+              <Heading>{program.subjects?.heading}</Heading>
               <Paragraph>{program.subjects?.description}</Paragraph>
             </Card>
 
-            <Card className="bg-themed-secondary/20 pb-16 -mb-8 border border-themed-secondary/50">
+            <Card className="bg-themed-secondary/20 border-themed-secondary/50 -mb-8 border pb-16">
               {program.subjects?.items
                 ?.filter(({ isExamSubject }) => !isExamSubject)
                 .map((subject, index) => (
