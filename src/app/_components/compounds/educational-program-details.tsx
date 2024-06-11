@@ -30,7 +30,7 @@ export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
   ...restProps
 }) => {
   return (
-    <div className={cn("flex flex-wrap gap-4", className)} {...restProps}>
+    <div className={cn("flex flex-wrap gap-2 sm:gap-4", className)} {...restProps}>
       <DurationCard heading={durationHeading} duration={duration} trainingType={trainingType} />
       <StartEndTimeCard heading={lessonTimesHeading} start={startEndTime[0]} end={startEndTime[1]} />
       <HolidaysCard heading={holidaysHeading} holidays={holidays} />
