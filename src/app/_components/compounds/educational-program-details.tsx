@@ -65,7 +65,7 @@ const StartDateCard: FC = () => {
   return (
     <Card className="flex flex-1 flex-col gap-4 bg-primary-900 text-primary-900-text">
       <CalendarCheck2Icon />
-      <Heading>Los geht's</Heading>
+      <Heading>{"Los geht's"}</Heading>
       <Heading size="sm" className="mt-auto">
         Am 13. Juli 2024
       </Heading>
