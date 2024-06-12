@@ -13,6 +13,7 @@ import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
+import { EconomyXSocial } from "~/app/_components/compounds/economy-x-social";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -115,7 +116,7 @@ const HomePage: FC = async () => {
           </Button>
         </Container>
 
-        <Label className="my-32 block text-center">Wirtschaft X Soziales</Label>
+        <EconomyXSocial className="my-32" />
 
         <ArtEducation
           className="mt-64"
