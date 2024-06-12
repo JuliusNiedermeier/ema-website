@@ -32,7 +32,7 @@ const homePageQuery = groq`*[_type == "home-page"][0]{
 }`;
 
 const HomePage: FC = async () => {
-  const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery, {}, { next: { tags: ["home-page"] } });
+  const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery);
 
   const partners: ComponentProps<typeof PartnersBanner>["partners"] =
     homePage?.partners?.map((partner) => ({
