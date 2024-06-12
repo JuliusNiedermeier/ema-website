@@ -49,7 +49,7 @@ export const ArtEducation: FC<ArtEducationProps> = ({
         className="absolute bottom-0 right-[10vw] -z-10 h-[80vw] max-h-96 w-min object-cover transition-all group-hover:-translate-x-10 group-hover:scale-[1.1]"
       />
       <Heading size="sm" className="mt-8 sm:text-heading-lg">
-        Künstlerisch
+        {title}
       </Heading>
       <Paragraph className="max-w-96">{body}</Paragraph>
       <div className="mt-80 flex h-8 items-center gap-4">
