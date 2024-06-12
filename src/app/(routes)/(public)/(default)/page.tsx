@@ -138,7 +138,7 @@ const HomePage: FC = async () => {
           actionLabel={homePage?.artEducation?.actionLabel || ""}
         />
 
-        <CampusCard className="my-32" />
+        <CampusCard className="mt-16" />
 
         <Label className="my-32 block text-center">Lerne uns kennen (Infoabend & Offene Beratung)</Label>
 

@@ -10,6 +10,7 @@ import { education } from "./schemaTypes/education";
 import { testimonial } from "./schemaTypes/testimonial";
 import { educationalProgramType } from "./schemaTypes/educational-program-type";
 import { educationalProgram } from "./schemaTypes/educational-program";
+import { campusPage } from "./schemaTypes/campus-page";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
@@ -24,6 +25,7 @@ const types = [
   testimonial,
   educationalProgramType,
   educationalProgram,
+  campusPage,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
