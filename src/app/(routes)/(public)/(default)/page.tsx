@@ -13,7 +13,7 @@ import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
-import { EconomyXSocial } from "~/app/_components/compounds/economy-x-social";
+import { EconomyXSocial } from "~/app/_components/blocks/economy-x-social";
 import { CampusCard } from "~/app/_components/blocks/campus-card";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
@@ -117,10 +117,10 @@ const HomePage: FC = async () => {
           </Button>
         </Container>
 
-        <EconomyXSocial className="my-32" />
+        <EconomyXSocial className="mt-32" />
 
         <ArtEducation
-          className="mt-64"
+          className="mt-16"
           backgroundImage={{
             src: homePage?.artEducation?.backgroundImage?.asset?.url || "",
             alt: homePage?.artEducation?.title || "",
