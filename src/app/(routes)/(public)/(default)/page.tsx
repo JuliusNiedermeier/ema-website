@@ -143,7 +143,7 @@ const HomePage: FC = async () => {
         <Label className="my-32 block text-center">Lerne uns kennen (Infoabend & Offene Beratung)</Label>
 
         <div className="mt-64">
-          <div className="mx-auto max-w-96 text-balance text-center">
+          <div className="mx-auto max-w-[40rem] text-balance text-center">
             <Heading>Über 600 zufriedene Schüler</Heading>
             <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. In ea adipisci praesentium.</Paragraph>
           </div>
