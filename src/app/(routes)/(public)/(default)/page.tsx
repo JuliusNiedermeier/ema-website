@@ -14,6 +14,7 @@ import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
 import { EconomyXSocial } from "~/app/_components/compounds/economy-x-social";
+import { CampusCard } from "~/app/_components/blocks/campus-card";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -137,7 +138,8 @@ const HomePage: FC = async () => {
           actionLabel={homePage?.artEducation?.actionLabel || ""}
         />
 
-        <Label className="my-32 block text-center">Wir & Dein Campus</Label>
+        <CampusCard className="my-32" />
+
         <Label className="my-32 block text-center">Lerne uns kennen (Infoabend & Offene Beratung)</Label>
 
         <div className="mt-64">
