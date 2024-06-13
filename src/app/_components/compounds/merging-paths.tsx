@@ -74,10 +74,11 @@ export const MergingPaths: FC<MergingPathsProps> = forwardRef(
                 setPathLengths((current) => current.toSpliced(index, 1, el?.getTotalLength() || 0) as PathLengths);
               }}
               d={path}
+              fill="none"
               stroke={color}
               strokeLinecap="round"
-              strokeWidth={2}
-              fill="none"
+              strokeWidth="3px"
+              vector-effect="non-scaling-stroke"
               strokeDasharray={length || "0, 10000"}
               strokeDashoffset={-length / 2}
               style={{ strokeDashoffset: progress }}
