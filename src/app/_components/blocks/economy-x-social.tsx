@@ -21,22 +21,23 @@ export const EconomyXSocial: FC<EconomyXSocialProps> = ({ className, ...restProp
   return (
     <div className={cn("", className)} {...restProps}>
       <Container width="narrow" className="text-center">
-        <Heading>Wirtschaftlich und Sozial denken.</Heading>
-        <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat molestiae temporibus amet ex quam nesciunt
-          corporis voluptatem voluptas culpa, possimus error maxime. Temporibus ducimus corporis recusandae suscipit
-          perferendis repudiandae culpa.
-        </Paragraph>
+        <Heading>Wir verbinden</Heading>
       </Container>
       <MergingPaths
         ref={containerRef}
         progress={scrollYProgress}
-        className=""
+        className="-my-[10vw]"
         title="Wirtschaft X Social"
         description="Wirtschaft und Soziales verbinden."
       />
-      <Container className="flex justify-center">
-        <Button>
+      <Container width="narrow" className="flex flex-col items-center text-center">
+        <Heading>Wirtschaft & Soziales</Heading>
+        <Paragraph>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae tenetur a et asperiores veritatis, aliquam
+          molestias laboriosam beatae, nostrum enim quis, consequuntur voluptate! Magnam, pariatur debitis tenetur
+          quisquam obcaecati aut.
+        </Paragraph>
+        <Button className="mt-8">
           <Label>Mehr lesen</Label>
           <ButtonInteractionBubble />
         </Button>

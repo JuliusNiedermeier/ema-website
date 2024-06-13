@@ -122,7 +122,7 @@ const HomePage: FC = async () => {
 
       <Container>
         <ArtEducation
-          className="mt-16"
+          className="mt-32"
           backgroundImage={{
             src: homePage?.artEducation?.backgroundImage?.asset?.url || "",
             alt: homePage?.artEducation?.title || "",
