@@ -116,9 +116,11 @@ const HomePage: FC = async () => {
             <ButtonInteractionBubble />
           </Button>
         </Container>
+      </Container>
 
-        <EconomyXSocial className="mt-32" />
+      <EconomyXSocial className="mt-64" />
 
+      <Container>
         <ArtEducation
           className="mt-16"
           backgroundImage={{
