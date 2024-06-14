@@ -26,6 +26,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
 
             <nav className="text-sm hidden items-center gap-8 font-medium md:flex">
               <NavigationItem href="/" label="Akademie" exact />
+              <NavigationItem href="/about" label="Über uns" />
               <NavigationItem href="/bildungswege" label="Bildungswege" menu />
               <NavigationItem href="/blog" label="Blog" />
               <NavigationItem href="/kontakt" label="Kontakt" />
