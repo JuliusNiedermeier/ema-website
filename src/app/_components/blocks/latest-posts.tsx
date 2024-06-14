@@ -30,8 +30,8 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, ...restProp
         </Link>
       </div>
       <div className="mt-4 flex gap-4">
-        {posts.map((post) => (
-          <Link href={`/blog/${post.slug?.current}`} className="group flex-1 rounded-3xl border p-2">
+        {posts.map((post, index) => (
+          <Link key={index} href={`/blog/${post.slug?.current}`} className="group flex-1 rounded-3xl border p-2">
             <div className="relative aspect-video overflow-hidden rounded-2xl">
               <Image
                 src={post.mainImage?.asset?.url || ""}
