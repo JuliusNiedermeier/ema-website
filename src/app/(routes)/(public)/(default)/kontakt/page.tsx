@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { ComponentProps, FC } from "react";
+import { InfoEveningEventList } from "~/app/_components/blocks/info-evening-event-list";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
@@ -31,8 +32,6 @@ const sectionLinks: SectionLink[] = [
   { ID: "gespräch", icon: CalendarCheckIcon, name: "Persönliches Gespräch" },
   { ID: "telefon", icon: AtSignIcon, name: "Per Mail oder Telefon" },
 ];
-
-const infoEveningDates = [Date.now(), Date.now() + 1000 * 60 * 60 * 24 * 7, Date.now() + 1000 * 60 * 60 * 24 * 14];
 
 const ContactPage: FC = () => {
   return (
@@ -77,21 +76,7 @@ const ContactPage: FC = () => {
             interessiert herzlich einladen.
           </Paragraph>
         </div>
-        <div className="flex-1 divide-y overflow-hidden rounded-2xl border">
-          {infoEveningDates.map((date, index) => (
-            <div key={index} className={cn("flex items-center justify-between p-4", { "bg-primary-100": index === 0 })}>
-              <div>
-                <Heading size="sm" className="mb-0">
-                  {new Date(date).toLocaleDateString("de", { weekday: "long", day: "numeric", month: "long" })}
-                </Heading>
-                <Label className="text-neutral-100-text-muted">
-                  {new Date(date).toLocaleDateString("de", { year: "numeric" })}
-                </Label>
-              </div>
-              <Label>{new Date(date).toLocaleTimeString("de", { timeStyle: "short" })} Uhr</Label>
-            </div>
-          ))}
-        </div>
+        <InfoEveningEventList className="flex-1" />
       </Container>
 
       <div className="bg-primary-900 py-32">
