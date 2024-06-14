@@ -1,20 +1,32 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import Image from "next/image"
+import Image from "next/image";
+import { VariantProps, cva } from "class-variance-authority";
 
-export type SiteLogoProps = ComponentProps<"div"> & {
-  show?: "mark" | "text" | "both";
-};
+const siteLogoVariants = cva("flex items-center gap-4", {
+  variants: {
+    light: {
+      true: "text-neutral-900-text [&>div>span:nth-child(2)]:text-neutral-900-text-muted",
+      false: "text-neutral-100-text [&>div>span:nth-child(2)]:text-neutral-100-text-muted",
+    },
+  },
+  defaultVariants: { light: false },
+});
 
-export const SiteLogo: FC<SiteLogoProps> = ({ className, show = "both", ...restProps }) => {
+export type SiteLogoProps = ComponentProps<"div"> &
+  VariantProps<typeof siteLogoVariants> & {
+    show?: "mark" | "text" | "both";
+  };
+
+export const SiteLogo: FC<SiteLogoProps> = ({ className, show = "both", light, ...restProps }) => {
   return (
-    <div className={cn("text-primary-foreground flex items-center gap-4 font-bold", className)} {...restProps}>
+    <div className={cn(siteLogoVariants({ light }), className)} {...restProps}>
       {/* {(show === "mark" || show === "both") && <LogoSVG />} */}
-      {(show === "mark" || show === "both") && <Image src="/ema-logo.png" alt="Logo" width={50} height={50}/>}
+      {(show === "mark" || show === "both") && <Image src="/ema-logo.png" alt="Logo" width={50} height={50} />}
       {(show === "text" || show === "both") && (
         <div>
           <span className="font-bold">Emil Molt</span>
-          <span className="ml-2 font-bold text-neutral-200-text-muted">Akademie</span>
+          <span className="ml-2">Akademie</span>
         </div>
       )}
     </div>
