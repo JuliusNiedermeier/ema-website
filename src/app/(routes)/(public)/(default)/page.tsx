@@ -18,6 +18,7 @@ import { CampusCard } from "~/app/_components/blocks/campus-card";
 import { Card } from "~/app/_components/primitives/card";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import Link from "next/link";
+import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -109,6 +110,14 @@ const HomePage: FC = async () => {
           </Paragraph>
         </div>
 
+        <Container width="narrow" className="mt-32">
+          <LatestPosts />
+        </Container>
+      </Container>
+
+      <EconomyXSocial className="mt-64" />
+
+      <Container>
         <EducationalProgramTypePreviewList className="mt-64" />
 
         <Container width="narrow" className="mt-32 flex flex-col items-center text-center">
@@ -119,13 +128,9 @@ const HomePage: FC = async () => {
             <ButtonInteractionBubble />
           </Button>
         </Container>
-      </Container>
 
-      <EconomyXSocial className="mt-64" />
-
-      <Container>
         <ArtEducation
-          className="mt-32"
+          className="mt-64"
           backgroundImage={{
             src: homePage?.artEducation?.backgroundImage?.asset?.url || "",
             alt: homePage?.artEducation?.title || "",
