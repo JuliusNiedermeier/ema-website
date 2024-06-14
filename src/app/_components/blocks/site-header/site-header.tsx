@@ -28,6 +28,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
               <NavigationItem href="/" label="Akademie" exact />
               <NavigationItem href="/bildungswege" label="Bildungswege" menu />
               <NavigationItem href="/blog" label="Blog" />
+              <NavigationItem href="/kontakt" label="Kontakt" />
               <Button href="/go" size="sm" vairant="outline">
                 <Label>Bewerben</Label>
                 <ButtonInteractionBubble />
