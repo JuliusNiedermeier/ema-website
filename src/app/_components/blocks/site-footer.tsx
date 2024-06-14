@@ -37,7 +37,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
 
   return (
     <div
-      className={cn("mt-4 rounded-t-3xl border border-b-0 border-neutral-900/25 bg-neutral-300", className)}
+      className={cn("mt-8 rounded-t-3xl border-b-0 bg-primary-900 sm:m-2 sm:mt-8 sm:rounded-b-3xl", className)}
       {...restProps}
     >
       <Container asChild>
@@ -45,8 +45,8 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
           <div className="flex justify-between gap-40 pt-40">
             <div>
               <SiteLogo show="mark" />
-              <SiteLogo show="text" className="mt-2" />
-              <Paragraph>
+              <SiteLogo show="text" light className="mt-2" />
+              <Paragraph className="mt-8 text-neutral-900-text">
                 Wirtschaft verstehen. <br />
                 Sozial handeln.
               </Paragraph>
@@ -77,7 +77,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                       <ListContentItem>
                         <ListContent className="mb-4">
                           {programType.programs.map((program) => (
-                            <ListContentItem key={program._id} className="text-neutral-200-text-muted">
+                            <ListContentItem key={program._id} className="text-neutral-900-text-muted">
                               <Link href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}>
                                 {program.name}
                               </Link>
@@ -100,9 +100,9 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
               </List>
             </div>
           </div>
-          <div className="my-4 h-px bg-neutral-400" />
-          <div className="flex items-center gap-4 pb-16">
-            <Label className="mr-auto text-[0.9rem] text-neutral-900/50">
+          <div className="mt-16 h-px bg-neutral-900-text-muted" />
+          <div className="flex items-center gap-4 py-8 text-neutral-900-text">
+            <Label className="mr-auto text-[0.9rem] text-neutral-900-text-muted">
               Copyright © 2024 Emil Molt Akademie. Alle Rechte vorbehalten.
             </Label>
             <Link href="https://instagram.com" target="_blank">
@@ -130,7 +130,7 @@ const List: FC<ListProps> = ({ className, ...restProps }) => {
 type ListHeadingProps = ComponentProps<typeof Heading> & {};
 
 const ListHeading: FC<ListHeadingProps> = ({ className, size = "sm", ...restProps }) => {
-  return <Heading className={cn("", className)} {...restProps} size={size} />;
+  return <Heading className={cn("text-neutral-900-text", className)} {...restProps} size={size} />;
 };
 
 type ListContentProps = ComponentProps<"ul"> & {};
@@ -144,7 +144,7 @@ type ListContentItemProps = ComponentProps<"li"> & {};
 const ListContentItem: FC<ListContentItemProps> = ({ className, ...restProps }) => {
   return (
     <Label asChild>
-      <li className={cn("", className)} {...restProps} />
+      <li className={cn("text-neutral-900-text", className)} {...restProps} />
     </Label>
   );
 };
