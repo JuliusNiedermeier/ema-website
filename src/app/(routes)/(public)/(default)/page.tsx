@@ -15,6 +15,9 @@ import { EducationalProgramTypeCards } from "~/app/_components/blocks/educationa
 import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
 import { EconomyXSocial } from "~/app/_components/blocks/economy-x-social";
 import { CampusCard } from "~/app/_components/blocks/campus-card";
+import { Card } from "~/app/_components/primitives/card";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import Link from "next/link";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -142,7 +145,40 @@ const HomePage: FC = async () => {
 
         <CampusCard className="mt-16" />
 
-        <Label className="my-32 block text-center">Lerne uns kennen (Infoabend & Offene Beratung)</Label>
+        <Card className="mt-32 flex flex-col gap-4 rounded-3xl p-4 sm:flex-row">
+          <Link href="/kontakt" className="group flex-1 p-4 pb-6">
+            <Heading>Lerne uns kennen</Heading>
+            <Paragraph>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae similique excepturi enim obcaecati
+              quos minus, provident, eum dignissimos dicta maiores animi! Possimus omnis deleniti atque recusandae ullam
+              molestiae deserunt vero?
+            </Paragraph>
+            <div className="mt-auto flex items-center gap-4 pt-8">
+              <InteractionBubble animated={false} />
+              <Label>Mehr erfahren</Label>
+            </div>
+          </Link>
+          <Link href="/kontakt" className="group block flex-1">
+            <Card className="flex h-full flex-col bg-primary-100">
+              <Heading size="sm" className="text-primary-100-text-muted">
+                Offene Beratung
+              </Heading>
+              <Heading className="text-primary-100-text">Jeden Mittwoch</Heading>
+              <Paragraph>Komm zu unserer Beratunssprechstunde</Paragraph>
+              <InteractionBubble animated={false} className="mt-auto" />
+            </Card>
+          </Link>
+          <Link href="/kontakt" className="group block flex-1">
+            <Card className="flex h-full flex-col bg-primary-900">
+              <Heading size="sm" className="text-primary-900-text-muted">
+                Infoabend
+              </Heading>
+              <Heading className="text-primary-900-text">Montag, 24. Juli</Heading>
+              <Paragraph className="text-neutral-900-text-muted">Komm zu unserer Beratunssprechstunde</Paragraph>
+              <InteractionBubble animated={false} className="mt-auto bg-neutral-100 text-neutral-100-text" />
+            </Card>
+          </Link>
+        </Card>
 
         <div className="mt-64">
           <div className="mx-auto max-w-[40rem] text-balance text-center">
