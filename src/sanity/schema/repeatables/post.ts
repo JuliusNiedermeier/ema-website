@@ -37,11 +37,11 @@ export const post: SchemaTypeDef = {
           hotspot: true,
         },
         fields: [
-          {
+          defineField({
             name: "alt",
             type: "string",
             title: "Alternative Text",
-          },
+          }),
         ],
       }),
       defineField({
