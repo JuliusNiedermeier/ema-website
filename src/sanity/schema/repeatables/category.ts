@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { SchemaTypeDef } from "../../schema";
+import { SchemaTypeDef } from "..";
 import { TagIcon } from "lucide-react";
 
 export const category: SchemaTypeDef = {

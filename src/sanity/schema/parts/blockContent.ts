@@ -1,5 +1,5 @@
 import { defineType, defineArrayMember } from "sanity";
-import { SchemaTypeDef } from "../../schema";
+import { SchemaTypeDef } from "..";
 
 /**
  * This is the schema type for block content used in the post document type

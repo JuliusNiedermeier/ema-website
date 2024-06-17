@@ -1,5 +1,5 @@
 import { defineType } from "sanity";
-import { SchemaTypeDef } from "../../schema";
+import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
 import { certificateType } from "../parts/certificate";
 import { faqFields } from "../parts/faq-fields";

@@ -1,5 +1,5 @@
 import { defineType } from "sanity";
-import { SchemaTypeDef } from "../../schema";
+import { SchemaTypeDef } from "..";
 
 export const testimonial: SchemaTypeDef = {
   definition: defineType({
