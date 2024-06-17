@@ -39,7 +39,7 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
     }
 
     moveStep(1);
-  }, [currentStepIndex, steps, router]);
+  }, [currentStepIndex, steps.length, formState, router, verifyPath, moveStep]);
 
   return (
     <div className={cn("flex items-center justify-between gap-2", className)} {...restProps}>
