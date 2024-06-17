@@ -110,7 +110,7 @@ const HomePage: FC = async () => {
           </Paragraph>
         </div>
 
-        <Container width="narrow" className="mt-32">
+        <Container width="narrow" className="mt-32 !max-w-[60rem]">
           <LatestPosts />
         </Container>
       </Container>
