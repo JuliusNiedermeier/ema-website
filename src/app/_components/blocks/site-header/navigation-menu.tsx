@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, FC, ReactNode, createContext, useContext, useState } from "react";
+import { ComponentProps, FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { cn } from "~/app/_utils/cn";
 import {
   NavigationMenu as Menu,
@@ -19,11 +19,10 @@ export { NavigationMenuIndicator, NavigationMenuList, NavigationMenuViewport } f
 // Navigation Menu
 
 type NavigationMenuContext = {
-  activeMenu: string | null;
-  // setOpen: Dispatch<SetStateAction<boolean>>;
+  activeMenu: string;
 };
 
-const NavigationMenuContext = createContext<NavigationMenuContext>({ activeMenu: null });
+const NavigationMenuContext = createContext<NavigationMenuContext>({ activeMenu: "" });
 
 export const useNavigationMenu = () => {
   const context = useContext(NavigationMenuContext);
@@ -34,10 +33,13 @@ export const useNavigationMenu = () => {
 export type NavigationMenuProps = ComponentProps<typeof Menu> & {};
 
 export const NavigationMenu: FC<NavigationMenuProps> = ({ children, ...restProps }) => {
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState<string>("");
+  const pathname = usePathname();
+
+  useEffect(() => setValue(""), [pathname, setValue]);
 
   return (
-    <Menu onValueChange={setValue} {...restProps}>
+    <Menu value={value} onValueChange={setValue} {...restProps}>
       <NavigationMenuContext.Provider value={{ activeMenu: value }}>{children}</NavigationMenuContext.Provider>
     </Menu>
   );
