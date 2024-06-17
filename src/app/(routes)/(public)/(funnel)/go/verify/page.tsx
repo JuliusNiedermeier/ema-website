@@ -18,10 +18,9 @@ import { sanity } from "~/sanity/lib/client";
 import { GoVerifyQueryResult } from "../../../../../../../generated/sanity/types";
 import { restartApplicationProcess } from "~/server/resources/application/actions/restart-application-process";
 
-const goVerifyQuery = groq`*[_type == "education" && _id == $ID][0]{
-  title,
-  variant,
-  educationPath->{title},
+const goVerifyQuery = groq`*[_type == "educational-program" && _id == $ID][0]{
+  name,
+  educationalProgramType -> { name },
 }`;
 
 const StaticWrapper: FC<PropsWithChildren> = ({ children }) => {
@@ -93,9 +92,7 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
   if (application.emailVerified) {
     const programDetails = await sanity.fetch<GoVerifyQueryResult>(goVerifyQuery, { ID: application.programID });
 
-    const programNameParts = [programDetails?.educationPath?.title, programDetails?.title];
-    if (programDetails?.variant) programNameParts.push(`(${programDetails.variant})`);
-    const programName = programNameParts.join(" ");
+    const programName = `${programDetails?.educationalProgramType?.name} ${programDetails?.name}`;
 
     const hasAppliedRecently = Date.now() - application.createdAt.valueOf() < 1000 * 60 * 60 * 24 * 3;
 

@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { ProgramsQueryResult } from "../../../../../../generated/sanity/types";
+import { GoPageEducationalProgramsQueryResult } from "../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import { ApplicationFormCarousel } from "~/app/_components/compounds/application-form/application-form-carousel";
 import { ApplicationFormNavigation } from "~/app/_components/compounds/application-form/application-form-navigation";
@@ -11,31 +11,28 @@ import { GoLayoutFooter, GoLayoutHeader } from "./_layout-components";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "~/server/resources/application/application-cookie";
 import { redirect } from "next/navigation";
+import { ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programsQuery = groq`*[_type == "education"] | order(order asc){
+const goPageEducationalProgramsQuery = groq`*[_type == "educational-program"]{
   ...,
-  educationPath->
+  educationalProgramType->
 }`;
 
 const GoPage: FC = async () => {
   if (cookies().has(applicationCookieName)) redirect("/go/verify");
 
-  const programs = await sanity.fetch<ProgramsQueryResult>(programsQuery, {});
+  const programs = await sanity.fetch<GoPageEducationalProgramsQueryResult>(goPageEducationalProgramsQuery, {});
 
   const formattedPrograms = programs
-    .filter((program) => program.educationPath)
+    .filter((program) => program.educationalProgramType)
     .map<ComponentProps<typeof ApplicationFormProvider>["programs"][number]>((program) => ({
       ID: program._id,
-      name: program.title || "Untitled",
+      name: program.name || "Untitled",
       programType: {
-        ID: program.educationPath!._id,
-        name: program.educationPath!.title || "Untitled",
+        ID: program.educationalProgramType!._id,
+        name: program.educationalProgramType!.name || "Untitled",
       },
-      variant: program.variant,
-      colors: {
-        primary: program.colors?.primary || "var(--neutral-300)",
-        secondary: program.colors?.darker || "var(--neutral-400)",
-      },
+      hslColor: ensureValidHSL(program.educationalProgramType?.color?.hsl),
     }));
 
   return (

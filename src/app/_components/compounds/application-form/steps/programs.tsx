@@ -8,13 +8,15 @@ import { CheckIcon } from "lucide-react";
 import { FormStepComponent } from "../application-form-provider";
 import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
 import { Card } from "~/app/_components/primitives/card";
+import { ColorValue } from "@sanity/color-input";
+import { HSLValue, createHSLString } from "~/app/_utils/color-swatch";
 
 export type ProgramsStepProps = {
   programs: {
     ID: string;
     name: string;
     programType: { ID: string; name: string };
-    colors: { primary: string; secondary: string };
+    hslColor: HSLValue;
     variant?: string;
   }[];
 };
@@ -31,9 +33,7 @@ export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ programs })
             <Card
               key={index}
               className={cn("flex h-full items-center gap-4 overflow-hidden p-6 text-left")}
-              style={{
-                backgroundColor: program.colors?.primary,
-              }}
+              style={{ backgroundColor: `hsl(${createHSLString(program.hslColor)})` }}
             >
               <div className="flex-1">
                 <Label>{program.programType.name}</Label>
