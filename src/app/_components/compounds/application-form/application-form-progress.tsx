@@ -11,7 +11,7 @@ import {
   StepList,
 } from "../../primitives/step-list";
 import { cn } from "~/app/_utils/cn";
-import { Label, Paragraph } from "../../primitives/typography";
+import { Label } from "../../primitives/typography";
 import { useApplicationForm } from "./application-form-provider";
 
 export type ApplicationFormProgressProps = ComponentProps<"div"> & {};
@@ -34,7 +34,6 @@ export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({ clas
           <StepContent>
             <StepContentStepNumber>Schritt {index + 1}</StepContentStepNumber>
             <Label>{step.ID}</Label>
-            <Paragraph className="m-0 max-w-96 overflow-hidden text-ellipsis whitespace-nowrap">John Doe</Paragraph>
             <StepContentStatus>{step.complete ? "Abgeschlossen" : "Ausstehend"}</StepContentStatus>
           </StepContent>
         </Step>
