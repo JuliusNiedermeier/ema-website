@@ -10,7 +10,7 @@ import { groq } from "next-sanity";
 import {
   OffersGridProgramTypesQueryResult,
   OffersGridProgramsQueryResult,
-} from "../../../../../generated/sanity/types";
+} from "../../../../../../generated/sanity/types";
 import { sanity } from "~/sanity/lib/client";
 import Image from "next/image";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
@@ -24,7 +24,7 @@ const offersGridProgramsQuery = groq`*[_type == "educational-program"]{
   educationalProgramType->{ _id }
 }`;
 
-export type OffersMenuProps = ComponentProps<typeof Container> & {};
+export type OffersMenuProps = ComponentProps<"div"> & {};
 
 export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps }) => {
   const programTypes = await sanity.fetch<OffersGridProgramTypesQueryResult>(offersGridProgramTypesQuery);
@@ -36,11 +36,8 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
   }));
 
   return (
-    <div className="max-h-[70vh] overflow-y-auto overflow-x-hidden">
-      <Container
-        className={cn("flex h-min flex-col-reverse gap-4 py-4 sm:items-stretch xl:flex-row", className)}
-        {...restProps}
-      >
+    <div className={cn(className)} {...restProps}>
+      <Container className={cn("flex h-min flex-col-reverse gap-4 py-4 sm:items-stretch xl:flex-row")}>
         <Card
           className="flex w-full flex-col justify-end rounded-3xl bg-primary-900 p-2 text-neutral-900-text xl:max-w-96"
           data-animate
@@ -99,25 +96,6 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="sm:hidden">
-          <div className="text-right">
-            <Link href="/">
-              <Heading size="lg" tag="h3" data-animate className="!duration-300">
-                Home
-              </Heading>
-            </Link>
-            <Link href="/blog">
-              <Heading size="lg" tag="h3" data-animate className="!duration-150">
-                Blog
-              </Heading>
-            </Link>
-          </div>
-          <div className="my-8 h-px bg-neutral-400"></div>
-          <Heading size="lg" tag="h3" data-animate className="!duration-100">
-            Bildungswege
-          </Heading>
         </div>
       </Container>
     </div>

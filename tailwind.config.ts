@@ -140,6 +140,8 @@ const config = {
       enterFromLeft: "enterFromLeft 250ms ease",
       exitToRight: "exitToRight 250ms ease",
       exitToLeft: "exitToLeft 250ms ease",
+      expandDown: "revealDown 250ms ease",
+      contractUp: "contractUp 250ms ease",
     },
     keyframes: {
       enterFromRight: {
@@ -157,6 +159,14 @@ const config = {
       exitToLeft: {
         from: { opacity: "1", transform: "translateX(0)" },
         to: { opacity: "0", transform: "translateX(-200px)" },
+      },
+      expandDown: {
+        from: { height: "0" },
+        to: { hieght: "var(--radix-navigation-menu-viewport-height)" },
+      },
+      contractUp: {
+        from: { hieght: "var(--radix-navigation-menu-viewport-height)" },
+        to: { height: "0" },
       },
     },
   },
