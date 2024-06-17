@@ -123,7 +123,7 @@ const HomePage: FC = async () => {
         <Container width="narrow" className="mt-32 flex flex-col items-center text-center">
           <Heading size="sm">Finde heraus was zu dir passt.</Heading>
           <Paragraph className="mt-0">Mit unserem Checkup tool findest du den richtigen Weg für Dich.</Paragraph>
-          <Button vairant="filled" className="mt-8">
+          <Button vairant="filled" className="mt-8" href="/checkup">
             <Label>Mache den Checkup</Label>
             <ButtonInteractionBubble />
           </Button>
