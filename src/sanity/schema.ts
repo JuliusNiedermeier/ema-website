@@ -1,16 +1,16 @@
 import { type SchemaTypeDefinition } from "sanity";
 
-import { blockContent } from "./schemaTypes/blockContent";
-import { category } from "./schemaTypes/category";
-import { post } from "./schemaTypes/post";
-import { author } from "./schemaTypes/author";
-import { homePage } from "./schemaTypes/home-page";
-import { educationPath } from "./schemaTypes/education-path";
-import { education } from "./schemaTypes/education";
-import { testimonial } from "./schemaTypes/testimonial";
-import { educationalProgramType } from "./schemaTypes/educational-program-type";
-import { educationalProgram } from "./schemaTypes/educational-program";
-import { campusPage } from "./schemaTypes/campus-page";
+import { blockContent } from "./schema/parts/blockContent";
+import { category } from "./schema/repeatables/category";
+import { post } from "./schema/repeatables/post";
+import { author } from "./schema/repeatables/author";
+import { homePage } from "./schema/singletons/home-page";
+import { educationPath } from "./schema/repeatables/education-path";
+import { education } from "./schema/repeatables/education";
+import { testimonial } from "./schema/repeatables/testimonial";
+import { educationalProgramType } from "./schema/repeatables/educational-program-type";
+import { educationalProgram } from "./schema/repeatables/educational-program";
+import { campusPage } from "./schema/singletons/campus-page";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 

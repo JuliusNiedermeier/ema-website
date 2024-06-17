@@ -1,5 +1,5 @@
 import { defineType } from "sanity";
-import { SchemaTypeDef } from "../schema";
+import { SchemaTypeDef } from "../../schema";
 import { GraduationCapIcon } from "lucide-react";
 
 export const education: SchemaTypeDef = {

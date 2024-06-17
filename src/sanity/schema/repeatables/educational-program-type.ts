@@ -1,8 +1,8 @@
 import { defineType } from "sanity";
-import { SchemaTypeDef } from "../schema";
+import { SchemaTypeDef } from "../../schema";
 import { RouteIcon } from "lucide-react";
-import { certificateType } from "./parts/certificate";
-import { faqFields } from "./parts/faq-fields";
+import { certificateType } from "../parts/certificate";
+import { faqFields } from "../parts/faq-fields";
 
 export const educationalProgramType: SchemaTypeDef = {
   definition: defineType({
