@@ -5,12 +5,10 @@ import { category } from "./schema/repeatables/category";
 import { post } from "./schema/repeatables/post";
 import { author } from "./schema/repeatables/author";
 import { homePage } from "./schema/singletons/home-page";
-import { educationPath } from "./schema/repeatables/education-path";
-import { education } from "./schema/repeatables/education";
-import { testimonial } from "./schema/repeatables/testimonial";
 import { educationalProgramType } from "./schema/repeatables/educational-program-type";
 import { educationalProgram } from "./schema/repeatables/educational-program";
 import { campusPage } from "./schema/singletons/campus-page";
+import { testimonial } from "./schema/repeatables/testimonial";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
@@ -20,8 +18,6 @@ const types = [
   category,
   blockContent,
   homePage,
-  educationPath,
-  education,
   testimonial,
   educationalProgramType,
   educationalProgram,
