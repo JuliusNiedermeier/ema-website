@@ -1,13 +1,13 @@
 "use client";
 
 import { Heading, Label } from "~/app/_components/primitives/typography";
-import { OfferCard } from "~/app/_components/primitives/offers/offers";
 import { cn } from "~/app/_utils/cn";
 import { useApplicationFormState } from "../state";
 import { StepIcon } from "~/app/_components/primitives/step-list";
 import { CheckIcon } from "lucide-react";
 import { FormStepComponent } from "../application-form-provider";
 import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
+import { Card } from "~/app/_components/primitives/card";
 
 export type ProgramsStepProps = {
   programs: {
@@ -28,9 +28,9 @@ export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ programs })
       <div className="mt-16 flex flex-col gap-4">
         {programs.map((program, index) => (
           <button key={index} onClick={() => setProgram(selectedProgram === program.ID ? null : program.ID)}>
-            <OfferCard
+            <Card
               key={index}
-              className={cn("flex h-full items-center gap-4 overflow-hidden text-left")}
+              className={cn("flex h-full items-center gap-4 overflow-hidden p-6 text-left")}
               style={{
                 backgroundColor: program.colors?.primary,
               }}
@@ -48,7 +48,7 @@ export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ programs })
               >
                 <CheckIcon />
               </StepIcon>
-            </OfferCard>
+            </Card>
           </button>
         ))}
       </div>
