@@ -5,13 +5,13 @@ import { TagIcon } from "lucide-react";
 export const category: SchemaTypeDef = {
   definition: defineType({
     name: "category",
-    title: "Category",
+    title: "Kategorie",
     icon: TagIcon,
     type: "document",
     fields: [
       defineField({
         name: "title",
-        title: "Title",
+        title: "Name",
         type: "string",
       }),
     ],

@@ -7,10 +7,10 @@ export const testimonial: SchemaTypeDef = {
     title: "Testimonial",
     type: "document",
     fields: [
-      defineField({ name: "stars", title: "Stars", type: "number" }),
-      defineField({ name: "testimonial", title: "Testimonial", type: "text" }),
-      defineField({ name: "authorImage", title: "Author image", type: "image" }),
-      defineField({ name: "authorName", title: "Author name", type: "string" }),
+      defineField({ name: "stars", title: "Sternebewertung", type: "number" }),
+      defineField({ name: "testimonial", title: "Zitat", type: "text" }),
+      defineField({ name: "authorImage", title: "Bild des Autors", type: "image" }),
+      defineField({ name: "authorName", title: "Name des Authors", type: "string" }),
     ],
   }),
 };

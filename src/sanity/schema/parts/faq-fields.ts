@@ -1,18 +1,18 @@
-import { SchemaTypeDefinition } from "sanity";
+import { SchemaTypeDefinition, defineArrayMember, defineField } from "sanity";
 
 export const faqFields = {
   name: "items",
-  title: "Questions",
+  title: "Fragen",
   type: "array",
   of: [
-    {
+    defineArrayMember({
       name: "item",
-      title: "Question",
+      title: "Frage",
       type: "object",
       fields: [
-        { name: "question", title: "Question", type: "string" },
-        { name: "answer", title: "Answer", type: "text" },
+        defineField({ name: "question", title: "Frage", type: "string" }),
+        defineField({ name: "answer", title: "Antwort", type: "text" }),
       ],
-    },
+    }),
   ],
 } satisfies SchemaTypeDefinition;

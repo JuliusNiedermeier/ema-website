@@ -7,7 +7,7 @@ import { faqFields } from "../parts/faq-fields";
 export const educationalProgram: SchemaTypeDef = {
   definition: defineType({
     name: "educational-program",
-    title: "Educational program",
+    title: "Bildungsangebot",
     type: "document",
     icon: GraduationCapIcon,
     fields: [
@@ -19,7 +19,7 @@ export const educationalProgram: SchemaTypeDef = {
       }),
       defineField({
         name: "slug",
-        title: "Slug",
+        title: "URL Text",
         type: "slug",
         options: {
           source: "name",
@@ -29,20 +29,20 @@ export const educationalProgram: SchemaTypeDef = {
       }),
       defineField({
         name: "educationalProgramType",
-        title: "Educational program type",
+        title: "Bildungsweg",
         type: "reference",
         to: { type: "educational-program-type" },
         // validation: (r) => r.required(),
       }),
       defineField({
         name: "promotionalHeadline",
-        title: "Promotional headline",
+        title: "Bildungsangebot Slogan",
         type: "string",
         // validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
         name: "introduction",
-        title: "Introduction",
+        title: "Einleitung",
         type: "text",
         // validation: (r) => r.required().min(50).max(300),
       }),
@@ -58,13 +58,13 @@ export const educationalProgram: SchemaTypeDef = {
             fields: [
               defineField({
                 name: "heading",
-                title: "Heading",
+                title: "Überschrift",
                 type: "string",
                 // validation: (r) => r.required().min(5).max(20),
               }),
               defineField({
                 name: "content",
-                title: "Content",
+                title: "Beschreibung",
                 type: "text",
                 // validation: (r) => r.required().min(20).max(40),
               }),
@@ -76,62 +76,62 @@ export const educationalProgram: SchemaTypeDef = {
       certificateType,
       defineField({
         name: "programDetails",
-        title: "Program details",
+        title: "Daten",
         type: "object",
         fields: [
           defineField({
             name: "durationHeading",
-            title: "Duration heading",
+            title: "Gesamtdauer Überschrift",
             type: "string",
           }),
           defineField({
+            name: "totalDuration",
+            title: "Gesamtdauer",
+            type: "string",
+            // validation: (r) => r.required().min(5).max(20),
+          }),
+          defineField({
             name: "type",
-            title: "Type",
+            title: "Ausbildungsart",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
           defineField({
             name: "lessonTimesHeading",
-            title: "Lesson times heading",
+            title: "Unterrichtszeiten Überschrift",
             type: "string",
           }),
           defineField({
             name: "startTime",
-            title: "Start time",
+            title: "Unterrichtsbeginn",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
           defineField({
             name: "endTime",
-            title: "End time",
+            title: "Unterrichtsschluss",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
           defineField({
             name: "startDateHeading",
-            title: "Start date heading",
+            title: "Ausbildungsbeginn Überschrift",
             type: "string",
           }),
           defineField({
             name: "startDate",
-            title: "Start date",
+            title: "Ausbildungsbeginn",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
           defineField({
             name: "holidaysHeading",
-            title: "Holidays heading",
+            title: "Ferien Überschrift",
             type: "string",
           }),
           defineField({
             name: "holidays",
-            title: "Holidays",
-            type: "string",
-            // validation: (r) => r.required().min(5).max(20),
-          }),
-          defineField({
-            name: "totalDuration",
-            title: "Total duration",
+            title: "Ferien",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
@@ -139,56 +139,56 @@ export const educationalProgram: SchemaTypeDef = {
       }),
       defineField({
         name: "gallery",
-        title: "Gallery",
+        title: "Gallerie",
         type: "array",
         of: [
           defineArrayMember({
             name: "gallery-item",
-            title: "Galler item",
+            title: "Gallerie Eintrag",
             type: "object",
             fields: [
-              defineField({ name: "image", title: "Image", type: "image" }),
-              defineField({ name: "heading", title: "Heading", type: "string" }),
-              defineField({ name: "content", title: "Content", type: "text" }),
+              defineField({ name: "image", title: "Bild", type: "image" }),
+              defineField({ name: "heading", title: "Überschrift", type: "string" }),
+              defineField({ name: "content", title: "Inhalt", type: "text" }),
             ],
           }),
         ],
       }),
       defineField({
         name: "prerequisites",
-        title: "Prerequisites",
+        title: "Voraussetzungen",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
             // validation: (r) => r.required().min(5).max(20),
           }),
           defineField({
             name: "description",
-            title: "Description",
+            title: "Schriftliche Beschreibung der Grundvoraussetzungen",
             type: "text",
             // validation: (r) => r.required().min(50).max(300),
           }),
           defineField({
             name: "groups",
-            title: "Groups",
+            title: "Gruppen",
             type: "array",
             of: [
               defineArrayMember({
                 name: "group",
-                title: "Group",
+                title: "Gruppe",
                 type: "object",
                 fields: [
                   defineField({
                     name: "items",
-                    title: "Items",
+                    title: "Voraussetzungen",
                     type: "array",
                     of: [
                       defineArrayMember({
                         name: "item",
-                        title: "Item",
+                        title: "Voraussetzung",
                         type: "string",
                         // validation: (r) => r.required().min(5).max(20),
                       }),
@@ -204,22 +204,22 @@ export const educationalProgram: SchemaTypeDef = {
       }),
       defineField({
         name: "subjects",
-        title: "Subjects",
+        title: "Fächer",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "description",
-            title: "Description",
+            title: "Beschreibung",
             type: "text",
           }),
           defineField({
             name: "examSubjectsHeading",
-            title: "Exam subjects heading",
+            title: "Prüfungsfächer Überschrift",
             type: "string",
           }),
           defineField({
@@ -229,18 +229,18 @@ export const educationalProgram: SchemaTypeDef = {
             of: [
               defineArrayMember({
                 name: "subject",
-                title: "Subject",
+                title: "Fach",
                 type: "object",
                 fields: [
                   defineField({
                     name: "name",
-                    title: "Name",
+                    title: "Bezeichnung",
                     type: "string",
                     // validation: (r) => r.required().min(5).max(20),
                   }),
                   defineField({
                     name: "isExamSubject",
-                    title: "Is exam subject",
+                    title: "Ist dies ein Prüfungsfach?",
                     type: "boolean",
                   }),
                 ],
@@ -257,29 +257,29 @@ export const educationalProgram: SchemaTypeDef = {
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "subheading",
-            title: "Subheading",
+            title: "Beschreibung",
             type: "text",
           }),
         ],
       }),
       defineField({
         name: "FAQs",
-        title: "FAQs",
+        title: "Häufig gestellte Fragen",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "subheading",
-            title: "Subheading",
+            title: "Beschreibung",
             type: "text",
           }),
           faqFields,

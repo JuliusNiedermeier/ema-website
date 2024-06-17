@@ -6,7 +6,7 @@ export const campusPage: SchemaTypeDef = {
   singleton: true,
   definition: defineType({
     name: "campus-page",
-    title: "Campus page",
+    title: "Campus",
     type: "document",
     icon: MapPinIcon,
     groups: [
@@ -22,31 +22,31 @@ export const campusPage: SchemaTypeDef = {
     fields: [
       defineField({
         name: "heading",
-        title: "Heading",
+        title: "Überschrift",
         type: "string",
         group: "campus",
       }),
       defineField({
         name: "previewText",
-        title: "Preview text",
+        title: "Auszug",
         type: "text",
         group: "campus",
       }),
       defineField({
         name: "heroImage",
-        title: "Hero image",
+        title: "Hauptbild",
         type: "image",
         group: "campus",
       }),
       defineField({
         name: "images",
-        title: "Images",
+        title: "Weitere Bilder",
         type: "array",
         group: "campus",
         of: [
           defineArrayMember({
             name: "image-item",
-            title: "Image",
+            title: "Bild",
             type: "image",
           }),
         ],
@@ -59,7 +59,7 @@ export const campusPage: SchemaTypeDef = {
         of: [
           defineArrayMember({
             name: "team-member",
-            title: "Team member",
+            title: "Teammitglied",
             type: "object",
             fields: [
               defineField({
@@ -69,7 +69,7 @@ export const campusPage: SchemaTypeDef = {
               }),
               defineField({
                 name: "image",
-                title: "Image",
+                title: "Bild",
                 type: "image",
               }),
             ],

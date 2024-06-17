@@ -6,7 +6,7 @@ export const homePage: SchemaTypeDef = {
   singleton: true,
   definition: defineType({
     name: "home-page",
-    title: "Home page",
+    title: "Startseite",
     type: "document",
     icon: HomeIcon,
     groups: [
@@ -18,14 +18,14 @@ export const homePage: SchemaTypeDef = {
     fields: [
       defineField({
         name: "heading",
-        title: "Main heading",
+        title: "Überschrift",
         type: "string",
         group: "hero",
         validation: (r) => r.required().min(20).max(60),
       }),
       defineField({
         name: "description",
-        title: "Description",
+        title: "Slogan",
         type: "text",
         group: "hero",
         validation: (r) => r.required().min(50).max(200),
@@ -39,7 +39,7 @@ export const homePage: SchemaTypeDef = {
       }),
       defineField({
         name: "partners",
-        title: "Partners",
+        title: "Partner",
         type: "array",
         group: "hero",
         of: [
@@ -56,40 +56,45 @@ export const homePage: SchemaTypeDef = {
       }),
       defineField({
         name: "artEducation",
-        title: "Art education",
+        title: "Kunstabschnitt",
         type: "object",
         fields: [
           defineField({
             name: "backgroundImage",
-            title: "Background image",
+            title: "Hintergrundbild",
             type: "image",
             validation: (r) => r.required(),
           }),
-          defineField({ name: "leftImage", title: "Left image", type: "image", validation: (r) => r.required() }),
-          defineField({ name: "rightImage", title: "Right image", type: "image", validation: (r) => r.required() }),
-          defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
-          defineField({ name: "body", title: "Body", type: "string", validation: (r) => r.required() }),
-          defineField({ name: "actionLabel", title: "Action label", type: "string", validation: (r) => r.required() }),
+          defineField({ name: "leftImage", title: "Bild links", type: "image", validation: (r) => r.required() }),
+          defineField({ name: "rightImage", title: "Bild rechts", type: "image", validation: (r) => r.required() }),
+          defineField({ name: "title", title: "Überschrift", type: "string", validation: (r) => r.required() }),
+          defineField({ name: "body", title: "Beschreibung", type: "string", validation: (r) => r.required() }),
+          defineField({
+            name: "actionLabel",
+            title: "Aktionsaufforderung",
+            type: "string",
+            validation: (r) => r.required(),
+          }),
         ],
       }),
       defineField({
         name: "faq",
-        title: "Frequently asked questions",
+        title: "Häufig gestellte Fragen Abschnitt",
         type: "object",
         fields: [
-          defineField({ name: "heading", title: "Heading", type: "string", validation: (r) => r.required() }),
+          defineField({ name: "heading", title: "Überschrift", type: "string", validation: (r) => r.required() }),
           defineField({
             name: "items",
-            title: "Questions",
+            title: "Fragen",
             type: "array",
             of: [
               defineArrayMember({
                 name: "item",
-                title: "Question",
+                title: "Frage",
                 type: "object",
                 fields: [
-                  defineField({ name: "question", title: "Question", type: "string" }),
-                  defineField({ name: "answer", title: "Answer", type: "text" }),
+                  defineField({ name: "question", title: "Frage", type: "string" }),
+                  defineField({ name: "answer", title: "Antwort", type: "text" }),
                 ],
               }),
             ],

@@ -5,7 +5,7 @@ import { UserIcon } from "lucide-react";
 export const author: SchemaTypeDef = {
   definition: defineType({
     name: "author",
-    title: "Author",
+    title: "Autor",
     type: "document",
     icon: UserIcon,
     fields: [
@@ -16,7 +16,7 @@ export const author: SchemaTypeDef = {
       }),
       defineField({
         name: "image",
-        title: "Image",
+        title: "Bild",
         type: "image",
         options: {
           hotspot: true,

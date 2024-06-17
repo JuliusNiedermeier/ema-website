@@ -5,18 +5,18 @@ import { PenLineIcon } from "lucide-react";
 export const post: SchemaTypeDef = {
   definition: defineType({
     name: "post",
-    title: "Post",
+    title: "Blogbeitrag",
     type: "document",
     icon: PenLineIcon,
     fields: [
       defineField({
         name: "title",
-        title: "Title",
+        title: "Titel",
         type: "string",
       }),
       defineField({
         name: "slug",
-        title: "Slug",
+        title: "URL Text",
         type: "slug",
         options: {
           source: "title",
@@ -25,20 +25,20 @@ export const post: SchemaTypeDef = {
       }),
       defineField({
         name: "author",
-        title: "Author",
+        title: "Autor",
         type: "reference",
         to: { type: "author" },
       }),
       defineField({
         name: "mainImage",
-        title: "Main image",
+        title: "Thumbnail",
         type: "image",
         options: {
           hotspot: true,
         },
         fields: [
           defineField({
-            name: "alt",
+            name: "Bildname",
             type: "string",
             title: "Alternative Text",
           }),
@@ -46,23 +46,23 @@ export const post: SchemaTypeDef = {
       }),
       defineField({
         name: "category",
-        title: "Category",
+        title: "Kategorie",
         type: "reference",
         to: { type: "category" },
       }),
       defineField({
         name: "publishedAt",
-        title: "Published at",
+        title: "Veröffentlichungsdatum",
         type: "datetime",
       }),
       defineField({
         name: "excerpt",
-        title: "Excerpt",
+        title: "Auszug",
         type: "text",
       }),
       defineField({
         name: "body",
-        title: "Body",
+        title: "Inhalt",
         type: "blockContent",
       }),
     ],

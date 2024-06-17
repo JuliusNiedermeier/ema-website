@@ -7,7 +7,7 @@ import { faqFields } from "../parts/faq-fields";
 export const educationalProgramType: SchemaTypeDef = {
   definition: defineType({
     name: "educational-program-type",
-    title: "Educational program type",
+    title: "Bildungsweg",
     type: "document",
     icon: RouteIcon,
     fields: [
@@ -19,7 +19,7 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "slug",
-        title: "Slug",
+        title: "URL Text",
         type: "slug",
         options: {
           source: "name",
@@ -29,64 +29,64 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "color",
-        title: "Color",
+        title: "Farbe",
         type: "color",
         options: { disableAlpha: true },
         validation: (r) => r.required(),
       }),
       defineField({
         name: "promotionalHeadline",
-        title: "Promotional headline",
+        title: "Bildungsweg Slogan",
         type: "string",
         validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
         name: "introduction",
-        title: "Introduction",
+        title: "Einleitung",
         type: "text",
         // validation: (r) => r.required().min(50).max(300),
       }),
       certificateType,
       defineField({
         name: "educationalPrograms",
-        title: "Educational programs",
+        title: "Abschitt Bildungsangebote",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "description",
-            title: "Description",
+            title: "Beschreibung",
             type: "text",
           }),
         ],
       }),
       defineField({
         name: "followUpTrainingEnabled",
-        title: "Show follow-up training",
+        title: "Gibt es einen logischen Folgebildungsweg?",
         type: "boolean",
       }),
       defineField({
         name: "followUpTraining",
-        title: "Follow-up training",
+        title: "Folgebildungsweg",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "description",
-            title: "Description",
+            title: "Beschreibung",
             type: "text",
           }),
           defineField({
             name: "educationalProgramType",
-            title: "Educational program type",
+            title: "Bildungsweg",
             type: "reference",
             to: { type: "educational-program-type" },
           }),
@@ -95,12 +95,12 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "faq",
-        description: "Frequently asked questions",
+        description: "Häufig gestellte Fragen",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           faqFields,
@@ -108,17 +108,17 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "alternatives",
-        title: "Alternative educational program types",
+        title: "Alternative Bildungswege",
         type: "object",
         fields: [
           defineField({
             name: "heading",
-            title: "Heading",
+            title: "Überschrift",
             type: "string",
           }),
           defineField({
             name: "description",
-            title: "Description",
+            title: "Beschreibung",
             type: "text",
           }),
         ],
