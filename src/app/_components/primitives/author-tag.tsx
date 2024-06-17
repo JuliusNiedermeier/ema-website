@@ -11,11 +11,18 @@ export const AuthorTag: FC<AuthorTagProps> = ({ className, ...restProps }) => {
 
 export type AuthorTagImageProps = ComponentProps<typeof Image> & {};
 
-export const AuthorTagImage: FC<AuthorTagImageProps> = ({ className, width = 100, height = 100, ...restProps }) => {
+export const AuthorTagImage: FC<AuthorTagImageProps> = ({
+  className,
+  width = 100,
+  height = 100,
+  alt,
+  ...restProps
+}) => {
   return (
     <Image
       width={width}
       height={height}
+      alt={alt} // Cannot be included in restProps and must be passed explicitly to prevent ESLint missing alt tag warning
       className={cn("h-6 w-6 rounded-full object-cover", className)}
       {...restProps}
     />
