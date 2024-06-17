@@ -3,12 +3,12 @@ import { cn } from "~/app/_utils/cn";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { sanity } from "~/sanity/lib/client";
 import { groq } from "next-sanity";
-import { CampusCardQueryResult } from "../../../../generated/sanity/types";
+import { CampusCardLegacyQueryResult } from "../../../../generated/sanity/types";
 import { Card } from "../primitives/card";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
 
-const campusCardQuery = groq`*[_type == "campus-page"][0] {
+const campusCardLegacyQuery = groq`*[_type == "campus-page"][0] {
     ...,
     heroImage { asset -> { url } },
     images[] { asset -> { url } },
@@ -21,7 +21,7 @@ const campusCardQuery = groq`*[_type == "campus-page"][0] {
 export type CampusCardProps = ComponentProps<"div"> & {};
 
 export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps }) => {
-  const data = await sanity.fetch<CampusCardQueryResult>(campusCardQuery);
+  const data = await sanity.fetch<CampusCardLegacyQueryResult>(campusCardLegacyQuery);
 
   return (
     <div
