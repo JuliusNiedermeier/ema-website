@@ -11,6 +11,7 @@ import {
   VideoIcon,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { ComponentProps, FC } from "react";
 import { InfoEveningEventList } from "~/app/_components/blocks/info-evening-event-list";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
@@ -30,7 +31,7 @@ const sectionLinks: SectionLink[] = [
   { ID: "infoabend", icon: UsersIcon, name: "Infoabend" },
   { ID: "beratung", icon: InfoIcon, name: "Offene Beratung" },
   { ID: "gespräch", icon: CalendarCheckIcon, name: "Persönliches Gespräch" },
-  { ID: "telefon", icon: AtSignIcon, name: "Per Mail oder Telefon" },
+  { ID: "direkt", icon: AtSignIcon, name: "Per Mail oder Telefon" },
 ];
 
 const ContactPage: FC = () => {
@@ -42,11 +43,13 @@ const ContactPage: FC = () => {
             <Heading>Viele Wege führen zu uns.</Heading>
             <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-4">
               {sectionLinks.map((sectionLink) => (
-                <Card key={sectionLink.ID} className="flex items-center gap-4 bg-primary-100 p-4">
-                  <div className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-primary-900 text-primary-100">
-                    <sectionLink.icon size="18" />
-                  </div>
-                  <Label>{sectionLink.name}</Label>
+                <Card key={sectionLink.ID} className="flex items-center gap-4 bg-primary-100 p-4" asChild>
+                  <Link href={`/kontakt#${sectionLink.ID}`}>
+                    <div className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-primary-900 text-primary-100">
+                      <sectionLink.icon size="18" />
+                    </div>
+                    <Label>{sectionLink.name}</Label>
+                  </Link>
                 </Card>
               ))}
             </div>
@@ -67,7 +70,7 @@ const ContactPage: FC = () => {
         </Container>
       </div>
 
-      <Container className="flex flex-col gap-16 py-32 sm:flex-row">
+      <Container id="infoabend" className="flex flex-col gap-16 py-32 sm:flex-row">
         <div className="flex-1">
           <SectionIndicator name="Infoabend" icon={UsersIcon} />
           <Heading className="mt-8">Lerne uns bei unserem Infoabend am 24. Juli kennen.</Heading>
@@ -79,7 +82,7 @@ const ContactPage: FC = () => {
         <InfoEveningEventList className="flex-1" />
       </Container>
 
-      <div className="bg-primary-900 py-32">
+      <div id="gespräch" className="bg-primary-900 py-32">
         <Container className="flex flex-col gap-16 sm:flex-row">
           <div className="flex-1">
             <SectionIndicator name="Persönliches Gespräch" icon={VideoIcon} on="dark" />
@@ -116,7 +119,7 @@ const ContactPage: FC = () => {
         </Container>
       </div>
 
-      <Container className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32">
+      <Container id="direkt" className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32">
         <div className="flex-1">
           <SectionIndicator name="Mail & Telefon" icon={AtSignIcon} />
           <Heading className="mt-8">{"Schreib' eine Mail oder ruf' uns an."}</Heading>

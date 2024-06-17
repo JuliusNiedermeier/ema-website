@@ -163,7 +163,7 @@ const HomePage: FC = async () => {
               <Label>Mehr erfahren</Label>
             </div>
           </Link>
-          <Link href="/kontakt" className="group block flex-1">
+          <Link href="/kontakt#beratung" className="group block flex-1">
             <Card className="flex h-full flex-col bg-primary-100">
               <Heading size="sm" className="text-primary-100-text-muted">
                 Offene Beratung
@@ -173,7 +173,7 @@ const HomePage: FC = async () => {
               <InteractionBubble animated={false} className="mt-auto" />
             </Card>
           </Link>
-          <Link href="/kontakt" className="group block flex-1">
+          <Link href="/kontakt#infoabend" className="group block flex-1">
             <Card className="flex h-full flex-col bg-primary-900">
               <Heading size="sm" className="text-primary-900-text-muted">
                 Infoabend
