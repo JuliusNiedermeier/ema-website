@@ -21,7 +21,11 @@ const goPageEducationalProgramsQuery = groq`*[_type == "educational-program"]{
 const GoPage: FC = async () => {
   if (cookies().has(applicationCookieName)) redirect("/go/verify");
 
-  const programs = await sanity.fetch<GoPageEducationalProgramsQueryResult>(goPageEducationalProgramsQuery, {});
+  const programs = await sanity.fetch<GoPageEducationalProgramsQueryResult>(
+    goPageEducationalProgramsQuery,
+    {},
+    { next: { tags: ["educational-program", "educational-program-type"] } },
+  );
 
   const formattedPrograms = programs
     .filter((program) => program.educationalProgramType)

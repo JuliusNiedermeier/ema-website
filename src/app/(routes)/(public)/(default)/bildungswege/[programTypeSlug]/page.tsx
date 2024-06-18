@@ -40,7 +40,11 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
 const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug]`;
 
 export const generateStaticParams = async () => {
-  const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(programTypePageSlugsQuery);
+  const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(
+    programTypePageSlugsQuery,
+    {},
+    { next: { tags: ["educational-program-type"] } },
+  );
   const slugs = new Set<string>();
   programTypes.forEach((type) => type.slug?.current && slugs.add(type.slug.current));
   return Array.from(slugs);
@@ -49,20 +53,28 @@ export const generateStaticParams = async () => {
 const EducationalProgramTypePage: FC<{ params: { programTypeSlug: string } }> = async ({
   params: { programTypeSlug },
 }) => {
-  const programTypePromise = sanity.fetch<ProgramTypePageQueryResult>(programTypePageQuery, {
-    slug: decodeURIComponent(programTypeSlug),
-  });
+  const programTypePromise = sanity.fetch<ProgramTypePageQueryResult>(
+    programTypePageQuery,
+    {
+      slug: decodeURIComponent(programTypeSlug),
+    },
+    { next: { tags: ["educational-program-type"] } },
+  );
 
-  const programsPromise = sanity.fetch<ProgramTypePageProgramsQueryResult>(programTypePageProgramsQuery, {
-    programTypeSlug: decodeURIComponent(programTypeSlug),
-  });
+  const programsPromise = sanity.fetch<ProgramTypePageProgramsQueryResult>(
+    programTypePageProgramsQuery,
+    {
+      programTypeSlug: decodeURIComponent(programTypeSlug),
+    },
+    { next: { tags: ["educational-program-type", "educational-program"] } },
+  );
 
   const [programType, programs] = await Promise.all([programTypePromise, programsPromise]);
 
   if (!programType) notFound();
 
   return (
-    <Container className=" pt-16 sm:pt-24" style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
+    <Container className="pt-16 sm:pt-24" style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
       <div className="mx-auto max-w-[40rem] sm:text-center">
         <Heading size="sm">{programType.name}</Heading>
         <Heading>{programType.promotionalHeadline}</Heading>

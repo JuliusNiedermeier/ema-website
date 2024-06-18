@@ -21,7 +21,7 @@ const campusCardQuery = groq`*[_type == "campus-page"][0] {
 export type CampusCardProps = ComponentProps<"div"> & {};
 
 export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps }) => {
-  const data = await sanity.fetch<CampusCardQueryResult>(campusCardQuery);
+  const data = await sanity.fetch<CampusCardQueryResult>(campusCardQuery, {}, { next: { tags: ["campus-page"] } });
 
   return (
     <Card className={cn("group relative overflow-hidden bg-transparent p-0", className)} {...restProps}>

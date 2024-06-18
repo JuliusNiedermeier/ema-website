@@ -29,8 +29,16 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
   className,
   ...restProps
 }) => {
-  const programTypes = await sanity.fetch<ProgramTypePreviewListTypesQueryResult>(programTypePreviewListTypesQuery);
-  const programs = await sanity.fetch<ProgramTypePreviewListProgramsQueryResult>(programTypePreviewListProgramsQuery);
+  const programTypes = await sanity.fetch<ProgramTypePreviewListTypesQueryResult>(
+    programTypePreviewListTypesQuery,
+    {},
+    { next: { tags: ["educational-program-type"] } },
+  );
+  const programs = await sanity.fetch<ProgramTypePreviewListProgramsQueryResult>(
+    programTypePreviewListProgramsQuery,
+    {},
+    { next: { tags: ["educational-program", "educational-program-type"] } },
+  );
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,

@@ -90,7 +90,11 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
   }
 
   if (application.emailVerified) {
-    const programDetails = await sanity.fetch<GoVerifyQueryResult>(goVerifyQuery, { ID: application.programID });
+    const programDetails = await sanity.fetch<GoVerifyQueryResult>(
+      goVerifyQuery,
+      { ID: application.programID },
+      { next: { tags: ["educational-program", "educational-program-type"] } },
+    );
 
     const programName = `${programDetails?.educationalProgramType?.name} ${programDetails?.name}`;
 

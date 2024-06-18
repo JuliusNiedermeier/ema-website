@@ -27,8 +27,16 @@ const footerEducationalProgramsQuery = groq`*[_type == "educational-program"]{
 export type SiteFooterProps = ComponentProps<"div"> & {};
 
 export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps }) => {
-  const programTypes = await sanity.fetch<FooterEducationalProgramTypesQueryResult>(footerEducationalProgramTypesQuery);
-  const programs = await sanity.fetch<FooterEducationalProgramsQueryResult>(footerEducationalProgramsQuery);
+  const programTypes = await sanity.fetch<FooterEducationalProgramTypesQueryResult>(
+    footerEducationalProgramTypesQuery,
+    {},
+    { next: { tags: ["educational-program-type"] } },
+  );
+  const programs = await sanity.fetch<FooterEducationalProgramsQueryResult>(
+    footerEducationalProgramsQuery,
+    {},
+    { next: { tags: ["educational-program"] } },
+  );
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,

@@ -12,7 +12,11 @@ const testimonialsQuery = groq`*[_type == "testimonial"]{
 export type TestimonialCarouselProps = Omit<ComponentProps<typeof TestimonialCarouselCompound>, "testimonials"> & {};
 
 export const TestimonialCarousel: FC<TestimonialCarouselProps> = async ({ ...restProps }) => {
-  const tesimonials = await sanity.fetch<TestimonialsQueryResult>(testimonialsQuery);
+  const tesimonials = await sanity.fetch<TestimonialsQueryResult>(
+    testimonialsQuery,
+    {},
+    { next: { tags: ["testimonial"] } },
+  );
 
   return (
     <TestimonialCarouselCompound

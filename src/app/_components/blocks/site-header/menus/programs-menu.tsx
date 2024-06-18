@@ -27,8 +27,16 @@ const offersGridProgramsQuery = groq`*[_type == "educational-program"]{
 export type OffersMenuProps = ComponentProps<"div"> & {};
 
 export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps }) => {
-  const programTypes = await sanity.fetch<OffersGridProgramTypesQueryResult>(offersGridProgramTypesQuery);
-  const programs = await sanity.fetch<OffersGridProgramsQueryResult>(offersGridProgramsQuery);
+  const programTypes = await sanity.fetch<OffersGridProgramTypesQueryResult>(
+    offersGridProgramTypesQuery,
+    {},
+    { next: { tags: ["educational-program-type"] } },
+  );
+  const programs = await sanity.fetch<OffersGridProgramsQueryResult>(
+    offersGridProgramsQuery,
+    {},
+    { next: { tags: ["educational-program", "educational-program-type"] } },
+  );
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,

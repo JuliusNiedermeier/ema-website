@@ -22,7 +22,7 @@ const latestPostsQuery = groq`*[_type == "post"][0...3]{
 export type LatestPostsProps = ComponentProps<"div"> & {};
 
 export const LatestPosts: FC<LatestPostsProps> = async ({ className, ...restProps }) => {
-  const posts = await sanity.fetch<LatestPostsQueryResult>(latestPostsQuery);
+  const posts = await sanity.fetch<LatestPostsQueryResult>(latestPostsQuery, {}, { next: { tags: ["post"] } });
 
   return (
     <div className={cn("", className)} {...restProps}>

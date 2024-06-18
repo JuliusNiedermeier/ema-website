@@ -8,7 +8,7 @@ const goLayoutQuery = groq`*[_type == "home-page"][0]{
   }`;
 
 const GoLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const data = await sanity.fetch<GoLayoutQueryResult>(goLayoutQuery);
+  const data = await sanity.fetch<GoLayoutQueryResult>(goLayoutQuery, {}, { next: { tags: ["home-page"] } });
 
   return (
     <div className="h-[100svh] overflow-hidden bg-neutral-200 lg:grid lg:grid-cols-[1fr_2fr]">

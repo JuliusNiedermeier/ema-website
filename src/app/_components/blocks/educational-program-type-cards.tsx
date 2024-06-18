@@ -24,9 +24,13 @@ export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> =
   filter,
   ...restProps
 }) => {
-  const programTypes = await sanity.fetch<EducationalProgramTypeCardsQueryResult>(educationalProgramTypeCardsQuery, {
-    excludeSlugs: filter?.excludeSlugs || [],
-  });
+  const programTypes = await sanity.fetch<EducationalProgramTypeCardsQueryResult>(
+    educationalProgramTypeCardsQuery,
+    {
+      excludeSlugs: filter?.excludeSlugs || [],
+    },
+    { next: { tags: ["educational-program-type"] } },
+  );
 
   return (
     <div className={cn("flex flex-wrap items-stretch gap-4", className)} {...restProps}>

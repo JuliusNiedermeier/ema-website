@@ -37,16 +37,24 @@ const programPageQuery = groq`*[_type == "educational-program" && slug.current =
 }`;
 
 export const generateStaticParams = async () => {
-  const programs = await sanity.fetch<ProgramPageSlugsQueryResult>(programPageSlugsQuery);
+  const programs = await sanity.fetch<ProgramPageSlugsQueryResult>(
+    programPageSlugsQuery,
+    {},
+    { next: { tags: ["educational-program"] } },
+  );
   const slugs = new Set<string>();
   programs.forEach(({ slug }) => slug?.current && slugs.add(slug?.current));
   return Array.from(slugs);
 };
 
 const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({ params: { programSlug } }) => {
-  const program = await sanity.fetch<ProgramPageQueryResult>(programPageQuery, {
-    slug: decodeURIComponent(programSlug),
-  });
+  const program = await sanity.fetch<ProgramPageQueryResult>(
+    programPageQuery,
+    {
+      slug: decodeURIComponent(programSlug),
+    },
+    { next: { tags: ["educational-program"] } },
+  );
 
   if (!program) notFound();
 
@@ -123,7 +131,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
               <Paragraph>{program.subjects?.description}</Paragraph>
             </Card>
 
-            <Card className="bg-themed-secondary/20 border-themed-secondary/50 -mb-8 border pb-16">
+            <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
               {program.subjects?.items
                 ?.filter(({ isExamSubject }) => !isExamSubject)
                 .map((subject, index) => (

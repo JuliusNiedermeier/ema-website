@@ -4,7 +4,6 @@ import { Heading, Label, Paragraph } from "../primitives/typography";
 import { sanity } from "~/sanity/lib/client";
 import { groq } from "next-sanity";
 import { CampusCardLegacyQueryResult } from "../../../../generated/sanity/types";
-import { Card } from "../primitives/card";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
 
@@ -21,7 +20,11 @@ const campusCardLegacyQuery = groq`*[_type == "campus-page"][0] {
 export type CampusCardProps = ComponentProps<"div"> & {};
 
 export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps }) => {
-  const data = await sanity.fetch<CampusCardLegacyQueryResult>(campusCardLegacyQuery);
+  const data = await sanity.fetch<CampusCardLegacyQueryResult>(
+    campusCardLegacyQuery,
+    {},
+    { next: { tags: ["campus-page"] } },
+  );
 
   return (
     <div
