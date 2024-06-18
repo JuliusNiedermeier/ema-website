@@ -24,7 +24,7 @@ export const AboutMenu: FC<AboutMenuProps> = ({ className, ...restProps }) => {
               alt="Wirtschaft & Soziales"
               width="500"
               height="500"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover brightness-90"
             />
             <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
@@ -36,7 +36,7 @@ export const AboutMenu: FC<AboutMenuProps> = ({ className, ...restProps }) => {
           </div>
           <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">
             <Image
-              src="/checkup-card.png"
+              src="/campus.png"
               alt="Wirtschaft & Soziales"
               width="500"
               height="500"
@@ -52,7 +52,7 @@ export const AboutMenu: FC<AboutMenuProps> = ({ className, ...restProps }) => {
           </div>
           <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">
             <Image
-              src="/checkup-card.png"
+              src="/team.png"
               alt="Wirtschaft & Soziales"
               width="500"
               height="500"
