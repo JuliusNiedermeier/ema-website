@@ -11,11 +11,11 @@ export const POST = async (req: NextRequest) => {
     );
 
     if (!isValidSignature) {
-      return new Response("Invalid Signature", { status: 401 });
+      return new Response("Invalid Signature", { status: 401, statusText: "Invalid Signature" });
     }
 
     if (!body?._type) {
-      return new Response("Bad Request", { status: 400 });
+      return new Response("Bad Request", { status: 400, statusText: "Missing _type attribute" });
     }
 
     revalidateTag(body._type);
