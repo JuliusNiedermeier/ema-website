@@ -9,6 +9,7 @@ import "~/app/_styles/theme.css";
 export const metadata: Metadata = {
   title: "Emil Molt Akademie",
   description: "Wirtschaft verstehen. Sozial handeln.",
+  robots: { index: false },
 };
 
 const PublicLayout: FC<PropsWithChildren> = ({ children }) => {
