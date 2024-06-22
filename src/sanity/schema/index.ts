@@ -9,6 +9,10 @@ import { educationalProgramType } from "./repeatables/educational-program-type";
 import { educationalProgram } from "./repeatables/educational-program";
 import { campusPage } from "./singletons/campus-page";
 import { testimonial } from "./repeatables/testimonial";
+import { economySocialPage } from "./singletons/economy-social";
+import { checkupPage } from "./singletons/checkup-page";
+import { artPage } from "./singletons/art-page";
+import { contactPage } from "./singletons/contact-page";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
@@ -22,6 +26,10 @@ const types = [
   educationalProgramType,
   educationalProgram,
   campusPage,
+  economySocialPage,
+  checkupPage,
+  artPage,
+  contactPage,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {

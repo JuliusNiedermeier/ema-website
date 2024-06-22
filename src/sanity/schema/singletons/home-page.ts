@@ -38,6 +38,19 @@ export const homePage: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
+        name: "videoFullscreenButtonLabel",
+        title: "Video Vollbild Button Text",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
+      defineField({
+        name: "videoCTAButtonLabel",
+        title: "Video CTA Button Text",
+        type: "string",
+        group: "hero",
+        validation: (r) => r.required().min(5).max(15),
+      }),
+      defineField({
         name: "partners",
         title: "Partner",
         type: "array",
@@ -55,25 +68,57 @@ export const homePage: SchemaTypeDef = {
         ],
       }),
       defineField({
-        name: "artEducation",
-        title: "Kunstabschnitt",
+        name: "introduction",
+        title: "Einleitung",
+        type: "object",
+        fields: [
+          {
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+            validation: (r) => r.required().min(10).max(40),
+          },
+          {
+            name: "paragraph",
+            title: "Einleitung",
+            type: "text",
+            validation: (r) => r.required().min(100).max(300),
+          },
+        ],
+      }),
+      defineField({
+        name: "featuredPosts",
+        title: "Letzte Blog Posts",
+        type: "object",
+        fields: [
+          {
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+            validation: (r) => r.required().min(5).max(20),
+          },
+          {
+            name: "allPostsLabel",
+            title: "Alle Beiträge Button Text",
+            type: "string",
+            validation: (r) => r.required().min(5).max(20),
+          },
+        ],
+      }),
+      defineField({
+        name: "testimonials",
+        title: "Testimonials",
         type: "object",
         fields: [
           defineField({
-            name: "backgroundImage",
-            title: "Hintergrundbild",
-            type: "image",
-            validation: (r) => r.required(),
-          }),
-          defineField({ name: "leftImage", title: "Bild links", type: "image", validation: (r) => r.required() }),
-          defineField({ name: "rightImage", title: "Bild rechts", type: "image", validation: (r) => r.required() }),
-          defineField({ name: "title", title: "Überschrift", type: "string", validation: (r) => r.required() }),
-          defineField({ name: "body", title: "Beschreibung", type: "string", validation: (r) => r.required() }),
-          defineField({
-            name: "actionLabel",
-            title: "Aktionsaufforderung",
+            name: "heading",
+            title: "Überschrift",
             type: "string",
-            validation: (r) => r.required(),
+          }),
+          defineField({
+            name: "subheading",
+            title: "Unterüberschrift",
+            type: "text",
           }),
         ],
       }),
@@ -104,7 +149,7 @@ export const homePage: SchemaTypeDef = {
       }),
     ],
     preview: {
-      prepare: () => ({ title: "Home page" }),
+      prepare: () => ({ title: "Startseite" }),
     },
   }),
 };

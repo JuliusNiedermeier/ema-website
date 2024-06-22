@@ -11,11 +11,6 @@ import Image from "next/image";
 const campusCardQuery = groq`*[_type == "campus-page"][0] {
     ...,
     heroImage { asset -> { url } },
-    images[] { asset -> { url } },
-    team[] {
-        ...,
-        image { asset -> { url } }
-    }
 }`;
 
 export type CampusCardProps = ComponentProps<"div"> & {};
@@ -37,7 +32,7 @@ export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps 
         <Paragraph>{data?.previewText}</Paragraph>
         <div className="mt-8 flex items-center gap-4">
           <InteractionBubble animated={false} />
-          <Label>Deinen Campus kennenlernen</Label>
+          <Label>{data?.previewReadMoreButtonLabel}</Label>
         </div>
       </Card>
     </Card>

@@ -42,6 +42,10 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,
+    introduction:
+      (programType.introduction?.length || 0) > 250
+        ? `${programType.introduction?.slice(0, 250)}...`
+        : programType.introduction,
     programs: programs.filter((program) => program.educationalProgramType?._id === programType._id),
   }));
 
@@ -65,13 +69,10 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
             >
               <Link href={`/bildungswege/${programType.slug?.current}`}>
                 <Heading className="max-w-60 text-balance lg:max-w-96">{programType.promotionalHeadline}</Heading>
-                <Paragraph className="text-balance">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam aliquid laborum ipsum sequi commodi
-                  vel nisi cumque, facere voluptatem, porro ducimus?
-                </Paragraph>
+                <Paragraph className="text-balance">{programType.introduction}</Paragraph>
                 <div className="mt-4 flex items-center gap-4">
                   <InteractionBubble animated={false} />
-                  <Label>Mehr lesen</Label>
+                  <Label>{programType.readMoreLabel}</Label>
                 </div>
               </Link>
             </Card>

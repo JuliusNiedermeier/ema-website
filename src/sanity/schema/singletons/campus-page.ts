@@ -33,6 +33,12 @@ export const campusPage: SchemaTypeDef = {
         group: "campus",
       }),
       defineField({
+        name: "previewReadMoreButtonLabel",
+        title: "Mehr lesen Button Text",
+        type: "string",
+        group: "campus",
+      }),
+      defineField({
         name: "heroImage",
         title: "Hauptbild",
         type: "image",
@@ -51,34 +57,9 @@ export const campusPage: SchemaTypeDef = {
           }),
         ],
       }),
-      defineField({
-        name: "team",
-        title: "Team",
-        type: "array",
-        group: "team",
-        of: [
-          defineArrayMember({
-            name: "team-member",
-            title: "Teammitglied",
-            type: "object",
-            fields: [
-              defineField({
-                name: "name",
-                title: "Name",
-                type: "string",
-              }),
-              defineField({
-                name: "image",
-                title: "Bild",
-                type: "image",
-              }),
-            ],
-          }),
-        ],
-      }),
     ],
     preview: {
-      prepare: () => ({ title: "Campus page" }),
+      prepare: () => ({ title: "Dein Campus" }),
     },
   }),
 };

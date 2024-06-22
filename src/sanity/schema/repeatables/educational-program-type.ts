@@ -46,6 +46,12 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "text",
         // validation: (r) => r.required().min(50).max(300),
       }),
+      defineField({
+        name: "readMoreLabel",
+        title: "Mehr lesen Text",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
       certificateType,
       defineField({
         name: "educationalPrograms",
