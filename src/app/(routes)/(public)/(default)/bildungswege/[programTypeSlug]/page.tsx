@@ -39,16 +39,16 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
 
 const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug]`;
 
-export const generateStaticParams = async () => {
-  const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(
-    programTypePageSlugsQuery,
-    {},
-    { next: { tags: ["educational-program-type"] } },
-  );
-  const slugs = new Set<string>();
-  programTypes.forEach((type) => type.slug?.current && slugs.add(type.slug.current));
-  return Array.from(slugs).map((slug) => ({ programTypeSlug: slug }));
-};
+// export const generateStaticParams = async () => {
+//   const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(
+//     programTypePageSlugsQuery,
+//     {},
+//     { next: { tags: ["educational-program-type"] } },
+//   );
+//   const slugs = new Set<string>();
+//   programTypes.forEach((type) => type.slug?.current && slugs.add(type.slug.current));
+//   return Array.from(slugs).map((slug) => ({ programTypeSlug: slug }));
+// };
 
 const EducationalProgramTypePage: FC<{ params: { programTypeSlug: string } }> = async ({
   params: { programTypeSlug },
