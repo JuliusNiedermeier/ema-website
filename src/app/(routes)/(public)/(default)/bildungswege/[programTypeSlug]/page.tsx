@@ -158,7 +158,7 @@ const EducationalProgramTypePage: FC<{ params: { programTypeSlug: string } }> = 
       </Container>
       <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
 
-      <BentoCTA className="mt-4" />
+      <BentoCTA className="mt-8" />
     </Container>
   );
 };
