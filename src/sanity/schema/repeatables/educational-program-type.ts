@@ -101,6 +101,7 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "faq",
+        title: "FAQ",
         description: "Häufig gestellte Fragen",
         type: "object",
         fields: [
