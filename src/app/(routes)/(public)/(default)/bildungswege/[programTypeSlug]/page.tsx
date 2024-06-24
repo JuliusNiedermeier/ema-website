@@ -47,25 +47,23 @@ export const generateStaticParams = async () => {
   );
   const slugs = new Set<string>();
   programTypes.forEach((type) => type.slug?.current && slugs.add(type.slug.current));
-  return Array.from(slugs);
+  return Array.from(slugs).map((slug) => ({ programTypeSlug: slug }));
 };
 
 const EducationalProgramTypePage: FC<{ params: { programTypeSlug: string } }> = async ({
   params: { programTypeSlug },
 }) => {
+  const slug = decodeURIComponent(programTypeSlug);
+
   const programTypePromise = sanity.fetch<ProgramTypePageQueryResult>(
     programTypePageQuery,
-    {
-      slug: decodeURIComponent(programTypeSlug),
-    },
+    { slug },
     { next: { tags: ["educational-program-type"] } },
   );
 
   const programsPromise = sanity.fetch<ProgramTypePageProgramsQueryResult>(
     programTypePageProgramsQuery,
-    {
-      programTypeSlug: decodeURIComponent(programTypeSlug),
-    },
+    { programTypeSlug: slug },
     { next: { tags: ["educational-program-type", "educational-program"] } },
   );
 
