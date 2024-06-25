@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
-import { PostQueryResult /*, PostSlugsQueryResult*/ } from "../../../../../../../generated/sanity/types";
+import { PostQueryResult, PostSlugsQueryResult } from "../../../../../../../generated/sanity/types";
 import { Chip } from "~/app/_components/primitives/chip";
 import { notFound } from "next/navigation";
 import { PostCardMeta, PostCardMetaDate, PostCardMetaSeparator } from "~/app/_components/primitives/post-card";
@@ -11,7 +11,7 @@ import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/prim
 import Image from "next/image";
 import { portableTextComponents } from "~/app/_components/portable-text-components";
 
-// const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
+const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
 
 const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   ...,
@@ -20,14 +20,19 @@ const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   category->
 }`;
 
-// export const generateStaticParams = async () => {
-//   const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery, {}, { next: { tags: ["post"] } });
-//   return posts.map((post) => ({ slug: post.slug?.current || null })).filter((params) => params.slug) as {
-//     slug: string;
-//   }[];
-// };
+type Params = { slug: string };
+type Props = { params: Params };
 
-const PostPage: FC<{ params: { slug: string } }> = async ({ params: { slug } }) => {
+export const generateStaticParams = async (): Promise<Params[]> => {
+  const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery);
+
+  return posts
+    .map((post) => post.slug?.current)
+    .filter((slug) => typeof slug === "string")
+    .map((slug) => ({ slug }));
+};
+
+const PostPage: FC<Props> = async ({ params: { slug } }) => {
   const post = await sanity.fetch<PostQueryResult>(
     postQuery,
     { slug: decodeURIComponent(slug) },
