@@ -7,7 +7,7 @@ import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import {
   ProgramTypePageProgramsQueryResult,
   ProgramTypePageQueryResult,
-  ProgramTypePageSlugsQueryResult,
+  // ProgramTypePageSlugsQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { Card } from "~/app/_components/primitives/card";
