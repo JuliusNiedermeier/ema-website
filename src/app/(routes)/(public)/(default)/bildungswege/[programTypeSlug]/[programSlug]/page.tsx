@@ -12,7 +12,9 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
-import { ProgramPageQueryResult/*, ProgramPageSlugsQueryResult*/ } from "../../../../../../../../generated/sanity/types";
+import {
+  ProgramPageQueryResult /*, ProgramPageSlugsQueryResult*/,
+} from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
@@ -50,9 +52,7 @@ const programPageQuery = groq`*[_type == "educational-program" && slug.current =
 const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({ params: { programSlug } }) => {
   const program = await sanity.fetch<ProgramPageQueryResult>(
     programPageQuery,
-    {
-      slug: decodeURIComponent(programSlug),
-    },
+    { slug: decodeURIComponent(programSlug) },
     { next: { tags: ["educational-program", "educational-program-type"] } },
   );
 
