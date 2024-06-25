@@ -55,7 +55,7 @@ export const educationalProgramType: SchemaTypeDef = {
       certificateType,
       defineField({
         name: "educationalPrograms",
-        title: "Abschitt Bildungsangebote",
+        title: "Abschitt Bildungsgänge",
         type: "object",
         fields: [
           defineField({

@@ -7,7 +7,7 @@ import { faqFields } from "../parts/faq-fields";
 export const educationalProgram: SchemaTypeDef = {
   definition: defineType({
     name: "educational-program",
-    title: "Bildungsangebot",
+    title: "Bildungsgang",
     type: "document",
     icon: GraduationCapIcon,
     fields: [
@@ -36,7 +36,7 @@ export const educationalProgram: SchemaTypeDef = {
       }),
       defineField({
         name: "promotionalHeadline",
-        title: "Bildungsangebot Slogan",
+        title: "Bildungsgang Slogan",
         type: "string",
         // validation: (r) => r.required().min(10).max(40),
       }),
