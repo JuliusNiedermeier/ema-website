@@ -39,6 +39,9 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
 
 const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug]`;
 
+type Params = { programTypeSlug: string };
+type Props = { params: Params };
+
 // export const generateStaticParams = async () => {
 //   const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(
 //     programTypePageSlugsQuery,
@@ -50,9 +53,7 @@ const programTypePageProgramsQuery = groq`*[_type == "educational-program" && ed
 //   return Array.from(slugs).map((slug) => ({ programTypeSlug: slug }));
 // };
 
-const EducationalProgramTypePage: FC<{ params: { programTypeSlug: string } }> = async ({
-  params: { programTypeSlug },
-}) => {
+const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug } }) => {
   const slug = decodeURIComponent(programTypeSlug);
 
   const programTypePromise = sanity.fetch<ProgramTypePageQueryResult>(
