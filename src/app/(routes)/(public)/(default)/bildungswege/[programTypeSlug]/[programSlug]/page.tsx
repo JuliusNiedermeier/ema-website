@@ -18,7 +18,7 @@ import Image from "next/image";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 
-const programPageSlugsQuery = groq`*[_type == "educational-program"]{ slug }`;
+// const programPageSlugsQuery = groq`*[_type == "educational-program"]{ slug }`;
 
 const programPageQuery = groq`*[_type == "educational-program" && slug.current == $slug][0]{
   ...,
@@ -36,16 +36,16 @@ const programPageQuery = groq`*[_type == "educational-program" && slug.current =
   }
 }`;
 
-export const generateStaticParams = async () => {
-  const programs = await sanity.fetch<ProgramPageSlugsQueryResult>(
-    programPageSlugsQuery,
-    {},
-    { next: { tags: ["educational-program"] } },
-  );
-  const slugs = new Set<string>();
-  programs.forEach(({ slug }) => slug?.current && slugs.add(slug?.current));
-  return Array.from(slugs);
-};
+// export const generateStaticParams = async () => {
+//   const programs = await sanity.fetch<ProgramPageSlugsQueryResult>(
+//     programPageSlugsQuery,
+//     {},
+//     { next: { tags: ["educational-program"] } },
+//   );
+//   const slugs = new Set<string>();
+//   programs.forEach(({ slug }) => slug?.current && slugs.add(slug?.current));
+//   return Array.from(slugs);
+// };
 
 const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({ params: { programSlug } }) => {
   const program = await sanity.fetch<ProgramPageQueryResult>(

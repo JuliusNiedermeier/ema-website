@@ -20,7 +20,7 @@ import Link from "next/link";
 import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
+// const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
 const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.current == $slug][0]{
   ...,

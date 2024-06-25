@@ -11,7 +11,7 @@ import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/prim
 import Image from "next/image";
 import { portableTextComponents } from "~/app/_components/portable-text-components";
 
-const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
+// const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
 
 const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   ...,
@@ -20,12 +20,12 @@ const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   category->
 }`;
 
-export const generateStaticParams = async () => {
-  const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery, {}, { next: { tags: ["post"] } });
-  return posts.map((post) => ({ slug: post.slug?.current || null })).filter((params) => params.slug) as {
-    slug: string;
-  }[];
-};
+// export const generateStaticParams = async () => {
+//   const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery, {}, { next: { tags: ["post"] } });
+//   return posts.map((post) => ({ slug: post.slug?.current || null })).filter((params) => params.slug) as {
+//     slug: string;
+//   }[];
+// };
 
 const PostPage: FC<{ params: { slug: string } }> = async ({ params: { slug } }) => {
   const post = await sanity.fetch<PostQueryResult>(
