@@ -53,7 +53,7 @@ const EducationalProgramPage: FC<{ params: { programSlug: string } }> = async ({
     {
       slug: decodeURIComponent(programSlug),
     },
-    { next: { tags: ["educational-program"] } },
+    { next: { tags: ["educational-program", "educational-program-type"] } },
   );
 
   if (!program) notFound();
