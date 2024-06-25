@@ -30,7 +30,7 @@ const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
 const PostPage: FC<{ params: { slug: string } }> = async ({ params: { slug } }) => {
   const post = await sanity.fetch<PostQueryResult>(
     postQuery,
-    { slug },
+    { slug: decodeURIComponent(slug) },
     { next: { tags: ["post", "author", "category"] } },
   );
 
