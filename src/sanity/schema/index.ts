@@ -13,23 +13,32 @@ import { economySocialPage } from "./singletons/economy-social";
 import { checkupPage } from "./singletons/checkup-page";
 import { artPage } from "./singletons/art-page";
 import { contactPage } from "./singletons/contact-page";
+import { certificateType } from "./parts/certificate";
+import { faqType } from "./parts/faq-fields";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
 const types = [
+  // Singletons
+  homePage,
+  economySocialPage,
+  campusPage,
+  artPage,
+  contactPage,
+  checkupPage,
+
+  // Repeatables
+  educationalProgramType,
+  educationalProgram,
+  testimonial,
   post,
   author,
   category,
+
+  // Custom reusable types
   blockContent,
-  homePage,
-  testimonial,
-  educationalProgramType,
-  educationalProgram,
-  campusPage,
-  economySocialPage,
-  checkupPage,
-  artPage,
-  contactPage,
+  certificateType,
+  faqType,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {

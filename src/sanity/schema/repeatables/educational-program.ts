@@ -1,8 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
-import { certificateType } from "../parts/certificate";
-import { faqFields } from "../parts/faq-fields";
 
 export const educationalProgram: SchemaTypeDef = {
   definition: defineType({
@@ -73,7 +71,11 @@ export const educationalProgram: SchemaTypeDef = {
         ],
         // validation: (r) => r.required().min(2),
       }),
-      certificateType,
+      defineField({
+        name: "certificate",
+        title: "Abschluss",
+        type: "program-certificate",
+      }),
       defineField({
         name: "programDetails",
         title: "Daten",
@@ -282,7 +284,11 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Beschreibung",
             type: "text",
           }),
-          faqFields,
+          defineField({
+            name: "faq",
+            title: "Einträge",
+            type: "faq-items",
+          }),
         ],
 
         // validation: (r) => r.length(1),

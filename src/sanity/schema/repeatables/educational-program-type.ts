@@ -52,7 +52,11 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(20),
       }),
-      certificateType,
+      defineField({
+        name: "certificate",
+        title: "Abschluss",
+        type: "program-certificate",
+      }),
       defineField({
         name: "educationalPrograms",
         title: "Abschitt Bildungsgänge",
@@ -101,16 +105,22 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
       defineField({
         name: "faq",
-        title: "FAQ",
-        description: "Häufig gestellte Fragen",
+        title: "FAQ - Frequently Asked Questions",
+        description: "Hier können häufig gestellte Fragen beantwortet werden.",
         type: "object",
         fields: [
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: "10-40 Zeichen",
             type: "string",
+            validation: (r) => r.required().min(10).max(40),
           }),
-          faqFields,
+          defineField({
+            name: "items",
+            title: "Fragen",
+            type: "faq-items",
+          }),
         ],
       }),
       defineField({

@@ -145,40 +145,21 @@ export const homePage: SchemaTypeDef = {
       }),
       defineField({
         name: "faq",
-        title: "Häufig gestellte Fragen",
-        description:
-          "3-10 Fragen. Die häufigsten allgemeinen Fragen zur Emil Molt Akademie können hier beantwortet werden.",
+        title: "FAQ - Frequently Asked Questions",
+        description: "Die häufigsten allgemeinen Fragen zur Emil Molt Akademie können hier beantwortet werden.",
         type: "object",
         fields: [
-          defineField({ name: "heading", title: "Überschrift", type: "string", validation: (r) => r.required() }),
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: "10-40 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(10).max(40),
+          }),
           defineField({
             name: "items",
             title: "Fragen",
-            type: "array",
-            of: [
-              defineArrayMember({
-                name: "item",
-                title: "Frage",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "question",
-                    title: "Frage",
-                    description: "10-100 Zeichen.",
-                    type: "string",
-                    validation: (r) => r.required().min(10).max(100),
-                  }),
-                  defineField({
-                    name: "answer",
-                    title: "Antwort",
-                    description: "50-1000 Zeichen.",
-                    type: "text",
-                    validation: (r) => r.required().min(50).max(1000),
-                  }),
-                ],
-              }),
-            ],
-            validation: (r) => r.min(3).max(10),
+            type: "faq-items",
           }),
         ],
       }),
