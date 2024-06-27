@@ -129,9 +129,9 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "5-20 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
+            description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
             type: "string",
-            validation: (r) => r.required().min(5).max(20),
+            validation: (r) => r.required().min(3).max(40),
           }),
           defineField({
             name: "subheading",
@@ -171,9 +171,9 @@ export const homePage: SchemaTypeDef = {
                   defineField({
                     name: "answer",
                     title: "Antwort",
-                    description: "50-300 Zeichen.",
+                    description: "50-1000 Zeichen.",
                     type: "text",
-                    validation: (r) => r.required().min(50).max(300),
+                    validation: (r) => r.required().min(50).max(1000),
                   }),
                 ],
               }),
