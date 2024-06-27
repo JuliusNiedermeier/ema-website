@@ -30,10 +30,10 @@ const types = [
   // Repeatables
   educationalProgramType,
   educationalProgram,
-  testimonial,
   post,
   author,
   category,
+  testimonial,
 
   // Custom reusable types
   blockContent,
