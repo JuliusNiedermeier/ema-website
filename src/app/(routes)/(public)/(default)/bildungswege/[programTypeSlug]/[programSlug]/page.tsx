@@ -33,7 +33,7 @@ const programPageQuery = groq`*[_type == "educational-program" && slug.current =
       image { asset -> { url } }
     }
   },
-  gallery[] {
+  furtherInformation[] {
     ...,
     image { asset -> { url } }
   }
@@ -117,15 +117,18 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         <div className="mt-8 flex flex-col gap-8 md:flex-row">
           <EducationalProgramDetails
             className="md:flex-[2]"
-            durationHeading={program.programDetails?.durationHeading || ""}
-            holidaysHeading={program.programDetails?.holidaysHeading || ""}
-            lessonTimesHeading={program.programDetails?.lessonTimesHeading || ""}
-            startDateHeading={program.programDetails?.startDateHeading || ""}
-            trainingType={program.programDetails?.type || ""}
-            duration={program.programDetails?.totalDuration || ""}
-            startEndTime={[program.programDetails?.startTime || "", program.programDetails?.endTime || ""]}
-            holidays={program.programDetails?.holidays || ""}
-            startDate={program.programDetails?.startDate || ""}
+            durationHeading={program.programDetails?.durationAndType?.heading || ""}
+            holidaysHeading={program.programDetails?.holidays?.heading || ""}
+            lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
+            startDateHeading={program.programDetails?.startDate?.heading || ""}
+            trainingType={program.programDetails?.durationAndType?.type || ""}
+            duration={program.programDetails?.durationAndType?.duration || ""}
+            startEndTime={[
+              program.programDetails?.lessonTimes?.start || "",
+              program.programDetails?.lessonTimes?.end || "",
+            ]}
+            holidays={program.programDetails?.holidays?.info || ""}
+            startDate={program.programDetails?.startDate?.date || ""}
           />
 
           <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
@@ -163,7 +166,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         </div>
 
         <div className="mt-32 flex flex-col gap-32">
-          {program.gallery?.map((galleryItem, index) => (
+          {program.furtherInformation?.map((item, index) => (
             <div
               key={index}
               className={cn("flex flex-col items-center gap-[5vw] sm:flex-row", {
@@ -173,15 +176,15 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <div className="aspect-video w-full sm:flex-1">
                 <Image
                   className="h-full w-full rounded-2xl object-cover"
-                  src={galleryItem.image?.asset?.url || ""}
-                  alt={galleryItem.heading || ""}
+                  src={item.image?.asset?.url || ""}
+                  alt={item.heading || ""}
                   width="500"
                   height="500"
                 />
               </div>
               <div className="sm:flex-[1.25]">
-                <Heading tag="h3">{galleryItem.heading}</Heading>
-                <Paragraph>{galleryItem.content}</Paragraph>
+                <Heading tag="h3">{item.heading}</Heading>
+                <Paragraph>{item.content}</Paragraph>
               </div>
             </div>
           ))}
@@ -192,7 +195,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           <Paragraph className="mx-auto max-w-[40rem]">{program.prerequisites?.description}</Paragraph>
           <RequirementList
             className="mt-16"
-            groups={program.prerequisites?.groups?.map(({ items }) => items || []) || []}
+            groups={program.prerequisites?.requirementGroups?.map(({ requirements }) => requirements || []) || []}
           />
         </div>
 
@@ -211,8 +214,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         <div className="mt-16">
           <BasicAccordion
             items={
-              program.FAQs?.items?.map(({ question, answer }) => ({ title: question || "", content: answer || "" })) ||
-              []
+              program.FAQs?.faq?.map(({ question, answer }) => ({ title: question || "", content: answer || "" })) || []
             }
           />
         </div>
