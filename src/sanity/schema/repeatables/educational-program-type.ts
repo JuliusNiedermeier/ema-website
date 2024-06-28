@@ -19,13 +19,7 @@ export const educationalProgramType: SchemaTypeDef = {
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
-        description: "URL freundlicher Text. Kann durch klicken auf 'Generate' automatisch erzeugt werden.",
-        type: "slug",
-        options: {
-          source: "name",
-          maxLength: 30,
-        },
-        validation: (r) => r.required(),
+        type: "default-slug",
       }),
       defineField({
         name: "color",

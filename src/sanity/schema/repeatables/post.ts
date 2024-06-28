@@ -16,12 +16,8 @@ export const post: SchemaTypeDef = {
       }),
       defineField({
         name: "slug",
-        title: "URL Text",
-        type: "slug",
-        options: {
-          source: "title",
-          maxLength: 96,
-        },
+        title: "URL freundlicher Text",
+        type: "default-slug",
       }),
       defineField({
         name: "author",

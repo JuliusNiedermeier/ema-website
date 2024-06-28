@@ -15,6 +15,7 @@ import { artPage } from "./singletons/art-page";
 import { contactPage } from "./singletons/contact-page";
 import { certificateType } from "./parts/certificate";
 import { faqType } from "./parts/faq-fields";
+import { defaultSlug } from "./parts/default-slug";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
@@ -39,6 +40,7 @@ const types = [
   blockContent,
   certificateType,
   faqType,
+  defaultSlug,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
