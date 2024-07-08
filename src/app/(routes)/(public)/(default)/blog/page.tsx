@@ -19,6 +19,7 @@ import {
 } from "~/app/_components/primitives/post-card";
 import { PostsQueryResult } from "../../../../../../generated/sanity/types";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 
 const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
   _id,
@@ -57,6 +58,7 @@ const BlogPage: FC = async () => {
                   className="max-h-[50vh]"
                 />
                 <PostCardThumbnailTag>{latestPost.category?.title}</PostCardThumbnailTag>
+                <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </PostCardThumbnail>
               <PostCardTitle size="lg" className="max-w-[40rem]">
                 {latestPost.title}
@@ -88,6 +90,7 @@ const BlogPage: FC = async () => {
                 <PostCardThumbnail>
                   <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
                   <PostCardThumbnailTag>{post.category?.title}</PostCardThumbnailTag>
+                  <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                 </PostCardThumbnail>
                 <PostCardContent>
                   <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
