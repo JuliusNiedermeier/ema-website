@@ -170,11 +170,7 @@ export const portableTextComponents: Components = {
 export type PostContentProps = { slug: string };
 
 export const PostContent: FC<PostContentProps> = async ({ slug }) => {
-  const post = await sanity.fetch<PostContentQueryResult>(
-    postContentQuery,
-    { slug },
-    { next: { tags: ["post", "author", "category"] } },
-  );
+  const post = await sanity.fetch<PostContentQueryResult>(postContentQuery, { slug }, { next: { tags: ["post"] } });
 
   if (!post) return null;
 
