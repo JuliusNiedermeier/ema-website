@@ -16,6 +16,7 @@ import { contactPage } from "./singletons/contact-page";
 import { certificateType } from "./parts/certificate";
 import { faqType } from "./parts/faq-fields";
 import { defaultSlug } from "./parts/default-slug";
+import { postPage } from "./singletons/post-page";
 
 export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
 
@@ -27,6 +28,7 @@ const types = [
   artPage,
   contactPage,
   checkupPage,
+  postPage,
 
   // Repeatables
   educationalProgramType,
