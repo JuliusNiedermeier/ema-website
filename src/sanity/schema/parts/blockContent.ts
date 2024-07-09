@@ -83,6 +83,52 @@ export const blockContent: SchemaTypeDef = {
           }),
         ],
       }),
+      defineArrayMember({
+        name: "educationalProgramTypeCTA",
+        title: "Bildungsweg Call-To-Action",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "educationalProgramType",
+            title: "Bildungsweg",
+            type: "reference",
+            to: { type: "educational-program-type" },
+          }),
+        ],
+      }),
+      defineArrayMember({
+        name: "educationalProgramCTA",
+        title: "Bildungsgang Call-To-Action",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "educationalProgram",
+            title: "Bildungsgang",
+            type: "reference",
+            to: { type: "educational-program" },
+          }),
+        ],
+      }),
     ],
   }),
 };
