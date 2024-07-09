@@ -1,5 +1,5 @@
-import { PortableText, groq } from "next-sanity";
-import { FC } from "react";
+import { groq } from "next-sanity";
+import { FC, Suspense } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading } from "~/app/_components/primitives/typography";
 import { sanity } from "~/sanity/lib/client";
@@ -9,7 +9,8 @@ import { notFound } from "next/navigation";
 import { PostCardMeta, PostCardMetaDate, PostCardMetaSeparator } from "~/app/_components/primitives/post-card";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 import Image from "next/image";
-import { portableTextComponents } from "~/app/_components/portable-text-components";
+import { PostContent } from "~/app/_components/blocks/post-content";
+import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 
 const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
 
@@ -17,7 +18,7 @@ const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   ...,
   mainImage {asset->{url}},
   author->{name, image{asset->{url}}},
-  category->
+  category->,
 }`;
 
 type Params = { slug: string };
@@ -73,10 +74,16 @@ const PostPage: FC<Props> = async ({ params: { slug } }) => {
         </Container>
       </div>
 
-      <Container width="narrow">
-        <main className="mt-16">
-          <PortableText value={post.body || []} components={portableTextComponents} />
-        </main>
+      <Suspense>
+        <Container width="narrow">
+          <main className="mb-8 mt-16">
+            <PostContent slug={slug} />
+          </main>
+        </Container>
+      </Suspense>
+
+      <Container>
+        <EducationalProgramTypeCards />
       </Container>
     </>
   );
