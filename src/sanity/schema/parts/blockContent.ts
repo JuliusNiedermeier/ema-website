@@ -1,4 +1,4 @@
-import { defineType, defineArrayMember } from "sanity";
+import { defineType, defineArrayMember, defineField } from "sanity";
 import { SchemaTypeDef } from "..";
 
 /**
@@ -69,6 +69,18 @@ export const blockContent: SchemaTypeDef = {
             type: "string",
             title: "Alternative Text",
           },
+        ],
+      }),
+      defineArrayMember({
+        name: "accordion",
+        title: "Akkordeon",
+        type: "object",
+        fields: [
+          defineField({
+            name: "items",
+            title: "Einträge",
+            type: "faq-items",
+          }),
         ],
       }),
     ],
