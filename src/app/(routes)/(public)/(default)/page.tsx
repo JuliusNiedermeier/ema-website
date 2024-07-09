@@ -37,7 +37,8 @@ const homePageQuery = groq`*[_type == "home-page"][0]{
 const featuredPostsQuery = groq`*[_type == "post"][0...3]{
   title,
   mainImage { asset -> { url } },
-  slug
+  slug,
+  category ->
 }`;
 
 const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
@@ -168,6 +169,7 @@ const HomePage: FC = async () => {
               title: post.title || "",
               imageURL: post.mainImage?.asset?.url || "",
               slug: post.slug?.current || "",
+              category: post.category?.title || "",
             }))}
           />
         </Container>
