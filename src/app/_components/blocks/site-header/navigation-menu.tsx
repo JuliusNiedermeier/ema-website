@@ -64,7 +64,8 @@ export const NavigationMenuItem: FC<NavigationMenuItemProps> = ({
 }) => {
   const pathName = usePathname();
 
-  const active = exact ? pathName === href : pathName.startsWith(href instanceof URL ? href.href : (href as string));
+  const isExactActive = pathName === href;
+  const active = exact ? isExactActive : pathName.startsWith(href instanceof URL ? href.href : (href as string));
 
   return (
     <MenuItem className={cn("", className)} {...restProps}>
@@ -82,7 +83,7 @@ export const NavigationMenuItem: FC<NavigationMenuItemProps> = ({
               {label}
             </div>
           </MenuTrigger>
-          <MenuContent className="data-[motion='from-start']:animate-enterFromLeft data-[motion='from-end']:animate-enterFromRight data-[motion='to-start']:animate-exitToLeft data-[motion='to-end']:animate-exitToRight absolute left-0 top-0 w-full">
+          <MenuContent className="absolute left-0 top-0 w-full data-[motion='from-end']:animate-enterFromRight data-[motion='from-start']:animate-enterFromLeft data-[motion='to-end']:animate-exitToRight data-[motion='to-start']:animate-exitToLeft">
             {menuContent}
           </MenuContent>
         </>
@@ -90,7 +91,7 @@ export const NavigationMenuItem: FC<NavigationMenuItemProps> = ({
         <MenuLink asChild>
           <Link
             href={href || "/"}
-            className={cn("group flex h-full items-center px-2", { "pointer-events-none": active })}
+            className={cn("group flex h-full items-center px-2", { "pointer-events-none": isExactActive })}
           >
             <div
               className={cn(
