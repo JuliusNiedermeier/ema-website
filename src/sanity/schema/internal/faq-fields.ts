@@ -2,6 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 
 export const faqType: SchemaTypeDef = {
+  type: "internal",
   definition: defineType({
     name: "faq-items",
     title: "FAQ Einträge",

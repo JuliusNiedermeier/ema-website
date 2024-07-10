@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { PenLineIcon } from "lucide-react";
 
 export const postPage: SchemaTypeDef = {
-  singleton: true,
+  type: "page",
   definition: defineType({
     name: "post-page",
     title: "Blogbeitragsseite",

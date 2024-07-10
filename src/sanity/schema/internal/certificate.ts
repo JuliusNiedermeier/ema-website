@@ -2,6 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 
 export const certificateType: SchemaTypeDef = {
+  type: "internal",
   definition: defineType({
     name: "program-certificate",
     title: "Abschluss-Zertifikat",

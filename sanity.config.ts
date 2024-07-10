@@ -9,7 +9,7 @@ import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
 import { colorInput } from "@sanity/color-input";
 
-import { schema, singletonTypeNames } from "~/sanity/schema";
+import { schema, pageTypeNames, configTypeNames, repeatableTypeNames } from "~/sanity/schema";
 
 export default defineConfig({
   basePath: "/studio",
@@ -22,7 +22,7 @@ export default defineConfig({
     newDocumentOptions: (items, { creationContext }) => {
       if (creationContext.type === "global") {
         // Removes all singleton types from the global create button.
-        return items.filter((item) => !singletonTypeNames.has(item.templateId));
+        return items.filter((item) => !pageTypeNames.has(item.templateId) && !configTypeNames.has(item.templateId));
       }
       return items;
     },
@@ -30,9 +30,11 @@ export default defineConfig({
   plugins: [
     structureTool({
       structure: (S) => {
-        const singletonTypes = S.documentTypeListItems().filter((S) =>
-          singletonTypeNames.has((S.getSchemaType() as SchemaType).name),
-        );
+        // Get list of all singleton types
+        const singletonTypes = S.documentTypeListItems().filter((S) => {
+          const typeName = (S.getSchemaType() as SchemaType).name;
+          return pageTypeNames.has(typeName) || configTypeNames.has(typeName);
+        });
 
         const modifiedSingletonTypes = singletonTypes.map((type) =>
           // Sets a specific document of the singleton type as a direct child of the list item.
@@ -46,14 +48,25 @@ export default defineConfig({
           ),
         );
 
-        const repeatableTypes = S.documentTypeListItems().filter(
-          (S) => !singletonTypeNames.has((S.getSchemaType() as SchemaType).name),
+        // Get list of page types
+        const pageTypes = modifiedSingletonTypes.filter((type) =>
+          pageTypeNames.has((type.getSchemaType() as SchemaType).name),
+        );
+
+        // Get list of config types
+        const configTypes = modifiedSingletonTypes.filter((type) =>
+          configTypeNames.has((type.getSchemaType() as SchemaType).name),
+        );
+
+        // Get list of repeatable types
+        const repeatableTypes = S.documentTypeListItems().filter((S) =>
+          repeatableTypeNames.has((S.getSchemaType() as SchemaType).name),
         );
 
         return S.list()
           .id("content")
           .title("Content")
-          .items([...modifiedSingletonTypes, S.divider(), ...repeatableTypes]);
+          .items([...pageTypes, S.divider(), ...repeatableTypes, S.divider(), ...configTypes]);
       },
     }),
     visionTool({ defaultApiVersion: apiVersion }),

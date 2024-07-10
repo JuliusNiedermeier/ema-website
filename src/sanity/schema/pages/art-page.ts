@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { MapPinIcon } from "lucide-react";
 
 export const artPage: SchemaTypeDef = {
-  singleton: true,
+  type: "page",
   definition: defineType({
     name: "art-page",
     title: "Kunst",

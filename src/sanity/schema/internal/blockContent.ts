@@ -13,6 +13,7 @@ import { SchemaTypeDef } from "..";
  */
 
 export const blockContent: SchemaTypeDef = {
+  type: "internal",
   definition: defineType({
     title: "Block Content",
     name: "blockContent",

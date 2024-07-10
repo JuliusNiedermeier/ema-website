@@ -3,6 +3,7 @@ import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
 
 export const educationalProgram: SchemaTypeDef = {
+  type: "repeatable",
   definition: defineType({
     name: "educational-program",
     title: "Bildungsgang",

@@ -3,6 +3,7 @@ import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
 
 export const educationalProgramType: SchemaTypeDef = {
+  type: "repeatable",
   definition: defineType({
     name: "educational-program-type",
     title: "Bildungsweg",

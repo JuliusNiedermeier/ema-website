@@ -3,6 +3,7 @@ import { SchemaTypeDef } from "..";
 import { PenLineIcon } from "lucide-react";
 
 export const post: SchemaTypeDef = {
+  type: "repeatable",
   definition: defineType({
     name: "post",
     title: "Blogbeitrag",

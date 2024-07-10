@@ -1,28 +1,33 @@
 import { type SchemaTypeDefinition } from "sanity";
 
-import { blockContent } from "./parts/blockContent";
+import { campusPage } from "./pages/campus-page";
+import { economySocialPage } from "./pages/economy-social";
+import { checkupPage } from "./pages/checkup-page";
+import { homePage } from "./pages/home-page";
+import { artPage } from "./pages/art-page";
+import { contactPage } from "./pages/contact-page";
+import { postPage } from "./pages/post-page";
+import { jobsPage } from "./pages/jobs-page";
+
 import { category } from "./repeatables/category";
 import { post } from "./repeatables/post";
 import { author } from "./repeatables/author";
-import { homePage } from "./singletons/home-page";
 import { educationalProgramType } from "./repeatables/educational-program-type";
 import { educationalProgram } from "./repeatables/educational-program";
-import { campusPage } from "./singletons/campus-page";
 import { testimonial } from "./repeatables/testimonial";
-import { economySocialPage } from "./singletons/economy-social";
-import { checkupPage } from "./singletons/checkup-page";
-import { artPage } from "./singletons/art-page";
-import { contactPage } from "./singletons/contact-page";
-import { certificateType } from "./parts/certificate";
-import { faqType } from "./parts/faq-fields";
-import { defaultSlug } from "./parts/default-slug";
-import { postPage } from "./singletons/post-page";
-import { jobsPage } from "./singletons/jobs-page";
 
-export type SchemaTypeDef = { singleton?: boolean; definition: SchemaTypeDefinition };
+import { blockContent } from "./internal/blockContent";
+import { certificateType } from "./internal/certificate";
+import { faqType } from "./internal/faq-fields";
+import { defaultSlug } from "./internal/default-slug";
 
-const types = [
-  // Singletons
+export type SchemaTypeDef = {
+  type: "page" | "config" | "repeatable" | "internal";
+  definition: SchemaTypeDefinition;
+};
+
+const typeDefs = [
+  // Pages
   homePage,
   economySocialPage,
   campusPage,
@@ -40,7 +45,9 @@ const types = [
   category,
   testimonial,
 
-  // Custom reusable types
+  // Config
+
+  // Internal
   blockContent,
   certificateType,
   faqType,
@@ -48,7 +55,11 @@ const types = [
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: types.map((type) => type.definition),
+  types: typeDefs.map((type) => type.definition),
 };
 
-export const singletonTypeNames = new Set(types.filter((type) => type.singleton).map((type) => type.definition.name));
+const extractTypeNames = (typeDefs: SchemaTypeDef[]) => typeDefs.map((def) => def.definition.name);
+
+export const pageTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "page")));
+export const configTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "config")));
+export const repeatableTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "repeatable")));
