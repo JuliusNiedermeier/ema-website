@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { BriefcaseBusinessIcon, MapPinIcon } from "lucide-react";
+import { BriefcaseBusinessIcon } from "lucide-react";
 
 export const jobsPage: SchemaTypeDef = {
   singleton: true,
