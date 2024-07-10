@@ -47,7 +47,12 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
                 <NavigationMenuItem label="Blog" href="/blog" />
                 <NavigationMenuItem label="Kontakt" href="/kontakt" />
 
-                <Button href="/go" size="sm" vairant="outline" className="ml-8 self-center">
+                <Button
+                  href="/go"
+                  size="sm"
+                  vairant="outline"
+                  className="ml-8 self-center transition-[padding] hover:pr-1"
+                >
                   <Label>Bewerben</Label>
                   <ButtonInteractionBubble />
                 </Button>
@@ -65,7 +70,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
         </Container>
 
         <div className="absolute bottom-0 w-full translate-y-[calc(100%+1px)] overflow-hidden rounded-b-3xl sm:block">
-          <NavigationMenuViewport className="data-[state='open']:animate-expandDown data-[state='closed']:animate-contractUp z-10 h-[var(--radix-navigation-menu-viewport-height)] bg-neutral-200 transition-all" />
+          <NavigationMenuViewport className="z-10 h-[var(--radix-navigation-menu-viewport-height)] bg-neutral-200 transition-all data-[state='closed']:animate-contractUp data-[state='open']:animate-expandDown" />
         </div>
       </header>
     </NavigationMenu>
