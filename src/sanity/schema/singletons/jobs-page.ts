@@ -78,6 +78,13 @@ export const jobsPage: SchemaTypeDef = {
                 type: "text",
                 validation: (r) => r.required().min(50).max(300),
               }),
+              defineField({
+                name: "contactEmail",
+                title: "Kontakt-Mailadresse",
+                description: "Unter welcher Mailadresse sollen sich Bewerber für diese Stelle melden?",
+                type: "string",
+                validation: (r) => r.required().email(),
+              }),
             ],
           }),
         ],

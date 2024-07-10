@@ -48,7 +48,12 @@ const JobsPage: FC = async () => {
             <AccordionItemContent>
               <div>
                 <Paragraph className="my-0">{job.fullDescription}</Paragraph>
-                <Button size="sm" vairant="outline" className="mt-4 transition-[padding] hover:pr-1">
+                <Button
+                  href={`mailto:${job.contactEmail}`}
+                  size="sm"
+                  vairant="outline"
+                  className="mt-4 transition-[padding] hover:pr-1"
+                >
                   <Label>{data.CTALabel}</Label>
                   <ButtonInteractionBubble />
                 </Button>
