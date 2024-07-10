@@ -20,6 +20,8 @@ import { blockContent } from "./internal/blockContent";
 import { certificateType } from "./internal/certificate";
 import { faqType } from "./internal/faq-fields";
 import { defaultSlug } from "./internal/default-slug";
+import { headerConfigType } from "./config/header";
+import { footerConfigType } from "./config/footer";
 
 export type SchemaTypeDef = {
   type: "page" | "config" | "repeatable" | "internal";
@@ -46,6 +48,8 @@ const typeDefs = [
   testimonial,
 
   // Config
+  headerConfigType,
+  footerConfigType,
 
   // Internal
   blockContent,
