@@ -10,6 +10,7 @@ import { apiVersion } from "~/sanity/config";
 import { colorInput } from "@sanity/color-input";
 
 import { schema, pageTypeNames, configTypeNames, repeatableTypeNames } from "~/sanity/schema";
+import { AppWindowIcon, GlobeIcon, LayoutGridIcon } from "lucide-react";
 
 export default defineConfig({
   basePath: "/studio",
@@ -36,17 +37,25 @@ export default defineConfig({
           return pageTypeNames.has(typeName) || configTypeNames.has(typeName);
         });
 
-        const modifiedSingletonTypes = singletonTypes.map((type) =>
+        const modifiedSingletonTypes = singletonTypes.map((type) => {
           // Sets a specific document of the singleton type as a direct child of the list item.
           // The name of the schema type is used as the document ID here.
           // This implicitly creates the first document of the singleton type when navigating into it.
           // For subsequent visits the created document will be displayed.
-          type.child(
-            S.document()
-              .schemaType((type.getSchemaType() as SchemaType).name)
-              .documentId(type.getId()!),
-          ),
-        );
+
+          const typeName = (type.getSchemaType() as SchemaType).name;
+
+          // The solution proposed by the Sanity documentation uses the type name as document ID.
+          // https://www.sanity.io/docs/structure-builder-cheat-sheet#5cd7ca204386
+          // This could lead to unexpected behaviour when deleting a singleton page and opening it again
+          // IDs in Sanity must be unique, and are not released after deletion
+
+          // Possible solution without explicitly setting the ID. An ID will be assigned automatically.
+          // return type.child(S.document().schemaType(typeName).documentId(type.getId()!));
+
+          // Solution proposed by Sanity
+          return type.child(S.editor().id(typeName).schemaType(typeName).documentId(typeName));
+        });
 
         // Get list of page types
         const pageTypes = modifiedSingletonTypes.filter((type) =>
@@ -66,7 +75,17 @@ export default defineConfig({
         return S.list()
           .id("content")
           .title("Content")
-          .items([...pageTypes, S.divider(), ...repeatableTypes, S.divider(), ...configTypes]);
+          .items([
+            S.listItem().title("Seiten").icon(AppWindowIcon).child(S.list().title("Seiten").items(pageTypes)),
+            S.listItem()
+              .title("Sammlungen")
+              .icon(LayoutGridIcon)
+              .child(S.list().title("Sammlungen").items(repeatableTypes)),
+            S.listItem()
+              .title("Globale Bereiche")
+              .icon(GlobeIcon)
+              .child(S.list().title("Globale Bereiche").items(configTypes)),
+          ]);
       },
     }),
     visionTool({ defaultApiVersion: apiVersion }),
