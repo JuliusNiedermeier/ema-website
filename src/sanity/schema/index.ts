@@ -1,45 +1,48 @@
 import { type SchemaTypeDefinition } from "sanity";
 
-import { campusPage } from "./pages/campus-page";
-import { economySocialPage } from "./pages/economy-social";
-import { checkupPage } from "./pages/checkup-page";
-import { homePage } from "./pages/home-page";
-import { artPage } from "./pages/art-page";
-import { contactPage } from "./pages/contact-page";
-import { postPage } from "./pages/post-page";
-import { jobsPage } from "./pages/jobs-page";
+import { campusPage } from "./static-pages/campus-page";
+import { economySocialPage } from "./static-pages/economy-social";
+import { checkupPage } from "./static-pages/checkup-page";
+import { homePage } from "./static-pages/home-page";
+import { artPage } from "./static-pages/art-page";
+import { contactPage } from "./static-pages/contact-page";
+import { postPage } from "./dynamic-pages/post-page";
+import { jobsPage } from "./static-pages/jobs-page";
 
-import { category } from "./repeatables/category";
-import { post } from "./repeatables/post";
-import { author } from "./repeatables/author";
-import { educationalProgramType } from "./repeatables/educational-program-type";
-import { educationalProgram } from "./repeatables/educational-program";
-import { testimonial } from "./repeatables/testimonial";
+import { category } from "./dynamic-content/category";
+import { post } from "./dynamic-content/post";
+import { author } from "./dynamic-content/author";
+import { educationalProgramType } from "./dynamic-content/educational-program-type";
+import { educationalProgram } from "./dynamic-content/educational-program";
+import { testimonial } from "./dynamic-content/testimonial";
 
 import { blockContent } from "./internal/blockContent";
 import { certificateType } from "./internal/certificate";
 import { faqType } from "./internal/faq-fields";
 import { defaultSlug } from "./internal/default-slug";
-import { headerConfigType } from "./config/header";
-import { footerConfigType } from "./config/footer";
+import { headerConfigType } from "./global-components/header";
+import { footerConfigType } from "./global-components/footer";
+import { websiteSettingsType } from "./global-config/website-settings";
 
 export type SchemaTypeDef = {
-  type: "page" | "config" | "repeatable" | "internal";
+  type: "static-page" | "dynamic-page" | "dynamic-content" | "global-component" | "global-config" | "internal";
   definition: SchemaTypeDefinition;
 };
 
 const typeDefs = [
-  // Pages
+  // Static pages
   homePage,
   economySocialPage,
   campusPage,
   artPage,
   contactPage,
   checkupPage,
-  postPage,
   jobsPage,
 
-  // Repeatables
+  // Dynamic pages
+  postPage,
+
+  // Dynmaic content
   educationalProgramType,
   educationalProgram,
   post,
@@ -47,9 +50,12 @@ const typeDefs = [
   category,
   testimonial,
 
-  // Config
+  // Global components
   headerConfigType,
   footerConfigType,
+
+  // Global config
+  websiteSettingsType,
 
   // Internal
   blockContent,
@@ -64,6 +70,16 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 
 const extractTypeNames = (typeDefs: SchemaTypeDef[]) => typeDefs.map((def) => def.definition.name);
 
-export const pageTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "page")));
-export const configTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "config")));
-export const repeatableTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "repeatable")));
+export const staticPageTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "static-page")));
+
+export const dynamicPageTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "dynamic-page")));
+
+export const dynamicContentTypeNames = new Set(
+  extractTypeNames(typeDefs.filter((def) => def.type === "dynamic-content")),
+);
+
+export const globalComponentTypeNames = new Set(
+  extractTypeNames(typeDefs.filter((def) => def.type === "global-component")),
+);
+
+export const globalConfigTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "global-config")));

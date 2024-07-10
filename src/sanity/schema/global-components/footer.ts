@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { PanelBottomIcon } from "lucide-react";
 
 export const footerConfigType: SchemaTypeDef = {
-  type: "config",
+  type: "global-component",
   definition: defineType({
     name: "footer-config",
     title: "Footer",

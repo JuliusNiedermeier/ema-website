@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { PanelTopIcon } from "lucide-react";
 
 export const headerConfigType: SchemaTypeDef = {
-  type: "config",
+  type: "global-component",
   definition: defineType({
     name: "header-config",
     title: "Header",

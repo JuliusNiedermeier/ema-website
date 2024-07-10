@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { MapPinIcon } from "lucide-react";
 
 export const contactPage: SchemaTypeDef = {
-  type: "page",
+  type: "static-page",
   definition: defineType({
     name: "contact-page",
     title: "Kontakt",

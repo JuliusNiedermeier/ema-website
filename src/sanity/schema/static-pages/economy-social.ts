@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { MapPinIcon } from "lucide-react";
 
 export const economySocialPage: SchemaTypeDef = {
-  type: "page",
+  type: "static-page",
   definition: defineType({
     name: "economy-social-page",
     title: "Wirtschaft & Soziales",

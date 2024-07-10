@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { TagIcon } from "lucide-react";
 
 export const category: SchemaTypeDef = {
-  type: "repeatable",
+  type: "dynamic-content",
   definition: defineType({
     name: "category",
     title: "Kategorie",

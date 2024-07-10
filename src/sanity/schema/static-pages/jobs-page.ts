@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { BriefcaseBusinessIcon } from "lucide-react";
 
 export const jobsPage: SchemaTypeDef = {
-  type: "page",
+  type: "static-page",
   definition: defineType({
     name: "jobs-page",
     title: "Offene Stellen",

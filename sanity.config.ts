@@ -9,8 +9,15 @@ import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
 import { colorInput } from "@sanity/color-input";
 
-import { schema, pageTypeNames, configTypeNames, repeatableTypeNames } from "~/sanity/schema";
-import { AppWindowIcon, GlobeIcon, LayoutGridIcon } from "lucide-react";
+import {
+  schema,
+  staticPageTypeNames,
+  dynamicPageTypeNames,
+  globalComponentTypeNames,
+  dynamicContentTypeNames,
+  globalConfigTypeNames,
+} from "~/sanity/schema";
+import { GlobeIcon, LayoutGridIcon, SquareMousePointerIcon, SquareStackIcon } from "lucide-react";
 
 export default defineConfig({
   basePath: "/studio",
@@ -23,7 +30,9 @@ export default defineConfig({
     newDocumentOptions: (items, { creationContext }) => {
       if (creationContext.type === "global") {
         // Removes all singleton types from the global create button.
-        return items.filter((item) => !pageTypeNames.has(item.templateId) && !configTypeNames.has(item.templateId));
+        return items.filter(
+          (item) => !staticPageTypeNames.has(item.templateId) && !globalComponentTypeNames.has(item.templateId),
+        );
       }
       return items;
     },
@@ -34,7 +43,12 @@ export default defineConfig({
         // Get list of all singleton types
         const singletonTypes = S.documentTypeListItems().filter((S) => {
           const typeName = (S.getSchemaType() as SchemaType).name;
-          return pageTypeNames.has(typeName) || configTypeNames.has(typeName);
+          return (
+            staticPageTypeNames.has(typeName) ||
+            dynamicPageTypeNames.has(typeName) ||
+            globalComponentTypeNames.has(typeName) ||
+            globalConfigTypeNames.has(typeName)
+          );
         });
 
         const modifiedSingletonTypes = singletonTypes.map((type) => {
@@ -57,34 +71,48 @@ export default defineConfig({
           return type.child(S.editor().id(typeName).schemaType(typeName).documentId(typeName));
         });
 
-        // Get list of page types
-        const pageTypes = modifiedSingletonTypes.filter((type) =>
-          pageTypeNames.has((type.getSchemaType() as SchemaType).name),
+        // Get list of static page types
+        const staticPageTypes = modifiedSingletonTypes.filter((type) =>
+          staticPageTypeNames.has((type.getSchemaType() as SchemaType).name),
         );
 
-        // Get list of config types
-        const configTypes = modifiedSingletonTypes.filter((type) =>
-          configTypeNames.has((type.getSchemaType() as SchemaType).name),
+        // Get list of dynamic-page types
+        const dynamicPageTypes = modifiedSingletonTypes.filter((type) =>
+          dynamicPageTypeNames.has((type.getSchemaType() as SchemaType).name),
         );
 
-        // Get list of repeatable types
-        const repeatableTypes = S.documentTypeListItems().filter((S) =>
-          repeatableTypeNames.has((S.getSchemaType() as SchemaType).name),
+        // Get list of dynamic-content types
+        const dynamicContentTypes = S.documentTypeListItems().filter((S) =>
+          dynamicContentTypeNames.has((S.getSchemaType() as SchemaType).name),
+        );
+
+        // Get list of global-component types
+        const globaleComponentTypes = modifiedSingletonTypes.filter((type) =>
+          globalComponentTypeNames.has((type.getSchemaType() as SchemaType).name),
+        );
+
+        // Get list of global-config types
+        const globaleConfigTypes = modifiedSingletonTypes.filter((type) =>
+          globalConfigTypeNames.has((type.getSchemaType() as SchemaType).name),
         );
 
         return S.list()
           .id("content")
           .title("Content")
           .items([
-            S.listItem().title("Seiten").icon(AppWindowIcon).child(S.list().title("Seiten").items(pageTypes)),
-            S.listItem()
-              .title("Sammlungen")
-              .icon(LayoutGridIcon)
-              .child(S.list().title("Sammlungen").items(repeatableTypes)),
-            S.listItem()
-              .title("Globale Bereiche")
-              .icon(GlobeIcon)
-              .child(S.list().title("Globale Bereiche").items(configTypes)),
+            S.listItem({ id: "static-pages", title: "Statische Seiten", icon: SquareMousePointerIcon }).child(
+              S.list({ id: "static-pages", title: "Statische Seiten", items: staticPageTypes }),
+            ),
+            S.listItem({ id: "dynamic-pages", title: "Dynamische Seiten", icon: SquareStackIcon }).child(
+              S.list({ id: "dynamic-pages", title: "Dynamische Seiten", items: dynamicPageTypes }),
+            ),
+            S.listItem({ id: "dynamic-content", title: "Dynamische Inhalte", icon: LayoutGridIcon }).child(
+              S.list({ id: "dynamic-content", title: "Dynamische Inhalte", items: dynamicContentTypes }),
+            ),
+            S.listItem({ id: "global-components", title: "Globale Komponenten", icon: GlobeIcon }).child(
+              S.list({ id: "global-components", title: "Globale Komponenten", items: globaleComponentTypes }),
+            ),
+            ...globaleConfigTypes,
           ]);
       },
     }),

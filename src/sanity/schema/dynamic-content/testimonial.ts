@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 
 export const testimonial: SchemaTypeDef = {
-  type: "repeatable",
+  type: "dynamic-content",
   definition: defineType({
     name: "testimonial",
     title: "Testimonial",

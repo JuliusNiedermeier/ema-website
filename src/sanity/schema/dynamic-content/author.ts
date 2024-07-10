@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { UserIcon } from "lucide-react";
 
 export const author: SchemaTypeDef = {
-  type: "repeatable",
+  type: "dynamic-content",
   definition: defineType({
     name: "author",
     title: "Autor",

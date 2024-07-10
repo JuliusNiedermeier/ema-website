@@ -3,7 +3,7 @@ import { SchemaTypeDef } from "..";
 import { HomeIcon } from "lucide-react";
 
 export const homePage: SchemaTypeDef = {
-  type: "page",
+  type: "static-page",
   definition: defineType({
     name: "home-page",
     title: "Startseite",
