@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { MapPinIcon } from "lucide-react";
+import { PaletteIcon } from "lucide-react";
 
 export const artPage: SchemaTypeDef = {
   type: "static-page",
@@ -8,7 +8,7 @@ export const artPage: SchemaTypeDef = {
     name: "art-page",
     title: "Kunst",
     type: "document",
-    icon: MapPinIcon,
+    icon: PaletteIcon,
     groups: [],
     fields: [
       defineField({

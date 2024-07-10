@@ -6,7 +6,7 @@ export const category: SchemaTypeDef = {
   type: "dynamic-content",
   definition: defineType({
     name: "category",
-    title: "Kategorie",
+    title: "Blogbeitrags-Kategorie",
     icon: TagIcon,
     type: "document",
     fields: [

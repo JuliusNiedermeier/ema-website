@@ -6,7 +6,7 @@ export const postPage: SchemaTypeDef = {
   type: "dynamic-page",
   definition: defineType({
     name: "post-page",
-    title: "Blogbeitragsseite",
+    title: "Blogbeitrag",
     type: "document",
     icon: PenLineIcon,
     groups: [],
@@ -76,7 +76,7 @@ export const postPage: SchemaTypeDef = {
       }),
     ],
     preview: {
-      prepare: () => ({ title: "Blogbeitragsseite" }),
+      prepare: () => ({ title: "Blogbeitrag" }),
     },
   }),
 };

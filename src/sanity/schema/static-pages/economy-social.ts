@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { MapPinIcon } from "lucide-react";
+import { ShuffleIcon } from "lucide-react";
 
 export const economySocialPage: SchemaTypeDef = {
   type: "static-page",
@@ -8,7 +8,7 @@ export const economySocialPage: SchemaTypeDef = {
     name: "economy-social-page",
     title: "Wirtschaft & Soziales",
     type: "document",
-    icon: MapPinIcon,
+    icon: ShuffleIcon,
     groups: [],
     fields: [
       defineField({

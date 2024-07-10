@@ -1,14 +1,14 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { MapPinIcon } from "lucide-react";
+import { PersonStandingIcon } from "lucide-react";
 
 export const campusPage: SchemaTypeDef = {
   type: "static-page",
   definition: defineType({
     name: "campus-page",
-    title: "Campus",
+    title: "Campus & Team",
     type: "document",
-    icon: MapPinIcon,
+    icon: PersonStandingIcon,
     groups: [
       {
         name: "campus",

@@ -6,7 +6,7 @@ export const author: SchemaTypeDef = {
   type: "dynamic-content",
   definition: defineType({
     name: "author",
-    title: "Autor",
+    title: "Blogbeitrags-Autor",
     type: "document",
     icon: UserIcon,
     fields: [

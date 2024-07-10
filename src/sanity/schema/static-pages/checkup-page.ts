@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { MapPinIcon } from "lucide-react";
+import { SignpostIcon } from "lucide-react";
 
 export const checkupPage: SchemaTypeDef = {
   type: "static-page",
@@ -8,7 +8,7 @@ export const checkupPage: SchemaTypeDef = {
     name: "checkup-page",
     title: "Checkup",
     type: "document",
-    icon: MapPinIcon,
+    icon: SignpostIcon,
     groups: [],
     fields: [
       defineField({

@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
+import { MessageSquareMoreIcon } from "lucide-react";
 
 export const testimonial: SchemaTypeDef = {
   type: "dynamic-content",
@@ -7,6 +8,7 @@ export const testimonial: SchemaTypeDef = {
     name: "testimonial",
     title: "Testimonial",
     type: "document",
+    icon: MessageSquareMoreIcon,
     fields: [
       defineField({
         name: "stars",
