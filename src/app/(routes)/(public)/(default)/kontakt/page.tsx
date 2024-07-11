@@ -3,23 +3,33 @@ import {
   AtSignIcon,
   CalendarCheckIcon,
   ExternalLinkIcon,
-  InfoIcon,
   LucideIcon,
   MapPinIcon,
   PhoneCallIcon,
   UsersIcon,
   VideoIcon,
 } from "lucide-react";
+import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps, FC } from "react";
-import { InfoEveningEventList } from "~/app/_components/blocks/info-evening-event-list";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
 import { Tab, TabList } from "~/app/_components/primitives/tabs";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { cn } from "~/app/_utils/cn";
+import { sanity } from "~/sanity/lib/client";
+import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
+import { notFound } from "next/navigation";
+
+const contactPageQuery = groq`*[_type == "contact-page"][0]{
+  ...,
+  map {
+    ...,
+    image { asset -> { url } }
+  }
+}`;
 
 type SectionLink = {
   ID: string;
@@ -27,20 +37,23 @@ type SectionLink = {
   name: string;
 };
 
-const sectionLinks: SectionLink[] = [
-  { ID: "infoabend", icon: UsersIcon, name: "Infoabend" },
-  { ID: "beratung", icon: InfoIcon, name: "Offene Beratung" },
-  { ID: "gespräch", icon: CalendarCheckIcon, name: "Persönliches Gespräch" },
-  { ID: "direkt", icon: AtSignIcon, name: "Per Mail oder Telefon" },
-];
+const ContactPage: FC = async () => {
+  const data = await sanity.fetch<ContactPageQueryResult>(contactPageQuery, {}, { next: { tags: ["contact-page"] } });
 
-const ContactPage: FC = () => {
+  if (!data) notFound();
+
+  const sectionLinks: SectionLink[] = [
+    { ID: "info-event", icon: UsersIcon, name: data.infoEvening?.name || "" },
+    { ID: "personal-consulting", icon: CalendarCheckIcon, name: data.personalConsulting?.name || "" },
+    { ID: "contact", icon: AtSignIcon, name: data.contact?.name || "" },
+  ];
+
   return (
     <div>
       <div className="bg-neutral-200 pt-16">
         <Container className="flex flex-col gap-16 sm:flex-row sm:items-center">
           <div className="flex-1">
-            <Heading>Viele Wege führen zu uns.</Heading>
+            <Heading>{data?.heading}</Heading>
             <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-4">
               {sectionLinks.map((sectionLink) => (
                 <Card key={sectionLink.ID} className="flex items-center gap-4 bg-primary-100 p-4" asChild>
@@ -54,16 +67,16 @@ const ContactPage: FC = () => {
               ))}
             </div>
           </div>
-          <div className="relative aspect-square flex-1 overflow-hidden rounded-2xl rounded-b-none border border-b-0">
+          <div className="relative aspect-square flex-1 overflow-hidden rounded-2xl rounded-b-none border border-b-0 border-neutral-900/20">
             <Image
-              src="/map.png"
+              src={data?.map?.image?.asset?.url || ""}
               height="1000"
               width="1000"
-              alt="Map"
-              className="h-full w-full object-cover saturate-50"
+              alt="Karte"
+              className="h-full w-full object-cover"
             />
-            <Button className="absolute bottom-4 right-4 gap-2">
-              <Label>In Maps öffnen</Label>
+            <Button href={data?.map?.buttonLink} external className="absolute bottom-4 right-4 gap-2">
+              <Label>{data?.map?.buttonLabel}</Label>
               <ExternalLinkIcon size="18" />
             </Button>
           </div>
@@ -72,48 +85,68 @@ const ContactPage: FC = () => {
 
       <Container id="infoabend" className="flex flex-col gap-16 py-32 sm:flex-row">
         <div className="flex-1">
-          <SectionIndicator name="Infoabend" icon={UsersIcon} />
-          <Heading className="mt-8">Lerne uns bei unserem Infoabend am 24. Juli kennen.</Heading>
-          <Paragraph>
-            Jede Woche veranstalten wir einen Infoabend, zu dem wir jeden, der sich für die Emil Molt Akademie
-            interessiert herzlich einladen.
-          </Paragraph>
+          <SectionIndicator name={data?.infoEvening?.name || ""} icon={UsersIcon} />
+          <Heading className="mt-8">{data?.infoEvening?.heading}</Heading>
+          <Paragraph>{data?.infoEvening?.previewText}</Paragraph>
         </div>
-        <InfoEveningEventList className="flex-1" />
+        <div className="flex-1 divide-y overflow-hidden rounded-2xl border">
+          {data?.infoEvening?.nextDates
+            ?.filter(({ eventDate }) => !!eventDate)
+            .map(({ eventDate }, index) => (
+              <div
+                key={index}
+                className={cn("flex items-center justify-between gap-8 p-4", { "bg-primary-100": index === 0 })}
+              >
+                <div>
+                  <Heading size="sm" className="mb-0">
+                    {new Date(eventDate!).toLocaleDateString("de", { weekday: "long", day: "numeric", month: "long" })}
+                  </Heading>
+                  <Label className="text-neutral-100-text-muted">
+                    {new Date(eventDate!).toLocaleDateString("de", { year: "numeric" })}
+                  </Label>
+                </div>
+                <Label>{`${new Date(eventDate!).toLocaleTimeString("de", { timeStyle: "short" })} ${data.infoEvening?.timeSuffix}`}</Label>
+              </div>
+            ))}
+        </div>
       </Container>
 
       <div id="gespräch" className="bg-primary-900 py-32">
         <Container className="flex flex-col gap-16 sm:flex-row">
           <div className="flex-1">
-            <SectionIndicator name="Persönliches Gespräch" icon={VideoIcon} on="dark" />
-            <Heading className="mt-8 text-neutral-900-text">Persönliche Beratung</Heading>
-            <Paragraph className="text-neutral-900-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum assumenda ipsam quia praesentium, at
-              quisquam non similique eius alias. Voluptatum sed tempore animi est accusantium autem inventore cum quia
-              nesciunt!
-            </Paragraph>
+            <SectionIndicator name={data?.personalConsulting?.name || ""} icon={VideoIcon} on="dark" />
+            <Heading className="mt-8 text-neutral-900-text">{data?.personalConsulting?.heading}</Heading>
+            <Paragraph className="text-neutral-900-text">{data?.personalConsulting?.previewText}</Paragraph>
           </div>
           <div className="flex-1">
             <TabList>
               <Tab active className="justify-start pl-2">
-                <SectionIndicator name="Video-Call" icon={VideoIcon} on="dark" />
+                <SectionIndicator
+                  name={data?.personalConsulting?.booking?.type?.onlineLabel || ""}
+                  icon={VideoIcon}
+                  on="dark"
+                />
               </Tab>
               <Tab className="justify-start pl-2">
-                <SectionIndicator name="An unserem Campus" icon={MapPinIcon} on="light" />
+                <SectionIndicator
+                  name={data?.personalConsulting?.booking?.type?.offlineLabel || ""}
+                  icon={MapPinIcon}
+                  on="light"
+                />
               </Tab>
             </TabList>
             <input
               className="mt-8 block w-full rounded-2xl border border-neutral-900-text bg-transparent p-4 font-serif text-neutral-900-text outline-none"
               type="email"
-              placeholder="Deine Mailadresse"
+              placeholder={data?.personalConsulting?.booking?.emailPlaceholder}
             />
             <Button className="mt-8 w-full justify-center bg-primary-100 text-primary-100-text">
-              <Label>Termin anfordern</Label>
+              <Label>{data?.personalConsulting?.booking?.requestButtonLabel}</Label>
               <ButtonInteractionBubble />
             </Button>
 
             <Paragraph className="mt-16 text-neutral-900-text-muted">
-              Oder vereinbare einen Termin per Mail oder Telefon
+              {data?.personalConsulting?.booking?.alternativeContact}
             </Paragraph>
           </div>
         </Container>
@@ -121,25 +154,25 @@ const ContactPage: FC = () => {
 
       <Container id="direkt" className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32">
         <div className="flex-1">
-          <SectionIndicator name="Mail & Telefon" icon={AtSignIcon} />
-          <Heading className="mt-8">{"Schreib' eine Mail oder ruf' uns an."}</Heading>
-          <Paragraph>Gerne kannst du uns auch eine Mail mit deinem Anliegen schreiben oder uns anrufen.</Paragraph>
+          <SectionIndicator name={data?.contact?.name || ""} icon={AtSignIcon} />
+          <Heading className="mt-8">{data?.contact?.heading || ""}</Heading>
+          <Paragraph>{data?.contact?.description || ""}</Paragraph>
         </div>
         <div className="flex-1">
           <div className="divide-y rounded-2xl border bg-transparent">
             <div className="px-4 py-6">
               <div className="flex items-center gap-2">
                 <AtSignIcon />
-                <Label>E-Mail</Label>
+                <Label>{data?.contact?.email?.heading || ""}</Label>
               </div>
-              <Label className="mt-4 block">info@emil-molt-akademie.de</Label>
+              <Label className="mt-4 block">{data?.contact?.email?.email || ""}</Label>
             </div>
             <div className="px-4 py-6">
               <div className="flex items-center gap-2">
                 <PhoneCallIcon />
-                <Label>Telefon</Label>
+                <Label>{data?.contact?.phone?.heading || ""}</Label>
               </div>
-              <Label className="mt-4 block">+49 30 53218343</Label>
+              <Label className="mt-4 block">{data?.contact?.phone?.number || ""}</Label>
             </div>
           </div>
         </div>
