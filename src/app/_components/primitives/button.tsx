@@ -9,6 +9,7 @@ export type ButtonProps = ComponentProps<"button"> &
   VariantProps<typeof variants> & {
     asChild?: boolean;
     href?: ComponentProps<typeof Link>["href"] | undefined;
+    external?: boolean;
   };
 
 const variants = cva("group px-8 rounded-full flex items-center w-min whitespace-nowrap", {
@@ -26,7 +27,16 @@ const variants = cva("group px-8 rounded-full flex items-center w-min whitespace
   defaultVariants: { size: "md", vairant: "filled" },
 });
 
-export const Button: FC<ButtonProps> = ({ className, children, asChild, size, vairant, href, ...restProps }) => {
+export const Button: FC<ButtonProps> = ({
+  className,
+  children,
+  asChild,
+  size,
+  vairant,
+  href,
+  external,
+  ...restProps
+}) => {
   if (asChild) {
     return (
       <Slot className={cn(variants({ size, vairant }), className)} {...restProps}>
@@ -39,6 +49,7 @@ export const Button: FC<ButtonProps> = ({ className, children, asChild, size, va
     return (
       <Link
         href={href}
+        target={external ? "_blank" : undefined}
         className={cn(variants({ size, vairant }), className)}
         {...(restProps as Omit<ComponentProps<typeof Link>, "href">)}
       >
