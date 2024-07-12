@@ -213,9 +213,11 @@ const HomePage: FC = async () => {
             alt: artPreview?.heading || "",
           }}
         />
+      </Container>
 
-        <CampusCard className="mt-16" />
+      <CampusCard className="mt-16" />
 
+      <Container>
         <ContactPreviewCard className="mt-32" />
 
         <div className="mt-64">
