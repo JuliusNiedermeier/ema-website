@@ -42,11 +42,11 @@ const ContactPage: FC = async () => {
 
   if (!data) notFound();
 
-  const sectionLinks: SectionLink[] = [
+  const sectionLinks = [
     { ID: "info-event", icon: UsersIcon, name: data.infoEvening?.name || "" },
     { ID: "personal-consulting", icon: CalendarCheckIcon, name: data.personalConsulting?.name || "" },
     { ID: "contact", icon: AtSignIcon, name: data.contact?.name || "" },
-  ];
+  ] as const satisfies SectionLink[];
 
   return (
     <div>
@@ -83,7 +83,10 @@ const ContactPage: FC = async () => {
         </Container>
       </div>
 
-      <Container id="infoabend" className="flex flex-col gap-16 py-32 sm:flex-row">
+      <Container
+        id={sectionLinks.find(({ ID }) => ID == "info-event")!.ID}
+        className="flex flex-col gap-16 py-32 sm:flex-row"
+      >
         <div className="flex-1">
           <SectionIndicator name={data?.infoEvening?.name || ""} icon={UsersIcon} />
           <Heading className="mt-8">{data?.infoEvening?.heading}</Heading>
@@ -111,7 +114,7 @@ const ContactPage: FC = async () => {
         </div>
       </Container>
 
-      <div id="gespräch" className="bg-primary-900 py-32">
+      <div id={sectionLinks.find(({ ID }) => ID == "personal-consulting")!.ID} className="bg-primary-900 py-32">
         <Container className="flex flex-col gap-16 sm:flex-row">
           <div className="flex-1">
             <SectionIndicator name={data?.personalConsulting?.name || ""} icon={VideoIcon} on="dark" />
@@ -152,7 +155,10 @@ const ContactPage: FC = async () => {
         </Container>
       </div>
 
-      <Container id="direkt" className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32">
+      <Container
+        id={sectionLinks.find(({ ID }) => ID == "contact")!.ID}
+        className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32"
+      >
         <div className="flex-1">
           <SectionIndicator name={data?.contact?.name || ""} icon={AtSignIcon} />
           <Heading className="mt-8">{data?.contact?.heading || ""}</Heading>

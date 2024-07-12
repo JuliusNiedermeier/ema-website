@@ -33,17 +33,8 @@ export const ContactPreviewCard: FC<ContactPreviewCardProps> = async ({ classNam
           </div>
         </Card>
       </Link>
-      <Link href="/kontakt#beratung" className="group block flex-1">
-        <Card className="flex h-full flex-col bg-primary-100">
-          <Heading size="sm" className="text-primary-100-text-muted">
-            {contactPage?.personalConsulting?.name}
-          </Heading>
-          <Heading className="text-primary-100-text">{contactPage?.personalConsulting?.heading}</Heading>
-          <Paragraph>{contactPage?.personalConsulting?.previewText}</Paragraph>
-          <InteractionBubble animated={false} className="mt-auto" />
-        </Card>
-      </Link>
-      <Link href="/kontakt#infoabend" className="group block flex-1">
+
+      <Link href="/kontakt#info-event" className="group block flex-1">
         <Card className="flex h-full flex-col bg-primary-900">
           <Heading size="sm" className="text-primary-900-text-muted">
             {contactPage?.infoEvening?.name}
@@ -51,6 +42,17 @@ export const ContactPreviewCard: FC<ContactPreviewCardProps> = async ({ classNam
           <Heading className="text-primary-900-text">{contactPage?.infoEvening?.heading}</Heading>
           <Paragraph className="text-neutral-900-text-muted">{contactPage?.infoEvening?.previewText}</Paragraph>
           <InteractionBubble animated={false} className="mt-auto bg-neutral-100 text-neutral-100-text" />
+        </Card>
+      </Link>
+
+      <Link href="/kontakt#personal-consulting" className="group block flex-1">
+        <Card className="flex h-full flex-col bg-primary-100">
+          <Heading size="sm" className="text-primary-100-text-muted">
+            {contactPage?.personalConsulting?.name}
+          </Heading>
+          <Heading className="text-primary-100-text">{contactPage?.personalConsulting?.heading}</Heading>
+          <Paragraph>{contactPage?.personalConsulting?.previewText}</Paragraph>
+          <InteractionBubble animated={false} className="mt-auto" />
         </Card>
       </Link>
     </Card>
