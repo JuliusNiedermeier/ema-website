@@ -30,7 +30,7 @@ export const AboutMenu: FC<AboutMenuProps> = ({ className, ...restProps }) => {
           </div>
         </Link>
 
-        <Link href="/about/team" className="group rounded-3xl border p-2">
+        <Link href="/about/kunst" className="group rounded-3xl border p-2">
           <div className="p-6">
             <Heading size="sm">Kunst</Heading>
             <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Paragraph>
