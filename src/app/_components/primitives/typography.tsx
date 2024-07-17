@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react";
+import { ComponentProps, FC, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "~/app/_utils/cn";
@@ -44,14 +44,14 @@ export type ParagraphProps = ComponentProps<"p"> & {
   asChild?: boolean;
 };
 
-export const Paragraph: FC<ParagraphProps> = ({ className, children, asChild, ...restProps }) => {
+export const Paragraph: FC<ParagraphProps> = forwardRef(({ className, children, asChild, ...restProps }, ref) => {
   const Component = asChild ? Slot : "p";
   return (
-    <Component className={cn("my-2 font-serif text-paragraph", className)} {...restProps}>
+    <Component ref={ref} className={cn("my-2 font-serif text-paragraph", className)} {...restProps}>
       {children}
     </Component>
   );
-};
+});
 
 export type LabelProps = ComponentProps<"span"> & { asChild?: boolean };
 
