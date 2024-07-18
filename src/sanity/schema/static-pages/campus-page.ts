@@ -6,60 +6,71 @@ export const campusPage: SchemaTypeDef = {
   type: "static-page",
   definition: defineType({
     name: "campus-page",
-    title: "Campus & Team",
+    title: "Deine Akademie. Unser Team.",
     type: "document",
     icon: PersonStandingIcon,
-    groups: [
-      {
-        name: "campus",
-        title: "Campus",
-      },
-      {
-        name: "team",
-        title: "Team",
-      },
-    ],
+    groups: [],
     fields: [
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
-        group: "campus",
       }),
       defineField({
         name: "previewText",
         title: "Auszug",
         type: "text",
-        group: "campus",
       }),
       defineField({
         name: "previewReadMoreButtonLabel",
         title: "Mehr lesen Button Text",
         type: "string",
-        group: "campus",
       }),
       defineField({
         name: "heroImage",
         title: "Hauptbild",
         type: "image",
-        group: "campus",
       }),
       defineField({
-        name: "images",
-        title: "Weitere Bilder",
+        name: "staff",
+        title: "Teammitglieder",
         type: "array",
-        group: "campus",
         of: [
           defineArrayMember({
-            name: "image-item",
-            title: "Bild",
-            type: "image",
+            name: "teamMember",
+            title: "Teammitglied",
+            type: "object",
+            fields: [
+              defineField({
+                name: "name",
+                title: "Name",
+                type: "string",
+              }),
+              defineField({
+                name: "position",
+                title: "Funktion",
+                description: "Was unterrichtet oder erledigt diese Person bei der EMA?",
+                type: "string",
+              }),
+              defineField({
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                description:
+                  "Ein Foto, das die Person in Ihrem Schulalltag zeigt. Dieses Bild dient dem Kennenlernen der Person und den Räumlichkeiten oder dem Gelände.",
+                type: "image",
+              }),
+            ],
           }),
         ],
       }),
     ],
     preview: {
-      prepare: () => ({ title: "Dein Campus" }),
+      prepare: () => ({ title: "Deine Akademie. Unser Team." }),
     },
   }),
 };

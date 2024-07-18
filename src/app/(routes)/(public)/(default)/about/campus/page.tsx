@@ -11,11 +11,9 @@ import { CampusInfoCard, CampusInfoCardListProvider } from "~/app/_components/co
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
   ...,
   heroImage { asset -> { url } },
-  images[]{
-    _type == "image-item" => {
-      ...,
-      asset -> { url }
-    },
+  staff[]{
+    ...,
+    image { asset -> { url } }
   }
 }`;
 
@@ -23,20 +21,22 @@ const CampusPage: FC = async () => {
   const data = await sanity.fetch<CampusPageQueryResult>(campusPageQuery, {}, { next: { tags: ["campus-page"] } });
 
   return (
-    <div className="rounded-b-3xl bg-neutral-200">
-      <Container className="py-16">
-        <Heading>{data?.heading}</Heading>
-        <Paragraph className="max-w-[40rem]">{data?.previewText}</Paragraph>
-      </Container>
-      <div className="flex flex-col gap-4">
+    <div className="rounded-b-3xl">
+      <div className="bg-neutral-200 pb-40">
+        <Container className="py-16">
+          <Heading>{data?.heading}</Heading>
+          <Paragraph className="max-w-[40rem]">{data?.previewText}</Paragraph>
+        </Container>
+      </div>
+      <div className="-mt-40 flex flex-col gap-4">
         <CampusInfoCardListProvider>
-          {data?.images?.map((image, index, images) => (
+          {data?.staff?.map((member, index) => (
             <div key={index} className="relative h-[75vh]">
               <div className="absolute left-0 top-0 h-full w-full">
                 <Container width="wide" className="h-full overflow-hidden rounded-3xl">
                   <ParalaxContainer className="h-full w-full">
                     <Image
-                      src={image.asset?.url || ""}
+                      src={member.image?.asset?.url || ""}
                       alt={"TODO"}
                       width="1920"
                       height="1080"
@@ -47,12 +47,8 @@ const CampusPage: FC = async () => {
               </div>
               <div className="absolute bottom-0 left-0 w-full">
                 <Container className="py-[6px] md:py-8">
-                  <CampusInfoCard title={`Teammitglied ${index + 1}`} subtitle="Sportlehrer">
-                    <Paragraph>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt expedita laborum, soluta eum
-                      aliquid enim, cum facilis sunt minus facere voluptatum iure nostrum fugit aliquam blanditiis
-                      veritatis porro sint sapiente.
-                    </Paragraph>
+                  <CampusInfoCard title={member.name || ""} subtitle={member.position || ""}>
+                    <Paragraph>{member.description}</Paragraph>
                   </CampusInfoCard>
                 </Container>
               </div>
