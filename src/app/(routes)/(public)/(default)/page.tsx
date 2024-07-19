@@ -219,14 +219,14 @@ const HomePage: FC = async () => {
 
       <Container>
         <ContactPreviewCard className="mt-32" />
+      </Container>
 
-        <div className="mt-64">
-          <div className="mx-auto max-w-[40rem] text-balance text-center">
-            <Heading>{homePage.testimonials?.heading}</Heading>
-            <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
-          </div>
-          <TestimonialCarousel className="mt-16" />
-        </div>
+      <Container width="narrow" className="mt-64 text-balance text-center">
+        <Heading>{homePage.testimonials?.heading}</Heading>
+        <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
+      </Container>
+      <Container>
+        <TestimonialCarousel className="mt-16" />
       </Container>
 
       <Container width="narrow" className="mt-64">
