@@ -18,6 +18,11 @@ export const artPage: SchemaTypeDef = {
         validation: (r) => r.required().min(5).max(40),
       }),
       defineField({
+        name: "background",
+        title: "Hintergrundgrafik",
+        type: "image",
+      }),
+      defineField({
         name: "preview",
         title: "Vorschau",
         type: "object",
@@ -42,6 +47,40 @@ export const artPage: SchemaTypeDef = {
           }),
           defineField({ name: "leftImage", title: "Bild links", type: "image", validation: (r) => r.required() }),
           defineField({ name: "rightImage", title: "Bild rechts", type: "image", validation: (r) => r.required() }),
+        ],
+      }),
+      defineField({
+        name: "artSubjects",
+        title: "Kunstfächer",
+        type: "array",
+        of: [
+          defineField({
+            name: "art-subject",
+            title: "Kunstfach",
+            type: "object",
+            fields: [
+              defineField({
+                name: "title",
+                title: "Name des Kunstfaches",
+                type: "string",
+              }),
+              defineField({
+                name: "slogan",
+                title: "Slogan",
+                type: "string",
+              }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                type: "image",
+              }),
+              defineField({
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+            ],
+          }),
         ],
       }),
     ],
