@@ -31,4 +31,20 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .text-sideways {
+    text-orientation: sideways;
+  }
+
+  .text-initial {
+    text-orientation: initial;
+  }
+
+  .writing-vertical-lr {
+    writing-mode: vertical-lr;
+  }
+
+  .writing-initial {
+    writing-mode: initial;
+  }
 }
