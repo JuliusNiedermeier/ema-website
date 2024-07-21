@@ -23,7 +23,7 @@ const ArtPage: FC = async () => {
 
   return (
     <>
-      <div className="absolute left-0 top-0 -z-10 h-[300vh] w-full bg-neutral-200">
+      <div className="absolute left-0 top-0 -z-10 h-[300vh] w-full bg-neutral-100">
         <div className="relative h-full">
           <Image
             src={data.background?.asset?.url || ""}
@@ -40,10 +40,13 @@ const ArtPage: FC = async () => {
         <Heading>{data.heading}</Heading>
         <Paragraph>{data.preview?.excerpt}</Paragraph>
       </Container>
-      <Container className="mt-32 [&>*+*]:mt-32">
+      <Container className="mt-32 [&>*+*]:mt-12">
         {data.artSubjects?.map((subject, index) => (
-          <div key={index} className="flex items-start gap-12 border-t pt-4">
-            <div className="text-sideways writing-vertical-lr md:text-initial md:writing-initial sticky top-24 md:flex-1">
+          <div
+            key={index}
+            className="flex flex-col rounded-3xl border border-neutral-400 bg-neutral-100 p-4 md:flex-row md:items-start md:gap-12"
+          >
+            <div className="top-24 py-4 md:sticky md:flex-1 md:px-4">
               <Heading size="sm" className="m-0">
                 {subject.title}
               </Heading>
