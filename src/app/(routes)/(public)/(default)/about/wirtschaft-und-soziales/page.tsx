@@ -1,12 +1,24 @@
+import { groq } from "next-sanity";
 import { FC } from "react";
 import { EconomyXSocialHero } from "~/app/_components/compounds/economy-x-social-hero";
+import { sanity } from "~/sanity/lib/client";
+import { EconomySocialPageQueryResult } from "../../../../../../../generated/sanity/types";
 
-const EconomyXSocialPage: FC = () => {
+const economySocialPageQuery = groq`*[_type == "economy-social-page"][0]`;
+
+const EconomyXSocialPage: FC = async () => {
+  const data = await sanity.fetch<EconomySocialPageQueryResult>(
+    economySocialPageQuery,
+    {},
+    { next: { tags: ["economy-social-page"] } },
+  );
+
   return (
     <EconomyXSocialHero
-      heading="Wir verbinden\n Wirtschaft & Soziales"
-      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates dolorem mollitia omnis nihil cumque voluptas et asperiores, adipisci nemo ipsam eos sapiente inventore sequi ab eius est labore ad hic."
-    />
+        headingUpper={data?.headingUpper || ""}
+        headingLower={data?.headingLower || ""}
+        description={data?.previewText || ""}
+      />
   );
 };
 

@@ -8,11 +8,18 @@ import { MergingPaths } from "./merging-paths";
 import { useScroll, useTransform } from "framer-motion";
 
 export type EconomyXSocialHeroProps = ComponentProps<"div"> & {
-  heading: string;
+  headingUpper: string;
+  headingLower: string;
   description: string;
 };
 
-export const EconomyXSocialHero: FC<EconomyXSocialHeroProps> = ({ className, heading, description, ...restProps }) => {
+export const EconomyXSocialHero: FC<EconomyXSocialHeroProps> = ({
+  className,
+  headingUpper,
+  headingLower,
+  description,
+  ...restProps
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -23,9 +30,10 @@ export const EconomyXSocialHero: FC<EconomyXSocialHeroProps> = ({ className, hea
   const reversedProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   return (
-    <div className={cn("pt-60", className)} {...restProps} ref={containerRef}>
+    <div className={cn("rounded-b-2xl bg-neutral-200 pb-16 pt-32", className)} {...restProps} ref={containerRef}>
       <Container width="narrow" className="text-center">
-        <Heading>{heading}</Heading>
+        <Heading>{headingUpper}</Heading>
+        <Heading>{headingLower}</Heading>
         <Paragraph>{description}</Paragraph>
       </Container>
       <MergingPaths progress={reversedProgress} className="mt-16" />
