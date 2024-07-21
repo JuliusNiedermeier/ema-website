@@ -35,13 +35,7 @@ export const EconomyXSocial: FC<EconomyXSocialProps> = ({
       <Container width="narrow" className="text-center">
         <Heading>{headingUpper}</Heading>
       </Container>
-      <MergingPaths
-        ref={containerRef}
-        progress={scrollYProgress}
-        className="-my-[10vw]"
-        title="Wirtschaft X Social"
-        description="Wirtschaft und Soziales verbinden."
-      />
+      <MergingPaths ref={containerRef} progress={scrollYProgress} className="-my-[10vw]" />
       <Container width="narrow" className="flex flex-col items-center text-center">
         <Heading>{headingLower}</Heading>
         <Paragraph>{previewText}</Paragraph>
