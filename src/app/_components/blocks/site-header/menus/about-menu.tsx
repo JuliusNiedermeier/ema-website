@@ -36,26 +36,20 @@ export const AboutMenu: FC<AboutMenuProps> = ({ className, ...restProps }) => {
             <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Paragraph>
           </div>
           <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">
-            <Image
-              src="/team.png"
-              alt="Wirtschaft & Soziales"
-              width="500"
-              height="500"
-              className="h-full w-full object-cover"
-            />
+            <Image src="/team.png" alt="Kunst" width="500" height="500" className="h-full w-full object-cover" />
             <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
         </Link>
 
         <Link href="/about/campus" className="group rounded-3xl border p-2">
           <div className="p-6">
-            <Heading size="sm">Dein Campus. Unser Team.</Heading>
+            <Heading size="sm">Deine Akademie. Unser Team.</Heading>
             <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Paragraph>
           </div>
           <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">
             <Image
               src="/campus.png"
-              alt="Wirtschaft & Soziales"
+              alt="Deine Akademie. Unser Team."
               width="500"
               height="500"
               className="h-full w-full object-cover"
