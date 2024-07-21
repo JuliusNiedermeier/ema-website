@@ -1,21 +1,12 @@
 import { FC } from "react";
-import { Container } from "~/app/_components/primitives/container";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { EconomyXSocialHero } from "~/app/_components/compounds/economy-x-social-hero";
 
 const EconomyXSocialPage: FC = () => {
   return (
-    <Container width="narrow" className="my-32 text-center">
-      <Heading>
-        Wir verbinden
-        <br />
-        Wirtschaft & Soziales
-      </Heading>
-      <Paragraph>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor assumenda obcaecati aperiam, nisi quia
-        voluptatibus possimus maxime similique tempora dicta quos molestias sed reprehenderit quis sapiente optio
-        voluptas quam aliquam!
-      </Paragraph>
-    </Container>
+    <EconomyXSocialHero
+      heading="Wir verbinden\n Wirtschaft & Soziales"
+      description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates dolorem mollitia omnis nihil cumque voluptas et asperiores, adipisci nemo ipsam eos sapiente inventore sequi ab eius est labore ad hic."
+    />
   );
 };
 
