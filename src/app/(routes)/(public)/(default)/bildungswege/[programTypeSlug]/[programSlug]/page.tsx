@@ -17,6 +17,7 @@ import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatc
 import Image from "next/image";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
+import { GenericCTA } from "~/app/_components/compounds/generic-cta";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -164,6 +165,15 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             </Card>
           </Card>
         </div>
+
+        {program.showExternalCTA && (
+          <GenericCTA
+            preHeading={program.externalCTA?.preHeading || ""}
+            mainheading={program.externalCTA?.mainHeading || ""}
+            paragraph={program.externalCTA?.paragraph || ""}
+            ctaText={program.externalCTA?.ctaText || ""}
+          />
+        )}
 
         <div className="mt-32 flex flex-col gap-32">
           {program.furtherInformation?.map((item, index) => (
