@@ -37,6 +37,7 @@ export const GenericCTA: FC<GenericCTAProps> = ({
         </div>
         {Array.from(new Array(10)).map((_, index) => (
           <div
+            key={index}
             className="absolute right-0 top-0 aspect-square h-full origin-top-right rounded-bl-full bg-primary-100"
             style={{ scale: index * 0.2, opacity: 0.02 }}
           />
