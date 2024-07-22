@@ -23,6 +23,7 @@ import { defaultSlug } from "./internal/default-slug";
 import { headerConfigType } from "./global-components/header";
 import { footerConfigType } from "./global-components/footer";
 import { websiteSettingsType } from "./global-config/website-settings";
+import { genericCTAType } from "./internal/generic-cta";
 
 export type SchemaTypeDef = {
   type: "static-page" | "dynamic-page" | "dynamic-content" | "global-component" | "global-config" | "internal";
@@ -62,6 +63,7 @@ const typeDefs = [
   certificateType,
   faqType,
   defaultSlug,
+  genericCTAType,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
