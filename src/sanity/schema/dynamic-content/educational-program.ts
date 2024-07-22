@@ -189,6 +189,17 @@ export const educationalProgram: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "showExternalCTA",
+        title: "Externen Call-To-Action anzeigen",
+        type: "boolean",
+      }),
+      defineField({
+        name: "externalCTA",
+        title: "Externer Call-To-Action",
+        type: "generic-cta",
+        hidden: ({ document }) => !document?.showExternalCTA,
+      }),
+      defineField({
         name: "furtherInformation",
         title: "Weitere Informationen",
         description: "2-10 Einträge",
