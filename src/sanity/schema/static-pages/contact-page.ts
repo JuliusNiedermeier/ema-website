@@ -163,6 +163,12 @@ export const contactPage: SchemaTypeDef = {
                 ],
               }),
               defineField({
+                name: "namePlaceholder",
+                title: "Platzhaltertext im Name-Eingabefeld",
+                description: "Text der im Name-Eingabefeld angezeigt wird, solange das Feld leer ist.",
+                type: "string",
+              }),
+              defineField({
                 name: "emailPlaceholder",
                 title: "Platzhaltertext im Email-Eingabefeld",
                 description: "Text der im Email-Eingabefeld angezeigt wird, solange das Feld leer ist.",
