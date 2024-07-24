@@ -123,11 +123,11 @@ const ContactPage: FC = async () => {
           <div className="flex-1">
             <AppointmentRequestForm
               defaultType="online"
-              onlineTypeLabel="Video-Call"
-              inPersonTypeLabel="In-Person"
-              namePlaceholder="Dein Name"
-              emailPlaceholder="Dein Emailadresse"
-              submitButtonLabel="Termin anfragen"
+              onlineTypeLabel={data.personalConsulting?.booking?.type?.onlineLabel || ""}
+              inPersonTypeLabel={data.personalConsulting?.booking?.type?.offlineLabel || ""}
+              namePlaceholder={data.personalConsulting?.booking?.namePlaceholder || ""}
+              emailPlaceholder={data.personalConsulting?.booking?.emailPlaceholder || ""}
+              submitButtonLabel={data.personalConsulting?.booking?.requestButtonLabel || ""}
             />
             <Paragraph className="mt-16 text-neutral-900-text-muted">
               {data?.personalConsulting?.booking?.alternativeContact}
