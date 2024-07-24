@@ -1,3 +1,4 @@
+import { Slot } from "@radix-ui/react-slot";
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 
@@ -15,13 +16,16 @@ export const TabList: FC<TabListProps> = ({ className, ...restProps }) => {
 export type TabProps = ComponentProps<"div"> & {
   active?: boolean;
   interactive?: boolean;
+  asChild?: Boolean;
 };
 
-export const Tab: FC<TabProps> = ({ className, active, interactive, ...restProps }) => {
+export const Tab: FC<TabProps> = ({ className, active, interactive, asChild, ...restProps }) => {
+  const Component = asChild ? Slot : "div";
+
   return (
-    <div
+    <Component
       className={cn(
-        "flex flex-1 items-center gap-2 whitespace-nowrap rounded-full px-6 justify-center py-2 text-center",
+        "flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-2 text-center",
         {
           "bg-primary-900 text-neutral-900-text": active,
           "cursor-pointer select-none transition-colors hover:bg-neutral-200 data-[active]:hover:bg-primary-800":
