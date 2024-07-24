@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import { fontFamily, animation, keyframes } from "tailwindcss/defaultTheme";
 
 const config = {
   content: [
@@ -142,6 +142,7 @@ const config = {
       exitToLeft: "exitToLeft 250ms ease",
       expandDown: "revealDown 250ms ease",
       contractUp: "contractUp 250ms ease",
+      spin: animation.spin,
     },
     keyframes: {
       enterFromRight: {
@@ -168,6 +169,7 @@ const config = {
         from: { hieght: "var(--radix-navigation-menu-viewport-height)" },
         to: { height: "0" },
       },
+      spin: keyframes.spin,
     },
   },
   plugins: [],
