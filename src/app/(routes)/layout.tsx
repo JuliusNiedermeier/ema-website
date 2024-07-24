@@ -5,6 +5,7 @@ import { catamaran, tiempos } from "~/app/_fonts/fonts";
 
 import "~/app/_styles/globals.css";
 import "~/app/_styles/theme.css";
+import { QueryProvider } from "../_components/primitives/query-provider";
 
 export const metadata: Metadata = {
   title: "Emil Molt Akademie",
@@ -14,17 +15,19 @@ export const metadata: Metadata = {
 
 const PublicLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="de">
-      <body
-        className={cn(
-          catamaran.variable,
-          tiempos.variable,
-          "overflow-x-hidden bg-neutral-100 font-sans text-neutral-200-text",
-        )}
-      >
-        {children}
-      </body>
-    </html>
+    <QueryProvider>
+      <html lang="de">
+        <body
+          className={cn(
+            catamaran.variable,
+            tiempos.variable,
+            "overflow-x-hidden bg-neutral-100 font-sans text-neutral-200-text",
+          )}
+        >
+          {children}
+        </body>
+      </html>
+    </QueryProvider>
   );
 };
 
