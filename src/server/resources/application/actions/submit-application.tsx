@@ -10,15 +10,13 @@ import { cookies } from "next/headers";
 import { applicationCookieName } from "../application-cookie";
 import { env } from "~/env";
 
-const BASE_URL = env.NEXT_PUBLIC_SITE_URL;
-
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
   if (cookies().has(applicationCookieName)) return false;
 
   const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
   if (!applicationRecord) return false;
 
-  const verificationURL = new URL(`${BASE_URL}/go/verify`);
+  const verificationURL = new URL(`${env.NEXT_PUBLIC_SITE_URL}/go/verify`);
   verificationURL.searchParams.set("application", applicationRecord.ID);
   verificationURL.searchParams.set("token", applicationRecord.verificationToken);
 
