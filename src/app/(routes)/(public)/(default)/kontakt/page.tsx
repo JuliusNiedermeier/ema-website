@@ -4,7 +4,6 @@ import {
   CalendarCheckIcon,
   ExternalLinkIcon,
   LucideIcon,
-  MapPinIcon,
   PhoneCallIcon,
   UsersIcon,
   VideoIcon,
@@ -13,15 +12,15 @@ import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps, FC } from "react";
-import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
+import { Button } from "~/app/_components/primitives/button";
 import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
-import { Tab, TabList } from "~/app/_components/primitives/tabs";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { cn } from "~/app/_utils/cn";
 import { sanity } from "~/sanity/lib/client";
 import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
+import { AppointmentRequestForm } from "~/app/_components/compounds/appointment-request-form";
 
 const contactPageQuery = groq`*[_type == "contact-page"][0]{
   ...,
@@ -122,32 +121,14 @@ const ContactPage: FC = async () => {
             <Paragraph className="text-neutral-900-text">{data?.personalConsulting?.previewText}</Paragraph>
           </div>
           <div className="flex-1">
-            <TabList>
-              <Tab active className="justify-start pl-2">
-                <SectionIndicator
-                  name={data?.personalConsulting?.booking?.type?.onlineLabel || ""}
-                  icon={VideoIcon}
-                  on="dark"
-                />
-              </Tab>
-              <Tab className="justify-start pl-2">
-                <SectionIndicator
-                  name={data?.personalConsulting?.booking?.type?.offlineLabel || ""}
-                  icon={MapPinIcon}
-                  on="light"
-                />
-              </Tab>
-            </TabList>
-            <input
-              className="mt-8 block w-full rounded-2xl border border-neutral-900-text bg-transparent p-4 font-serif text-neutral-900-text outline-none"
-              type="email"
-              placeholder={data?.personalConsulting?.booking?.emailPlaceholder}
+            <AppointmentRequestForm
+              defaultType="online"
+              onlineTypeLabel="Video-Call"
+              inPersonTypeLabel="In-Person"
+              namePlaceholder="Dein Name"
+              emailPlaceholder="Dein Emailadresse"
+              submitButtonLabel="Termin anfragen"
             />
-            <Button className="mt-8 w-full justify-center bg-primary-100 text-primary-100-text">
-              <Label>{data?.personalConsulting?.booking?.requestButtonLabel}</Label>
-              <ButtonInteractionBubble />
-            </Button>
-
             <Paragraph className="mt-16 text-neutral-900-text-muted">
               {data?.personalConsulting?.booking?.alternativeContact}
             </Paragraph>
