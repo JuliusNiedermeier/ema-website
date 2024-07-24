@@ -35,6 +35,11 @@ export const economySocialPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(20),
       }),
+      defineField({
+        name: "content",
+        title: "Inhalt",
+        type: "blockContent",
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Wirtschaft & Soziales" }),
