@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
 import { applicationCookieName } from "../application-cookie";
 import { env } from "~/env";
 
-const BASE_URL = env.NEXT_PUBLIC_SITE_URL; // Should be switched to an actual env variable
+const BASE_URL = env.NEXT_PUBLIC_SITE_URL;
 
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
   if (cookies().has(applicationCookieName)) return false;
