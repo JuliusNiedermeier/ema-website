@@ -8,8 +8,9 @@ import { applicationInputSchema } from "../application-input-schema";
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "../application-cookie";
+import { env } from "~/env";
 
-const BASE_URL = "http://192.168.178.75:3000"; // Should be switched to an actual env variable
+const BASE_URL = env.NEXT_PUBLIC_SITE_URL; // Should be switched to an actual env variable
 
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
   if (cookies().has(applicationCookieName)) return false;
