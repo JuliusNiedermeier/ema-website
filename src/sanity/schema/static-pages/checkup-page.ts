@@ -1,7 +1,8 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { SignpostIcon } from "lucide-react";
-import { CheckupAnswerRatings } from "~/sanity/components/checkup-answer-ratings";
+import { EducationalProgramNumberRatingInput } from "~/sanity/components/educational-program-number-rating-input";
+import { EducationalProgramBooleanRatingInput } from "~/sanity/components/educational-program-boolean-rating-input";
 
 export const checkupPage: SchemaTypeDef = {
   type: "static-page",
@@ -63,12 +64,6 @@ export const checkupPage: SchemaTypeDef = {
                     initialValue: false,
                   }),
                   defineField({
-                    name: "isBoolean",
-                    title: "Ausschließende Frage",
-                    description: "Ist dies eine Frage, die ein Ergebnis sicher ausschlißen kann?",
-                    type: "boolean",
-                  }),
-                  defineField({
                     name: "answers",
                     title: "Antworten",
                     type: "array",
@@ -84,13 +79,29 @@ export const checkupPage: SchemaTypeDef = {
                             type: "string",
                           }),
                           defineField({
-                            name: "answerRatings",
+                            name: "isExclusionCriterion",
+                            title: "Ist diese Antwort Ausschlusskriterium?",
+                            type: "boolean",
+                          }),
+                          defineField({
+                            name: "numberRatings",
                             title: "Antwortwertungen",
                             description: "Wie passend wäre diese Antwort für die jeweiligen Bildungsgänge?",
                             type: "string",
                             components: {
-                              input: CheckupAnswerRatings,
+                              input: EducationalProgramNumberRatingInput,
                             },
+                            hidden: ({ parent }) => Boolean(parent?.isExclusionCriterion) === true,
+                          }),
+                          defineField({
+                            name: "booleanRatings",
+                            title: "Antwortwertungen",
+                            description: "Wie passend wäre diese Antwort für die jeweiligen Bildungsgänge?",
+                            type: "string",
+                            components: {
+                              input: EducationalProgramBooleanRatingInput,
+                            },
+                            hidden: ({ parent }) => Boolean(parent?.isExclusionCriterion) === false,
                           }),
                         ],
                       }),

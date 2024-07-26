@@ -51,7 +51,8 @@ const CheckupPage: FC = async () => {
       answers:
         question.answers?.map((answer) => ({
           answer: answer.answerText || "",
-          ratings: JSON.parse(answer.answerRatings || "{}"),
+          isExclusionCriterion: Boolean(answer.isExclusionCriterion),
+          ratings: JSON.parse((answer.isExclusionCriterion ? answer.booleanRatings : answer.numberRatings) || "{}"),
         })) || [],
     })) || [];
 
