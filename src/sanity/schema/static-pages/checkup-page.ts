@@ -56,6 +56,13 @@ export const checkupPage: SchemaTypeDef = {
                     type: "string",
                   }),
                   defineField({
+                    name: "arrangeHorizontal",
+                    title: "Antworten horizontal anordnen",
+                    description: "Sollen die Antwortmöglichkeiten nebeneinander angezeigt werden?",
+                    type: "boolean",
+                    initialValue: false,
+                  }),
+                  defineField({
                     name: "isBoolean",
                     title: "Ausschließende Frage",
                     description: "Ist dies eine Frage, die ein Ergebnis sicher ausschlißen kann?",
