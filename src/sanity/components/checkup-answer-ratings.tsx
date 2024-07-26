@@ -78,12 +78,13 @@ export const CheckupAnswerRatings: FC<CheckupAnswerRatingsProps> = ({ value: jso
                   </Stack>
                 </div>
                 <SliderRoot
-                  value={[ratingMap[program._id] || 50]}
+                  value={[ratingMap[program._id] || 0]}
                   onValueChange={createValueChangeHandler(program._id)}
                   className="relative mt-4 flex h-5 w-full touch-none select-none items-center"
-                  defaultValue={[50]}
-                  max={100}
-                  step={1}
+                  defaultValue={[0]}
+                  max={1}
+                  min={-1}
+                  step={0.01}
                 >
                   <SliderTrack className="relative h-[3px] grow rounded-full bg-[#94a2f1]/20" />
                   <SliderThumb
