@@ -77,6 +77,11 @@ export const checkupPage: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "bottomSheetModalTriggerLabel",
+        title: "Text auf dem Button zum öffnen der Eingabefelder auf Smartphones",
+        type: "string",
+      }),
+      defineField({
         name: "form",
         title: "Formular",
         type: "object",
