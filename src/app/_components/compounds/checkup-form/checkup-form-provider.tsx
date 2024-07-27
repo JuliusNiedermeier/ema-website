@@ -16,7 +16,7 @@ type BooleanAnswer = BaseAnswer & {
   ratings: Record<string, boolean>;
 };
 
-type Answer = NumberAnswer | BooleanAnswer;
+export type Answer = NumberAnswer | BooleanAnswer;
 
 export type CheckupFormContext = {
   questions: {

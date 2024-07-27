@@ -40,9 +40,11 @@ type AnswerProps = ComponentProps<"button"> & {
 };
 
 export const Answer: FC<AnswerProps> = ({ className, label, questionID, answerID, ...restProps }) => {
-  const { answers, updateAnswer } = useCheckupForm();
+  const { answers, updateAnswer, questions } = useCheckupForm();
 
-  const selected = answers[questionID] === answerID;
+  const selected = Boolean(answers[questionID]?.includes(answerID));
+
+  const allowMutlipleAnswers = Boolean(questions.find((question) => question.ID === questionID)?.allowMutlipleAnswers);
 
   return (
     <button
@@ -54,7 +56,7 @@ export const Answer: FC<AnswerProps> = ({ className, label, questionID, answerID
         },
         className,
       )}
-      onClick={() => updateAnswer(questionID, selected ? null : answerID)}
+      onClick={() => updateAnswer(questionID, answerID, !selected, allowMutlipleAnswers)}
       {...restProps}
     >
       <Label>{label}</Label>

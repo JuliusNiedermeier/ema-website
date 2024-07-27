@@ -1,4 +1,18 @@
-import { CheckupFormContext } from "./checkup-form-provider";
+import { Answer, CheckupFormContext } from "./checkup-form-provider";
+
+const handleAnswer = (rankingMap: Map<string, number>, blackList: Set<string>, answer: Answer) => {
+  Object.keys(answer.ratings).forEach((programID) => {
+    // If this answer is exclusive, blacklist this program if true
+    if (answer.isExclusionCriterion) {
+      if (answer.ratings[programID]) blackList.add(programID);
+      return;
+    }
+
+    // If not exclusive, adjust this programs rank
+    const currentProgramRank = rankingMap.has(programID) ? rankingMap.get(programID)! : 0;
+    rankingMap.set(programID, currentProgramRank + answer.ratings[programID]);
+  });
+};
 
 export const rankEducationalPrograms = (
   questions: CheckupFormContext["questions"],
@@ -9,22 +23,12 @@ export const rankEducationalPrograms = (
   const excludedPrograms = new Set<string>();
 
   questions.forEach((question) => {
-    const answerID = answers[question.ID];
-    const selectedAnswer = answerID ? question.answers.find((answer) => answer.ID === answerID) : null;
+    const answerIDs = answers[question.ID];
+    const selectedAnswers = answerIDs ? question.answers.filter((answer) => answerIDs.includes(answer.ID)) : [];
 
-    if (!selectedAnswer) return;
+    if (!selectedAnswers.length) return;
 
-    Object.keys(selectedAnswer.ratings).forEach((programID) => {
-      // If this answer is exclusive, blacklist this program if true
-      if (selectedAnswer.isExclusionCriterion) {
-        if (selectedAnswer.ratings[programID]) excludedPrograms.add(programID);
-        return;
-      }
-
-      // If not exclusive, adjust this programs rank
-      const currentProgramRank = programRankingMap.has(programID) ? programRankingMap.get(programID)! : 0;
-      programRankingMap.set(programID, currentProgramRank + selectedAnswer.ratings[programID]);
-    });
+    selectedAnswers.forEach((answer) => handleAnswer(programRankingMap, excludedPrograms, answer));
   });
 
   return Array.from(programRankingMap)
