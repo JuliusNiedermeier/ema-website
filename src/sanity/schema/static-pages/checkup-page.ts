@@ -20,6 +20,11 @@ export const checkupPage: SchemaTypeDef = {
         validation: (r) => r.required().min(5).max(40),
       }),
       defineField({
+        name: "description",
+        title: "Beschreibung",
+        type: "text",
+      }),
+      defineField({
         name: "previewText",
         title: "Auszug",
         type: "text",
@@ -30,6 +35,46 @@ export const checkupPage: SchemaTypeDef = {
         title: "Mehr lesen Text",
         type: "string",
         validation: (r) => r.required().min(5).max(20),
+      }),
+      defineField({
+        name: "resultCounter",
+        title: "Ergebnis-Zähler",
+        type: "object",
+        fields: [
+          defineField({
+            name: "suffixSingular",
+            title: "Suffix singular",
+            type: "string",
+          }),
+          defineField({
+            name: "suffixPlural",
+            title: "Suffix plural",
+            type: "string",
+          }),
+        ],
+      }),
+      defineField({
+        name: "placeholder",
+        title: "Ergebnis-Platzhalter",
+        description: "Wird angezeigt, wenn keine passenden Angebote gefunden werden konnten.",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "contactLinkLabel",
+            title: "Kontakt-Link-Text",
+            type: "text",
+          }),
+        ],
       }),
       defineField({
         name: "form",
