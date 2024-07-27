@@ -46,10 +46,12 @@ const CheckupPage: FC = async () => {
 
   const questions: ComponentProps<typeof CheckupFormProvider>["questions"] =
     data.form?.questions?.map((question) => ({
+      ID: question._key,
       question: question.questionText || "",
       layout: question.arrangeHorizontal ? "horizontal" : "vertical",
       answers:
         question.answers?.map((answer) => ({
+          ID: answer._key,
           answer: answer.answerText || "",
           isExclusionCriterion: Boolean(answer.isExclusionCriterion),
           ratings: JSON.parse((answer.isExclusionCriterion ? answer.booleanRatings : answer.numberRatings) || "{}"),

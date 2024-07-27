@@ -13,15 +13,16 @@ export const CheckupForm: FC<CheckupFormProps> = ({ className, ...restProps }) =
 
   return (
     <div className={cn("flex flex-col gap-12", className)} {...restProps}>
-      {questions.map((question, questionIndex) => (
-        <div key={questionIndex}>
+      {questions.map((question) => (
+        <div key={question.ID}>
           <Heading size="sm">{question.question}</Heading>
           <div className={cn("mt-4 flex gap-2", { "flex-col": question.layout === "vertical" })}>
-            {question.answers.map((answer, answerIndex) => (
+            {question.answers.map((answer) => (
               <Answer
+                key={answer.ID}
                 label={answer.answer}
-                questionIndex={questionIndex}
-                answerIndex={answerIndex}
+                questionID={question.ID}
+                answerID={answer.ID}
                 className="flex-1"
               />
             ))}
@@ -34,14 +35,14 @@ export const CheckupForm: FC<CheckupFormProps> = ({ className, ...restProps }) =
 
 type AnswerProps = ComponentProps<"button"> & {
   label: string;
-  questionIndex: number;
-  answerIndex: number;
+  questionID: string;
+  answerID: string;
 };
 
-export const Answer: FC<AnswerProps> = ({ className, label, questionIndex, answerIndex, ...restProps }) => {
+export const Answer: FC<AnswerProps> = ({ className, label, questionID, answerID, ...restProps }) => {
   const { answers, updateAnswer } = useCheckupForm();
 
-  const selected = answers[questionIndex] === answerIndex;
+  const selected = answers[questionID] === answerID;
 
   return (
     <button
@@ -53,7 +54,7 @@ export const Answer: FC<AnswerProps> = ({ className, label, questionIndex, answe
         },
         className,
       )}
-      onClick={() => updateAnswer(questionIndex, selected ? null : answerIndex)}
+      onClick={() => updateAnswer(questionID, selected ? null : answerID)}
       {...restProps}
     >
       <Label>{label}</Label>
