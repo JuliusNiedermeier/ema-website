@@ -87,27 +87,42 @@ const CheckupPage: FC = async () => {
               <div className="relative flex-[2]">
                 <div>
                   <Heading size="sm" className="text-neutral-200-text-muted">
-                    Checkup
+                    {data.heading}
                   </Heading>
-                  <Heading className="text-neutral-200-text">Finde heraus was zu Dir passt.</Heading>
-                  <Paragraph>
-                    Erzähle uns ein bisschen von dir und wir versuchen die passendsten Angebote für dich zu finden.
-                  </Paragraph>
+                  <Heading className="text-neutral-200-text">{data.previewText}</Heading>
+                  <Paragraph>{data.description}</Paragraph>
                 </div>
-                <CheckupResults className="mt-12" />
+                <CheckupResults
+                  className="mt-12"
+                  placeholder={{
+                    heading: data.placeholder?.heading || "",
+                    description: data.placeholder?.description || "",
+                    contactLinkLabel: data.placeholder?.contactLinkLabel || "",
+                  }}
+                />
                 <div className="absolute left-0 top-0 h-full w-full">
-                  <ResultCounter className="sticky top-20 z-10 ml-auto mr-2 mt-2 block" />
+                  <ResultCounter
+                    singularSuffix={data.resultCounter?.suffixSingular || ""}
+                    pluralSuffix={data.resultCounter?.suffixPlural || ""}
+                    className="sticky top-20 z-10 ml-auto mr-2 mt-2 block"
+                  />
                 </div>
               </div>
             </div>
             <CheckupFormBottomModalTrigger asChild className="sticky bottom-8 mt-8 w-full justify-center lg:hidden">
               <Button vairant="outline" className="w-full bg-neutral-100">
-                <Label>Meine angaben ändern</Label>
+                <Label>{data.bottomSheetModalTriggerLabel}</Label>
               </Button>
             </CheckupFormBottomModalTrigger>
           </Container>
         </div>
-        <CheckupFormBottomModal />
+        <CheckupFormBottomModal
+          heading={data.bottomSheetModalTriggerLabel || ""}
+          resultCounter={{
+            singularSuffix: data.resultCounter?.suffixSingular || "",
+            pluralSuffix: data.resultCounter?.suffixPlural || "",
+          }}
+        />
       </CheckupFormProvider>
     </CheckupFormBottomModalRoot>
   );
