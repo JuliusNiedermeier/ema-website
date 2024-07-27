@@ -100,11 +100,11 @@ const CheckupPage: FC = async () => {
                     contactLinkLabel: data.placeholder?.contactLinkLabel || "",
                   }}
                 />
-                <div className="absolute left-0 top-0 h-full w-full">
+                <div className="pointer-events-none absolute left-0 top-0 h-full w-full">
                   <ResultCounter
                     singularSuffix={data.resultCounter?.suffixSingular || ""}
                     pluralSuffix={data.resultCounter?.suffixPlural || ""}
-                    className="sticky top-20 z-10 ml-auto mr-2 mt-2 block"
+                    className="pointer-events-auto sticky top-20 z-10 ml-auto mr-2 mt-2 block"
                   />
                 </div>
               </div>
