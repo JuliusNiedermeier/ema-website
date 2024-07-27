@@ -1,6 +1,6 @@
 import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Button } from "~/app/_components/primitives/button";
 import { CheckupForm } from "~/app/_components/compounds/checkup-form/checkup-form";
 import { sanity } from "~/sanity/lib/client";
@@ -18,6 +18,8 @@ import {
 import { CheckupResults } from "~/app/_components/compounds/checkup-form/checkup-results";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { CheckupFormProvider } from "~/app/_components/compounds/checkup-form/checkup-form-provider";
+import { Chip } from "~/app/_components/primitives/chip";
+import { ResultCounter } from "~/app/_components/compounds/checkup-form/result-counter";
 
 const checkupPageQuery = groq`*[_type == "checkup-page"][0]`;
 
@@ -59,7 +61,7 @@ const CheckupPage: FC = async () => {
         })) || [],
     })) || [];
 
-  const formattedEducationalPrograms: ComponentProps<typeof CheckupResults>["educationalPrograms"] =
+  const formattedEducationalPrograms: ComponentProps<typeof CheckupFormProvider>["programs"] =
     educationalPrograms?.map((program) => ({
       ID: program._id,
       slug: program.slug?.current || "",
@@ -74,26 +76,34 @@ const CheckupPage: FC = async () => {
 
   return (
     <CheckupFormBottomModalRoot>
-      <CheckupFormProvider questions={questions}>
-        <div className="bg-neutral-200">
+      <CheckupFormProvider questions={questions} programs={formattedEducationalPrograms}>
+        <div className="rounded-b-3xl bg-neutral-200 py-8">
           <Container>
-            <div className="flex min-h-[80vh] gap-12">
-              <div className="hidden flex-1 overflow-x-hidden border-r border-neutral-400 pr-8 pt-12 lg:block">
-                <Heading>{data.form?.heading}</Heading>
-                <CheckupForm className="mt-12 w-full" />
+            <div className="flex items-stretch gap-12">
+              <div className="hidden flex-1 overflow-x-hidden rounded-3xl border border-neutral-400 bg-neutral-100 p-8 lg:block">
+                <Heading size="sm">{data.form?.heading}</Heading>
+                <CheckupForm className="w-full" />
               </div>
-              <div className="flex-[2] pt-12">
-                <Heading>Das passt zu dir</Heading>
-                <Paragraph>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias quibusdam animi dolores
-                  blanditiis, recusandae odit corrupti excepturi dicta assumenda quia omnis, officia, sunt voluptas ad
-                  quam soluta officiis at cupiditate.
-                </Paragraph>
-                <CheckupResults educationalPrograms={formattedEducationalPrograms} className="mt-12" />
+              <div className="relative flex-[2]">
+                <div>
+                  <Heading size="sm" className="text-neutral-200-text-muted">
+                    Checkup
+                  </Heading>
+                  <Heading className="text-neutral-200-text">Finde heraus was zu Dir passt.</Heading>
+                  <Paragraph>
+                    Erzähle uns ein bisschen von dir und wir versuchen die passendsten Angebote für dich zu finden.
+                  </Paragraph>
+                </div>
+                <CheckupResults className="mt-12" />
+                <div className="absolute left-0 top-0 h-full w-full">
+                  <ResultCounter className="sticky top-20 z-10 ml-auto mr-2 mt-2 block" />
+                </div>
               </div>
             </div>
-            <CheckupFormBottomModalTrigger asChild className="sticky bottom-8 w-full justify-center lg:hidden">
-              <Button>Open Drawer</Button>
+            <CheckupFormBottomModalTrigger asChild className="sticky bottom-8 mt-8 w-full justify-center lg:hidden">
+              <Button vairant="outline" className="w-full bg-neutral-100">
+                <Label>Meine angaben ändern</Label>
+              </Button>
             </CheckupFormBottomModalTrigger>
           </Container>
         </div>

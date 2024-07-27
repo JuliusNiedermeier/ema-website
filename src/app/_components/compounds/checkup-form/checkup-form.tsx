@@ -2,7 +2,7 @@
 
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import { Heading, Label } from "../../primitives/typography";
+import { Label, Paragraph } from "../../primitives/typography";
 import { CheckIcon } from "lucide-react";
 import { useCheckupForm } from "./checkup-form-provider";
 
@@ -15,7 +15,7 @@ export const CheckupForm: FC<CheckupFormProps> = ({ className, ...restProps }) =
     <div className={cn("flex flex-col gap-12", className)} {...restProps}>
       {questions.map((question) => (
         <div key={question.ID}>
-          <Heading size="sm">{question.question}</Heading>
+          <Paragraph>{question.question}</Paragraph>
           <div className={cn("mt-4 flex gap-2", { "flex-col": question.layout === "vertical" })}>
             {question.answers.map((answer) => (
               <Answer

@@ -3,6 +3,7 @@
 import { createContext, FC, PropsWithChildren, useContext, useMemo, useState } from "react";
 import { CheckupFormState, useCheckupFormState } from "./state";
 import { rankEducationalPrograms } from "./rank-educational-programs";
+import { HSLValue } from "~/app/_utils/color-swatch";
 
 type BaseAnswer = { ID: string; answer: string };
 
@@ -18,6 +19,15 @@ type BooleanAnswer = BaseAnswer & {
 
 export type Answer = NumberAnswer | BooleanAnswer;
 
+type CheckupFormProgram = {
+  ID: string;
+  name: string;
+  programType: { name: string; slug: string };
+  slogan: string;
+  color: HSLValue;
+  slug: string;
+};
+
 export type CheckupFormContext = {
   questions: {
     ID: string;
@@ -26,16 +36,18 @@ export type CheckupFormContext = {
     allowMutlipleAnswers: boolean;
     answers: Answer[];
   }[];
+  programs: CheckupFormProgram[];
   answers: CheckupFormState["answers"];
   updateAnswer: CheckupFormState["updateAnswer"];
-  ranking: { ID: string; rank: number }[];
+  results: CheckupFormProgram[];
 };
 
 const CheckupFormContext = createContext<CheckupFormContext>({
   questions: [],
+  programs: [],
   answers: {},
   updateAnswer: () => {},
-  ranking: [],
+  results: [],
 });
 
 export const useCheckupForm = () => {
@@ -44,18 +56,27 @@ export const useCheckupForm = () => {
   return context;
 };
 
-type CheckupFormProviderProps = { questions: CheckupFormContext["questions"] };
+type CheckupFormProviderProps = {
+  questions: CheckupFormContext["questions"];
+  programs: CheckupFormContext["programs"];
+};
 
-export const CheckupFormProvider: FC<PropsWithChildren<CheckupFormProviderProps>> = ({ questions, children }) => {
+export const CheckupFormProvider: FC<PropsWithChildren<CheckupFormProviderProps>> = ({
+  questions,
+  programs,
+  children,
+}) => {
   const { answers, updateAnswer } = useCheckupFormState();
 
-  const ranking = useMemo<CheckupFormContext["ranking"]>(
-    () => rankEducationalPrograms(questions, answers),
-    [questions, answers],
-  );
+  const results = useMemo(() => {
+    return rankEducationalPrograms(questions, answers)
+      .filter(({ rank }) => rank > 0)
+      .map((result) => programs.find((program) => program.ID === result.ID))
+      .filter((program) => typeof program !== "undefined");
+  }, [questions, answers, programs]);
 
   return (
-    <CheckupFormContext.Provider value={{ questions, answers, updateAnswer, ranking }}>
+    <CheckupFormContext.Provider value={{ questions, answers, updateAnswer, programs, results }}>
       {children}
     </CheckupFormContext.Provider>
   );
