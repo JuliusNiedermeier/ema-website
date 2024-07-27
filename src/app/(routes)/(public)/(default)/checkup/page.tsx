@@ -49,6 +49,7 @@ const CheckupPage: FC = async () => {
       ID: question._key,
       question: question.questionText || "",
       layout: question.arrangeHorizontal ? "horizontal" : "vertical",
+      allowMutlipleAnswers: Boolean(question.allowMultipleAnswers),
       answers:
         question.answers?.map((answer) => ({
           ID: answer._key,

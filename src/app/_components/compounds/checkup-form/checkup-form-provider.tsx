@@ -23,6 +23,7 @@ export type CheckupFormContext = {
     ID: string;
     question: string;
     layout: "horizontal" | "vertical";
+    allowMutlipleAnswers: boolean;
     answers: Answer[];
   }[];
   answers: CheckupFormState["answers"];
