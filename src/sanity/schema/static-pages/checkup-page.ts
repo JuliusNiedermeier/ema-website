@@ -64,6 +64,12 @@ export const checkupPage: SchemaTypeDef = {
                     initialValue: false,
                   }),
                   defineField({
+                    name: "allowMultipleAnswers",
+                    title: "Erlaube mehrere Antworten",
+                    type: "boolean",
+                    initialValue: false,
+                  }),
+                  defineField({
                     name: "answers",
                     title: "Antworten",
                     type: "array",
