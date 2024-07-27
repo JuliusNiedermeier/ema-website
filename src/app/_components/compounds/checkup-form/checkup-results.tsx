@@ -2,7 +2,7 @@
 
 import { ComponentProps, FC, useMemo } from "react";
 import { cn } from "~/app/_utils/cn";
-import { EducationalProgramCard } from "./educational-program-card";
+import { EducationalProgramCard } from "../educational-program-card";
 import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 import Link from "next/link";
 import { useCheckupForm } from "./checkup-form-provider";

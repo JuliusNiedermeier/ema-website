@@ -2,7 +2,7 @@ import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { Button } from "~/app/_components/primitives/button";
-import { CheckupForm } from "~/app/_components/compounds/checkup-form";
+import { CheckupForm } from "~/app/_components/compounds/checkup-form/checkup-form";
 import { sanity } from "~/sanity/lib/client";
 import { groq } from "next-sanity";
 import {
@@ -14,10 +14,10 @@ import {
   CheckupFormBottomModal,
   CheckupFormBottomModalRoot,
   CheckupFormBottomModalTrigger,
-} from "~/app/_components/compounds/checkup-form-bottom-modal";
-import { CheckupResults } from "~/app/_components/compounds/checkup-results";
+} from "~/app/_components/compounds/checkup-form/checkup-form-bottom-modal";
+import { CheckupResults } from "~/app/_components/compounds/checkup-form/checkup-results";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
-import { CheckupFormProvider } from "~/app/_components/compounds/checkup-form-provider";
+import { CheckupFormProvider } from "~/app/_components/compounds/checkup-form/checkup-form-provider";
 
 const checkupPageQuery = groq`*[_type == "checkup-page"][0]`;
 

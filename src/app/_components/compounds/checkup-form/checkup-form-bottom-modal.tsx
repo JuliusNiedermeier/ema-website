@@ -2,8 +2,8 @@
 
 import { ComponentProps, FC } from "react";
 import { Drawer } from "vaul";
-import { Container } from "../primitives/container";
-import { Heading, Label } from "../primitives/typography";
+import { Container } from "../../primitives/container";
+import { Heading, Label } from "../../primitives/typography";
 import { CheckupForm } from "./checkup-form";
 
 export type CheckupFormBottomModalProps = ComponentProps<typeof Drawer.Portal> & {};

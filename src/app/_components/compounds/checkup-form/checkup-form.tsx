@@ -2,7 +2,7 @@
 
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import { Heading, Label } from "../primitives/typography";
+import { Heading, Label } from "../../primitives/typography";
 import { CheckIcon } from "lucide-react";
 import { useCheckupForm } from "./checkup-form-provider";
 
