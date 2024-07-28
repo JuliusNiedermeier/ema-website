@@ -1,16 +1,21 @@
+import { groq } from "next-sanity";
 import { FC } from "react";
+import { TextPortableContent } from "~/app/_components/compounds/text-portable-content";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { sanity } from "~/sanity/lib/client";
+import { PrivacyPageQueryResult } from "../../../../../../generated/sanity/types";
+import { notFound } from "next/navigation";
 
-const PrivacyPage: FC = () => {
+const privacyPageQuery = groq`*[_type == "privacy-page"][0]`;
+
+const PrivacyPage: FC = async () => {
+  const data = await sanity.fetch<PrivacyPageQueryResult>(privacyPageQuery, {}, { next: { tags: ["privacy-page"] } });
+
+  if (!data) notFound();
+
   return (
     <Container width="narrow" className="my-32">
-      <Heading>Datenschutz</Heading>
-      <Paragraph>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque obcaecati unde quam fuga omnis magni
-        repellendus nisi quas, ad fugiat eius aliquid itaque quia beatae, consequatur ea deserunt exercitationem
-        voluptatum?
-      </Paragraph>
+      <TextPortableContent content={data.content || []} />
     </Container>
   );
 };
