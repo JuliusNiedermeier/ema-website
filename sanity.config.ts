@@ -16,8 +16,9 @@ import {
   globalComponentTypeNames,
   dynamicContentTypeNames,
   globalConfigTypeNames,
+  emailTypeNames,
 } from "~/sanity/schema";
-import { GlobeIcon, LayoutGridIcon, SquareMousePointerIcon, SquareStackIcon } from "lucide-react";
+import { GlobeIcon, LayoutGridIcon, MailIcon, SquareMousePointerIcon, SquareStackIcon } from "lucide-react";
 
 export default defineConfig({
   basePath: "/studio",
@@ -31,7 +32,12 @@ export default defineConfig({
       if (creationContext.type === "global") {
         // Removes all singleton types from the global create button.
         return items.filter(
-          (item) => !staticPageTypeNames.has(item.templateId) && !globalComponentTypeNames.has(item.templateId),
+          (item) =>
+            !staticPageTypeNames.has(item.templateId) &&
+            !globalComponentTypeNames.has(item.templateId) &&
+            !dynamicPageTypeNames.has(item.templateId) &&
+            !globalConfigTypeNames.has(item.templateId) &&
+            !emailTypeNames.has(item.templateId),
         );
       }
       return items;
@@ -47,7 +53,8 @@ export default defineConfig({
             staticPageTypeNames.has(typeName) ||
             dynamicPageTypeNames.has(typeName) ||
             globalComponentTypeNames.has(typeName) ||
-            globalConfigTypeNames.has(typeName)
+            globalConfigTypeNames.has(typeName) ||
+            emailTypeNames.has(typeName)
           );
         });
 
@@ -91,6 +98,11 @@ export default defineConfig({
           globalComponentTypeNames.has((type.getSchemaType() as SchemaType).name),
         );
 
+        // Get list of email types
+        const emailTypes = modifiedSingletonTypes.filter((type) =>
+          emailTypeNames.has((type.getSchemaType() as SchemaType).name),
+        );
+
         // Get list of global-config types
         const globaleConfigTypes = modifiedSingletonTypes.filter((type) =>
           globalConfigTypeNames.has((type.getSchemaType() as SchemaType).name),
@@ -111,6 +123,9 @@ export default defineConfig({
             ),
             S.listItem({ id: "global-components", title: "Globale Komponenten", icon: GlobeIcon }).child(
               S.list({ id: "global-components", title: "Globale Komponenten", items: globaleComponentTypes }),
+            ),
+            S.listItem({ id: "email", title: "Emails", icon: MailIcon }).child(
+              S.list({ id: "email", title: "Emails", items: emailTypes }),
             ),
             ...globaleConfigTypes,
           ]);

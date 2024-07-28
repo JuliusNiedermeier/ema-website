@@ -24,9 +24,17 @@ import { headerConfigType } from "./global-components/header";
 import { footerConfigType } from "./global-components/footer";
 import { websiteSettingsType } from "./global-config/website-settings";
 import { genericCTAType } from "./internal/generic-cta";
+import { applicationVerificationEmail } from "./emails/application-verification";
 
 export type SchemaTypeDef = {
-  type: "static-page" | "dynamic-page" | "dynamic-content" | "global-component" | "global-config" | "internal";
+  type:
+    | "static-page"
+    | "dynamic-page"
+    | "dynamic-content"
+    | "global-component"
+    | "global-config"
+    | "email"
+    | "internal";
   definition: SchemaTypeDefinition;
 };
 
@@ -58,6 +66,9 @@ const typeDefs = [
   // Global config
   websiteSettingsType,
 
+  // Emails
+  applicationVerificationEmail,
+
   // Internal
   blockContent,
   certificateType,
@@ -83,5 +94,7 @@ export const dynamicContentTypeNames = new Set(
 export const globalComponentTypeNames = new Set(
   extractTypeNames(typeDefs.filter((def) => def.type === "global-component")),
 );
+
+export const emailTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "email")));
 
 export const globalConfigTypeNames = new Set(extractTypeNames(typeDefs.filter((def) => def.type === "global-config")));
