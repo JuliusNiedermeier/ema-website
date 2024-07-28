@@ -26,6 +26,7 @@ import { websiteSettingsType } from "./global-config/website-settings";
 import { genericCTAType } from "./internal/generic-cta";
 import { applicationVerificationEmail } from "./emails/application-verification";
 import { textPortableContent } from "./internal/textPortableContent";
+import { privacyPage } from "./static-pages/privacy-page";
 
 export type SchemaTypeDef = {
   type:
@@ -48,6 +49,7 @@ const typeDefs = [
   contactPage,
   checkupPage,
   jobsPage,
+  privacyPage,
 
   // Dynamic pages
   postPage,
