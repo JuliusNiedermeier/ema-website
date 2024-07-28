@@ -27,6 +27,7 @@ import { genericCTAType } from "./internal/generic-cta";
 import { applicationVerificationEmail } from "./emails/application-verification";
 import { textPortableContent } from "./internal/textPortableContent";
 import { privacyPage } from "./static-pages/privacy-page";
+import { impressumPage } from "./static-pages/impressum-page";
 
 export type SchemaTypeDef = {
   type:
@@ -50,6 +51,7 @@ const typeDefs = [
   checkupPage,
   jobsPage,
   privacyPage,
+  impressumPage,
 
   // Dynamic pages
   postPage,
