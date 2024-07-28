@@ -60,7 +60,7 @@ export const post: SchemaTypeDef = {
       defineField({
         name: "body",
         title: "Inhalt",
-        type: "blockContent",
+        type: "defaultPortableContent",
       }),
     ],
 

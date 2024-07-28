@@ -4,40 +4,39 @@ import { EconomyXSocialHero } from "~/app/_components/compounds/economy-x-social
 import { sanity } from "~/sanity/lib/client";
 import { EconomySocialPageQueryResult } from "../../../../../../../generated/sanity/types";
 import { Container } from "~/app/_components/primitives/container";
-import { BlockContent } from "~/app/_components/compounds/block-content";
+import { DefaultPortableContent } from "~/app/_components/compounds/default-portable-content";
 
 const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
   ...,
   content[] {
     ...,
-    _type == "image" => {
-      ...,
-      asset -> { url }
-    },
-    _type == "educationalProgramTypeCTA" => {
-      ...,
-      educationalProgramType -> {
-        name,
-        promotionalHeadline,
-        color,
-        slug,
-        readMoreLabel
-      }
-    },
-    _type == "educationalProgramCTA" => {
-      ...,
-      educationalProgram -> {
-        name,
-        promotionalHeadline,
-        color,
-        slug,
-        readMoreLabel,
+      _type == "portableImage" => {
+        ...,
+        asset -> { url }
+      },
+      _type == "portableEducationalProgramTypeCTA" => {
+        ...,
         educationalProgramType -> {
           name,
-          color
+          promotionalHeadline,
+          color,
+          slug,
+          readMoreLabel
+        }
+      },
+      _type == "portableEducationalProgramCTA" => {
+        ...,
+        educationalProgram -> {
+          name,
+          promotionalHeadline,
+          slug,
+          readMoreLabel,
+          educationalProgramType -> {
+            name,
+            color
+          }
         }
       }
-    }
   }
 }`;
 
@@ -56,7 +55,7 @@ const EconomyXSocialPage: FC = async () => {
         description={data?.previewText || ""}
       />
       <Container width="narrow" className="my-32">
-        <BlockContent blockContent={data?.content || []} />
+        <DefaultPortableContent content={data?.content || []} />
       </Container>
     </>
   );

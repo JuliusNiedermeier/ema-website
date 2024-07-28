@@ -16,7 +16,7 @@ import { educationalProgramType } from "./dynamic-content/educational-program-ty
 import { educationalProgram } from "./dynamic-content/educational-program";
 import { testimonial } from "./dynamic-content/testimonial";
 
-import { blockContent } from "./internal/blockContent";
+import { defaultPortableContent } from "./internal/defaultPortableContent";
 import { certificateType } from "./internal/certificate";
 import { faqType } from "./internal/faq-fields";
 import { defaultSlug } from "./internal/default-slug";
@@ -25,6 +25,7 @@ import { footerConfigType } from "./global-components/footer";
 import { websiteSettingsType } from "./global-config/website-settings";
 import { genericCTAType } from "./internal/generic-cta";
 import { applicationVerificationEmail } from "./emails/application-verification";
+import { textPortableContent } from "./internal/textPortableContent";
 
 export type SchemaTypeDef = {
   type:
@@ -70,7 +71,8 @@ const typeDefs = [
   applicationVerificationEmail,
 
   // Internal
-  blockContent,
+  defaultPortableContent,
+  textPortableContent,
   certificateType,
   faqType,
   defaultSlug,

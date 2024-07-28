@@ -8,17 +8,17 @@ import { Card } from "../primitives/card";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
 import { Chip } from "../primitives/chip";
-import { BlockContentQueryResult } from "../../../../generated/sanity/types";
+import { PortableContentQueryResult } from "../../../../generated/sanity/types";
 import { FC } from "react";
 
-const blockContentQuery = groq`*[_type == "post"][0]{
+const portableContentQuery = groq`*[_type == "post"][0]{
     body[] {
       ...,
-      _type == "image" => {
+      _type == "portableImage" => {
         ...,
         asset -> { url }
       },
-      _type == "educationalProgramTypeCTA" => {
+      _type == "portableEducationalProgramTypeCTA" => {
         ...,
         educationalProgramType -> {
           name,
@@ -28,7 +28,7 @@ const blockContentQuery = groq`*[_type == "post"][0]{
           readMoreLabel
         }
       },
-      _type == "educationalProgramCTA" => {
+      _type == "portableEducationalProgramCTA" => {
         ...,
         educationalProgram -> {
           name,
@@ -44,20 +44,20 @@ const blockContentQuery = groq`*[_type == "post"][0]{
     }
   }`;
 
-// Call blockContentQuery here to prevent unused variable warnings
-blockContentQuery;
+// Call portableContentQuery here to prevent unused variable warnings
+portableContentQuery;
 
-type BlockContentArray = NonNullable<NonNullable<BlockContentQueryResult>["body"]>;
+type PortableContentArray = NonNullable<NonNullable<PortableContentQueryResult>["body"]>;
 
-type CustomBlockContentTypeKey = Exclude<BlockContentArray[number]["_type"], "block">;
+type CustomPortableContentTypeKey = Exclude<PortableContentArray[number]["_type"], "portableBlock">;
 
-type CustomBlockContentMap = {
-  [Type in CustomBlockContentTypeKey]: Extract<BlockContentArray[number], { _type: Type }>;
+type CustomPortableContentMap = {
+  [Type in CustomPortableContentTypeKey]: Extract<PortableContentArray[number], { _type: Type }>;
 };
 
 interface Components extends PortableTextComponents {
   types: {
-    [Key in keyof CustomBlockContentMap]: PortableTextTypeComponent<{ _type: Key } & CustomBlockContentMap[Key]>;
+    [Key in keyof CustomPortableContentMap]: PortableTextTypeComponent<{ _type: Key } & CustomPortableContentMap[Key]>;
   };
 }
 
@@ -72,7 +72,7 @@ export const portableTextComponents: Components = {
     normal: ({ children }) => <Paragraph className="my-8">{children}</Paragraph>,
   },
   types: {
-    image: (props) => {
+    portableImage: (props) => {
       return (
         <div className="my-16">
           <Image
@@ -90,7 +90,7 @@ export const portableTextComponents: Components = {
         </div>
       );
     },
-    accordion: (props) => {
+    portableAccordion: (props) => {
       return (
         <BasicAccordion
           className="my-16"
@@ -98,7 +98,7 @@ export const portableTextComponents: Components = {
         />
       );
     },
-    educationalProgramTypeCTA: (props) => {
+    portableEducationalProgramTypeCTA: (props) => {
       return (
         <Link href={`/bildungswege/${props.value.educationalProgramType?.slug?.current}`} className="group">
           <Card
@@ -129,7 +129,7 @@ export const portableTextComponents: Components = {
         </Link>
       );
     },
-    educationalProgramCTA: (props) => {
+    portableEducationalProgramCTA: (props) => {
       return (
         <Link href={`/bildungswege/${props.value.educationalProgram?.slug?.current}`} className="group">
           <Card
@@ -168,8 +168,8 @@ export const portableTextComponents: Components = {
   },
 };
 
-export type BlockContentProps = { blockContent: BlockContentArray };
+export type DefaultPortableContentProps = { content: PortableContentArray };
 
-export const BlockContent: FC<BlockContentProps> = ({ blockContent }) => {
-  return <PortableText value={blockContent} components={portableTextComponents} />;
+export const DefaultPortableContent: FC<DefaultPortableContentProps> = ({ content }) => {
+  return <PortableText value={content} components={portableTextComponents} />;
 };

@@ -38,7 +38,7 @@ export const economySocialPage: SchemaTypeDef = {
       defineField({
         name: "content",
         title: "Inhalt",
-        type: "blockContent",
+        type: "defaultPortableContent",
       }),
     ],
     preview: {
