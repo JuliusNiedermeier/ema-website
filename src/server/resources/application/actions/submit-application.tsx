@@ -9,12 +9,25 @@ import { z } from "zod";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "../application-cookie";
 import { env } from "~/env";
+import { groq } from "next-sanity";
+import { sanity } from "~/sanity/lib/client";
+import { ApplicationVerificationEmailQueryResult } from "../../../../../generated/sanity/types";
+
+const applicationVerificationEmailQuery = groq`*[_type == "application-verification-email"][0]`;
 
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
   if (cookies().has(applicationCookieName)) return false;
 
   const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
   if (!applicationRecord) return false;
+
+  const emailContent = await sanity.fetch<ApplicationVerificationEmailQueryResult>(
+    applicationVerificationEmailQuery,
+    {},
+    { next: { tags: ["application-verification-email"] } },
+  );
+
+  if (!emailContent) return false;
 
   const verificationURL = new URL(`${env.NEXT_PUBLIC_SITE_URL}/go/verify`);
   verificationURL.searchParams.set("application", applicationRecord.ID);
@@ -29,6 +42,11 @@ export const submitApplication = async (input: z.infer<typeof applicationInputSc
         name={applicationRecord.name}
         programName={applicationRecord.programID}
         verificationURL={verificationURL.href}
+        heading={emailContent.heading?.replaceAll("{name}", applicationRecord.name) || ""}
+        body={emailContent.body?.replaceAll("{name}", applicationRecord.name) || ""}
+        verifyButtonLabel={emailContent.verifyButtonLabel || ""}
+        regards={emailContent.regards || ""}
+        senderName={emailContent.senderName || ""}
       />
     ),
   });

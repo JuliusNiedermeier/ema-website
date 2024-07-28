@@ -1,7 +1,16 @@
 import { Button, Html, Body, Head, Tailwind, Text } from "@react-email/components";
 import { EmailFC } from "./types";
 
-type ApplicationVerificationMailProps = { name: string; programName: string; verificationURL: string };
+type ApplicationVerificationMailProps = {
+  name: string;
+  programName: string;
+  verificationURL: string;
+  heading: string;
+  body: string;
+  verifyButtonLabel: string;
+  regards: string;
+  senderName: string;
+};
 
 export const ApplicationVerificationMail: EmailFC<ApplicationVerificationMailProps> = (props) => {
   return (
@@ -9,16 +18,13 @@ export const ApplicationVerificationMail: EmailFC<ApplicationVerificationMailPro
       <Head />
       <Tailwind>
         <Body>
-          <Text>Danke für dein Interesse, {props.name}!</Text>
-          <Text>
-            Bitte bestätige deine Anmeldung innerhalb der nächsten 24 Stunden, indem du auf den Button klickst.
-          </Text>
+          <Text>{props.heading}</Text>
+          <Text>{props.body}</Text>
           <Button href={props.verificationURL} className="bg-gray-800 text-gray-100 rounded-full px-8 py-4">
-            Anmeldung bestätigen
+            {props.verifyButtonLabel}
           </Button>
-          <Text>Wir freuen uns dir zeitnah ein persönliches Gespräch anbieten zu können.</Text>
-          <Text>Mit freundlichen Grüßen</Text>
-          <Text>das Kollegium der Emil Molt Akademie</Text>
+          <Text>{props.regards}</Text>
+          <Text>{props.senderName}</Text>
         </Body>
       </Tailwind>
     </Html>
@@ -31,4 +37,9 @@ ApplicationVerificationMail.PreviewProps = {
   name: "John Doe",
   programName: "Preview program",
   verificationURL: "https://example.com",
+  heading: "Danke für deine Anmeldung",
+  body: "...",
+  verifyButtonLabel: "Anmeldung bestätitgen",
+  regards: "Mit freundlichen Grüßen",
+  senderName: "das Team der Emil Molt Akademie",
 };
