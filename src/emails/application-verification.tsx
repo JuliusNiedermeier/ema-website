@@ -1,9 +1,9 @@
 import { Button, Html, Body, Head, Tailwind, Text } from "@react-email/components";
 import { EmailFC } from "./types";
 
-export const ApplicationVerificationMail: EmailFC<{ name: string; programName: string; verificationURL: string }> = (
-  props,
-) => {
+type ApplicationVerificationMailProps = { name: string; programName: string; verificationURL: string };
+
+export const ApplicationVerificationMail: EmailFC<ApplicationVerificationMailProps> = (props) => {
   return (
     <Html>
       <Head />
