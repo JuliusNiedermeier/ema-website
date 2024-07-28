@@ -8,10 +8,10 @@ import { Card } from "../primitives/card";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
 import { Chip } from "../primitives/chip";
-import { PortableContentQueryResult } from "../../../../generated/sanity/types";
+import { DefaultPortableContentQueryResult } from "../../../../generated/sanity/types";
 import { FC } from "react";
 
-const portableContentQuery = groq`*[_type == "post"][0]{
+const defaultPortableContentQuery = groq`*[_type == "post"][0]{
     body[] {
       ...,
       _type == "portableImage" => {
@@ -45,9 +45,9 @@ const portableContentQuery = groq`*[_type == "post"][0]{
   }`;
 
 // Call portableContentQuery here to prevent unused variable warnings
-portableContentQuery;
+defaultPortableContentQuery;
 
-type PortableContentArray = NonNullable<NonNullable<PortableContentQueryResult>["body"]>;
+type PortableContentArray = NonNullable<NonNullable<DefaultPortableContentQueryResult>["body"]>;
 
 type CustomPortableContentTypeKey = Exclude<PortableContentArray[number]["_type"], "portableBlock">;
 
