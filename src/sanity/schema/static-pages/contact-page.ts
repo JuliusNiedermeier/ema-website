@@ -87,6 +87,11 @@ export const contactPage: SchemaTypeDef = {
             type: "text",
           }),
           defineField({
+            name: "readMoreLabel",
+            title: "Mehr-Lesen-Text",
+            type: "string",
+          }),
+          defineField({
             name: "nextDates",
             title: "Nächste Veranstaltungen",
             description: "Daten der nächsten drei Infoveranstaltungen",
@@ -137,6 +142,11 @@ export const contactPage: SchemaTypeDef = {
             name: "previewText",
             title: "Vorschautext",
             type: "text",
+          }),
+          defineField({
+            name: "readMoreLabel",
+            title: "Mehr-Lesen-Text",
+            type: "string",
           }),
           defineField({
             name: "booking",
