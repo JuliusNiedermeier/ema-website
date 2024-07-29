@@ -71,6 +71,11 @@ export const footerConfigType: SchemaTypeDef = {
                     type: "string",
                   }),
                   defineField({
+                    name: "fees",
+                    title: "Schulbeitrag",
+                    type: "string",
+                  }),
+                  defineField({
                     name: "jobs",
                     title: "Offene Stellen",
                     type: "string",
@@ -116,7 +121,7 @@ export const footerConfigType: SchemaTypeDef = {
               defineField({
                 name: "url",
                 title: "URL",
-                type: "url",
+                type: "string",
               }),
             ],
             preview: { select: { title: "platformName" } },
