@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import { FC, PropsWithChildren } from "react";
 import { sanity } from "~/sanity/lib/client";
 import { GoLayoutQueryResult } from "../../../../../../generated/sanity/types";
-import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice-root";
+import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice";
 import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
 
 const goLayoutQuery = groq`*[_type == "home-page"][0]{
