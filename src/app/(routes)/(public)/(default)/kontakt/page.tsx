@@ -21,6 +21,7 @@ import { sanity } from "~/sanity/lib/client";
 import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 import { AppointmentRequestForm } from "~/app/_components/compounds/appointment-request-form";
+import { EventDateList } from "~/app/_components/compounds/event-date-list";
 
 const contactPageQuery = groq`*[_type == "contact-page"][0]{
   ...,
@@ -91,26 +92,15 @@ const ContactPage: FC = async () => {
           <Heading className="mt-8">{data?.infoEvening?.heading}</Heading>
           <Paragraph>{data?.infoEvening?.previewText}</Paragraph>
         </div>
-        <div className="flex-1 divide-y overflow-hidden rounded-2xl border">
-          {data?.infoEvening?.nextDates
-            ?.filter(({ eventDate }) => !!eventDate)
-            .map(({ eventDate }, index) => (
-              <div
-                key={index}
-                className={cn("flex items-center justify-between gap-8 p-4", { "bg-primary-100": index === 0 })}
-              >
-                <div>
-                  <Heading size="sm" className="mb-0">
-                    {new Date(eventDate!).toLocaleDateString("de", { weekday: "long", day: "numeric", month: "long" })}
-                  </Heading>
-                  <Label className="text-neutral-100-text-muted">
-                    {new Date(eventDate!).toLocaleDateString("de", { year: "numeric" })}
-                  </Label>
-                </div>
-                <Label>{`${new Date(eventDate!).toLocaleTimeString("de", { timeStyle: "short" })} ${data.infoEvening?.timeSuffix}`}</Label>
-              </div>
-            ))}
-        </div>
+        <EventDateList
+          className="flex-1"
+          timeSuffix={data.infoEvening?.timeSuffix || ""}
+          dates={
+            data?.infoEvening?.nextDates
+              ?.filter(({ eventDate }) => !!eventDate)
+              .map(({ eventDate }) => new Date(eventDate!)) || []
+          }
+        />
       </Container>
 
       <div id={sectionLinks.find(({ ID }) => ID == "personal-consulting")!.ID} className="bg-primary-900 py-32">
