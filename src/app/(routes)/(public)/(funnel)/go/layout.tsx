@@ -2,6 +2,8 @@ import { groq } from "next-sanity";
 import { FC, PropsWithChildren } from "react";
 import { sanity } from "~/sanity/lib/client";
 import { GoLayoutQueryResult } from "../../../../../../generated/sanity/types";
+import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice-root";
+import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
 
 const goLayoutQuery = groq`*[_type == "home-page"][0]{
     video{asset->{url}},
@@ -26,6 +28,9 @@ const GoLayout: FC<PropsWithChildren> = async ({ children }) => {
       <div className="h-full overflow-y-auto overflow-x-hidden lg:z-10 lg:-ml-8 lg:rounded-l-3xl lg:bg-neutral-200">
         {children}
       </div>
+      <CookieNoticeRoot className="z-10">
+        <CookieNotice />
+      </CookieNoticeRoot>
     </div>
   );
 };

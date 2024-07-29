@@ -28,6 +28,7 @@ import { applicationVerificationEmail } from "./emails/application-verification"
 import { textPortableContent } from "./internal/textPortableContent";
 import { privacyPage } from "./static-pages/privacy-page";
 import { impressumPage } from "./static-pages/impressum-page";
+import { cookieNoticeConfigType } from "./global-components/cookie-notice";
 
 export type SchemaTypeDef = {
   type:
@@ -67,6 +68,7 @@ const typeDefs = [
   // Global components
   headerConfigType,
   footerConfigType,
+  cookieNoticeConfigType,
 
   // Global config
   websiteSettingsType,
