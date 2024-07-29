@@ -29,6 +29,7 @@ import { textPortableContent } from "./internal/textPortableContent";
 import { privacyPage } from "./static-pages/privacy-page";
 import { impressumPage } from "./static-pages/impressum-page";
 import { cookieNoticeConfigType } from "./global-components/cookie-notice";
+import { bentoCTAConfigType } from "./global-components/bento-cta";
 
 export type SchemaTypeDef = {
   type:
@@ -69,6 +70,7 @@ const typeDefs = [
   headerConfigType,
   footerConfigType,
   cookieNoticeConfigType,
+  bentoCTAConfigType,
 
   // Global config
   websiteSettingsType,
