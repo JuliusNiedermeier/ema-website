@@ -17,10 +17,22 @@ import {
 } from "./navigation-menu";
 import { AboutMenu } from "./menus/about-menu";
 import { MobileMenu } from "./menus/mobile-menu";
+import { groq } from "next-sanity";
+import { sanity } from "~/sanity/lib/client";
+import { Tags } from "lucide-react";
+import { SiteHeaderQueryResult } from "../../../../../generated/sanity/types";
+
+const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
 
 export type SiteHeaderProps = ComponentProps<"header"> & {};
 
-export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => {
+export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps }) => {
+  const headerConfig = await sanity.fetch<SiteHeaderQueryResult>(
+    siteHeaderQuery,
+    {},
+    { next: { tags: ["header-config"] } },
+  );
+
   return (
     <NavigationMenu>
       <NavigationMenuBackdrop />
@@ -33,19 +45,19 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
 
             <NavigationMenuList className="text-sm flex h-full items-stretch font-medium">
               <div className="hidden md:contents">
-                <NavigationMenuItem label="Home" href="/" exact />
+                <NavigationMenuItem label={headerConfig?.navLinks?.home || ""} href="/" exact />
                 <NavigationMenuItem
-                  label="About"
+                  label={headerConfig?.navLinks?.about || ""}
                   href="/about"
                   menuContent={<AboutMenu className="max-h-[70vh] overflow-y-auto" />}
                 />
                 <NavigationMenuItem
-                  label="Bildungswege"
+                  label={headerConfig?.navLinks?.educationalProgramTypes || ""}
                   href="/bildungswege"
                   menuContent={<OffersMenu className="max-h-[70vh] overflow-y-auto" />}
                 />
-                <NavigationMenuItem label="Blog" href="/blog" />
-                <NavigationMenuItem label="Kontakt" href="/kontakt" />
+                <NavigationMenuItem label={headerConfig?.navLinks?.blog || ""} href="/blog" />
+                <NavigationMenuItem label={headerConfig?.navLinks?.contact || ""} href="/kontakt" />
 
                 <Button
                   href="/go"
@@ -53,7 +65,7 @@ export const SiteHeader: FC<SiteHeaderProps> = ({ className, ...restProps }) => 
                   vairant="outline"
                   className="ml-8 self-center transition-[padding] hover:pr-1"
                 >
-                  <Label>Bewerben</Label>
+                  <Label>{headerConfig?.CTALabel || ""}</Label>
                   <ButtonInteractionBubble />
                 </Button>
               </div>
