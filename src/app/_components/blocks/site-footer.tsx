@@ -8,13 +8,12 @@ import { sanity } from "~/sanity/lib/client";
 import {
   FooterEducationalProgramTypesQueryResult,
   FooterEducationalProgramsQueryResult,
+  SiteFooterQueryResult,
 } from "../../../../generated/sanity/types";
 import Link from "next/link";
-import { InstagramIcon } from "../compounds/icons/instagram";
-import { TikTokIcon } from "../compounds/icons/tiktok";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "../compounds/interaction-bubble";
-import { AtSignIcon } from "lucide-react";
+import Image from "next/image";
 
 const footerEducationalProgramTypesQuery = groq`*[_type == "educational-program-type"]{
     ...
@@ -24,14 +23,29 @@ const footerEducationalProgramsQuery = groq`*[_type == "educational-program"]{
     ...
 }`;
 
+const siteFooterQuery = groq`*[_type == "footer-config"][0] {
+  ...,
+  socialLinks[] {
+    ...,
+    logoIcon { asset -> { url } }
+  }
+}`;
+
 export type SiteFooterProps = ComponentProps<"div"> & {};
 
 export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps }) => {
+  const footerConfig = await sanity.fetch<SiteFooterQueryResult>(
+    siteFooterQuery,
+    {},
+    { next: { tags: ["footer-config"] } },
+  );
+
   const programTypes = await sanity.fetch<FooterEducationalProgramTypesQueryResult>(
     footerEducationalProgramTypesQuery,
     {},
     { next: { tags: ["educational-program-type"] } },
   );
+
   const programs = await sanity.fetch<FooterEducationalProgramsQueryResult>(
     footerEducationalProgramsQuery,
     {},
@@ -43,6 +57,18 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
     programs: programs.filter((program) => program.educationalProgramType?._ref === programType._id),
   }));
 
+  const academyLinkLabelMap = footerConfig?.linkSections?.academy?.links || {};
+
+  const academyLinkURLList: [keyof typeof academyLinkLabelMap, string][] = [
+    ["home", "/"],
+    ["economySocial", "/about/wirtschaft-und-soziales"],
+    ["art", "/about/kunst"],
+    ["campus", "/about/campus"],
+    ["blog", "/blog"],
+    ["contact", "/kontakt"],
+    ["jobs", "/offene-stellen"],
+  ];
+
   return (
     <div
       className={cn("mt-8 rounded-t-3xl border-b-0 bg-primary-900 sm:m-2 sm:mt-8 sm:rounded-b-3xl", className)}
@@ -50,32 +76,44 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
     >
       <Container asChild>
         <footer>
-          <div className="flex justify-between gap-40 pt-40">
+          <div className="flex flex-col justify-between gap-12 pt-28 sm:gap-40 lg:flex-row">
             <div>
               <SiteLogo show="mark" />
               <SiteLogo show="text" light className="mt-2" />
               <Paragraph className="mt-8 text-neutral-900-text">
-                Wirtschaft verstehen. <br />
-                Sozial handeln.
+                {footerConfig?.ctaHeading?.split(".").map((part, index, parts) => (
+                  <>
+                    {part}
+                    {index < parts.length - 1 && (
+                      <>
+                        .<br />
+                      </>
+                    )}
+                  </>
+                ))}
               </Paragraph>
-              <Button className="mt-8 gap-4 bg-primary-100 pl-4 text-primary-100-text" vairant="outline">
+              <Button
+                href="/go"
+                className="mt-8 w-full gap-4 bg-primary-100 pl-4 text-primary-100-text sm:w-fit"
+                vairant="outline"
+              >
                 <InteractionBubble animated={false} />
-                <Label>Bewerben</Label>
+                <Label>{footerConfig?.cta}</Label>
               </Button>
             </div>
-            <div className="hidden grid-cols-3 gap-16 sm:grid">
+            <div className="grid grid-cols-1 gap-16 sm:grid-cols-2">
               <List>
-                <ListHeading>Bewerben</ListHeading>
+                <ListHeading>{footerConfig?.linkSections?.academy?.heading}</ListHeading>
                 <ListContent>
-                  <ListContentItem>Online-Anmeldung</ListContentItem>
-                  <ListContentItem>Checkup</ListContentItem>
-                  <ListContentItem>Infoabend</ListContentItem>
-                  <ListContentItem>Offene Beratung</ListContentItem>
-                  <ListContentItem>Campus</ListContentItem>
+                  {academyLinkURLList.map(([key, URL], index) => (
+                    <Link key={index} href={URL}>
+                      <ListContentItem>{academyLinkLabelMap[key]}</ListContentItem>
+                    </Link>
+                  ))}
                 </ListContent>
               </List>
               <List>
-                <ListHeading>Bildungswege</ListHeading>
+                <ListHeading>{footerConfig?.linkSections?.programs?.heading}</ListHeading>
                 <ListContent>
                   {programTypesWithPrograms.map((programType) => (
                     <Fragment key={programType._id}>
@@ -97,31 +135,32 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                   ))}
                 </ListContent>
               </List>
-              <List>
-                <ListHeading>Ressourcen</ListHeading>
-                <ListContent>
-                  <ListContentItem>Blog</ListContentItem>
-                  <ListContentItem>Preisliste</ListContentItem>
-                  <ListContentItem>Anmeldebogen</ListContentItem>
-                  <ListContentItem>Jobs</ListContentItem>
-                </ListContent>
-              </List>
             </div>
           </div>
           <div className="mt-16 h-px bg-neutral-900-text-muted" />
-          <div className="flex items-center gap-4 py-8 text-neutral-900-text">
-            <Label className="mr-auto text-[0.9rem] text-neutral-900-text-muted">
-              Copyright © 2024 Emil Molt Akademie. Alle Rechte vorbehalten.
-            </Label>
-            <Link href="https://instagram.com" target="_blank">
-              <InstagramIcon />
-            </Link>
-            <Link href="https://tiktok.com" target="_blank">
-              <TikTokIcon />
-            </Link>
-            <Link href="mailto:info@emil-molt-akademie.de">
-              <AtSignIcon size={24} />
-            </Link>
+          <div className="flex flex-col-reverse gap-4 py-8 text-neutral-900-text sm:flex-row sm:items-center sm:gap-12">
+            <Label className="mr-auto text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.copyrightNotice}</Label>
+            <div className="flex items-center gap-4 text-neutral-900-text-muted">
+              <Link href="/datenschutz">
+                <Label>{footerConfig?.legalLinks?.privacy}</Label>
+              </Link>
+              <Link href="/impressum">
+                <Label>{footerConfig?.legalLinks?.impressum}</Label>
+              </Link>
+            </div>
+            <div className="flex items-center gap-4">
+              {footerConfig?.socialLinks?.map((link, index) => (
+                <Link key={index} href={link.url || ""}>
+                  <Image
+                    src={link.logoIcon?.asset?.url || ""}
+                    width={100}
+                    height={100}
+                    alt={link.platformName || ""}
+                    className="h-6 w-6 object-contain"
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
         </footer>
       </Container>
