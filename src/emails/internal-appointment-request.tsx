@@ -2,7 +2,7 @@ import { Html, Body, Head, Tailwind, Text, Section } from "@react-email/componen
 import { EmailFC } from "./types";
 import { type SendInternalAppointmentRequestConfig } from "~/server/resources/appointment/actions/send-internal-appointment-request";
 
-export const InternalAppointmentRequestEmail: EmailFC<SendInternalAppointmentRequestConfig> = ({
+export const InternalAppointmentRequestEmail: EmailFC<Omit<SendInternalAppointmentRequestConfig, "turnstileToken">> = ({
   type,
   name,
   email,

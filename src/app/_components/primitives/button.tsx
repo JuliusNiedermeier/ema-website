@@ -23,6 +23,9 @@ const variants = cva("group px-8 rounded-full flex items-center w-min whitespace
       filled: "bg-primary-900 text-neutral-100",
       outline: "border",
     },
+    disabled: {
+      true: "pointer-events-none opacity-50",
+    },
   },
   defaultVariants: { size: "md", vairant: "filled" },
 });
@@ -35,11 +38,12 @@ export const Button: FC<ButtonProps> = ({
   vairant,
   href,
   external,
+  disabled,
   ...restProps
 }) => {
   if (asChild) {
     return (
-      <Slot className={cn(variants({ size, vairant }), className)} {...restProps}>
+      <Slot className={cn(variants({ size, vairant, disabled }), className)} {...restProps}>
         {children}
       </Slot>
     );
@@ -50,7 +54,7 @@ export const Button: FC<ButtonProps> = ({
       <Link
         href={href}
         target={external ? "_blank" : undefined}
-        className={cn(variants({ size, vairant }), className)}
+        className={cn(variants({ size, vairant, disabled }), className)}
         {...(restProps as Omit<ComponentProps<typeof Link>, "href">)}
       >
         {children}
@@ -59,7 +63,7 @@ export const Button: FC<ButtonProps> = ({
   }
 
   return (
-    <button className={cn(variants({ size, vairant }), className)} {...restProps}>
+    <button className={cn(variants({ size, vairant, disabled }), className)} disabled={disabled} {...restProps}>
       {children}
     </button>
   );

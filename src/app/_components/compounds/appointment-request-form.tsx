@@ -13,6 +13,7 @@ import {
 import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { useMutation } from "@tanstack/react-query";
 import { Card } from "../primitives/card";
+import { Turnstile } from "./turnstile";
 
 export type AppointmentRequestFormProps = ComponentProps<"div"> & {
   onlineTypeLabel: string;
@@ -36,10 +37,19 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
   const [type, setType] = useState(defaultType);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  const valid = name && email && turnstileToken;
 
   const submitAppointmentRequest = useMutation({
     mutationFn: async (data: { type: AppointmentRequestFormProps["defaultType"]; name: string; email: string }) => {
-      const success = await sendInternalAppointmentRequest({ type: data.type, name: data.name, email: data.email });
+      if (!valid) return false;
+      const success = await sendInternalAppointmentRequest({
+        type: data.type,
+        name: data.name,
+        email: data.email,
+        turnstileToken: turnstileToken,
+      });
       if (!success) throw new Error();
     },
   });
@@ -94,9 +104,11 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
             value={email}
             onInput={(e) => setEmail(e.currentTarget.value)}
           />
+          <Turnstile onVerify={(token) => setTurnstileToken(token)} className="mt-8" />
           <Button
             className="mt-8 w-full justify-center bg-primary-100 text-primary-100-text"
             onClick={() => submitAppointmentRequest.mutate({ type, name, email })}
+            disabled={!valid}
           >
             {submitAppointmentRequest.isPending ? (
               <LoaderCircle className="animate-spin" />
