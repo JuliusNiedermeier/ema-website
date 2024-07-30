@@ -22,6 +22,11 @@ export const websiteSettingsType: SchemaTypeDef = {
         description: "",
         type: "string",
       }),
+      defineField({
+        name: "gtmID",
+        title: "Google-Tag-Manager ID",
+        type: "string",
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Website-Einstellungen" }),
