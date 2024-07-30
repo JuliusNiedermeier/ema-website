@@ -2,6 +2,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import {
   AtSignIcon,
   CalendarCheckIcon,
+  ClockIcon,
   ExternalLinkIcon,
   LucideIcon,
   PhoneCallIcon,
@@ -128,7 +129,7 @@ const ContactPage: FC = async () => {
 
       <Container
         id={sectionLinks.find(({ ID }) => ID == "contact")!.ID}
-        className="flex flex-col gap-16 pt-32 sm:flex-row sm:items-end sm:pb-32"
+        className="flex flex-col gap-16 pt-32 sm:flex-row sm:pb-32"
       >
         <div className="flex-1">
           <SectionIndicator name={data?.contact?.name || ""} icon={AtSignIcon} />
@@ -136,21 +137,38 @@ const ContactPage: FC = async () => {
           <Paragraph>{data?.contact?.description || ""}</Paragraph>
         </div>
         <div className="flex-1">
-          <div className="divide-y rounded-2xl border bg-transparent">
-            <div className="px-4 py-6">
-              <div className="flex items-center gap-2">
-                <AtSignIcon />
-                <Label>{data?.contact?.email?.heading || ""}</Label>
-              </div>
-              <Label className="mt-4 block">{data?.contact?.email?.email || ""}</Label>
+          <div className="relative z-10 rounded-2xl border bg-neutral-100 px-8 py-8">
+            <div className="flex items-center gap-2">
+              <AtSignIcon />
+              <Label>{data?.contact?.email?.heading || ""}</Label>
             </div>
-            <div className="px-4 py-6">
+            <Label className="mt-4 block">{data?.contact?.email?.email || ""}</Label>
+          </div>
+          <div className="mt-4 rounded-2xl border">
+            <div className="p-8">
               <div className="flex items-center gap-2">
                 <PhoneCallIcon />
                 <Label>{data?.contact?.phone?.heading || ""}</Label>
               </div>
               <Label className="mt-4 block">{data?.contact?.phone?.number || ""}</Label>
+
+              <div className="my-8 h-px w-full bg-neutral-400" />
+
+              <div className="flex items-center gap-2">
+                <ClockIcon />
+                <Label>{data.contact?.phone?.officeHours?.heading}</Label>
+              </div>
+              <div className="mt-6 flex flex-col gap-4">
+                {data.contact?.phone?.officeHours?.days?.map(({ day, from, to, _key }) => (
+                  <div key={_key} className="flex items-center gap-4">
+                    <Label>{day}</Label>
+                    <div className="h-px flex-1 bg-neutral-400" />
+                    {from && to && <Label>{`${from} - ${to} ${data.contact?.phone?.officeHours?.timeSuffix}`}</Label>}
+                  </div>
+                ))}
+              </div>
             </div>
+            <div></div>
           </div>
         </div>
       </Container>

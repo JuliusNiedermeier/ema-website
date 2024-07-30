@@ -257,6 +257,60 @@ export const contactPage: SchemaTypeDef = {
                 type: "string",
                 validation: (r) => r.required().min(5).max(20),
               }),
+              defineField({
+                name: "officeHours",
+                title: "Sprechzeiten",
+                type: "object",
+                fields: [
+                  defineField({
+                    name: "heading",
+                    title: "Überschrift",
+                    type: "string",
+                  }),
+                  defineField({
+                    name: "days",
+                    title: "Tage",
+                    type: "array",
+                    of: [
+                      defineArrayMember({
+                        name: "day",
+                        title: "Tag",
+                        type: "object",
+                        options: { columns: 3 },
+                        fields: [
+                          defineField({
+                            name: "day",
+                            title: "Tag",
+                            type: "string",
+                          }),
+                          defineField({
+                            name: "from",
+                            title: "Von",
+                            type: "time-select",
+                          }),
+                          defineField({
+                            name: "to",
+                            title: "Bis",
+                            type: "time-select",
+                          }),
+                        ],
+                        preview: {
+                          select: { day: "day", from: "from", to: "to" },
+                          prepare: ({ day, from, to }) => ({
+                            title: day,
+                            subtitle: from && to && `${from} - ${to} Uhr`,
+                          }),
+                        },
+                      }),
+                    ],
+                  }),
+                  defineField({
+                    name: "timeSuffix",
+                    title: "Uhrzeit-Suffix",
+                    type: "string",
+                  }),
+                ],
+              }),
             ],
           }),
         ],
