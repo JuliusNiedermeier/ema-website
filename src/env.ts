@@ -13,6 +13,7 @@ export const env = createEnv({
     RESEND_SENDER_ADDRESS: z.string().email(),
     RESEND_PUBLIC_SENDER_NAME: z.string(),
     RESEND_INTERNAL_RECIPIENT_ADDRESS: z.string().email(),
+    TURNSTILE_SECRET_KEY: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -23,6 +24,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: z.string(),
     NEXT_PUBLIC_SANITY_PROJECT_ID: z.string(),
     NEXT_PUBLIC_SANITY_DATASET: z.string(),
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -34,11 +36,14 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+
     SANITY_REVALIDATION_WEBHOOK_SECRET: process.env.SANITY_REVALIDATION_WEBHOOK_SECRET,
     POSTGRES_CONNECTION_STRING: process.env.POSTGRES_CONNECTION_STRING,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_SENDER_ADDRESS: process.env.RESEND_SENDER_ADDRESS,
     RESEND_PUBLIC_SENDER_NAME: process.env.RESEND_PUBLIC_SENDER_NAME,
     RESEND_INTERNAL_RECIPIENT_ADDRESS: process.env.RESEND_INTERNAL_RECIPIENT_ADDRESS,
+    TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
   },
 });
