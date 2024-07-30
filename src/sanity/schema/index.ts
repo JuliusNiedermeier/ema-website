@@ -30,6 +30,7 @@ import { privacyPage } from "./static-pages/privacy-page";
 import { impressumPage } from "./static-pages/impressum-page";
 import { cookieNoticeConfigType } from "./global-components/cookie-notice";
 import { bentoCTAConfigType } from "./global-components/bento-cta";
+import { timeSelect } from "./internal/time-select";
 
 export type SchemaTypeDef = {
   type:
@@ -85,6 +86,7 @@ const typeDefs = [
   faqType,
   defaultSlug,
   genericCTAType,
+  timeSelect,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
