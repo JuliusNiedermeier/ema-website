@@ -27,13 +27,16 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
 
   const handleNextClick = useCallback<NonNullable<ComponentProps<typeof Button>["onClick"]>>(async () => {
     if (currentStepIndex === steps.length - 1) {
-      const success = await submitApplication({
-        programID: formState.program!,
-        name: formState.name!,
-        age: formState.age!,
-        motivation: formState.motivation!,
-        email: formState.email!,
-      });
+      const success = await submitApplication(
+        {
+          programID: formState.program!,
+          name: formState.name!,
+          age: formState.age!,
+          motivation: formState.motivation!,
+          email: formState.email!,
+        },
+        formState.turnstileToken!,
+      );
       if (!success) router.replace(verifyPath);
       router.replace(verifyPath);
     }

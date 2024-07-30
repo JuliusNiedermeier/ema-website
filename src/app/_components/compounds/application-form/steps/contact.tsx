@@ -4,12 +4,17 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { useApplicationFormState } from "../state";
 import { FormStepComponent } from "../application-form-provider";
 import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
+import { Turnstile } from "../../turnstile";
+import { z } from "zod";
+import { useEffect } from "react";
 
 export const ContactStep: FormStepComponent = () => {
-  const { email, setEmail } = useApplicationFormState();
+  const { email, setEmail, setTurnstileToken } = useApplicationFormState();
+
+  useEffect(() => setTurnstileToken(null), []);
 
   return (
-    <div className="">
+    <div>
       <Heading>An welche Email dürfen wir dir ein Zusage senden?</Heading>
       <Paragraph>
         Wir benötigen eine aktuelle Email-Adresse von dir um uns für eine Zusage oder Fragen an dich wenden zu können.
@@ -26,13 +31,14 @@ export const ContactStep: FormStepComponent = () => {
             onInput={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
+        <Turnstile onVerify={(token) => setTurnstileToken(token)} />
       </div>
     </div>
   );
 };
 
-const schema = applicationInputSchema.pick({ email: true });
+const schema = applicationInputSchema.pick({ email: true }).extend({ turnstileToken: z.string().min(1) });
 
-ContactStep.validate = (state) => {
-  return schema.safeParse({ email: state.email }).success;
+ContactStep.validate = ({ email, turnstileToken }) => {
+  return schema.safeParse({ email, turnstileToken }).success;
 };

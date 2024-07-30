@@ -12,11 +12,14 @@ import { env } from "~/env";
 import { groq } from "next-sanity";
 import { sanity } from "~/sanity/lib/client";
 import { ApplicationVerificationEmailQueryResult } from "../../../../../generated/sanity/types";
+import { verifyTurnstileToken } from "~/server/utils/verify-turnstile-token";
 
 const applicationVerificationEmailQuery = groq`*[_type == "application-verification-email"][0]`;
 
-export const submitApplication = async (input: z.infer<typeof applicationInputSchema>) => {
+export const submitApplication = async (input: z.infer<typeof applicationInputSchema>, turnstileToken: string) => {
   if (cookies().has(applicationCookieName)) return false;
+
+  if (!(await verifyTurnstileToken(turnstileToken))) return false;
 
   const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
   if (!applicationRecord) return false;

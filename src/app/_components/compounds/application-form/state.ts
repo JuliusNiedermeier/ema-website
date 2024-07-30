@@ -21,6 +21,9 @@ export type ApplicationFormState = {
 
   email: string | null;
   setEmail: (email: string | null) => void;
+
+  turnstileToken: string | null;
+  setTurnstileToken: (token: string | null) => void;
 };
 
 export const useApplicationFormState = create(
@@ -43,6 +46,9 @@ export const useApplicationFormState = create(
 
       email: null,
       setEmail: (email) => set((state) => ({ ...state, email })),
+
+      turnstileToken: null,
+      setTurnstileToken: (token) => set((state) => ({ ...state, turnstileToken: token })),
     }),
     {
       name: "application-form",
