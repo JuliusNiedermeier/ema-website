@@ -14,6 +14,7 @@ import Link from "next/link";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
+import { ResetCookieConsent } from "../compounds/reset-cookie-consent";
 
 const footerEducationalProgramTypesQuery = groq`*[_type == "educational-program-type"]{
     ...
@@ -141,6 +142,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
           <div className="mt-16 h-px bg-neutral-900-text-muted" />
           <div className="flex flex-col-reverse gap-4 py-8 text-neutral-900-text sm:flex-row sm:items-center sm:gap-12">
             <Label className="mr-auto text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.copyrightNotice}</Label>
+
             <div className="flex items-center gap-4 text-neutral-900-text-muted">
               <Link href="/datenschutz">
                 <Label>{footerConfig?.legalLinks?.privacy}</Label>
@@ -149,6 +151,9 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                 <Label>{footerConfig?.legalLinks?.impressum}</Label>
               </Link>
             </div>
+
+            <ResetCookieConsent label="Cookie-Einstellungen" />
+
             <div className="flex items-center gap-4">
               {footerConfig?.socialLinks?.map((link, index) => (
                 <Link key={index} href={link.url || ""}>
