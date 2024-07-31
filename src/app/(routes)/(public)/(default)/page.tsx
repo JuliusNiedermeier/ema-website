@@ -110,9 +110,12 @@ const HomePage: FC = async () => {
       <div className="bg-neutral-200">
         <Container className="items-end justify-between gap-16 pt-16 sm:flex sm:pt-24">
           <Heading size="lg" className="mb-0 text-primary-900">
-            {homePage.heading?.slice(0, homePage.heading?.indexOf("+"))}
-            <br />
-            {homePage.heading?.slice(homePage.heading?.indexOf("+"))}
+            {homePage.heading?.split("\\n").map((line, index, lines) => (
+              <>
+                {line}
+                {index < lines.length - 1 && <br />}
+              </>
+            ))}
           </Heading>
 
           <Paragraph className="mb-0 max-w-60" asChild>

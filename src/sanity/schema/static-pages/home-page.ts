@@ -13,7 +13,7 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Headline",
-        description: "20-60 Zeichen.",
+        description: "20-60 Zeichen. Füge \n ein um einen Zeilenumbruch hinzuzufügen.",
         type: "string",
         validation: (r) => r.required().min(20).max(60),
       }),
