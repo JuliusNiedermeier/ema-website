@@ -4,12 +4,14 @@ import { Card } from "../primitives/card";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
+import Image from "next/image";
 
-export type GenericCTAProps = ComponentProps<"div"> & {
+export type GenericCTAProps = ComponentProps<typeof Card> & {
   preHeading: string;
   mainheading: string;
   paragraph: string;
   ctaText: string;
+  imageURL: string;
 };
 
 export const GenericCTA: FC<GenericCTAProps> = ({
@@ -18,31 +20,38 @@ export const GenericCTA: FC<GenericCTAProps> = ({
   mainheading,
   paragraph,
   ctaText,
+  imageURL,
   ...restProps
 }) => {
   return (
-    <div className={cn("mt-32 rounded-3xl border p-2", className)} {...restProps}>
-      <Card className="relative overflow-hidden bg-primary-900 text-neutral-900-text">
-        <div className="max-w-[40rem]">
-          <div className="flex items-center gap-4 text-neutral-900-text">
-            <div className="h-px w-8 bg-neutral-900-text" />
-            <Heading size="sm">{preHeading}</Heading>
-          </div>
-          <Heading className="mt-8 text-primary-900-text">{mainheading}</Heading>
-          <Paragraph className="text-neutral-900-text">{paragraph}</Paragraph>
-          <Button vairant="filled" className="mt-12 gap-6 bg-primary-100 pr-4 text-primary-100-text">
-            <Label>{ctaText}</Label>
-            <InteractionBubble animated={false} />
-          </Button>
+    <Card
+      className={cn(
+        "relative flex flex-col items-stretch gap-8 overflow-hidden rounded-3xl bg-primary-900 p-2 text-neutral-900-text md:flex-row-reverse md:p-8",
+        className,
+      )}
+      {...restProps}
+    >
+      <div className="max-w-[40rem] flex-[2] p-6 md:p-0">
+        <div className="flex items-center gap-4 text-neutral-900-text">
+          <div className="h-px w-8 bg-neutral-900-text" />
+          <Heading size="sm">{preHeading}</Heading>
         </div>
-        {Array.from(new Array(10)).map((_, index) => (
-          <div
-            key={index}
-            className="absolute right-0 top-0 aspect-square h-full origin-top-right rounded-bl-full bg-primary-100"
-            style={{ scale: index * 0.2, opacity: 0.02 }}
-          />
-        ))}
-      </Card>
-    </div>
+        <Heading className="mt-8 text-primary-900-text">{mainheading}</Heading>
+        <Paragraph className="text-neutral-900-text">{paragraph}</Paragraph>
+        <Button vairant="filled" className="mt-12 gap-6 bg-primary-100 pr-4 text-primary-100-text">
+          <Label>{ctaText}</Label>
+          <InteractionBubble animated={false} />
+        </Button>
+      </div>
+      <div className="h-36 flex-1 md:h-auto">
+        <Image
+          src={imageURL}
+          alt={mainheading}
+          height="500"
+          width="500"
+          className="h-full w-full rounded-2xl object-cover"
+        />
+      </div>
+    </Card>
   );
 };

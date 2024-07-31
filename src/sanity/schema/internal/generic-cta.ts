@@ -28,6 +28,11 @@ export const genericCTAType: SchemaTypeDef = {
         title: "Text auf dem CTA-Button",
         type: "string",
       }),
+      defineField({
+        name: "image",
+        title: "Bild",
+        type: "image",
+      }),
     ],
   }),
 };

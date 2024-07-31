@@ -52,6 +52,10 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   furtherInformation[] {
     ...,
     image { asset -> { url } }
+  },
+  externalCTA {
+    ...,
+    image { asset -> { url } }
   }
 }`;
 
@@ -191,10 +195,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
         {program.showExternalCTA && (
           <GenericCTA
+            className="mt-32"
             preHeading={program.externalCTA?.preHeading || ""}
             mainheading={program.externalCTA?.mainHeading || ""}
             paragraph={program.externalCTA?.paragraph || ""}
             ctaText={program.externalCTA?.ctaText || ""}
+            imageURL={program.externalCTA?.image?.asset?.url || ""}
           />
         )}
 
