@@ -44,7 +44,11 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
               {data?.primarySection?.heading}
             </Heading>
             <Paragraph className="text-neutral-100">{data?.primarySection?.description}</Paragraph>
-            <Button vairant="filled" href="/go" className="mt-12 bg-primary-100 text-primary-100-text">
+            <Button
+              vairant="filled"
+              href="/go"
+              className="mt-12 bg-[hsl(var(--themed-primary,var(--primary-100)))] text-primary-100-text"
+            >
               <Label>{data?.primarySection?.buttonLabel}</Label>
               <ButtonInteractionBubble />
             </Button>
@@ -86,7 +90,11 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
         <div className="p-8">
           <Heading tag="h3">{contact?.personalConsulting?.name}</Heading>
           <Paragraph className="mt-8">{contact?.personalConsulting?.previewText}</Paragraph>
-          <Button vairant="filled" href="/kontakt" className="mt-12 !rounded-full">
+          <Button
+            vairant="filled"
+            href="/kontakt"
+            className="mt-12 !rounded-full bg-[hsl(var(--themed-primary,var(--primary-900)))]"
+          >
             <Label>{contact?.personalConsulting?.readMoreLabel}</Label>
             <ButtonInteractionBubble />
           </Button>
