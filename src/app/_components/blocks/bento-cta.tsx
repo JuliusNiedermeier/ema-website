@@ -50,7 +50,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
             </Button>
           </Card>
           <TestimonialCard
-            className="flex-1 rounded-3xl border border-primary-900 bg-primary-100"
+            className="flex-1 rounded-3xl bg-primary-100"
             rating={data?.testimonial?.stars || 5}
             authorName={data?.testimonial?.authorName || ""}
             authorImage={data?.testimonial?.authorImage?.asset?.url || ""}
