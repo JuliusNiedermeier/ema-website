@@ -39,7 +39,7 @@ export const EconomyXSocial: FC<EconomyXSocialProps> = ({
       <Container width="narrow" className="flex flex-col items-center text-center">
         <Heading>{headingLower}</Heading>
         <Paragraph>{previewText}</Paragraph>
-        <Button className="mt-8">
+        <Button href="/about/wirtschaft-und-soziales" className="mt-8">
           <Label>{readMoreButtonLabel}</Label>
           <ButtonInteractionBubble />
         </Button>

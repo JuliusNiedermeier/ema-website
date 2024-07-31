@@ -24,6 +24,7 @@ import { CampusCard } from "~/app/_components/blocks/campus-card";
 import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 import { notFound } from "next/navigation";
 import { ContactPreviewCard } from "~/app/_components/blocks/contact-preview-card";
+import Link from "next/link";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -198,24 +199,26 @@ const HomePage: FC = async () => {
           </Button>
         </Container>
 
-        <ArtEducation
-          className="mt-64"
-          title={artPreview?.heading || ""}
-          body={artPreview?.preview?.excerpt || ""}
-          actionLabel={artPreview?.preview?.readMoreButtonLabel || ""}
-          backgroundImage={{
-            src: artPreview?.preview?.backgroundImage?.asset?.url || "",
-            alt: artPreview?.heading || "",
-          }}
-          leftImage={{
-            src: artPreview?.preview?.leftImage?.asset?.url || "",
-            alt: artPreview?.heading || "",
-          }}
-          rightImage={{
-            src: artPreview?.preview?.rightImage?.asset?.url || "",
-            alt: artPreview?.heading || "",
-          }}
-        />
+        <Link href="/about/kunst">
+          <ArtEducation
+            className="mt-64"
+            title={artPreview?.heading || ""}
+            body={artPreview?.preview?.excerpt || ""}
+            actionLabel={artPreview?.preview?.readMoreButtonLabel || ""}
+            backgroundImage={{
+              src: artPreview?.preview?.backgroundImage?.asset?.url || "",
+              alt: artPreview?.heading || "",
+            }}
+            leftImage={{
+              src: artPreview?.preview?.leftImage?.asset?.url || "",
+              alt: artPreview?.heading || "",
+            }}
+            rightImage={{
+              src: artPreview?.preview?.rightImage?.asset?.url || "",
+              alt: artPreview?.heading || "",
+            }}
+          />
+        </Link>
       </Container>
 
       <CampusCard className="mt-16" />
