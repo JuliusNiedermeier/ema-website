@@ -47,7 +47,7 @@ export const ApplicantStep: FormStepComponent<ApplicantStepProps> = ({ heading, 
           <Paragraph>{inputs.motivation.description}</Paragraph>
           <textarea
             placeholder={inputs.motivation.placeholder}
-            className="mt-2 block h-60 w-full rounded-xl border border-primary-900 bg-transparent p-4 font-serif text-paragraph outline-none"
+            className="mt-6 block h-60 w-full rounded-xl border border-primary-900 bg-transparent p-4 font-serif text-paragraph outline-none"
             value={motivation || ""}
             onInput={(e) => setMotivation(e.currentTarget.value)}
           />
