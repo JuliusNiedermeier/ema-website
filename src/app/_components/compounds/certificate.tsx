@@ -57,19 +57,22 @@ export const Certificate: FC<CertificateProps> = ({
       </div>
       <div className="relative h-full min-h-[30rem] overflow-hidden">
         <motion.div
-          className="absolute left-0 top-0 flex h-full w-full flex-col justify-center gap-4"
+          className="absolute left-0 top-0 flex h-full w-full flex-col items-end justify-center gap-4"
           style={{ y: paralaxx }}
         >
           {jobs.map((job, index) => (
-            <div key={index} className="flex gap-4 rounded-[2rem] border border-neutral-400 bg-neutral-100 p-4">
+            <div
+              key={index}
+              className="flex w-fit max-w-full items-center gap-4 rounded-3xl border border-neutral-900/20 bg-neutral-100 p-2 pl-6"
+            >
+              <Label>{job.content}</Label>
               <Image
                 src={job.image}
                 alt={job.content}
                 height={300}
                 width={300}
-                className="aspect-square w-12 rounded-full object-cover"
+                className="aspect-square w-12 rounded-2xl object-cover"
               />
-              <Paragraph>{job.content}</Paragraph>
             </div>
           ))}
         </motion.div>
