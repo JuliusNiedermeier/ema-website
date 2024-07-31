@@ -25,6 +25,7 @@ import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 import { notFound } from "next/navigation";
 import { ContactPreviewCard } from "~/app/_components/blocks/contact-preview-card";
 import Link from "next/link";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -139,12 +140,16 @@ const HomePage: FC = async () => {
 
           <div className="absolute left-0 top-0 flex h-full w-full items-end">
             <Container className="items- sticky bottom-2 my-2 flex justify-between sm:bottom-8 sm:my-8 sm:items-end">
-              <Button href="/go" className="!bg-primary-100 !text-primary-100-text" size="lg">
-                <Label>{homePage.videoCTAButtonLabel}</Label>
-                <ButtonInteractionBubble />
+              <Button
+                href="/go"
+                className="w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-16 md:pr-6"
+                size="md"
+              >
+                <Label className="flex-1">{homePage.videoCTAButtonLabel}</Label>
+                <InteractionBubble animated={false} />
               </Button>
 
-              <div className="flex w-min items-center gap-3 whitespace-nowrap text-neutral-200">
+              <div className="hidden w-min items-center gap-3 whitespace-nowrap text-neutral-200 md:flex">
                 <Label className="hidden sm:block">{homePage.videoFullscreenButtonLabel}</Label>
                 <PlayIcon className="mr-8 sm:mr-0" />
               </div>
