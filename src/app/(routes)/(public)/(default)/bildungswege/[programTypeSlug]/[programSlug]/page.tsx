@@ -12,7 +12,11 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
-import { ProgramPageQueryResult, ProgramPageSlugsQueryResult } from "../../../../../../../../generated/sanity/types";
+import {
+  ProgramPageContentQueryResult,
+  ProgramPageQueryResult,
+  ProgramPageSlugsQueryResult,
+} from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
@@ -24,7 +28,18 @@ const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   educationalProgramType -> { slug }  
 }`;
 
-const programPageQuery = groq`*[_type == "educational-program" && slug.current == $slug][0]{
+const programPageQuery = groq`*[_type == "educational-program-page"][0]{
+  ...,
+  programDetails {
+    ...,
+    startDate {
+      ...,
+      backgroundGraphic { asset -> { url } }
+    }
+  }
+}`;
+
+const programPageContentQuery = groq`*[_type == "educational-program" && slug.current == $slug][0]{
   ...,
   educationalProgramType->,
   certificate {
@@ -54,13 +69,19 @@ export const generateStaticParams = async () => {
 };
 
 const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) => {
-  const program = await sanity.fetch<ProgramPageQueryResult>(
-    programPageQuery,
+  const program = await sanity.fetch<ProgramPageContentQueryResult>(
+    programPageContentQuery,
     { slug: decodeURIComponent(programSlug) },
     { next: { tags: ["educational-program", "educational-program-type"] } },
   );
 
-  if (!program) notFound();
+  const programPage = await sanity.fetch<ProgramPageQueryResult>(
+    programPageQuery,
+    {},
+    { next: { tags: ["educational-program-page"] } },
+  );
+
+  if (!program || !programPage) notFound();
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
@@ -130,6 +151,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             ]}
             holidays={program.programDetails?.holidays?.info || ""}
             startDate={program.programDetails?.startDate?.date || ""}
+            applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
+            startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
           />
 
           <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">

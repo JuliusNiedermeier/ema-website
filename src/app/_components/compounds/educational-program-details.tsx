@@ -3,6 +3,9 @@ import { cn } from "~/app/_utils/cn";
 import { Card } from "../primitives/card";
 import { CalendarCheck2Icon, HourglassIcon, SunriseIcon, TreePalmIcon } from "lucide-react";
 import { Heading, Label, Paragraph } from "../primitives/typography";
+import { Button } from "../primitives/button";
+import { InteractionBubble } from "./interaction-bubble";
+import Image from "next/image";
 
 export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   durationHeading: string;
@@ -14,6 +17,8 @@ export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   duration: string;
   holidays: string;
   startDate: string;
+  applyButtonLabel: string;
+  startDateBackgroundGraphic: string;
 };
 
 export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
@@ -27,6 +32,8 @@ export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
   startEndTime,
   duration,
   holidays,
+  applyButtonLabel,
+  startDateBackgroundGraphic,
   ...restProps
 }) => {
   return (
@@ -34,7 +41,12 @@ export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
       <DurationCard heading={durationHeading} duration={duration} trainingType={trainingType} />
       <StartEndTimeCard heading={lessonTimesHeading} start={startEndTime[0]} end={startEndTime[1]} />
       <HolidaysCard heading={holidaysHeading} holidays={holidays} />
-      <StartDateCard heading={startDateHeading} startDate={startDate} />
+      <StartDateCard
+        heading={startDateHeading}
+        startDate={startDate}
+        applyButtonLabel={applyButtonLabel}
+        backgroundGraphicURL={startDateBackgroundGraphic}
+      />
     </div>
   );
 };
@@ -86,14 +98,34 @@ const HolidaysCard: FC<{ heading: string; holidays: string }> = ({ heading, holi
   );
 };
 
-const StartDateCard: FC<{ heading: string; startDate: string }> = ({ heading, startDate }) => {
+const StartDateCard: FC<{
+  heading: string;
+  startDate: string;
+  applyButtonLabel: string;
+  backgroundGraphicURL: string;
+}> = ({ heading, startDate, applyButtonLabel, backgroundGraphicURL }) => {
   return (
-    <Card className="flex flex-1 flex-col gap-4 bg-primary-900 text-primary-900-text">
-      <CalendarCheck2Icon />
-      <Heading>{heading}</Heading>
-      <Heading size="sm" className="mt-auto">
-        {startDate}
-      </Heading>
+    <Card className="relative flex flex-1 flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
+      <div>
+        <CalendarCheck2Icon />
+        <Heading>{heading}</Heading>
+        <Heading size="sm" className="mt-auto">
+          {startDate}
+        </Heading>
+      </div>
+
+      <Image
+        src={backgroundGraphicURL}
+        alt={heading}
+        height={500}
+        width={500}
+        className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"
+      />
+
+      <Button className="z-10 gap-4 bg-primary-100 pr-4 lg:ml-auto" href="/go">
+        <Label className="text-neutral-900">{applyButtonLabel}</Label>
+        <InteractionBubble animated={false} />
+      </Button>
     </Card>
   );
 };
