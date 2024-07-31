@@ -43,7 +43,7 @@ export const ApplicantStep: FormStepComponent = () => {
             Bitte teile uns in eine paar Sätzen mit weshalb du dich bei uns bewirbst und was deine Ziele sind.
           </Paragraph>
           <textarea
-            placeholder="Dein Alter"
+            placeholder="Deine Motivation"
             className="mt-2 block h-60 w-full rounded-xl border border-primary-900 bg-transparent p-4 font-serif text-paragraph outline-none"
             value={motivation || ""}
             onInput={(e) => setMotivation(e.currentTarget.value)}
