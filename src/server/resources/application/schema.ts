@@ -16,7 +16,7 @@ export const applicationTable = pgTable("application", {
 
 export const applicationTableInsertSchema = createInsertSchema(applicationTable, {
   email: (s) => s.email.email(),
-  age: (s) => s.age.min(16).max(100),
+  age: (s) => s.age.min(12).max(100),
   name: (s) => s.name.min(2),
 }).omit({ ID: true, createdAt: true });
 
