@@ -32,6 +32,7 @@ import { cookieNoticeConfigType } from "./global-components/cookie-notice";
 import { bentoCTAConfigType } from "./global-components/bento-cta";
 import { timeSelect } from "./internal/time-select";
 import { applicationPage } from "./static-pages/application-page";
+import { educationalProgramPage } from "./dynamic-pages/educational-program-page";
 
 export type SchemaTypeDef = {
   type:
@@ -60,6 +61,7 @@ const typeDefs = [
 
   // Dynamic pages
   postPage,
+  educationalProgramPage,
 
   // Dynmaic content
   educationalProgramType,
