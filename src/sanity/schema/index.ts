@@ -31,6 +31,7 @@ import { impressumPage } from "./static-pages/impressum-page";
 import { cookieNoticeConfigType } from "./global-components/cookie-notice";
 import { bentoCTAConfigType } from "./global-components/bento-cta";
 import { timeSelect } from "./internal/time-select";
+import { applicationPage } from "./static-pages/application-page";
 
 export type SchemaTypeDef = {
   type:
@@ -55,6 +56,7 @@ const typeDefs = [
   jobsPage,
   privacyPage,
   impressumPage,
+  applicationPage,
 
   // Dynamic pages
   postPage,
