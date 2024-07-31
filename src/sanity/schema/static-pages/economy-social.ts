@@ -40,6 +40,23 @@ export const economySocialPage: SchemaTypeDef = {
         title: "Inhalt",
         type: "defaultPortableContent",
       }),
+      defineField({
+        name: "educationalProgramTypesCTA",
+        title: "Links zu den Bildungswegen",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Wirtschaft & Soziales" }),
