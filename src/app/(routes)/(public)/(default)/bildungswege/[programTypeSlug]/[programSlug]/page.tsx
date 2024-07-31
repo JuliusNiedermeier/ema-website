@@ -127,7 +127,6 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
       <Container className="mt-8">
         <Certificate
-          className="border border-neutral-400"
           heading={program.certificate?.heading || ""}
           name={program.certificate?.name || ""}
           description={program.certificate?.description || ""}

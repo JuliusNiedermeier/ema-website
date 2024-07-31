@@ -33,7 +33,10 @@ export const Certificate: FC<CertificateProps> = ({
   return (
     <Card
       ref={cardRef}
-      className={cn("grid items-center gap-16 overflow-hidden py-0 sm:grid-cols-[2fr_1fr]", className)}
+      className={cn(
+        "grid items-center gap-16 overflow-hidden border border-neutral-400 py-0 sm:grid-cols-[2fr_1fr]",
+        className,
+      )}
       {...restProps}
     >
       <div className="overflow-hidden py-8">

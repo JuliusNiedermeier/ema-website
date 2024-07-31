@@ -73,92 +73,102 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
   if (!programType) notFound();
 
   return (
-    <Container className="pt-16 sm:pt-24" style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
-      <div className="mx-auto max-w-[40rem] sm:text-center">
-        <Heading size="sm">{programType.name}</Heading>
-        <Heading>{programType.promotionalHeadline}</Heading>
-        <Paragraph className="mt-8">{programType.introduction}</Paragraph>
+    <div style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
+      <div className="bg-neutral-200 pb-16 pt-16 sm:pt-24">
+        <Container>
+          <div className="mx-auto max-w-[40rem] sm:text-center">
+            <Heading size="sm">{programType.name}</Heading>
+            <Heading>{programType.promotionalHeadline}</Heading>
+            <Paragraph className="mt-8">{programType.introduction}</Paragraph>
+          </div>
+        </Container>
+      </div>
+      <div className="relative">
+        <div className="absolute top-0 -z-10 h-1/2 w-full bg-neutral-200"></div>
+        <Container>
+          <Certificate
+          className="border-themed-primary"
+            heading={programType.certificate?.heading || ""}
+            name={programType.certificate?.name || ""}
+            description={programType.certificate?.description || ""}
+            qualifications={programType.certificate?.qualifications || []}
+            jobs={
+              programType.certificate?.jobs?.map((job) => ({
+                image: job.image?.asset?.url || "",
+                content: job.name || "",
+              })) || []
+            }
+          />
+        </Container>
       </div>
 
-      <Certificate
-        className="mt-16 border border-[gray]/50"
-        heading={programType.certificate?.heading || ""}
-        name={programType.certificate?.name || ""}
-        description={programType.certificate?.description || ""}
-        qualifications={programType.certificate?.qualifications || []}
-        jobs={
-          programType.certificate?.jobs?.map((job) => ({
-            image: job.image?.asset?.url || "",
-            content: job.name || "",
-          })) || []
-        }
-      />
+      <Container className="pt-16 sm:pt-24">
+        <Container width="narrow" className="mt-60 text-center">
+          <Heading>{programType.educationalPrograms?.heading}</Heading>
+          <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
+        </Container>
 
-      <Container width="narrow" className="mt-60 text-center">
-        <Heading>{programType.educationalPrograms?.heading}</Heading>
-        <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
-      </Container>
-
-      <div className="relative mt-16 flex flex-wrap items-stretch gap-4 rounded-3xl border bg-neutral-100 p-4">
-        {programs.map((program) => (
-          <Link
-            key={program._id}
-            href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
-            className="flex-1"
-          >
-            <EducationalProgramCard
-              className="h-full pt-8"
-              programType={programType.name || ""}
-              name={program.name || ""}
-              headline={program.promotionalHeadline || ""}
-            />
-          </Link>
-        ))}
-      </div>
-
-      {programType.followUpTrainingEnabled && (
-        <div className="-mt-12 rounded-3xl border bg-neutral-200 p-4 pt-16">
-          <Container width="narrow" className="flex flex-col items-center gap-8 sm:flex-row">
-            <div className="p-4 text-center sm:text-left">
-              <Heading size="sm">{programType.followUpTraining?.heading}</Heading>
-              <Paragraph>{programType.followUpTraining?.description}</Paragraph>
-            </div>
-            <MoveDownIcon className="shrink-0 sm:-rotate-90" />
+        <div className="relative mt-16 flex flex-wrap items-stretch gap-4 rounded-3xl border bg-neutral-100 p-4">
+          {programs.map((program) => (
             <Link
-              href={`/bildungswege/${programType.followUpTraining?.educationalProgramType?.slug?.current}`}
-              className="relative z-10 ml-4 flex-1 self-stretch"
-              style={createColorThemeStyles(
-                ensureValidHSL(programType.followUpTraining?.educationalProgramType?.color?.hsl),
-              )}
+              key={program._id}
+              href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
+              className="flex-1"
             >
-              <Card className="absolute left-0 top-0 -z-10 h-full w-full -translate-y-4 scale-x-90 bg-themed-primary opacity-30 sm:-translate-x-4 sm:translate-y-0 sm:scale-x-100 sm:scale-y-90" />
-              <EducationalProgramTypeCard
-                name={programType.followUpTraining?.educationalProgramType?.name || ""}
-                description={programType.followUpTraining?.educationalProgramType?.promotionalHeadline || ""}
+              <EducationalProgramCard
+                className="h-full pt-8"
+                programType={programType.name || ""}
+                name={program.name || ""}
+                headline={program.promotionalHeadline || ""}
               />
             </Link>
-          </Container>
+          ))}
         </div>
-      )}
 
-      <Container width="narrow" className="mt-64">
-        <Heading className="text-center">{programType.faq?.heading}</Heading>
-        <BasicAccordion
-          className="mt-16"
-          items={
-            programType.faq?.items?.map((item) => ({ title: item.question || "", content: item.answer || "" })) || []
-          }
-        />
+        {programType.followUpTrainingEnabled && (
+          <div className="-mt-12 rounded-3xl border bg-neutral-200 p-4 pt-16">
+            <Container width="narrow" className="flex flex-col items-center gap-8 sm:flex-row">
+              <div className="p-4 text-center sm:text-left">
+                <Heading size="sm">{programType.followUpTraining?.heading}</Heading>
+                <Paragraph>{programType.followUpTraining?.description}</Paragraph>
+              </div>
+              <MoveDownIcon className="shrink-0 sm:-rotate-90" />
+              <Link
+                href={`/bildungswege/${programType.followUpTraining?.educationalProgramType?.slug?.current}`}
+                className="relative z-10 ml-4 flex-1 self-stretch"
+                style={createColorThemeStyles(
+                  ensureValidHSL(programType.followUpTraining?.educationalProgramType?.color?.hsl),
+                )}
+              >
+                <Card className="absolute left-0 top-0 -z-10 h-full w-full -translate-y-4 scale-x-90 bg-themed-primary opacity-30 sm:-translate-x-4 sm:translate-y-0 sm:scale-x-100 sm:scale-y-90" />
+                <EducationalProgramTypeCard
+                  name={programType.followUpTraining?.educationalProgramType?.name || ""}
+                  description={programType.followUpTraining?.educationalProgramType?.promotionalHeadline || ""}
+                />
+              </Link>
+            </Container>
+          </div>
+        )}
+
+        <Container width="narrow" className="mt-64">
+          <Heading className="text-center">{programType.faq?.heading}</Heading>
+          <BasicAccordion
+            className="mt-16"
+            items={
+              programType.faq?.items?.map((item) => ({ title: item.question || "", content: item.answer || "" })) || []
+            }
+          />
+        </Container>
+
+        <Container width="narrow" className="mt-40 text-center">
+          <Heading className="">{programType.alternatives?.heading}</Heading>
+          <Paragraph className="">{programType.alternatives?.description}</Paragraph>
+        </Container>
+        <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
+
+        <BentoCTA className="mt-8" />
       </Container>
-
-      <Container width="narrow" className="mt-40 text-center">
-        <Heading className="">{programType.alternatives?.heading}</Heading>
-        <Paragraph className="">{programType.alternatives?.description}</Paragraph>
-      </Container>
-      <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
-
-      <BentoCTA className="mt-8" />
-    </Container>
+    </div>
   );
 };
 
