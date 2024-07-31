@@ -1,9 +1,9 @@
 "use client";
 
-import { ComponentProps, FC, useCallback, useMemo } from "react";
+import { ComponentProps, FC, useCallback, useMemo, useState } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Button } from "../../primitives/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Loader2Icon } from "lucide-react";
 import { Label } from "../../primitives/typography";
 import { useApplicationForm } from "./application-form-provider";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,7 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
   const { moveStep, currentStepIndex, steps } = useApplicationForm();
   const formState = useApplicationFormState();
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isCurrentStepComplete = useMemo(() => steps[currentStepIndex]?.complete, [currentStepIndex, steps]);
 
@@ -31,6 +32,7 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
 
   const handleNextClick = useCallback<NonNullable<ComponentProps<typeof Button>["onClick"]>>(async () => {
     if (isLastStep) {
+      setIsSubmitting(true);
       const success = await submitApplication(
         {
           programID: formState.program!,
@@ -41,6 +43,7 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
         },
         formState.turnstileToken!,
       );
+      setIsSubmitting(false);
       if (!success) router.replace(verifyPath);
       router.replace(verifyPath);
     }
@@ -63,8 +66,14 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
         className={cn("w-full justify-center gap-2 disabled:opacity-30")}
         onClick={handleNextClick}
       >
-        <Label>{isLastStep ? buttonLabels.submit : buttonLabels.back}</Label>
-        <ChevronRightIcon />
+        {isLastStep && isSubmitting ? (
+          <Loader2Icon className="animate-spin" />
+        ) : (
+          <>
+            <Label>{isLastStep ? buttonLabels.submit : buttonLabels.next}</Label>
+            <ChevronRightIcon />
+          </>
+        )}
       </Button>
     </div>
   );
