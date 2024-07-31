@@ -8,10 +8,10 @@ import { CheckIcon } from "lucide-react";
 import { FormStepComponent } from "../application-form-provider";
 import { applicationInputSchema } from "~/server/resources/application/application-input-schema";
 import { Card } from "~/app/_components/primitives/card";
-import { ColorValue } from "@sanity/color-input";
 import { HSLValue, createHSLString } from "~/app/_utils/color-swatch";
 
 export type ProgramsStepProps = {
+  heading: string;
   programs: {
     ID: string;
     name: string;
@@ -21,12 +21,12 @@ export type ProgramsStepProps = {
   }[];
 };
 
-export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ programs }) => {
+export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ heading, programs }) => {
   const { program: selectedProgram, setProgram } = useApplicationFormState();
 
   return (
     <div>
-      <Heading>Für welchen Bildungsgang möchtest du dich anmelden?</Heading>
+      <Heading>{heading}</Heading>
       <div className="mt-16 flex flex-col gap-4">
         {programs.map((program, index) => (
           <button key={index} onClick={() => setProgram(selectedProgram === program.ID ? null : program.ID)}>

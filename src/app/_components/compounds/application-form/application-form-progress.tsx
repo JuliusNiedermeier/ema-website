@@ -6,9 +6,15 @@ import { cn } from "~/app/_utils/cn";
 import { Label } from "../../primitives/typography";
 import { useApplicationForm } from "./application-form-provider";
 
-export type ApplicationFormProgressProps = ComponentProps<"div"> & {};
+export type ApplicationFormProgressProps = ComponentProps<"div"> & {
+  statusLabels: { complete: string; pending: string };
+};
 
-export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({ className, ...restProps }) => {
+export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({
+  className,
+  statusLabels,
+  ...restProps
+}) => {
   const { currentStepIndex, steps, firstIncompleteStepIndex } = useApplicationForm();
 
   return (
@@ -24,8 +30,8 @@ export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({ clas
           <StepIcon variant={currentStepIndex >= index ? "filled" : "outlined"}>{step.icon}</StepIcon>
           {index < steps.length - 1 && <StepLine />}
           <StepContent>
-            <Label className="mt-3 block">{step.ID}</Label>
-            <StepContentStatus>{step.complete ? "Abgeschlossen" : "Ausstehend"}</StepContentStatus>
+            <Label className="mt-3 block">{step.title}</Label>
+            <StepContentStatus>{step.complete ? statusLabels.complete : statusLabels.pending}</StepContentStatus>
           </StepContent>
         </Step>
       ))}

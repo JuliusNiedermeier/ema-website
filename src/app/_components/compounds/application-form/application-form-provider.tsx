@@ -3,8 +3,8 @@
 import { GraduationCapIcon, ShieldCheckIcon, UserRoundIcon } from "lucide-react";
 import { FC, PropsWithChildren, ReactNode, createContext, useCallback, useContext, useMemo, useState } from "react";
 import { ProgramsStep, ProgramsStepProps } from "./steps/programs";
-import { ApplicantStep } from "./steps/applicant";
-import { ContactStep } from "./steps/contact";
+import { ApplicantStep, ApplicantStepProps } from "./steps/applicant";
+import { ContactStep, ContactStepProps } from "./steps/contact";
 import { clamp } from "framer-motion";
 import { ApplicationFormState, useApplicationFormState } from "./state";
 
@@ -12,8 +12,11 @@ export interface FormStepComponent<P = {}> extends FC<P> {
   validate: (formState: ApplicationFormState) => boolean;
 }
 
+type StepID = "program" | "applicant" | "verification";
+
 type Step = {
-  ID: string;
+  ID: StepID;
+  title: string;
   component: ReactNode;
   icon: ReactNode;
   complete: boolean;
@@ -40,12 +43,14 @@ export const useApplicationForm = () => {
 };
 
 export type ApplicationFormProviderProps = {
-  programs: ProgramsStepProps["programs"];
+  stepTitles: Record<StepID, string>;
+  stepData: { program: ProgramsStepProps; applicant: ApplicantStepProps; verification: ContactStepProps };
 };
 
 export const ApplicationFormProvider: FC<PropsWithChildren<ApplicationFormProviderProps>> = ({
   children,
-  programs,
+  stepTitles,
+  stepData,
 }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const formState = useApplicationFormState();
@@ -53,25 +58,28 @@ export const ApplicationFormProvider: FC<PropsWithChildren<ApplicationFormProvid
   const steps = useMemo<Step[]>(
     () => [
       {
-        ID: "Program",
+        ID: "program",
+        title: stepTitles.program,
         icon: <GraduationCapIcon />,
-        component: <ProgramsStep programs={programs} />,
+        component: <ProgramsStep {...stepData.program} />,
         complete: ProgramsStep.validate(formState),
       },
       {
-        ID: "Applicant",
+        ID: "applicant",
+        title: stepTitles.applicant,
         icon: <UserRoundIcon />,
-        component: <ApplicantStep />,
+        component: <ApplicantStep {...stepData.applicant} />,
         complete: ApplicantStep.validate(formState),
       },
       {
-        ID: "Verification",
+        ID: "verification",
+        title: stepTitles.verification,
         icon: <ShieldCheckIcon />,
-        component: <ContactStep />,
+        component: <ContactStep {...stepData.verification} />,
         complete: ContactStep.validate(formState),
       },
     ],
-    [programs, formState],
+    [formState, stepTitles, stepData],
   );
 
   const firstIncompleteStepIndex = useMemo(() => steps.findIndex((step) => !step.complete), [steps]);

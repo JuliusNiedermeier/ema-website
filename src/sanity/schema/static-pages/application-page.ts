@@ -93,6 +93,11 @@ export const applicationPage: SchemaTypeDef = {
                 type: "string",
               }),
               defineField({
+                name: "motivationInputDescription",
+                title: "Beschreibung über dem Motivations-Eingabefeld",
+                type: "text",
+              }),
+              defineField({
                 name: "motivationInputPlaceholder",
                 title: "Platzhaltertext im Motivations-Eingabefeld",
                 type: "string",
@@ -154,6 +159,16 @@ export const applicationPage: SchemaTypeDef = {
             title: "Text auf dem Weiter-Button im letzten schritt",
             type: "string",
           }),
+          defineField({
+            name: "pendingLabel",
+            title: "Statusbezeichnung für ausstehende Schritte",
+            type: "string",
+          }),
+          defineField({
+            name: "completeLabel",
+            title: "Statusbezeichnung für abgeschlossene Schritte",
+            type: "string",
+          }),
         ],
       }),
       defineField({
@@ -165,12 +180,13 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
           }),
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Füge {name} oder {email} ein, um den Text zu personalisieren.",
+            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "text",
           }),
         ],
@@ -226,6 +242,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
           }),
           defineField({
@@ -245,6 +262,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
           }),
           defineField({

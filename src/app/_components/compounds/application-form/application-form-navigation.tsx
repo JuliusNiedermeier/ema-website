@@ -12,11 +12,13 @@ import { useApplicationFormState } from "./state";
 
 export type ApplicationFormNavigationProps = ComponentProps<"div"> & {
   verifyPath: string;
+  buttonLabels: { back: string; next: string; submit: string };
 };
 
 export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
   className,
   verifyPath,
+  buttonLabels,
   ...restProps
 }) => {
   const { moveStep, currentStepIndex, steps } = useApplicationForm();
@@ -25,8 +27,10 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
 
   const isCurrentStepComplete = useMemo(() => steps[currentStepIndex]?.complete, [currentStepIndex, steps]);
 
+  const isLastStep = currentStepIndex === steps.length - 1;
+
   const handleNextClick = useCallback<NonNullable<ComponentProps<typeof Button>["onClick"]>>(async () => {
-    if (currentStepIndex === steps.length - 1) {
+    if (isLastStep) {
       const success = await submitApplication(
         {
           programID: formState.program!,
@@ -42,14 +46,14 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
     }
 
     moveStep(1);
-  }, [currentStepIndex, steps.length, formState, router, verifyPath, moveStep]);
+  }, [formState, router, verifyPath, moveStep, isLastStep]);
 
   return (
     <div className={cn("flex items-center justify-between gap-2", className)} {...restProps}>
       {currentStepIndex !== 0 && (
         <Button vairant="outline" size="sm" className="gap-2" onClick={() => moveStep(-1)}>
           <ChevronLeftIcon />
-          <Label>Zurück</Label>
+          <Label>{buttonLabels.back}</Label>
         </Button>
       )}
       <Button
@@ -59,7 +63,7 @@ export const ApplicationFormNavigation: FC<ApplicationFormNavigationProps> = ({
         className={cn("w-full justify-center gap-2 disabled:opacity-30")}
         onClick={handleNextClick}
       >
-        <Label>Weiter</Label>
+        <Label>{isLastStep ? buttonLabels.submit : buttonLabels.back}</Label>
         <ChevronRightIcon />
       </Button>
     </div>

@@ -6,7 +6,7 @@ import { Container } from "~/app/_components/primitives/container";
 import { StepIcon } from "~/app/_components/primitives/step-list";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "~/server/resources/application/application-cookie";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { verifyApplication } from "~/server/resources/application/actions/verify-application";
 import { drizzle } from "~/server/services/drizzle";
 import { eq } from "drizzle-orm";
@@ -15,18 +15,39 @@ import { sendInternalApplicationNotification } from "~/server/resources/applicat
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { groq } from "next-sanity";
 import { sanity } from "~/sanity/lib/client";
-import { GoVerifyQueryResult } from "../../../../../../../generated/sanity/types";
+import { ApplicationPageVerifyQueryResult, GoVerifyQueryResult } from "../../../../../../../generated/sanity/types";
 import { restartApplicationProcess } from "~/server/resources/application/actions/restart-application-process";
+
+const applicationPageVerifyQuery = groq`*[_type == "application-page"][0]{
+  title,
+  verification,
+  error,
+  success,
+  alreadyDone,
+  toHomePageLabel,
+  applyAgainLabel
+}`;
 
 const goVerifyQuery = groq`*[_type == "educational-program" && _id == $ID][0]{
   name,
   educationalProgramType -> { name },
 }`;
 
-const StaticWrapper: FC<PropsWithChildren> = ({ children }) => {
+const interpolateString = (string: string, data: Record<string, string>) => {
+  return Object.keys(data).reduce(
+    (result, placeholder) => (result = result.replaceAll(`{${placeholder}}`, data[placeholder])),
+    string,
+  );
+};
+
+type StaticWrapperProps = {
+  title: string;
+};
+
+const StaticWrapper: FC<PropsWithChildren<StaticWrapperProps>> = ({ children, title }) => {
   return (
     <div className="flex h-full flex-col">
-      <GoLayoutHeader />
+      <GoLayoutHeader title={title} />
       <Container width="narrow" className="flex !max-w-96 flex-1 flex-col items-center justify-center text-center">
         {children}
       </Container>
@@ -36,20 +57,25 @@ const StaticWrapper: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } }> = async ({ searchParams }) => {
+  const data = await sanity.fetch<ApplicationPageVerifyQueryResult>(
+    applicationPageVerifyQuery,
+    {},
+    { next: { tags: ["application-page"] } },
+  );
+
+  if (!data) notFound();
+
   if (searchParams.application && searchParams.token) {
     const verifiedApplication = await verifyApplication(searchParams.application, searchParams.token);
 
     if (!verifiedApplication) {
       return (
-        <StaticWrapper>
+        <StaticWrapper title={data.title || ""}>
           <StepIcon variant="filled" className="h-16 w-16">
             <ShieldAlertIcon size={32} />
           </StepIcon>
-          <Heading>Das hat nicht geklappt...</Heading>
-          <Paragraph>
-            Etwas stimmt mit dem Link nicht. Wir konnten deine Mailadresse leider nicht bestätigen. Versuche es bitte
-            später nochmal.
-          </Paragraph>
+          <Heading>{data.error?.link?.heading}</Heading>
+          <Paragraph>{data.error?.link?.description}</Paragraph>
         </StaticWrapper>
       );
     }
@@ -59,15 +85,12 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
 
       if (!internalNotificationSent) {
         return (
-          <StaticWrapper>
+          <StaticWrapper title={data.title || ""}>
             <StepIcon variant="filled" className="h-16 w-16">
               <HistoryIcon size={32} />
             </StepIcon>
-            <Heading>Das hat nicht geklappt...</Heading>
-            <Paragraph>
-              Wegen technischen Schwierigkeiten, haben wir deine Anmeldung leider nicht erhalten. Versuche es bitte mit
-              dem selben Link später noch einmal.
-            </Paragraph>
+            <Heading>{data.error?.internal?.heading}</Heading>
+            <Paragraph>{data.error?.internal?.description}</Paragraph>
           </StaticWrapper>
         );
       }
@@ -89,15 +112,22 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
     redirect("/go");
   }
 
+  const programDetails = await sanity.fetch<GoVerifyQueryResult>(
+    goVerifyQuery,
+    { ID: application.programID },
+    { next: { tags: ["educational-program", "educational-program-type"] } },
+  );
+
+  const interpolate = (string: string) => {
+    return interpolateString(string, {
+      Name: application.name,
+      Email: application.email,
+      Datum: application.createdAt.toLocaleDateString("de"),
+      Bildungsgang: `${programDetails?.educationalProgramType?.name} ${programDetails?.name}`,
+    });
+  };
+
   if (application.emailVerified) {
-    const programDetails = await sanity.fetch<GoVerifyQueryResult>(
-      goVerifyQuery,
-      { ID: application.programID },
-      { next: { tags: ["educational-program", "educational-program-type"] } },
-    );
-
-    const programName = `${programDetails?.educationalProgramType?.name} ${programDetails?.name}`;
-
     const hasAppliedRecently = Date.now() - application.createdAt.valueOf() < 1000 * 60 * 60 * 24 * 3;
 
     type Config = {
@@ -109,17 +139,17 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
     const { icon, heading, message }: Config = hasAppliedRecently
       ? {
           icon: <PartyPopperIcon size={32} />,
-          heading: "Alles geschafft!",
-          message: `Wir haben deine Anmeldung für die ${programName} erhalten und werden uns in den nächsten Tagen bei dir melden.`,
+          heading: interpolate(data.success?.heading || ""),
+          message: interpolate(data.success?.description || ""), // TODO: interpolate data fields
         }
       : {
           icon: <PartyPopperIcon size={32} />,
-          heading: "Du hast dich bereits angemeldet.",
-          message: `Wir haben am ${application.createdAt.toLocaleDateString("de")} von dir bereits eine Anmeldung für die ${programName} erhalten.`,
+          heading: interpolate(data.alreadyDone?.heading || ""),
+          message: interpolate(data.alreadyDone?.description || ""), // TODO: interpolate data fields
         };
 
     return (
-      <StaticWrapper>
+      <StaticWrapper title={data.title || ""}>
         <StepIcon variant="filled" className="h-16 w-16">
           {icon}
         </StepIcon>
@@ -127,27 +157,24 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
         <Paragraph>{message}</Paragraph>
 
         <Button className="mt-8" href="/">
-          <Label>Zur Startseite</Label>
+          <Label>{data.toHomePageLabel}</Label>
           <ButtonInteractionBubble />
         </Button>
         <form action={restartApplicationProcess}>
           <Button type="submit" size="sm" vairant="outline" className="mt-4 border-none">
-            <Label className="underline">Erneut anmelden</Label>
+            <Label className="underline">{data.applyAgainLabel}</Label>
           </Button>
         </form>
       </StaticWrapper>
     );
   } else {
     return (
-      <StaticWrapper>
+      <StaticWrapper title={data.title || ""}>
         <StepIcon variant="filled" className="h-16 w-16">
           <MailCheckIcon size={32} />
         </StepIcon>
-        <Heading>Bitte bestätige deine Mailadresse</Heading>
-        <Paragraph>
-          Wir haben einen Bestätigunslink an {application.email} gesendet. <br /> Bitte schließe deine Anmeldung ab,
-          indem du auf den Link in der Mail klickst.
-        </Paragraph>
+        <Heading>{interpolate(data.verification?.heading || "")}</Heading>
+        <Paragraph>{interpolate(data.verification?.description || "")}</Paragraph>
       </StaticWrapper>
     );
   }
