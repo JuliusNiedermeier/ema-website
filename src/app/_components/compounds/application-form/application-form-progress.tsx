@@ -1,15 +1,7 @@
 "use client";
 
 import { ComponentProps, FC } from "react";
-import {
-  Step,
-  StepContent,
-  StepContentStatus,
-  StepContentStepNumber,
-  StepIcon,
-  StepLine,
-  StepList,
-} from "../../primitives/step-list";
+import { Step, StepContent, StepContentStatus, StepIcon, StepLine, StepList } from "../../primitives/step-list";
 import { cn } from "~/app/_utils/cn";
 import { Label } from "../../primitives/typography";
 import { useApplicationForm } from "./application-form-provider";
@@ -32,8 +24,7 @@ export const ApplicationFormProgress: FC<ApplicationFormProgressProps> = ({ clas
           <StepIcon variant={currentStepIndex >= index ? "filled" : "outlined"}>{step.icon}</StepIcon>
           {index < steps.length - 1 && <StepLine />}
           <StepContent>
-            <StepContentStepNumber>Schritt {index + 1}</StepContentStepNumber>
-            <Label>{step.ID}</Label>
+            <Label className="mt-3 block">{step.ID}</Label>
             <StepContentStatus>{step.complete ? "Abgeschlossen" : "Ausstehend"}</StepContentStatus>
           </StepContent>
         </Step>

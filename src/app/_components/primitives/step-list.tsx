@@ -54,12 +54,6 @@ export const StepContent: FC<StepContentProps> = ({ className, ...restProps }) =
   return <div className={cn("col-start-2 row-span-2 row-start-1", className)} {...restProps} />;
 };
 
-export type StepContentStepNumberProps = ComponentProps<typeof Label> & {};
-
-export const StepContentStepNumber: FC<StepContentStepNumberProps> = ({ className, ...restProps }) => {
-  return <Label className={cn("block text-[0.8rem] text-neutral-100-text-muted", className)} {...restProps} />;
-};
-
 export type StepContentStatusProps = ComponentProps<typeof Label> & {};
 
 export const StepContentStatus: FC<StepContentStatusProps> = ({ className, ...restProps }) => {
