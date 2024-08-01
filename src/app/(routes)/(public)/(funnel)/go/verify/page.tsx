@@ -14,7 +14,7 @@ import { applicationTable } from "~/server/resources/schema";
 import { sendInternalApplicationNotification } from "~/server/resources/application/actions/send-internal-application-notification";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ApplicationPageVerifyQueryResult, GoVerifyQueryResult } from "../../../../../../../generated/sanity/types";
 import { restartApplicationProcess } from "~/server/resources/application/actions/restart-application-process";
 
@@ -57,11 +57,9 @@ const StaticWrapper: FC<PropsWithChildren<StaticWrapperProps>> = ({ children, ti
 };
 
 const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } }> = async ({ searchParams }) => {
-  const data = await sanity.fetch<ApplicationPageVerifyQueryResult>(
-    applicationPageVerifyQuery,
-    {},
-    { next: { tags: ["application-page"] } },
-  );
+  const data = await sanityFetch<ApplicationPageVerifyQueryResult>(applicationPageVerifyQuery, {
+    tags: ["application-page"],
+  });
 
   if (!data) notFound();
 
@@ -112,11 +110,10 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
     redirect("/go");
   }
 
-  const programDetails = await sanity.fetch<GoVerifyQueryResult>(
-    goVerifyQuery,
-    { ID: application.programID },
-    { next: { tags: ["educational-program", "educational-program-type"] } },
-  );
+  const programDetails = await sanityFetch<GoVerifyQueryResult>(goVerifyQuery, {
+    params: { ID: application.programID },
+    tags: ["educational-program", "educational-program-type"],
+  });
 
   const interpolate = (string: string) => {
     return interpolateString(string, {

@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { ComponentProps, FC, Fragment } from "react";
 import { cn } from "~/app/_utils/cn";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import {
   ProgramTypePreviewListProgramsQueryResult,
   ProgramTypePreviewListTypesQueryResult,
@@ -29,16 +29,12 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
   className,
   ...restProps
 }) => {
-  const programTypes = await sanity.fetch<ProgramTypePreviewListTypesQueryResult>(
-    programTypePreviewListTypesQuery,
-    {},
-    { next: { tags: ["educational-program-type"] } },
-  );
-  const programs = await sanity.fetch<ProgramTypePreviewListProgramsQueryResult>(
-    programTypePreviewListProgramsQuery,
-    {},
-    { next: { tags: ["educational-program", "educational-program-type"] } },
-  );
+  const programTypes = await sanityFetch<ProgramTypePreviewListTypesQueryResult>(programTypePreviewListTypesQuery, {
+    tags: ["educational-program-type"],
+  });
+  const programs = await sanityFetch<ProgramTypePreviewListProgramsQueryResult>(programTypePreviewListProgramsQuery, {
+    tags: ["educational-program", "educational-program-type"],
+  });
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,

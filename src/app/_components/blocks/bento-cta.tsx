@@ -7,7 +7,7 @@ import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { TestimonialCard } from "../compounds/testimonial-card";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { BentoCTAContactQueryResult, BentoCTAQueryResult } from "../../../../generated/sanity/types";
 import Image from "next/image";
 import { EventDateList } from "../compounds/event-date-list";
@@ -26,13 +26,9 @@ const bentoCTAContactQuery = groq`*[_type == "contact-page"][0]`;
 export type BentoCTAProps = ComponentProps<"div"> & {};
 
 export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) => {
-  const data = await sanity.fetch<BentoCTAQueryResult>(bentoCTAQuery, {}, { next: { tags: ["bento-cta-config"] } });
+  const data = await sanityFetch<BentoCTAQueryResult>(bentoCTAQuery, { tags: ["bento-cta-config"] });
 
-  const contact = await sanity.fetch<BentoCTAContactQueryResult>(
-    bentoCTAContactQuery,
-    {},
-    { next: { tags: ["contact-page"] } },
-  );
+  const contact = await sanityFetch<BentoCTAContactQueryResult>(bentoCTAContactQuery, { tags: ["contact-page"] });
 
   return (
     <div className={cn("flex flex-col gap-4 xl:flex-row", className)} {...restProps}>

@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Label } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import {
@@ -33,11 +33,9 @@ const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
 }`;
 
 const BlogPage: FC = async () => {
-  const [latestPost, ...posts] = await sanity.fetch<PostsQueryResult>(
-    postsQuery,
-    {},
-    { next: { tags: ["post", "author", "category"] } },
-  );
+  const [latestPost, ...posts] = await sanityFetch<PostsQueryResult>(postsQuery, {
+    tags: ["post", "author", "category"],
+  });
 
   return (
     <>

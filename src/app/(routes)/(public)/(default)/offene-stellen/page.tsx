@@ -9,7 +9,7 @@ import {
 } from "~/app/_components/primitives/accordion";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { JobsPageQueryResult } from "../../../../../../generated/sanity/types";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Chip } from "~/app/_components/primitives/chip";
@@ -17,7 +17,7 @@ import { Chip } from "~/app/_components/primitives/chip";
 const jobsPageQuery = groq`*[_type == "jobs-page"][0]`;
 
 const JobsPage: FC = async () => {
-  const data = await sanity.fetch<JobsPageQueryResult>(jobsPageQuery, {}, { next: { tags: ["jobs-page"] } });
+  const data = await sanityFetch<JobsPageQueryResult>(jobsPageQuery, { tags: ["jobs-page"] });
 
   return (
     <Container width="narrow" className="my-32">

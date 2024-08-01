@@ -4,7 +4,7 @@ import { type ComponentProps, FC } from "react";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import {
   EconomyXSocialPreviewQueryResult,
   FeaturedPostsQueryResult,
@@ -67,33 +67,21 @@ const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
 }`;
 
 const HomePage: FC = async () => {
-  const homePage = await sanity.fetch<HomePageQueryResult>(homePageQuery, {}, { next: { tags: ["home-page"] } });
-
-  const featuredPosts = await sanity.fetch<FeaturedPostsQueryResult>(
-    featuredPostsQuery,
-    {},
-    { next: { tags: ["post"] } },
-  );
-
-  const economyXSocial = await sanity.fetch<EconomyXSocialPreviewQueryResult>(
-    economyXSocialPreviewQuery,
-    {},
-    { next: { tags: ["economy-social-page"] } },
-  );
-
-  const checkupPreview = await sanity.fetch<HomePageCheckupPreviewQueryResult>(
-    homePageCheckupPreviewQuery,
-    {},
-    { next: { tags: ["checkup-page"] } },
-  );
-
-  const artPreview = await sanity.fetch<HomePageArtPreviewQueryResult>(
-    homePageArtPreviewQuery,
-    {},
-    { next: { tags: ["art-page"] } },
-  );
+  const homePage = await sanityFetch<HomePageQueryResult>(homePageQuery, { tags: ["home-page"] });
 
   if (!homePage) notFound();
+
+  const featuredPosts = await sanityFetch<FeaturedPostsQueryResult>(featuredPostsQuery, { tags: ["post"] });
+
+  const economyXSocial = await sanityFetch<EconomyXSocialPreviewQueryResult>(economyXSocialPreviewQuery, {
+    tags: ["economy-social-page"],
+  });
+
+  const checkupPreview = await sanityFetch<HomePageCheckupPreviewQueryResult>(homePageCheckupPreviewQuery, {
+    tags: ["checkup-page"],
+  });
+
+  const artPreview = await sanityFetch<HomePageArtPreviewQueryResult>(homePageArtPreviewQuery, { tags: ["art-page"] });
 
   const partners: ComponentProps<typeof PartnersBanner>["partners"] =
     homePage.partners?.map((partner) => ({

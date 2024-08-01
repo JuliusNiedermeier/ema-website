@@ -2,18 +2,14 @@ import { groq } from "next-sanity";
 import { FC } from "react";
 import { TextPortableContent } from "~/app/_components/compounds/text-portable-content";
 import { Container } from "~/app/_components/primitives/container";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ImpressumPageQueryResult } from "../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 
 const impressumPageQuery = groq`*[_type == "impressum-page"][0]`;
 
 const ImpressumPage: FC = async () => {
-  const data = await sanity.fetch<ImpressumPageQueryResult>(
-    impressumPageQuery,
-    {},
-    { next: { tags: ["impressum-page"] } },
-  );
+  const data = await sanityFetch<ImpressumPageQueryResult>(impressumPageQuery, { tags: ["impressum-page"] });
 
   if (!data) notFound();
 

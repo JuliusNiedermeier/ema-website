@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ArtPageQueryResult } from "../../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
@@ -19,7 +19,7 @@ const artPageQuery = groq`*[_type == "art-page"][0]{
 }`;
 
 const ArtPage: FC = async () => {
-  const data = await sanity.fetch<ArtPageQueryResult>(artPageQuery, {}, { next: { tags: ["art-page"] } });
+  const data = await sanityFetch<ArtPageQueryResult>(artPageQuery, { tags: ["art-page"] });
 
   if (!data) notFound();
 

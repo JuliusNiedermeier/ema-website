@@ -5,7 +5,7 @@ import { Heading, Paragraph } from "../primitives/typography";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Link from "next/link";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { EducationalProgramTypeCardsQueryResult } from "../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 
@@ -24,13 +24,10 @@ export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> =
   filter,
   ...restProps
 }) => {
-  const programTypes = await sanity.fetch<EducationalProgramTypeCardsQueryResult>(
-    educationalProgramTypeCardsQuery,
-    {
-      excludeSlugs: filter?.excludeSlugs || [],
-    },
-    { next: { tags: ["educational-program-type"] } },
-  );
+  const programTypes = await sanityFetch<EducationalProgramTypeCardsQueryResult>(educationalProgramTypeCardsQuery, {
+    params: { excludeSlugs: filter?.excludeSlugs || [] },
+    tags: ["educational-program-type"],
+  });
 
   return (
     <div className={cn("flex flex-wrap items-stretch gap-4", className)} {...restProps}>

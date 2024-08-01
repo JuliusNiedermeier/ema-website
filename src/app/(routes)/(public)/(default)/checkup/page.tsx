@@ -3,7 +3,7 @@ import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Button } from "~/app/_components/primitives/button";
 import { CheckupForm } from "~/app/_components/compounds/checkup-form/checkup-form";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { groq } from "next-sanity";
 import {
   CheckupPageEducationalProgramsQueryResult,
@@ -35,12 +35,11 @@ const checkupPageEducationalProgramsQuery = groq`*[_type == "educational-program
 }`;
 
 const CheckupPage: FC = async () => {
-  const data = await sanity.fetch<CheckupPageQueryResult>(checkupPageQuery, {}, { next: { tags: ["checkup-page"] } });
+  const data = await sanityFetch<CheckupPageQueryResult>(checkupPageQuery, { tags: ["checkup-page"] });
 
-  const educationalPrograms = await sanity.fetch<CheckupPageEducationalProgramsQueryResult>(
+  const educationalPrograms = await sanityFetch<CheckupPageEducationalProgramsQueryResult>(
     checkupPageEducationalProgramsQuery,
-    {},
-    { next: { tags: ["educational-program"] } },
+    { tags: ["educational-program"] },
   );
 
   if (!data) notFound();

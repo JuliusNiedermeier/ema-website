@@ -5,7 +5,7 @@ import {
   ApplicationPageFormQueryResult,
   GoPageEducationalProgramsQueryResult,
 } from "../../../../../../generated/sanity/types";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ApplicationFormCarousel } from "~/app/_components/compounds/application-form/application-form-carousel";
 import { ApplicationFormNavigation } from "~/app/_components/compounds/application-form/application-form-navigation";
 import { ApplicationFormProvider } from "~/app/_components/compounds/application-form/application-form-provider";
@@ -31,19 +31,15 @@ const goPageEducationalProgramsQuery = groq`*[_type == "educational-program"]{
 const GoPage: FC = async () => {
   if (cookies().has(applicationCookieName)) redirect("/go/verify");
 
-  const data = await sanity.fetch<ApplicationPageFormQueryResult>(
-    applicationPageFormQuery,
-    {},
-    { next: { tags: ["application-page"] } },
-  );
+  const data = await sanityFetch<ApplicationPageFormQueryResult>(applicationPageFormQuery, {
+    tags: ["application-page"],
+  });
 
   if (!data) notFound();
 
-  const programs = await sanity.fetch<GoPageEducationalProgramsQueryResult>(
-    goPageEducationalProgramsQuery,
-    {},
-    { next: { tags: ["educational-program", "educational-program-type"] } },
-  );
+  const programs = await sanityFetch<GoPageEducationalProgramsQueryResult>(goPageEducationalProgramsQuery, {
+    tags: ["educational-program", "educational-program-type"],
+  });
 
   const formattedPrograms = programs
     .filter((program) => program.educationalProgramType)

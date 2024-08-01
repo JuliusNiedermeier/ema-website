@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
@@ -63,7 +63,7 @@ type Params = { programTypeSlug: string; programSlug: string };
 type Props = { params: Params };
 
 export const generateStaticParams = async () => {
-  const programs = await sanity.fetch<ProgramPageSlugsQueryResult>(programPageSlugsQuery);
+  const programs = await sanityFetch<ProgramPageSlugsQueryResult>(programPageSlugsQuery);
   return programs
     .map((program) => ({
       programTypeSlug: program.educationalProgramType?.slug?.current || null,
@@ -73,17 +73,14 @@ export const generateStaticParams = async () => {
 };
 
 const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) => {
-  const program = await sanity.fetch<ProgramPageContentQueryResult>(
-    programPageContentQuery,
-    { slug: decodeURIComponent(programSlug) },
-    { next: { tags: ["educational-program", "educational-program-type"] } },
-  );
+  const program = await sanityFetch<ProgramPageContentQueryResult>(programPageContentQuery, {
+    params: { slug: decodeURIComponent(programSlug) },
+    tags: ["educational-program", "educational-program-type"],
+  });
 
-  const programPage = await sanity.fetch<ProgramPageQueryResult>(
-    programPageQuery,
-    {},
-    { next: { tags: ["educational-program-page"] } },
-  );
+  const programPage = await sanityFetch<ProgramPageQueryResult>(programPageQuery, {
+    tags: ["educational-program-page"],
+  });
 
   if (!program || !programPage) notFound();
 

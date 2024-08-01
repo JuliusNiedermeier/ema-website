@@ -18,7 +18,7 @@ import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { cn } from "~/app/_utils/cn";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 import { AppointmentRequestForm } from "~/app/_components/compounds/appointment-request-form";
@@ -39,7 +39,7 @@ type SectionLink = {
 };
 
 const ContactPage: FC = async () => {
-  const data = await sanity.fetch<ContactPageQueryResult>(contactPageQuery, {}, { next: { tags: ["contact-page"] } });
+  const data = await sanityFetch<ContactPageQueryResult>(contactPageQuery, { tags: ["contact-page"] });
 
   if (!data) notFound();
 

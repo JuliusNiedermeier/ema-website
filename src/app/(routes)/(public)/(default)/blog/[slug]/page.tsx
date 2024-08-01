@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import { FC, Suspense } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import {
   PostPageQueryResult,
   PostQueryResult,
@@ -40,7 +40,7 @@ type Params = { slug: string };
 type Props = { params: Params };
 
 export const generateStaticParams = async (): Promise<Params[]> => {
-  const posts = await sanity.fetch<PostSlugsQueryResult>(postSlugsQuery);
+  const posts = await sanityFetch<PostSlugsQueryResult>(postSlugsQuery, { draftMode: false });
 
   return posts
     .map((post) => post.slug?.current)
@@ -49,24 +49,22 @@ export const generateStaticParams = async (): Promise<Params[]> => {
 };
 
 const PostPage: FC<Props> = async ({ params: { slug } }) => {
-  const post = await sanity.fetch<PostQueryResult>(
-    postQuery,
-    { slug: decodeURIComponent(slug) },
-    { next: { tags: ["post", "author", "category"] } },
-  );
+  const post = await sanityFetch<PostQueryResult>(postQuery, {
+    params: { slug: decodeURIComponent(slug) },
+    tags: ["post", "author", "category"],
+  });
 
   if (!post) notFound();
 
-  const relatedPosts = await sanity.fetch<RelatedPostsQueryResult>(
-    relatedPostsQuery,
-    {
+  const relatedPosts = await sanityFetch<RelatedPostsQueryResult>(relatedPostsQuery, {
+    params: {
       currentPostCategoryID: post.category?._id,
       currentPostID: post._id,
     },
-    { next: { tags: ["post", "category"] } },
-  );
+    tags: ["post", "category"],
+  });
 
-  const postPage = await sanity.fetch<PostPageQueryResult>(postPageQuery, {}, { next: { tags: ["post-page"] } });
+  const postPage = await sanityFetch<PostPageQueryResult>(postPageQuery, { tags: ["post-page"] });
 
   return (
     <>

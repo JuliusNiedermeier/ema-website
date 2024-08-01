@@ -5,7 +5,7 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import Link from "next/link";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ContactPreviewCardQueryResult } from "../../../../generated/sanity/types";
 
 const contactPreviewCardQuery = groq`*[_type == "contact-page"][0]{
@@ -15,11 +15,9 @@ const contactPreviewCardQuery = groq`*[_type == "contact-page"][0]{
 export type ContactPreviewCardProps = ComponentProps<typeof Card> & {};
 
 export const ContactPreviewCard: FC<ContactPreviewCardProps> = async ({ className, ...restProps }) => {
-  const contactPage = await sanity.fetch<ContactPreviewCardQueryResult>(
-    contactPreviewCardQuery,
-    {},
-    { next: { tags: ["contact-page"] } },
-  );
+  const contactPage = await sanityFetch<ContactPreviewCardQueryResult>(contactPreviewCardQuery, {
+    tags: ["contact-page"],
+  });
 
   return (
     <Card className={cn("flex flex-col items-stretch gap-4 rounded-3xl p-4 sm:flex-row", className)} {...restProps}>

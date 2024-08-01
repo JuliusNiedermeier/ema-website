@@ -1,7 +1,7 @@
 import { ComponentProps, FC } from "react";
 import { TestimonialCarousel as TestimonialCarouselCompound } from "../compounds/testimonial-carousel";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { TestimonialsQueryResult } from "../../../../generated/sanity/types";
 
 const testimonialsQuery = groq`*[_type == "testimonial"]{
@@ -12,11 +12,7 @@ const testimonialsQuery = groq`*[_type == "testimonial"]{
 export type TestimonialCarouselProps = Omit<ComponentProps<typeof TestimonialCarouselCompound>, "testimonials"> & {};
 
 export const TestimonialCarousel: FC<TestimonialCarouselProps> = async ({ ...restProps }) => {
-  const tesimonials = await sanity.fetch<TestimonialsQueryResult>(
-    testimonialsQuery,
-    {},
-    { next: { tags: ["testimonial"] } },
-  );
+  const tesimonials = await sanityFetch<TestimonialsQueryResult>(testimonialsQuery, { tags: ["testimonial"] });
 
   return (
     <TestimonialCarouselCompound

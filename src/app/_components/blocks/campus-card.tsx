@@ -1,7 +1,7 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Heading, Label, Paragraph } from "../primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { groq } from "next-sanity";
 import { CampusCardQueryResult } from "../../../../generated/sanity/types";
 import { Card } from "../primitives/card";
@@ -18,7 +18,7 @@ const campusCardQuery = groq`*[_type == "campus-page"][0] {
 export type CampusCardProps = ComponentProps<"div"> & {};
 
 export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps }) => {
-  const data = await sanity.fetch<CampusCardQueryResult>(campusCardQuery, {}, { next: { tags: ["campus-page"] } });
+  const data = await sanityFetch<CampusCardQueryResult>(campusCardQuery, { tags: ["campus-page"] });
 
   return (
     <div className={cn("relative overflow-hidden pb-4 pt-64 lg:pb-8 lg:pt-96", className)} {...restProps}>

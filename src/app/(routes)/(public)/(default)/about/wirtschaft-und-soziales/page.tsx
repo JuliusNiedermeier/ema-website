@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { EconomyXSocialHero } from "~/app/_components/compounds/economy-x-social-hero";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { EconomySocialPageQueryResult } from "../../../../../../../generated/sanity/types";
 import { Container } from "~/app/_components/primitives/container";
 import { DefaultPortableContent } from "~/app/_components/compounds/default-portable-content";
@@ -45,11 +45,7 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
 }`;
 
 const EconomyXSocialPage: FC = async () => {
-  const data = await sanity.fetch<EconomySocialPageQueryResult>(
-    economySocialPageQuery,
-    {},
-    { next: { tags: ["economy-social-page"] } },
-  );
+  const data = await sanityFetch<EconomySocialPageQueryResult>(economySocialPageQuery, { tags: ["economy-social-page"] });
 
   if (!data) notFound();
 

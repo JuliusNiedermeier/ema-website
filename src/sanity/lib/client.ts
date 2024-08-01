@@ -3,9 +3,9 @@ import "server-only";
 import { createClient, QueryOptions, QueryParams } from "next-sanity";
 import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
-import { draftMode } from "next/headers";
+import { draftMode as checkDraftMode } from "next/headers";
 
-export const sanity = createClient({
+const client = createClient({
   apiVersion,
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -16,8 +16,26 @@ export const sanity = createClient({
   },
 });
 
-export const sanityFetch = async <QueryResponse>(query: string, tags: string[] = [], params: QueryParams = {}) => {
-  const isDraftMode = draftMode().isEnabled;
+type SanityFetchOptions = {
+  tags?: string[];
+  params?: QueryParams;
+  draftMode?: boolean;
+};
+
+export const sanityFetch = async <QueryResponse>(query: string, options: SanityFetchOptions = {}) => {
+  const { tags = [], params = {}, draftMode } = options;
+
+  let isDraftMode = draftMode;
+
+  if (typeof isDraftMode === "undefined") {
+    try {
+      isDraftMode = checkDraftMode().isEnabled;
+    } catch {
+      throw new Error(
+        "sanityFetch was called outside a request scope. Make sure the function is called within a Server Component, Server Action, or Route Handler, or that the 'draftMode' option is set to 'true' or 'false'.",
+      );
+    }
+  }
 
   const queryOptions: QueryOptions = {
     token: isDraftMode ? env.SANITY_READ_TOKEN : undefined,
@@ -29,5 +47,5 @@ export const sanityFetch = async <QueryResponse>(query: string, tags: string[] =
     },
   };
 
-  return sanity.fetch<QueryResponse>(query, params, queryOptions);
+  return client.fetch<QueryResponse>(query, params, queryOptions);
 };

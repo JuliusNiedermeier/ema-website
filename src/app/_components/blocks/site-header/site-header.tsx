@@ -18,8 +18,7 @@ import {
 import { AboutMenu } from "./menus/about-menu";
 import { MobileMenu } from "./menus/mobile-menu";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
-import { Tags } from "lucide-react";
+import { sanityFetch } from "~/sanity/lib/client";
 import { SiteHeaderQueryResult } from "../../../../../generated/sanity/types";
 
 const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
@@ -27,11 +26,7 @@ const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
 export type SiteHeaderProps = ComponentProps<"header"> & {};
 
 export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps }) => {
-  const headerConfig = await sanity.fetch<SiteHeaderQueryResult>(
-    siteHeaderQuery,
-    {},
-    { next: { tags: ["header-config"] } },
-  );
+  const headerConfig = await sanityFetch<SiteHeaderQueryResult>(siteHeaderQuery, { tags: ["header-config"] });
 
   return (
     <NavigationMenu>

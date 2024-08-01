@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { CampusPageQueryResult } from "../../../../../../../generated/sanity/types";
 import Image from "next/image";
 import { ParalaxContainer } from "~/app/_components/compounds/paralax-image";
@@ -18,7 +18,7 @@ const campusPageQuery = groq`*[_type == "campus-page"][0]{
 }`;
 
 const CampusPage: FC = async () => {
-  const data = await sanity.fetch<CampusPageQueryResult>(campusPageQuery, {}, { next: { tags: ["campus-page"] } });
+  const data = await sanityFetch<CampusPageQueryResult>(campusPageQuery, { tags: ["campus-page"] });
 
   return (
     <div className="rounded-b-3xl">

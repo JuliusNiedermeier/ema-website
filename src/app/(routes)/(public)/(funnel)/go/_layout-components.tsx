@@ -5,7 +5,7 @@ import Link from "next/link";
 import { SiteLogo } from "~/app/_components/compounds/site-logo";
 import { Label } from "~/app/_components/primitives/typography";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { ApplicationPageFooterQueryResult } from "../../../../../../generated/sanity/types";
 
 const applicationPageFooterQuery = groq`*[_type == "footer-config"][0]{
@@ -36,11 +36,10 @@ export const GoLayoutHeader: FC<GoLayoutHeaderProps> = ({ className, title, ...r
 export type GoLayoutFooterProps = ComponentProps<"footer"> & {};
 
 export const GoLayoutFooter: FC<GoLayoutFooterProps> = async ({ className, children, ...restProps }) => {
-  const data = await sanity.fetch<ApplicationPageFooterQueryResult>(
-    applicationPageFooterQuery,
-    {},
-    { next: { tags: ["footer-config"] } },
-  );
+  const data = await sanityFetch<ApplicationPageFooterQueryResult>(applicationPageFooterQuery, {
+    tags: ["footer-config"],
+  });
+
   return (
     <footer
       className={cn("sticky bottom-0 z-20 border-t border-[gray]/50 bg-neutral-200/50 backdrop-blur-lg", className)}

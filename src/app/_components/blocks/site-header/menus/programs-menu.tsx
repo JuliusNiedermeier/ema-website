@@ -11,7 +11,7 @@ import {
   OffersGridProgramTypesQueryResult,
   OffersGridProgramsQueryResult,
 } from "../../../../../../generated/sanity/types";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import Image from "next/image";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 
@@ -27,16 +27,13 @@ const offersGridProgramsQuery = groq`*[_type == "educational-program"]{
 export type OffersMenuProps = ComponentProps<"div"> & {};
 
 export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps }) => {
-  const programTypes = await sanity.fetch<OffersGridProgramTypesQueryResult>(
-    offersGridProgramTypesQuery,
-    {},
-    { next: { tags: ["educational-program-type"] } },
-  );
-  const programs = await sanity.fetch<OffersGridProgramsQueryResult>(
-    offersGridProgramsQuery,
-    {},
-    { next: { tags: ["educational-program", "educational-program-type"] } },
-  );
+  const programTypes = await sanityFetch<OffersGridProgramTypesQueryResult>(offersGridProgramTypesQuery, {
+    tags: ["educational-program-type"],
+  });
+
+  const programs = await sanityFetch<OffersGridProgramsQueryResult>(offersGridProgramsQuery, {
+    tags: ["educational-program", "educational-program-type"],
+  });
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,

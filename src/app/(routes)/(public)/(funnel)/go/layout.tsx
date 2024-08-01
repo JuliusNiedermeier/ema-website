@@ -1,6 +1,6 @@
 import { groq } from "next-sanity";
 import { FC, PropsWithChildren } from "react";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { GoLayoutQueryResult } from "../../../../../../generated/sanity/types";
 import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice";
 import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
@@ -10,7 +10,7 @@ const goLayoutQuery = groq`*[_type == "home-page"][0]{
   }`;
 
 const GoLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const data = await sanity.fetch<GoLayoutQueryResult>(goLayoutQuery, {}, { next: { tags: ["home-page"] } });
+  const data = await sanityFetch<GoLayoutQueryResult>(goLayoutQuery, { tags: ["home-page"] });
 
   return (
     <div className="h-[100svh] overflow-hidden bg-neutral-200 lg:grid lg:grid-cols-[1fr_2fr]">

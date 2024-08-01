@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import {
@@ -43,7 +43,7 @@ type Params = { programTypeSlug: string };
 type Props = { params: Params };
 
 // export const generateStaticParams = async () => {
-//   const programTypes = await sanity.fetch<ProgramTypePageSlugsQueryResult>(
+//   const programTypes = await sanityFetch<ProgramTypePageSlugsQueryResult>(
 //     programTypePageSlugsQuery,
 //     {},
 //     { next: { tags: ["educational-program-type"] } },
@@ -56,17 +56,15 @@ type Props = { params: Params };
 const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug } }) => {
   const slug = decodeURIComponent(programTypeSlug);
 
-  const programTypePromise = sanity.fetch<ProgramTypePageQueryResult>(
-    programTypePageQuery,
-    { slug },
-    { next: { tags: ["educational-program-type"] } },
-  );
+  const programTypePromise = sanityFetch<ProgramTypePageQueryResult>(programTypePageQuery, {
+    params: { slug },
+    tags: ["educational-program-type"],
+  });
 
-  const programsPromise = sanity.fetch<ProgramTypePageProgramsQueryResult>(
-    programTypePageProgramsQuery,
-    { programTypeSlug: slug },
-    { next: { tags: ["educational-program-type", "educational-program"] } },
-  );
+  const programsPromise = sanityFetch<ProgramTypePageProgramsQueryResult>(programTypePageProgramsQuery, {
+    params: { programTypeSlug: slug },
+    tags: ["educational-program-type", "educational-program"],
+  });
 
   const [programType, programs] = await Promise.all([programTypePromise, programsPromise]);
 
@@ -87,7 +85,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         <div className="absolute top-0 -z-10 h-1/2 w-full bg-neutral-200"></div>
         <Container>
           <Certificate
-          className="border-themed-primary"
+            className="border-themed-primary"
             heading={programType.certificate?.heading || ""}
             name={programType.certificate?.name || ""}
             description={programType.certificate?.description || ""}

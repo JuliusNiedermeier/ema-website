@@ -4,7 +4,7 @@ import { Container } from "../primitives/container";
 import { SiteLogo } from "../compounds/site-logo";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { groq } from "next-sanity";
-import { sanity } from "~/sanity/lib/client";
+import { sanityFetch } from "~/sanity/lib/client";
 import {
   FooterEducationalProgramTypesQueryResult,
   FooterEducationalProgramsQueryResult,
@@ -35,23 +35,15 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
 export type SiteFooterProps = ComponentProps<"div"> & {};
 
 export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps }) => {
-  const footerConfig = await sanity.fetch<SiteFooterQueryResult>(
-    siteFooterQuery,
-    {},
-    { next: { tags: ["footer-config"] } },
-  );
+  const footerConfig = await sanityFetch<SiteFooterQueryResult>(siteFooterQuery, { tags: ["footer-config"] });
 
-  const programTypes = await sanity.fetch<FooterEducationalProgramTypesQueryResult>(
-    footerEducationalProgramTypesQuery,
-    {},
-    { next: { tags: ["educational-program-type"] } },
-  );
+  const programTypes = await sanityFetch<FooterEducationalProgramTypesQueryResult>(footerEducationalProgramTypesQuery, {
+    tags: ["educational-program-type"],
+  });
 
-  const programs = await sanity.fetch<FooterEducationalProgramsQueryResult>(
-    footerEducationalProgramsQuery,
-    {},
-    { next: { tags: ["educational-program"] } },
-  );
+  const programs = await sanityFetch<FooterEducationalProgramsQueryResult>(footerEducationalProgramsQuery, {
+    tags: ["educational-program"],
+  });
 
   const programTypesWithPrograms = programTypes.map((programType) => ({
     ...programType,
