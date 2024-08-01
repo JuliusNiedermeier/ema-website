@@ -63,7 +63,7 @@ type Params = { programTypeSlug: string; programSlug: string };
 type Props = { params: Params };
 
 export const generateStaticParams = async () => {
-  const programs = await sanityFetch<ProgramPageSlugsQueryResult>(programPageSlugsQuery);
+  const programs = await sanityFetch<ProgramPageSlugsQueryResult>(programPageSlugsQuery, { draftMode: false });
   return programs
     .map((program) => ({
       programTypeSlug: program.educationalProgramType?.slug?.current || null,
