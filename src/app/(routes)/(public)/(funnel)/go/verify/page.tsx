@@ -137,12 +137,12 @@ const GoVerifyPage: FC<{ searchParams: { application?: string; token?: string } 
       ? {
           icon: <PartyPopperIcon size={32} />,
           heading: interpolate(data.success?.heading || ""),
-          message: interpolate(data.success?.description || ""), // TODO: interpolate data fields
+          message: interpolate(data.success?.description || ""),
         }
       : {
           icon: <PartyPopperIcon size={32} />,
           heading: interpolate(data.alreadyDone?.heading || ""),
-          message: interpolate(data.alreadyDone?.description || ""), // TODO: interpolate data fields
+          message: interpolate(data.alreadyDone?.description || ""),
         };
 
     return (
