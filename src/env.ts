@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     SANITY_REVALIDATION_WEBHOOK_SECRET: z.string(),
+    SANITY_READ_TOKEN: z.string(),
     POSTGRES_CONNECTION_STRING: z.string(),
     RESEND_API_KEY: z.string(),
     RESEND_SENDER_ADDRESS: z.string().email(),
@@ -39,6 +40,7 @@ export const env = createEnv({
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
 
     SANITY_REVALIDATION_WEBHOOK_SECRET: process.env.SANITY_REVALIDATION_WEBHOOK_SECRET,
+    SANITY_READ_TOKEN: process.env.SANITY_READ_TOKEN,
     POSTGRES_CONNECTION_STRING: process.env.POSTGRES_CONNECTION_STRING,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_SENDER_ADDRESS: process.env.RESEND_SENDER_ADDRESS,
