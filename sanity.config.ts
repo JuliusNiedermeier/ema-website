@@ -5,6 +5,7 @@
 import { visionTool } from "@sanity/vision";
 import { SchemaType, defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { presentationTool } from "sanity/presentation";
 import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
 import { colorInput } from "@sanity/color-input";
@@ -133,5 +134,12 @@ export default defineConfig({
     }),
     visionTool({ defaultApiVersion: apiVersion }),
     colorInput(),
+    presentationTool({
+      previewUrl: {
+        previewMode: {
+          enable: "/api/draft-mode/enable",
+        },
+      },
+    }),
   ],
 });

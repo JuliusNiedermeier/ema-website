@@ -5,7 +5,7 @@ import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
 import { draftMode as checkDraftMode } from "next/headers";
 
-const client = createClient({
+export const sanity = createClient({
   apiVersion,
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -47,5 +47,5 @@ export const sanityFetch = async <QueryResponse>(query: string, options: SanityF
     },
   };
 
-  return client.fetch<QueryResponse>(query, params, queryOptions);
+  return sanity.fetch<QueryResponse>(query, params, queryOptions);
 };
