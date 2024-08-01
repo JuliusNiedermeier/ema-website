@@ -2,7 +2,6 @@ import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { cn } from "~/app/_utils/cn";
 import Image from "next/image";
-import { Card } from "~/app/_components/primitives/card";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import Link from "next/link";
