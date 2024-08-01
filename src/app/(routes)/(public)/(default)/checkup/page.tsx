@@ -18,7 +18,6 @@ import {
 import { CheckupResults } from "~/app/_components/compounds/checkup-form/checkup-results";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { CheckupFormProvider } from "~/app/_components/compounds/checkup-form/checkup-form-provider";
-import { Chip } from "~/app/_components/primitives/chip";
 import { ResultCounter } from "~/app/_components/compounds/checkup-form/result-counter";
 
 const checkupPageQuery = groq`*[_type == "checkup-page"][0]`;
