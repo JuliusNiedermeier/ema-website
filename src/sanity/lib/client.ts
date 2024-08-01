@@ -16,7 +16,7 @@ export const sanity = createClient({
   },
 });
 
-export const sanityFetch = async <QueryResponse>(query: string, tags: string[], params: QueryParams = {}) => {
+export const sanityFetch = async <QueryResponse>(query: string, tags: string[] = [], params: QueryParams = {}) => {
   const isDraftMode = draftMode().isEnabled;
 
   const queryOptions: QueryOptions = {
