@@ -13,14 +13,11 @@ export const LeavePreviewModeButton: FC<LeavePreviewModeButtonProps> = ({ classN
   const pathname = usePathname();
 
   return (
-    <Button
-      href={`/api/draft-mode/disable?redirect=${pathname}`}
-      size="sm"
-      className={cn("gap-4 border border-neutral-400/20", className)}
-      {...restProps}
-    >
-      <PenOffIcon size={20} />
-      <Label>Leave preview mode</Label>
+    <Button asChild size="sm" className={cn("gap-4 border border-neutral-400/20", className)} {...restProps}>
+      <a href={`/api/draft-mode/disable?redirect=${pathname}`}>
+        <PenOffIcon size={20} />
+        <Label>Leave preview mode</Label>
+      </a>
     </Button>
   );
 };
