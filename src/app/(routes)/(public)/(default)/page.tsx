@@ -26,6 +26,7 @@ import { notFound } from "next/navigation";
 import { ContactPreviewCard } from "~/app/_components/blocks/contact-preview-card";
 import Link from "next/link";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { HeroVideo } from "~/app/_components/compounds/hero-video";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -117,20 +118,12 @@ const HomePage: FC = async () => {
       <div className="relative pt-8">
         <div className="absolute left-0 top-0 h-1/2 w-full bg-neutral-200"></div>
         <Container width="wide" className="relative">
-          <video
-            playsInline
-            autoPlay
-            muted
-            loop
-            src={homePage.video?.asset?.url || ""}
-            className="min-h-[70vh] w-full rounded-2xl object-cover"
-          />
-
-          <div className="absolute left-0 top-0 flex h-full w-full items-end">
+          <HeroVideo src={homePage.video?.asset?.url || ""} />
+          <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full items-end">
             <Container className="items- sticky bottom-2 my-2 flex justify-between sm:bottom-8 sm:my-8 sm:items-end">
               <Button
                 href="/go"
-                className="w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-16 md:pr-6"
+                className="pointer-events-auto w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-16 md:pr-6"
                 size="md"
               >
                 <Label className="flex-1">{homePage.videoCTAButtonLabel}</Label>
