@@ -12,6 +12,11 @@ export const artPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "navigationLabel",
+        title: "Bezeichnung in der Seitennavigation",
+        type: "string",
+      }),
+      defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
@@ -32,6 +37,11 @@ export const artPage: SchemaTypeDef = {
             title: "Auszug",
             type: "text",
             validation: (r) => r.required().min(50).max(300),
+          }),
+          defineField({
+            name: "image",
+            title: "Vorschaubild",
+            type: "image",
           }),
           defineField({
             name: "readMoreButtonLabel",

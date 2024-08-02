@@ -12,6 +12,11 @@ export const economySocialPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "navigationLabel",
+        title: "Bezeichnung in der Seitennavigation",
+        type: "string",
+      }),
+      defineField({
         name: "headingUpper",
         title: "Obere Überschrift",
         type: "string",
@@ -28,6 +33,11 @@ export const economySocialPage: SchemaTypeDef = {
         title: "Auszug",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
+      }),
+      defineField({
+        name: "previewImage",
+        title: "Vorschaubild",
+        type: "image",
       }),
       defineField({
         name: "previewReadMoreLabel",

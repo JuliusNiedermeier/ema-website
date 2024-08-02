@@ -12,9 +12,19 @@ export const campusPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "navigationLabel",
+        title: "Bezeichnung in der Seitennavigation",
+        type: "string",
+      }),
+      defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
+      }),
+      defineField({
+        name: "previewImage",
+        title: "Vorschaubild",
+        type: "image",
       }),
       defineField({
         name: "previewText",
