@@ -143,6 +143,7 @@ const config = {
       exitToLeft: "exitToLeft 250ms ease",
       expandDown: "revealDown 250ms ease",
       contractUp: "contractUp 250ms ease",
+      marqueeScroll: "marqueeScroll 10s linear infinite",
       spin: animation.spin,
     },
     keyframes: {
@@ -169,6 +170,10 @@ const config = {
       contractUp: {
         from: { hieght: "var(--radix-navigation-menu-viewport-height)" },
         to: { height: "0" },
+      },
+      marqueeScroll: {
+        from: { transform: "translateX(0)" },
+        to: { transform: "translateX(calc(-100% - var(--gap)))" },
       },
       spin: keyframes.spin,
     },

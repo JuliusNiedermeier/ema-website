@@ -8,15 +8,32 @@ export type PartnersBannerProps = ComponentProps<"div"> & {
 
 export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, ...restProps }) => {
   return (
-    <div className={cn("flex items-center gap-12 overflow-hidden", className)} {...restProps}>
-      {partners.map((partner) => (
-        <Image
-          key={partner.name}
-          height={500}
-          width={500}
-          src={partner.imageURL}
-          alt={partner.name}
-          className="h-8 w-min object-contain mix-blend-multiply"
+    <div
+      style={{ "--gap": "3rem" }}
+      className={cn("relative flex select-none items-center gap-[var(--gap)] overflow-hidden", className)}
+      {...restProps}
+    >
+      {Array.from(new Array(2)).map((_, index) => (
+        <div className="animate-marqueeScroll flex min-w-full shrink-0 justify-around gap-[var(--gap)]">
+          {partners.map((partner) => (
+            <Image
+              key={partner.name}
+              height={500}
+              width={500}
+              src={partner.imageURL}
+              alt={partner.name}
+              className="h-8 w-min object-contain mix-blend-multiply"
+            />
+          ))}
+        </div>
+      ))}
+
+      {Array.from(new Array(2)).map((_, index) => (
+        <div
+          className={cn("absolute top-0 h-full w-1/12 from-neutral-100", {
+            "left-0 bg-gradient-to-r": index === 0,
+            "right-0 bg-gradient-to-l": index === 1,
+          })}
         />
       ))}
     </div>

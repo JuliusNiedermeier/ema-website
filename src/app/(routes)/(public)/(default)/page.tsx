@@ -139,12 +139,12 @@ const HomePage: FC = async () => {
         </Container>
       </div>
 
-      <Container width="medium">
-        <div className="mt-16 flex justify-center">
-          <PartnersBanner partners={partners} />
-        </div>
+      <div className="mt-16 flex justify-center">
+        <PartnersBanner partners={partners} />
+      </div>
 
-        <EducationalProgramTypeCards className="mt-16" />
+      <Container>
+        <EducationalProgramTypeCards className="mt-32" />
 
         <div className="mx-auto mt-64 max-w-[40rem] text-center">
           <Heading>{homePage.introduction?.heading}</Heading>
