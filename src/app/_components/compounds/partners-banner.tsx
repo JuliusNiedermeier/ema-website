@@ -14,7 +14,7 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
       {...restProps}
     >
       {Array.from(new Array(2)).map((_, index) => (
-        <div className="animate-marqueeScroll flex min-w-full shrink-0 justify-around gap-[var(--gap)]">
+        <div key={index} className="animate-marqueeScroll flex min-w-full shrink-0 justify-around gap-[var(--gap)]">
           {partners.map((partner) => (
             <Image
               key={partner.name}
@@ -30,6 +30,7 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
 
       {Array.from(new Array(2)).map((_, index) => (
         <div
+          key={index}
           className={cn("absolute top-0 h-full w-1/12 from-neutral-100", {
             "left-0 bg-gradient-to-r": index === 0,
             "right-0 bg-gradient-to-l": index === 1,
