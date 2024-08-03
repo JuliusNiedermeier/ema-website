@@ -13,6 +13,7 @@ import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import {
+  AlternateProgramsQueryResult,
   ProgramPageContentQueryResult,
   ProgramPageQueryResult,
   ProgramPageSlugsQueryResult,
@@ -27,6 +28,11 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import { FollowUpTrainingCTA } from "~/app/_components/compounds/follow-up-training-cta";
 import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import Link from "next/link";
+import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
+import { ProgressProvider } from "~/app/_components/primitives/progress-provider";
+import { ScrollProgress } from "~/app/_components/primitives/scroll-progress";
+import { CardCarousel, CardCarouselItem } from "~/app/_components/primitives/card-carousel";
+import { ProgressBar, ProgressBarIndicator } from "~/app/_components/primitives/progress-bar";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -84,6 +90,17 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   }
 }`;
 
+const alternateProgramsQuery = groq`*[_type == "educational-program" && slug.current != $currentProgramSlug]{
+  slug,
+  name,
+  promotionalHeadline,
+  educationalProgramType -> {
+    slug,
+    name,
+    color
+  }
+}`;
+
 type Params = { programTypeSlug: string; programSlug: string };
 type Props = { params: Params };
 
@@ -105,6 +122,11 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
   const programPage = await sanityFetch<ProgramPageQueryResult>(programPageQuery, {
     tags: ["educational-program-page"],
+  });
+
+  const alternatePrograms = await sanityFetch<AlternateProgramsQueryResult>(alternateProgramsQuery, {
+    params: { currentProgramSlug: programSlug },
+    tags: ["educational-program", "educational-program-type"],
   });
 
   if (!program || !programPage) notFound();
@@ -329,6 +351,41 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           <BentoCTA />
         </div>
       </Container>
+
+      <EndOfPageCTA
+        className="mt-12"
+        heading={program.alternatives?.heading || ""}
+        description={program.alternatives?.description || ""}
+      >
+        <ProgressProvider>
+          <Container>
+            <ScrollProgress className="scrollbar-none items-stretch overflow-x-auto" asChild>
+              <CardCarousel>
+                {alternatePrograms.map((program, index) => (
+                  <CardCarouselItem key={index} asChild>
+                    <Link
+                      href={`/bildungswege/${program.educationalProgramType?.slug?.current}/${program.slug?.current}`}
+                    >
+                      <EducationalProgramCard
+                        className="h-full"
+                        style={{
+                          ...createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl)),
+                        }}
+                        programType={program.educationalProgramType?.name || ""}
+                        name={program.name || ""}
+                        headline={program.promotionalHeadline || ""}
+                      />
+                    </Link>
+                  </CardCarouselItem>
+                ))}
+              </CardCarousel>
+            </ScrollProgress>
+            <ProgressBar className="mx-8 mt-4">
+              <ProgressBarIndicator />
+            </ProgressBar>
+          </Container>
+        </ProgressProvider>
+      </EndOfPageCTA>
     </div>
   );
 };
