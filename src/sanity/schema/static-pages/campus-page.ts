@@ -37,6 +37,23 @@ export const campusPage: SchemaTypeDef = {
         type: "string",
       }),
       defineField({
+        name: "contactCTA",
+        title: "Kontakt Call-To-Action",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+        ],
+      }),
+      defineField({
         name: "heroImage",
         title: "Hauptbild",
         type: "image",
