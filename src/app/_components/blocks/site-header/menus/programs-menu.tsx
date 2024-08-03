@@ -10,6 +10,7 @@ import { groq } from "next-sanity";
 import {
   OffersGridProgramTypesQueryResult,
   OffersGridProgramsQueryResult,
+  ProgramsMenuCheckupQueryResult,
 } from "../../../../../../generated/sanity/types";
 import { sanityFetch } from "~/sanity/lib/client";
 import Image from "next/image";
@@ -22,6 +23,12 @@ const offersGridProgramTypesQuery = groq`*[_type == "educational-program-type"]{
 const offersGridProgramsQuery = groq`*[_type == "educational-program"]{
   ...,
   educationalProgramType->{ _id }
+}`;
+
+const programsMenuCheckupQuery = groq`*[_type == "checkup-page"][0]{
+  heading,
+  previewText,
+  previewReadMoreLabel
 }`;
 
 export type OffersMenuProps = ComponentProps<"div"> & {};
@@ -40,6 +47,10 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
     programs: programs.filter((program) => program.educationalProgramType?._id === programType._id),
   }));
 
+  const checkup = await sanityFetch<ProgramsMenuCheckupQueryResult>(programsMenuCheckupQuery, {
+    tags: ["checkup-page"],
+  });
+
   return (
     <div className={cn(className)} {...restProps}>
       <Container className={cn("flex h-min flex-col-reverse gap-4 py-4 sm:items-stretch xl:flex-row")}>
@@ -56,20 +67,18 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
           />
           <div className="p-6">
             <Heading size="sm" className="mt-8">
-              Finde heraus was zu Dir passt.
+              {checkup?.heading}
             </Heading>
-            <Paragraph className="flex-1xsd text-neutral-900-text-muted">
-              Mit unserem Checkup tool findest du garantiert die perfekte Ausbildung für Dich!
-            </Paragraph>
+            <Paragraph className="flex-1xsd text-neutral-900-text-muted">{checkup?.previewText}</Paragraph>
             <Button vairant="outline" size="sm" className="mt-8" href="/checkup">
-              <Label>Jetzt testen</Label>
+              <Label>{checkup?.previewReadMoreLabel}</Label>
               <InteractionBubble />
             </Button>
           </div>
         </Card>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-4 xl:flex-1">
-          {programTypesWithPrograms.map((programType, programTypeIndex) => (
+          {programTypesWithPrograms.map((programType) => (
             <div key={programType._id} className="flex flex-1 flex-col gap-2 rounded-3xl border p-2">
               <Link
                 href={`/bildungswege/${programType.slug?.current}`}
