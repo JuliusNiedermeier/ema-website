@@ -5,12 +5,11 @@ import { SiteLogo } from "../compounds/site-logo";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { TestimonialCard } from "../compounds/testimonial-card";
-import { InteractionBubble } from "../compounds/interaction-bubble";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { BentoCTAContactQueryResult, BentoCTAQueryResult } from "../../../../generated/sanity/types";
 import Image from "next/image";
-import { EventDateList } from "../compounds/event-date-list";
+import { InfoEventCTACard } from "../compounds/info-event-cta-card";
 
 const bentoCTAQuery = groq`*[_type == "bento-cta-config"][0]{
   ...,
@@ -59,26 +58,17 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
           <a className="flex-[1]" href="/kontakt">
-            <Card className="group flex flex-col gap-8 rounded-3xl border border-neutral-400 bg-neutral-300 p-4 md:flex-row">
-              <div className="flex-1 p-4">
-                <Heading size="lg" tag="h3" className="mt-3">
-                  {contact?.infoEvening?.name}
-                </Heading>
-                <Paragraph className="mt-8">{contact?.infoEvening?.previewText}</Paragraph>
-                <div className="mt-12 flex h-8 items-center gap-0 transition-all group-hover:gap-4">
-                  <InteractionBubble />
-                  <Label>{contact?.infoEvening?.readMoreLabel}</Label>
-                </div>
-              </div>
-              <EventDateList
-                timeSuffix={contact?.infoEvening?.timeSuffix || ""}
-                dates={
-                  contact?.infoEvening?.nextDates
-                    ?.filter(({ eventDate }) => !!eventDate)
-                    .map(({ eventDate }) => new Date(eventDate!)) || []
-                }
-              />
-            </Card>
+            <InfoEventCTACard
+              heading={contact?.infoEvening?.name || ""}
+              description={contact?.infoEvening?.previewText || ""}
+              readMoreLabel={contact?.infoEvening?.readMoreLabel || ""}
+              timeSuffix={contact?.infoEvening?.timeSuffix || ""}
+              dates={
+                contact?.infoEvening?.nextDates
+                  ?.filter(({ eventDate }) => !!eventDate)
+                  .map(({ eventDate }) => new Date(eventDate!)) || []
+              }
+            />
           </a>
         </div>
       </div>
