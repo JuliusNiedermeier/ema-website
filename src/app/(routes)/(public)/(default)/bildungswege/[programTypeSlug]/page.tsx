@@ -10,15 +10,14 @@ import {
   // ProgramTypePageSlugsQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
-import { Card } from "~/app/_components/primitives/card";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
-import { MoveDownIcon } from "lucide-react";
 import { EducationalProgramTypeCard } from "~/app/_components/compounds/educational-program-type-card";
 import Link from "next/link";
 import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
+import { FollowUpTrainingCTA } from "~/app/_components/compounds/follow-up-training-cta";
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
@@ -100,8 +99,8 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </Container>
       </div>
 
-      <Container className="pt-16 sm:pt-24">
-        <Container width="narrow" className="mt-60 text-center">
+      <Container className="pt-16 sm:pt-64">
+        <Container width="narrow" className="text-center">
           <Heading>{programType.educationalPrograms?.heading}</Heading>
           <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
         </Container>
@@ -124,28 +123,25 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </div>
 
         {programType.followUpTrainingEnabled && (
-          <div className="-mt-12 rounded-3xl border bg-neutral-200 p-4 pt-16">
-            <Container width="narrow" className="flex flex-col items-center gap-8 sm:flex-row">
-              <div className="p-4 text-center sm:text-left">
-                <Heading size="sm">{programType.followUpTraining?.heading}</Heading>
-                <Paragraph>{programType.followUpTraining?.description}</Paragraph>
-              </div>
-              <MoveDownIcon className="shrink-0 sm:-rotate-90" />
-              <Link
-                href={`/bildungswege/${programType.followUpTraining?.educationalProgramType?.slug?.current}`}
-                className="relative z-10 ml-4 flex-1 self-stretch"
-                style={createColorThemeStyles(
-                  ensureValidHSL(programType.followUpTraining?.educationalProgramType?.color?.hsl),
-                )}
-              >
-                <Card className="absolute left-0 top-0 -z-10 h-full w-full -translate-y-4 scale-x-90 bg-themed-primary opacity-30 sm:-translate-x-4 sm:translate-y-0 sm:scale-x-100 sm:scale-y-90" />
+          <FollowUpTrainingCTA
+            className="mt-60"
+            heading={programType.followUpTraining?.heading || ""}
+            description={programType.followUpTraining?.description || ""}
+          >
+            <Container
+              width="narrow"
+              style={createColorThemeStyles(
+                ensureValidHSL(programType.followUpTraining?.educationalProgramType?.color?.hsl),
+              )}
+            >
+              <Link href={`/bildungswege/${programType.followUpTraining?.educationalProgramType?.slug?.current}`}>
                 <EducationalProgramTypeCard
                   name={programType.followUpTraining?.educationalProgramType?.name || ""}
                   description={programType.followUpTraining?.educationalProgramType?.promotionalHeadline || ""}
                 />
               </Link>
             </Container>
-          </div>
+          </FollowUpTrainingCTA>
         )}
 
         <Container width="narrow" className="mt-64">
