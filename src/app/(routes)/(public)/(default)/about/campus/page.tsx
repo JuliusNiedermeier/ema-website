@@ -1,12 +1,18 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { CampusPageQueryResult } from "../../../../../../../generated/sanity/types";
+import { CampusPageContactQueryResult, CampusPageQueryResult } from "../../../../../../../generated/sanity/types";
 import Image from "next/image";
 import { ParalaxContainer } from "~/app/_components/compounds/paralax-image";
 import { CampusInfoCard, CampusInfoCardListProvider } from "~/app/_components/compounds/campus-info-card";
+import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
+import { InfoEventCTACard } from "~/app/_components/compounds/info-event-cta-card";
+import Link from "next/link";
+import { Card } from "~/app/_components/primitives/card";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { Chip } from "~/app/_components/primitives/chip";
 
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
   ...,
@@ -17,8 +23,15 @@ const campusPageQuery = groq`*[_type == "campus-page"][0]{
   }
 }`;
 
+const campusPageContactQuery = groq`*[_type == "contact-page"][0] {
+  infoEvening,
+  personalConsulting
+}`;
+
 const CampusPage: FC = async () => {
   const data = await sanityFetch<CampusPageQueryResult>(campusPageQuery, { tags: ["campus-page"] });
+
+  const contact = await sanityFetch<CampusPageContactQueryResult>(campusPageContactQuery, { tags: ["contact-page"] });
 
   return (
     <div className="rounded-b-3xl">
@@ -56,6 +69,45 @@ const CampusPage: FC = async () => {
           ))}
         </CampusInfoCardListProvider>
       </div>
+      <EndOfPageCTA
+        className="mt-32"
+        heading={data?.contactCTA?.heading || ""}
+        description={data?.contactCTA?.description || ""}
+      >
+        <Container className="flex flex-col items-stretch gap-8 xl:flex-row">
+          <Link href="/kontakt#info-event" className="flex-[2]">
+            <InfoEventCTACard
+              heading={contact?.infoEvening?.heading || ""}
+              description={contact?.infoEvening?.previewText || ""}
+              readMoreLabel={contact?.infoEvening?.readMoreLabel || ""}
+              timeSuffix={contact?.infoEvening?.timeSuffix || ""}
+              dates={
+                contact?.infoEvening?.nextDates
+                  ?.filter(({ eventDate }) => !!eventDate)
+                  .map(({ eventDate }) => new Date(eventDate!)) || []
+              }
+            />
+          </Link>
+          <Link href="/kontakt#personal-consulting" className="flex-1">
+            <Card className="group flex h-full flex-col rounded-3xl border border-neutral-400 bg-neutral-300">
+              <Heading>{contact?.personalConsulting?.name}</Heading>
+              <Paragraph className="flex-1">{contact?.personalConsulting?.previewText}</Paragraph>
+              <div className="mt-2 flex items-center gap-2">
+                <Chip>
+                  <Label>{contact?.personalConsulting?.booking?.type?.onlineLabel}</Label>
+                </Chip>
+                <Chip>
+                  <Label>{contact?.personalConsulting?.booking?.type?.offlineLabel}</Label>
+                </Chip>
+              </div>
+              <div className="mt-4 flex h-8 items-center gap-0 transition-all group-hover:gap-4">
+                <InteractionBubble />
+                <Label>{contact?.personalConsulting?.readMoreLabel}</Label>
+              </div>
+            </Card>
+          </Link>
+        </Container>
+      </EndOfPageCTA>
     </div>
   );
 };
