@@ -200,6 +200,42 @@ export const educationalProgram: SchemaTypeDef = {
         hidden: ({ document }) => !document?.showExternalCTA,
       }),
       defineField({
+        name: "followUpTrainingEnabled",
+        title: "Gibt es einen anderen Bildungsgang, der im Anschluss an diesen Bildungsgang empfohlen wird?",
+        type: "boolean",
+      }),
+      defineField({
+        name: "followUpTraining",
+        title: "Empfehlung des Folgebildungsgangs",
+        description:
+          "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, den er im Anschluss an diesen Bildungsgang gehen kann.",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: "10-40 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(10).max(40),
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            description: "Was sind die Vorteile die beiden Bildungsgänge zu verbinden?",
+            type: "text",
+            validation: (r) => r.required().min(50).max(300),
+          }),
+          defineField({
+            name: "educationalProgram",
+            title: "Folgebildungsgang",
+            type: "reference",
+            to: { type: "educational-program" },
+            validation: (r) => r.required(),
+          }),
+        ],
+        hidden: ({ document }) => !document?.followUpTrainingEnabled,
+      }),
+      defineField({
         name: "furtherInformation",
         title: "Weitere Informationen",
         description: "2-10 Einträge",

@@ -24,6 +24,9 @@ import { EducationalProgramDetails } from "~/app/_components/compounds/education
 import { GenericCTA } from "~/app/_components/compounds/generic-cta";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { FollowUpTrainingCTA } from "~/app/_components/compounds/follow-up-training-cta";
+import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
+import Link from "next/link";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -65,6 +68,19 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   externalCTA {
     ...,
     image { asset -> { url } }
+  },
+  followUpTraining {
+    ...,
+    educationalProgram -> {
+      slug,
+      name,
+      promotionalHeadline,
+      educationalProgramType -> {
+        slug,
+        name,
+        color
+      }
+    }
   }
 }`;
 
@@ -209,7 +225,32 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           />
         )}
 
-        <div className="mt-32 flex flex-col gap-32">
+        {program.followUpTrainingEnabled && (
+          <FollowUpTrainingCTA
+            className="mt-60"
+            heading={program.followUpTraining?.heading || ""}
+            description={program.followUpTraining?.description || ""}
+          >
+            <Container
+              width="narrow"
+              style={createColorThemeStyles(
+                ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
+              )}
+            >
+              <Link
+                href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
+              >
+                <EducationalProgramCard
+                  name={program.followUpTraining?.educationalProgram?.name || ""}
+                  headline={program.followUpTraining?.educationalProgram?.promotionalHeadline || ""}
+                  programType={program.followUpTraining?.educationalProgram?.educationalProgramType?.name || ""}
+                />
+              </Link>
+            </Container>
+          </FollowUpTrainingCTA>
+        )}
+
+        <div className="mt-60 flex flex-col gap-32">
           {program.furtherInformation?.map((item, index) => (
             <div
               key={index}
