@@ -7,7 +7,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { ArtPageQueryResult } from "../../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
-import { ChevronDownIcon } from "lucide-react";
+import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 
 const artPageQuery = groq`*[_type == "art-page"][0]{
   ...,
@@ -68,17 +68,12 @@ const ArtPage: FC = async () => {
         ))}
       </Container>
       <Container className="mt-48">
-        <div className="flex flex-col items-center">
-          <div className="h-48 w-px bg-gradient-to-b from-transparent to-primary-900" />
-          <div className="grid h-12 w-12 place-items-center rounded-full bg-primary-900">
-            <ChevronDownIcon className="text-primary-900-text" />
-          </div>
-        </div>
-        <Container width="narrow" className="mt-24 text-center">
-          <Heading>{data.educationalProgramTypesCTA?.heading}</Heading>
-          <Paragraph>{data.educationalProgramTypesCTA?.description}</Paragraph>
-        </Container>
-        <EducationalProgramTypeCards className="mt-24" />
+        <EndOfPageCTA
+          heading={data.educationalProgramTypesCTA?.heading || ""}
+          description={data.educationalProgramTypesCTA?.description || ""}
+        >
+          <EducationalProgramTypeCards />
+        </EndOfPageCTA>
       </Container>
     </>
   );
