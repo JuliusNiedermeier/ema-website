@@ -22,6 +22,8 @@ import Image from "next/image";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 import { GenericCTA } from "~/app/_components/compounds/generic-cta";
+import { Button } from "~/app/_components/primitives/button";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -35,6 +37,13 @@ const programPageQuery = groq`*[_type == "educational-program-page"][0]{
     startDate {
       ...,
       backgroundGraphic { asset -> { url } }
+    }
+  },
+  prerequisites {
+    ...,
+    checkupCTA {
+      ...,
+      image { asset -> { url } }
     }
   }
 }`;
@@ -225,14 +234,35 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           ))}
         </div>
 
-        <div className="mt-32 text-center sm:mt-64">
-          <Heading tag="h3">{program.prerequisites?.heading}</Heading>
-          <Paragraph className="mx-auto max-w-[40rem]">{program.prerequisites?.description}</Paragraph>
+        <Container width="narrow" className="mt-32 text-center sm:mt-64">
+          <Heading tag="h3">{programPage.prerequisites?.heading}</Heading>
+          <Paragraph className="">{program.prerequisites?.description}</Paragraph>
           <RequirementList
             className="mt-16"
+            seperatorLabel={programPage.prerequisites?.orLabel || ""}
             groups={program.prerequisites?.requirementGroups?.map(({ requirements }) => requirements || []) || []}
           />
-        </div>
+
+          <Card className="mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-transparent p-2 md:flex-row">
+            <div className="relative min-h-40 flex-1">
+              <Image
+                src={programPage.prerequisites?.checkupCTA?.image?.asset?.url || ""}
+                alt={programPage.prerequisites?.checkupCTA?.heading || ""}
+                height="500"
+                width="500"
+                className="absolute left-0 top-0 h-full w-full rounded-2xl object-cover object-right"
+              />
+            </div>
+            <div className="flex-1 p-6 text-left">
+              <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
+              <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
+              <Button href="/checkup" size="sm" className="mt-6 gap-4 pr-1">
+                <Label>{programPage.prerequisites?.checkupCTA?.linkLabel}</Label>
+                <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
+              </Button>
+            </div>
+          </Card>
+        </Container>
 
         <Container width="narrow" className="mt-32 text-balance text-center sm:mt-64">
           <Heading>{program.testimonials?.heading}</Heading>

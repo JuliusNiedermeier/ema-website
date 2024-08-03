@@ -5,9 +5,10 @@ import { CheckIcon } from "lucide-react";
 
 export type RequirementListProps = ComponentProps<"div"> & {
   groups: string[][];
+  seperatorLabel: string;
 };
 
-export const RequirementList: FC<RequirementListProps> = ({ className, groups, ...restProps }) => {
+export const RequirementList: FC<RequirementListProps> = ({ className, groups, seperatorLabel, ...restProps }) => {
   return (
     <div className={cn("flex flex-col justify-center gap-8 sm:flex-row", className)} {...restProps}>
       {groups.map((group, index, array) => (
@@ -25,7 +26,7 @@ export const RequirementList: FC<RequirementListProps> = ({ className, groups, .
           {index < array.length - 1 && (
             <div className="flex items-center gap-4 sm:flex-col">
               <div className="h-px flex-1 bg-neutral-400 sm:w-px" />
-              <Label>oder</Label>
+              <Label>{seperatorLabel}</Label>
               <div className="h-px flex-1 bg-neutral-400 sm:w-px" />
             </div>
           )}

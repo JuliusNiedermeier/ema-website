@@ -35,6 +35,52 @@ export const educationalProgramPage: SchemaTypeDef = {
           }),
         ],
       }),
+      defineField({
+        name: "prerequisites",
+        title: "Voraussetzungen",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: "5-40 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(5).max(40),
+          }),
+          defineField({
+            name: "orLabel",
+            title: "Label zwischen Vorraussetzungepaketen",
+            type: "string",
+          }),
+          defineField({
+            name: "checkupCTA",
+            title: "Checkup CTA",
+            type: "object",
+            fields: [
+              defineField({
+                name: "heading",
+                title: "Überschrift",
+                type: "string",
+              }),
+              defineField({
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+              defineField({
+                name: "linkLabel",
+                title: "Link-text",
+                type: "string",
+              }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                type: "image",
+              }),
+            ],
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Bildungsgang" }),

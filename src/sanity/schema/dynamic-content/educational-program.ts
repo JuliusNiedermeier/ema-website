@@ -245,13 +245,6 @@ export const educationalProgram: SchemaTypeDef = {
         type: "object",
         fields: [
           defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "5-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(5).max(40),
-          }),
-          defineField({
             name: "description",
             title: "Schriftliche Beschreibung der Grundvoraussetzungen",
             description: "50-300 Zeichen. Was für Interessen oder Fähigkeiten sollten Bewerber mitbringen?",
