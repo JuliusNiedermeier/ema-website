@@ -78,7 +78,7 @@ const CheckupPage: FC = async () => {
         <div className="rounded-b-3xl bg-neutral-200 py-8">
           <Container>
             <div className="flex items-stretch gap-12">
-              <div className="hidden flex-1 overflow-x-hidden rounded-3xl border border-neutral-400 bg-neutral-100 p-8 lg:block">
+              <div className="hidden flex-1 h-fit overflow-x-hidden rounded-3xl border border-neutral-400 bg-primary-100 p-8 lg:block">
                 <Heading size="sm">{data.form?.heading}</Heading>
                 <CheckupForm className="w-full" />
               </div>
