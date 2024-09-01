@@ -16,9 +16,11 @@ import { applicationCookieName } from "~/server/resources/application/applicatio
 import { notFound, redirect } from "next/navigation";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { ProgramsStepProps } from "~/app/_components/compounds/application-form/steps/programs";
+import { ApplicationFormInfoPopup } from "~/app/_components/compounds/application-form/info-popup";
 
 const applicationPageFormQuery = groq`*[_type == "application-page"][0]{
   title,
+  infoBanner,
   steps,
   navigation
 }`;
@@ -93,6 +95,14 @@ const GoPage: FC = async () => {
     >
       <div className="flex h-full flex-col">
         <GoLayoutHeader title={data.title || ""} />
+
+        <Container width="narrow">
+          <ApplicationFormInfoPopup
+            heading={data.infoBanner?.heading || ""}
+            description={data.infoBanner?.description || ""}
+            dismissLabel={data.infoBanner?.dismissLabel || ""}
+          />
+        </Container>
 
         <Container width="narrow" className="flex flex-1 gap-16">
           <ApplicationFormProgress

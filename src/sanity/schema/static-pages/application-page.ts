@@ -25,6 +25,29 @@ export const applicationPage: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
+        name: "infoBanner",
+        title: "Info-Banner",
+        description: "",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "dismissLabel",
+            title: "Text auf dem Button zum AAusblenden der Info",
+            type: "string",
+          }),
+        ],
+      }),
+      defineField({
         name: "steps",
         title: "Formular-Schritte",
         type: "object",

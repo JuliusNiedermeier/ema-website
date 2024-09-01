@@ -24,6 +24,9 @@ export type ApplicationFormState = {
 
   turnstileToken: string | null;
   setTurnstileToken: (token: string | null) => void;
+
+  showInfo: boolean | null;
+  setShowInfo: (show: boolean | null) => void;
 };
 
 export const useApplicationFormState = create(
@@ -49,9 +52,15 @@ export const useApplicationFormState = create(
 
       turnstileToken: null,
       setTurnstileToken: (token) => set((state) => ({ ...state, turnstileToken: token })),
+
+      showInfo: null,
+      setShowInfo: (showInfo) => set((state) => ({ ...state, showInfo })),
     }),
     {
       name: "application-form",
+      // Appearently setters must be called in this returned callback and on the state passed to it.
+      // Not the state passed to onRehydrateStorage
+      onRehydrateStorage: () => (state) => state?.showInfo === null && state.setShowInfo(true),
     },
   ),
 );
