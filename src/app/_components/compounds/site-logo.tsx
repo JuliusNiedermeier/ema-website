@@ -1,47 +1,53 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import Image from "next/image";
-import { VariantProps, cva } from "class-variance-authority";
+import { groq } from "next-sanity";
+import { sanityFetch } from "~/sanity/lib/client";
+import { WebsiteSettingsQueryResult } from "../../../../generated/sanity/types";
 
-const siteLogoVariants = cva("flex items-center gap-4", {
-  variants: {
-    light: {
-      true: "text-neutral-900-text [&>div>span:nth-child(2)]:text-neutral-900-text-muted",
-      false: "text-neutral-100-text [&>div>span:nth-child(2)]:text-neutral-100-text-muted",
-    },
-  },
-  defaultVariants: { light: false },
-});
+const websiteSettingsQuery = groq`*[_type == "website-settings"][0] {
+  logo {
+    textLogoDark { asset -> { url } },
+    textLogoLight { asset -> { url } },
+    logoMarkDark { asset -> { url } },
+    logoMarkLight { asset -> { url } }
+  }
+}`;
 
-export type SiteLogoProps = ComponentProps<"div"> &
-  VariantProps<typeof siteLogoVariants> & {
-    show?: "mark" | "text" | "both";
-  };
-
-export const SiteLogo: FC<SiteLogoProps> = ({ className, show = "both", light, ...restProps }) => {
-  return (
-    <div className={cn(siteLogoVariants({ light }), className)} {...restProps}>
-      {/* {(show === "mark" || show === "both") && <LogoSVG />} */}
-      {(show === "mark" || show === "both") && <Image src="/ema-logo.png" alt="Logo" width={50} height={50} />}
-      {(show === "text" || show === "both") && (
-        <div>
-          <span className="font-bold">Emil Molt</span>
-          <span className="ml-2">Akademie</span>
-        </div>
-      )}
-    </div>
-  );
+export type SiteLogoProps = ComponentProps<"div"> & {
+  show?: "mark" | "text" | "both";
+  variant?: "dark" | "light";
 };
 
-const LogoSVG: FC = () => {
+export const SiteLogo: FC<SiteLogoProps> = async ({ className, show = "both", variant = "dark", ...restProps }) => {
+  const websiteSettings = await sanityFetch<WebsiteSettingsQueryResult>(websiteSettingsQuery, {
+    tags: ["website-settings"],
+  });
+
+  const markURL =
+    variant === "dark"
+      ? websiteSettings?.logo?.logoMarkDark?.asset?.url
+      : websiteSettings?.logo?.logoMarkLight?.asset?.url;
+
+  const textURL =
+    variant === "dark"
+      ? websiteSettings?.logo?.textLogoDark?.asset?.url
+      : websiteSettings?.logo?.textLogoLight?.asset?.url;
+
   return (
-    <svg width="32" viewBox="0 0 43 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M40 3L18.8121 19.7619L9.3697 8.82011M2 26.0476H14.4364L16.5091 47M37.697 15.3386L23.8788 26.0476L28.0242 34.4286"
-        stroke="#2F5342"
-        strokeWidth="3"
-        strokeLinecap="square"
-      />
-    </svg>
+    <div className={cn("flex items-center gap-4", className)} {...restProps}>
+      {(show === "mark" || show === "both") && (
+        <Image src={markURL || ""} alt="Logo" width={200} height={200} className="h-12 w-12" />
+      )}
+      {(show === "text" || show === "both") && (
+        <Image
+          src={textURL || ""}
+          alt="Logo"
+          width={200}
+          height={200}
+          className="h-[0.9rem] object-contain object-left"
+        />
+      )}
+    </div>
   );
 };

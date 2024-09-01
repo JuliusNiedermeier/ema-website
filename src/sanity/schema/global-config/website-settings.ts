@@ -27,6 +27,33 @@ export const websiteSettingsType: SchemaTypeDef = {
         title: "Google-Tag-Manager ID",
         type: "string",
       }),
+      defineField({
+        name: "logo",
+        title: "Logo",
+        type: "object",
+        fields: [
+          defineField({
+            name: "textLogoDark",
+            title: "Text-Logo auf hellem Hintergrund",
+            type: "image",
+          }),
+          defineField({
+            name: "textLogoLight",
+            title: "Text-Logo auf dunklem Hintergrund",
+            type: "image",
+          }),
+          defineField({
+            name: "logoMarkLight",
+            title: "Logo auf hellem Hintergrund",
+            type: "image",
+          }),
+          defineField({
+            name: "logoMarkDark",
+            title: "Logo auf hellem Hintergrund",
+            type: "image",
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Website-Einstellungen" }),

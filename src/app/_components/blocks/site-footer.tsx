@@ -72,8 +72,8 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
         <footer>
           <div className="flex flex-col justify-between gap-12 pt-28 sm:gap-40 lg:flex-row">
             <div>
-              <SiteLogo show="mark" />
-              <SiteLogo show="text" light className="mt-2" />
+              <SiteLogo show="mark" variant="light" />
+              <SiteLogo show="text" variant="light" className="mt-4" />
               <Paragraph className="mt-8 text-neutral-900-text">
                 {footerConfig?.ctaHeading?.split(".").map((part, index, parts) => (
                   <>
