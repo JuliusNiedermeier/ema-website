@@ -1,5 +1,4 @@
 import { ComponentProps, FC } from "react";
-import Link from "next/link";
 import { cn } from "~/app/_utils/cn";
 import { Container } from "~/app/_components/primitives/container";
 import { Card } from "~/app/_components/primitives/card";
@@ -14,7 +13,8 @@ import {
 } from "../../../../../../generated/sanity/types";
 import { sanityFetch } from "~/sanity/lib/client";
 import Image from "next/image";
-import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
+import { ensureValidHSL } from "~/app/_utils/color-swatch";
+import { ProgramMenuLink, ProgramTypeMenuLink } from "~/app/_components/compounds/programs-menu-link";
 
 const offersGridProgramTypesQuery = groq`*[_type == "educational-program-type"]{
   ...,
@@ -80,32 +80,19 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-4 xl:flex-1">
           {programTypesWithPrograms.map((programType) => (
             <div key={programType._id} className="flex flex-1 flex-col gap-2 rounded-3xl border p-2">
-              <Link
+              <ProgramTypeMenuLink
                 href={`/bildungswege/${programType.slug?.current}`}
-                className="group flex items-center gap-3 rounded-2xl p-2 transition-colors hover:bg-neutral-400"
-              >
-                <InteractionBubble animated={false} className="bg-neutral-400 text-primary-900" />
-                <div className="flex-1 overflow-hidden">
-                  <Heading size="sm" className="mb-0 overflow-hidden text-ellipsis whitespace-nowrap">
-                    {programType.name}
-                  </Heading>
-                  <Paragraph className="mb-0 overflow-hidden text-ellipsis whitespace-nowrap">
-                    {programType.promotionalHeadline} {programType.promotionalHeadline}{" "}
-                    {programType.promotionalHeadline}
-                  </Paragraph>
-                </div>
-              </Link>
+                heading={programType.name || ""}
+                description={programType.promotionalHeadline || ""}
+              />
               <div className="flex flex-1 flex-col gap-2">
                 {programType.programs.map((program) => (
-                  <Link
-                    href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
+                  <ProgramMenuLink
                     key={program._id}
-                    style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}
-                    className="group flex flex-1 items-center gap-3 rounded-2xl bg-themed-primary p-2 transition-all hover:bg-themed-secondary"
-                  >
-                    <InteractionBubble animated={false} className="rounded-xl" />
-                    <Label className="m-0 whitespace-nowrap">{program.name}</Label>
-                  </Link>
+                    href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
+                    heading={program.name || ""}
+                    color={ensureValidHSL(programType.color?.hsl)}
+                  />
                 ))}
               </div>
             </div>
