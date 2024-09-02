@@ -22,7 +22,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
     <div className={cn("", className)} {...restProps}>
       <div className="flex items-center justify-between px-4">
         <Label>{heading}</Label>
-        <Link href="/blog" className="group flex items-center gap-2">
+        <Link href="/blog/alle" className="group flex items-center gap-2">
           <Label>{allPostsLabel}</Label>
           <ArrowRight className="transition-transform group-hover:translate-x-2" />
         </Link>

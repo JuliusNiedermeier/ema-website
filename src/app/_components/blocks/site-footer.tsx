@@ -57,7 +57,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
     ["economySocial", "/about/wirtschaft-und-soziales"],
     ["art", "/about/kunst"],
     ["campus", "/about/campus"],
-    ["blog", "/blog"],
+    ["blog", "/blog/alle"],
     ["contact", "/kontakt"],
     ["fees", "/schulbeitrag"],
     ["jobs", "/offene-stellen"],
