@@ -159,7 +159,7 @@ const HomePage: FC = async () => {
               title: post.title || "",
               imageURL: post.mainImage?.asset?.url || "",
               slug: post.slug?.current || "",
-              category: post.category?.title || "",
+              category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
             }))}
           />
         </Container>

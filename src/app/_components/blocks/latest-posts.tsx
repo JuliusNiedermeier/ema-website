@@ -14,7 +14,7 @@ import { PostCardThumbnailTag } from "../primitives/post-card";
 export type LatestPostsProps = ComponentProps<"div"> & {
   heading: string;
   allPostsLabel: string;
-  posts: { imageURL: string; title: string; slug: string; category: string }[];
+  posts: { imageURL: string; title: string; slug: string; category: { title: string; slug: string } }[];
 };
 
 export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, allPostsLabel, posts, ...restProps }) => {
@@ -22,7 +22,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
     <div className={cn("", className)} {...restProps}>
       <div className="flex items-center justify-between px-4">
         <Label>{heading}</Label>
-        <Link href="/blog" className="group flex items-center gap-2">
+        <Link href="/blog/all" className="group flex items-center gap-2">
           <Label>{allPostsLabel}</Label>
           <ArrowRight className="transition-transform group-hover:translate-x-2" />
         </Link>
@@ -32,7 +32,10 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
           <CardCarousel>
             {posts.map((post, index) => (
               <CardCarouselItem key={index} asChild>
-                <Link href={`/blog/${post.slug}`} className="group min-w-60 flex-1 rounded-3xl border p-2">
+                <Link
+                  href={`/blog/${post.category.slug}/${post.slug}`}
+                  className="group min-w-60 flex-1 rounded-3xl border p-2"
+                >
                   <div className="relative aspect-video overflow-hidden rounded-2xl">
                     <Image
                       src={post.imageURL}
@@ -42,7 +45,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                       className="w-full object-cover"
                     />
                     <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-                    <PostCardThumbnailTag>{post.category}</PostCardThumbnailTag>
+                    <PostCardThumbnailTag>{post.category.title}</PostCardThumbnailTag>
                   </div>
                   <Label className="block p-2">{post.title}</Label>
                 </Link>

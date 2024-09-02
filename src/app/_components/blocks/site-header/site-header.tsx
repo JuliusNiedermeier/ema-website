@@ -51,7 +51,7 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
                   href="/bildungswege"
                   menuContent={<OffersMenu className="max-h-[70vh] overflow-y-auto" />}
                 />
-                <NavigationMenuItem label={headerConfig?.navLinks?.blog || ""} href="/blog" />
+                <NavigationMenuItem label={headerConfig?.navLinks?.blog || ""} href="/blog/all" />
                 <NavigationMenuItem label={headerConfig?.navLinks?.contact || ""} href="/kontakt" />
 
                 <Button

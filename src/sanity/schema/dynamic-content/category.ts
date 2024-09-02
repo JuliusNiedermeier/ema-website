@@ -15,6 +15,11 @@ export const category: SchemaTypeDef = {
         title: "Name",
         type: "string",
       }),
+      defineField({
+        name: "slug",
+        title: "Slug",
+        type: "slug",
+      }),
     ],
   }),
 };

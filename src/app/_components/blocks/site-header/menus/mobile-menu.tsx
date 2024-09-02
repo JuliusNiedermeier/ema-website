@@ -17,7 +17,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ className, ...restProps }) => 
             Home
           </Heading>
         </Link>
-        <Link href="/blog">
+        <Link href="/blog/all">
           <Heading size="lg" tag="h3">
             Blog
           </Heading>

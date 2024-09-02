@@ -8,7 +8,7 @@ import {
   PostQueryResult,
   PostSlugsQueryResult,
   RelatedPostsQueryResult,
-} from "../../../../../../../generated/sanity/types";
+} from "../../../../../../../../generated/sanity/types";
 import { Chip } from "~/app/_components/primitives/chip";
 import { notFound } from "next/navigation";
 import { PostCardMeta, PostCardMetaDate, PostCardMetaSeparator } from "~/app/_components/primitives/post-card";
@@ -18,9 +18,9 @@ import { PostContent } from "~/app/_components/blocks/post-content";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 
-const postSlugsQuery = groq`*[_type == "post"]{ slug }`;
+const postSlugsQuery = groq`*[_type == "post"]{ slug, category -> { slug } }`;
 
-const postQuery = groq`*[_type == "post" && slug.current == $slug][0]{
+const postQuery = groq`*[_type == "post" && category->slug.current == $category && slug.current == $slug][0]{
   ...,
   mainImage {asset->{url}},
   author->{name, image{asset->{url}}},
@@ -36,21 +36,18 @@ const relatedPostsQuery = groq`*[_type == "post" && category._ref == $currentPos
 
 const postPageQuery = groq`*[_type == "post-page"][0]`;
 
-type Params = { slug: string };
+type Params = { category: string; slug: string };
 type Props = { params: Params };
 
-export const generateStaticParams = async (): Promise<Params[]> => {
+export const generateStaticParams = async (): Promise<Partial<Params>[]> => {
   const posts = await sanityFetch<PostSlugsQueryResult>(postSlugsQuery, { draftMode: false });
 
-  return posts
-    .map((post) => post.slug?.current)
-    .filter((slug) => typeof slug === "string")
-    .map((slug) => ({ slug }));
+  return posts.map((post) => ({ category: post.category?.slug?.current, slug: post.slug?.current }));
 };
 
-const PostPage: FC<Props> = async ({ params: { slug } }) => {
+const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
   const post = await sanityFetch<PostQueryResult>(postQuery, {
-    params: { slug: decodeURIComponent(slug) },
+    params: { category: decodeURIComponent(category), slug: decodeURIComponent(slug) },
     tags: ["post", "author", "category"],
   });
 
@@ -130,7 +127,7 @@ const PostPage: FC<Props> = async ({ params: { slug } }) => {
             title: post.title || "",
             imageURL: post.mainImage?.asset?.url || "",
             slug: post.slug?.current || "",
-            category: post.category?.title || "",
+            category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
           }))}
         />
 
