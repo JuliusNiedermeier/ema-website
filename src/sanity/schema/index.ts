@@ -33,6 +33,7 @@ import { bentoCTAConfigType } from "./global-components/bento-cta";
 import { timeSelect } from "./internal/time-select";
 import { applicationPage } from "./static-pages/application-page";
 import { educationalProgramPage } from "./dynamic-pages/educational-program-page";
+import { feesPage } from "./static-pages/fees-page";
 
 export type SchemaTypeDef = {
   type:
@@ -52,12 +53,13 @@ const typeDefs = [
   economySocialPage,
   campusPage,
   artPage,
-  contactPage,
+  applicationPage,
   checkupPage,
+  contactPage,
+  feesPage,
   jobsPage,
   privacyPage,
   impressumPage,
-  applicationPage,
 
   // Dynamic pages
   postPage,
