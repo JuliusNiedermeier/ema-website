@@ -40,6 +40,7 @@ const FeesPage: FC = async () => {
         type: { ID: program.educationalProgramType!._id, title: program.educationalProgramType?.name || "" },
         color: ensureValidHSL(program.educationalProgramType?.color?.hsl),
       },
+      // TODO: connect CMS data
       fees: [
         { incomeRangeLabel: "unter 19k €", fee: 75 },
         { incomeRangeLabel: "19k bis 22k €", fee: 80 },
@@ -62,6 +63,7 @@ const FeesPage: FC = async () => {
   return (
     <Container width="narrow" className="my-32">
       <Heading>{pageData.heading}</Heading>
+      {/* TODO: Connect CMS data */}
       <Paragraph>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet aliquid consectetur, doloremque architecto
         aliquam quae. Minus, porro laudantium? Facere tempora perspiciatis minima impedit illo ducimus fugit totam
