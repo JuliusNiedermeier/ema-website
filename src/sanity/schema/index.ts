@@ -34,6 +34,7 @@ import { timeSelect } from "./internal/time-select";
 import { applicationPage } from "./static-pages/application-page";
 import { educationalProgramPage } from "./dynamic-pages/educational-program-page";
 import { feesPage } from "./static-pages/fees-page";
+import { blogPage } from "./static-pages/blog-page";
 
 export type SchemaTypeDef = {
   type:
@@ -53,6 +54,7 @@ const typeDefs = [
   economySocialPage,
   campusPage,
   artPage,
+  blogPage,
   applicationPage,
   checkupPage,
   contactPage,
