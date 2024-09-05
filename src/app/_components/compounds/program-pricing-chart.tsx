@@ -9,6 +9,25 @@ import { cn } from "~/app/_utils/cn";
 import { Label } from "../primitives/typography";
 import { groupBy } from "~/app/_utils/group-by";
 import { Chip } from "../primitives/chip";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+type ProgramFeesChartState = {
+  selectedProgramID: string | null;
+  setSelectedProgramID: (ID: string) => void;
+};
+
+const useProgramFeesChartStore = create(
+  persist<ProgramFeesChartState>(
+    (set) => ({
+      selectedProgramID: null,
+      setSelectedProgramID: (ID) => set((state) => ({ ...state, selectedProgramID: ID })),
+    }),
+    {
+      name: "program-fees",
+    },
+  ),
+);
 
 export type ProgramPricingChartProps = ComponentProps<"div"> & {
   programFees: {
@@ -18,10 +37,10 @@ export type ProgramPricingChartProps = ComponentProps<"div"> & {
 };
 
 export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, programFees, ...restProps }) => {
-  const [programID, setProgramID] = useState<string>("");
+  const { selectedProgramID, setSelectedProgramID } = useProgramFeesChartStore();
 
   const selectedProgram = useMemo(() => {
-    const selectedProgram = programFees.find(({ program }) => program.ID === programID);
+    const selectedProgram = programFees.find(({ program }) => program.ID === selectedProgramID);
 
     if (!selectedProgram) return { program: null, fees: [] };
 
@@ -35,7 +54,7 @@ export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, p
     }));
 
     return { program: selectedProgram.program, fees: mappedFees };
-  }, [programFees, programID]);
+  }, [programFees, selectedProgramID]);
 
   const groupedPrograms = groupBy(programFees, (program) => program.program.type.ID);
 
@@ -45,7 +64,7 @@ export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, p
       <Chip className="border border-neutral-400 bg-neutral-200">
         <Label>Ausgewählter Bildungsgang</Label>
       </Chip>
-      <Select.Root value={programID} onValueChange={setProgramID}>
+      <Select.Root value={selectedProgramID || ""} onValueChange={setSelectedProgramID}>
         <Select.Trigger className="relative mt-2 w-full rounded-2xl">
           <Select.Value placeholder="Bildungsgang auswählen" />
           <Select.Icon className="absolute bottom-0 right-0 top-0 grid w-12 place-items-center">
@@ -62,7 +81,7 @@ export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, p
                 const colorThemeStyles = createColorThemeStyles(groupedPrograms[programID][0].program.color);
                 return (
                   <Select.Group key={programID} className="rounded-2xl bg-themed-primary p-1" style={colorThemeStyles}>
-                    {groupedPrograms[programID].map(({ program, fees }) => (
+                    {groupedPrograms[programID].map(({ program }) => (
                       <Select.Item
                         key={program.ID}
                         value={program.ID}
