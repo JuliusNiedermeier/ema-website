@@ -13,7 +13,7 @@ import {
   useState,
 } from "react";
 import { cn } from "~/app/_utils/cn";
-import { Heading, Label, Paragraph } from "../primitives/typography";
+import { Heading, Label } from "../primitives/typography";
 import { ArrowUpRightIcon } from "lucide-react";
 
 let lastID = 0;
@@ -22,7 +22,7 @@ const createID = () => (lastID++).toString();
 
 type AnimationState = "expanding" | "expanded" | "closing" | "closed";
 
-export type CampusInfoCardProps = ComponentProps<"div"> & {
+export type ExpandableInfoCardProps = ComponentProps<"div"> & {
   title: string;
   subtitle: string;
 };
@@ -30,7 +30,7 @@ export type CampusInfoCardProps = ComponentProps<"div"> & {
 const maxWidth = 500;
 const animationDuration = 150;
 
-export const CampusInfoCard: FC<CampusInfoCardProps> = ({
+export const ExpandableInfoCard: FC<ExpandableInfoCardProps> = ({
   className,
   onClick,
   title,
@@ -38,7 +38,7 @@ export const CampusInfoCard: FC<CampusInfoCardProps> = ({
   children,
   ...restProps
 }) => {
-  const { expandedID, setExpandedID } = useCampusInfoCardList();
+  const { expandedID, setExpandedID } = useExpandableInfoCardList();
   const IDRef = useRef(createID());
   const containerRef = useRef<HTMLDivElement>(null);
   const contentWindowRef = useRef<HTMLDivElement>(null);
@@ -57,7 +57,8 @@ export const CampusInfoCard: FC<CampusInfoCardProps> = ({
     if (!containerRef.current || !contentRef.current) return;
 
     const parentWidth = containerRef.current.parentElement?.clientWidth;
-    if (!parentWidth) return console.warn("CampusInfoCard must have a parent element to calculate its expanded width.");
+    if (!parentWidth)
+      return console.warn("ExpandableInfoCard must have a parent element to calculate its expanded width.");
 
     const currentWidth = contentWindowRef.current?.clientWidth;
     const targetWidth = parentWidth > maxWidth ? maxWidth : parentWidth;
@@ -139,23 +140,27 @@ export const CampusInfoCard: FC<CampusInfoCardProps> = ({
   );
 };
 
-type CampusInfoCardListContext = { expandedID: string | null; setExpandedID: Dispatch<SetStateAction<string | null>> };
-const CampusInfoCardListContext = createContext<CampusInfoCardListContext>({
+type ExpandableInfoCardListContext = {
+  expandedID: string | null;
+  setExpandedID: Dispatch<SetStateAction<string | null>>;
+};
+const ExpandableInfoCardListContext = createContext<ExpandableInfoCardListContext>({
   expandedID: null,
   setExpandedID: () => {},
 });
 
-export const useCampusInfoCardList = () => {
-  const context = useContext(CampusInfoCardListContext);
-  if (!context) throw new Error("Hook useCampusInfoCardList must be used within a <CampusInfoCardListProvider>.");
+export const useExpandableInfoCardList = () => {
+  const context = useContext(ExpandableInfoCardListContext);
+  if (!context)
+    throw new Error("Hook useExpandableInfoCardList must be used within a <ExpandableInfoCardListProvider>.");
   return context;
 };
 
-export const CampusInfoCardListProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [expandedID, setExpandedID] = useState<CampusInfoCardListContext["expandedID"]>(null);
+export const ExpandableInfoCardListProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [expandedID, setExpandedID] = useState<ExpandableInfoCardListContext["expandedID"]>(null);
   return (
-    <CampusInfoCardListContext.Provider value={{ expandedID, setExpandedID }}>
+    <ExpandableInfoCardListContext.Provider value={{ expandedID, setExpandedID }}>
       {children}
-    </CampusInfoCardListContext.Provider>
+    </ExpandableInfoCardListContext.Provider>
   );
 };
