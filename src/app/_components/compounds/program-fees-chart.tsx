@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, FC, useMemo, useState } from "react";
+import { ComponentProps, FC, useMemo } from "react";
 import { transform } from "framer-motion";
 import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ChevronUpIcon } from "lucide-react";
@@ -67,7 +67,11 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({ className, program
       </Chip>
       <Select.Root value={selectedProgramID || ""} onValueChange={setSelectedProgramID}>
         <Select.Trigger className="relative mt-2 w-full rounded-2xl">
-          <Select.Value placeholder="Bildungsgang auswählen" />
+          {/* TODO: Connect CMS */}
+          <Select.Value
+            placeholder={<Label className="block w-full p-4 text-left">Bildungsgang wählen</Label>}
+            className="text-left"
+          />
           <Select.Icon className="absolute bottom-0 right-0 top-0 grid w-12 place-items-center">
             <ChevronsUpDownIcon size={18} />
           </Select.Icon>
