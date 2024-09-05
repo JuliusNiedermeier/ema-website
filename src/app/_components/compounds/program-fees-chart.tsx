@@ -29,14 +29,14 @@ const useProgramFeesChartStore = create(
   ),
 );
 
-export type ProgramPricingChartProps = ComponentProps<"div"> & {
+export type ProgramFeesChartProps = ComponentProps<"div"> & {
   programFees: {
     program: { ID: string; title: string; type: { ID: string; title: string }; color: HSLValue };
     fees: { incomeRangeLabel: string; fee: number }[];
   }[];
 };
 
-export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, programFees, ...restProps }) => {
+export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({ className, programFees, ...restProps }) => {
   const { selectedProgramID, setSelectedProgramID } = useProgramFeesChartStore();
 
   const selectedProgram = useMemo(() => {

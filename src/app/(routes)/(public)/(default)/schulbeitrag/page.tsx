@@ -5,7 +5,7 @@ import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
 import { FeesPageProgramsQueryResult, FeesPageQueryResult } from "../../../../../../generated/sanity/types";
-import { ProgramPricingChart } from "~/app/_components/compounds/program-pricing-chart";
+import { ProgramFeesChart } from "~/app/_components/compounds/program-fees-chart";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 
 const feesPageQuery = groq`*[_type == "fees-page"][0] {
@@ -31,7 +31,7 @@ const FeesPage: FC = async () => {
     tags: ["educational-program", "educational-program-type"],
   });
 
-  const programFees: ComponentProps<typeof ProgramPricingChart>["programFees"] = programs
+  const programFees: ComponentProps<typeof ProgramFeesChart>["programFees"] = programs
     ?.filter((program) => program.educationalProgramType)
     .map((program) => ({
       program: {
@@ -67,7 +67,7 @@ const FeesPage: FC = async () => {
         aliquam quae. Minus, porro laudantium? Facere tempora perspiciatis minima impedit illo ducimus fugit totam
         distinctio atque expedita?
       </Paragraph>
-      <ProgramPricingChart className="mt-12" programFees={programFees} />
+      <ProgramFeesChart className="mt-12" programFees={programFees} />
     </Container>
   );
 };
