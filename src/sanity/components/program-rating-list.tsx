@@ -94,6 +94,7 @@ export const ProgramRatingList: FC<ProgramRatingListProps> = ({
       ) : (
         <Card padding={4} border radius={2} tone="caution">
           <Stack space={3}>
+            {/* TODO: Connect CMS */}
             <Heading>Keine Bildungsgänge vorhanden</Heading>
             <Text muted>Bitte lege erst Bildungsgänge an, bevor du die Checkup-Seite einrichtest.</Text>
           </Stack>

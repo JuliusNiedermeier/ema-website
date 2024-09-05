@@ -62,6 +62,7 @@ export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, p
     <div className={cn("", className)} {...restProps}>
       {/* PROGRAM SELECT */}
       <Chip className="border border-neutral-400 bg-neutral-200">
+        {/* TODO: Connect CMS */}
         <Label>Ausgewählter Bildungsgang</Label>
       </Chip>
       <Select.Root value={selectedProgramID || ""} onValueChange={setSelectedProgramID}>
@@ -116,8 +117,10 @@ export const ProgramPricingChart: FC<ProgramPricingChartProps> = ({ className, p
       {/* FEE CHART */}
       <div className="mt-8 flex items-center justify-between rounded-full border border-neutral-400 bg-neutral-200 p-2">
         <Chip className="border border-neutral-400 bg-neutral-300">
+          {/* TODO: Connect CMS */}
           <Label>Haushaltseinkommen</Label>
         </Chip>
+        {/* TODO: Connect CMS */}
         <Label className="mr-4 block">Beitrag</Label>
       </div>
       <div className="mt-2 flex flex-col gap-2">
