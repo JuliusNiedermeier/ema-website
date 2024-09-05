@@ -22,17 +22,6 @@ import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/prim
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
 
-const latestPostQuery = groq`*[_type == "post"] | order(publishedAt desc) [0] {
-  _id,
-  slug,
-  title,
-  mainImage{asset->{url}},
-  publishedAt,
-  category->,
-  author->{name, image{asset->{url}}},
-  excerpt
-}`;
-
 const postsQuery = groq`*[_type == "post" && (!defined($category) || category->slug.current == $category)] | order(publishedAt desc) {
   _id,
   slug,
@@ -52,6 +41,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
     tags: ["post", "author", "category"],
   });
 
+  // TODO: Pretty placeholder
   if (!latestPost) return <Heading>Noch keine veröffentlichten Beiträge</Heading>;
 
   return (
@@ -60,6 +50,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
         <Container className="mt-4">
           <div className="flex items-center gap-4">
             <SparkleIcon />
+            {/* TODO: connect to CMS */}
             <Label>Neu erschienen</Label>
           </div>
           <Link href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`}>
