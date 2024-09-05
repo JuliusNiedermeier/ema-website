@@ -17,10 +17,14 @@ import {
   PostCardThumbnailTag,
   PostCardTitle,
 } from "~/app/_components/primitives/post-card";
-import { PostsQueryResult } from "../../../../../../../generated/sanity/types";
+import { BlogPageQueryResult, PostsQueryResult } from "../../../../../../../generated/sanity/types";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
+
+const blogPageQuery = groq`*[_type == "blog-page"][0] {
+  ...
+}`;
 
 const postsQuery = groq`*[_type == "post" && (!defined($category) || category->slug.current == $category)] | order(publishedAt desc) {
   _id,
@@ -36,6 +40,8 @@ const postsQuery = groq`*[_type == "post" && (!defined($category) || category->s
 const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
   const categorySlug = params.category === "alle" ? null : params.category;
 
+  const blogPage = await sanityFetch<BlogPageQueryResult>(blogPageQuery, { tags: ["blog-page"] });
+
   const [latestPost, ...posts] = await sanityFetch<PostsQueryResult>(postsQuery, {
     params: { category: categorySlug },
     tags: ["post", "author", "category"],
@@ -50,8 +56,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
         <Container className="mt-4">
           <div className="flex items-center gap-4">
             <SparkleIcon />
-            {/* TODO: connect to CMS */}
-            <Label>Neu erschienen</Label>
+            <Label>{blogPage?.latestPostLabel}</Label>
           </div>
           <Link href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`}>
             <PostCard className="mt-4 block">
