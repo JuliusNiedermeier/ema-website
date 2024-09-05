@@ -1,9 +1,9 @@
 import { groq } from "next-sanity";
 import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Label } from "~/app/_components/primitives/typography";
+import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { SparkleIcon } from "lucide-react";
+import { BrainIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import {
   PostCard,
@@ -21,6 +21,8 @@ import { BlogPageQueryResult, PostsQueryResult } from "../../../../../../../gene
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
+import { Chip } from "~/app/_components/primitives/chip";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
 
 const blogPageQuery = groq`*[_type == "blog-page"][0] {
   ...
@@ -47,8 +49,19 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
     tags: ["post", "author", "category"],
   });
 
-  // TODO: Pretty placeholder
-  if (!latestPost) return <Heading>Noch keine veröffentlichten Beiträge</Heading>;
+  if (!latestPost)
+    return (
+      <div className="rounded-b-3xl bg-neutral-200">
+        <Container width="narrow" className="flex flex-col items-center py-32 text-center">
+          <IconChip>
+            <BrainIcon size="24" />
+          </IconChip>
+          <Chip className="mt-4">{blogPage?.placeholder?.preHeading}</Chip>
+          <Heading className="mt-8">{blogPage?.placeholder?.heading}</Heading>
+          <Paragraph>{blogPage?.placeholder?.description}</Paragraph>
+        </Container>
+      </div>
+    );
 
   return (
     <>

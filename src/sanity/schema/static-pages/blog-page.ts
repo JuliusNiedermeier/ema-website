@@ -18,6 +18,29 @@ export const blogPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(30),
       }),
+      defineField({
+        name: "placeholder",
+        title: "Platzhalter",
+        description: "Inhalte die angezeigt werden, wenn keine veröffentlichte Blogbeiträge vorhanden sind.",
+        type: "object",
+        fields: [
+          defineField({
+            name: "preHeading",
+            title: "Kurzer Text über der Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Blogbeiträge" }),
