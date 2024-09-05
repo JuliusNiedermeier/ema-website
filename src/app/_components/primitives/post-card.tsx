@@ -28,7 +28,7 @@ export const PostCardThumbnailImage: FC<PostCardThumbnailImageProps> = ({
 }) => {
   return (
     <Image
-      className={cn("rounded-xl object-cover", className)}
+      className={cn("w-full rounded-xl object-cover", className)}
       width={width}
       height={height}
       alt={alt} // Cannot be included in restProps and must be passed explicitly to prevent ESLint missing alt tag warning
