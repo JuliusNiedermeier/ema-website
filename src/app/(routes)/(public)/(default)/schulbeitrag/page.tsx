@@ -7,14 +7,19 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { FeesPageProgramsQueryResult, FeesPageQueryResult } from "../../../../../../generated/sanity/types";
 import { ProgramFeesChart } from "~/app/_components/compounds/program-fees-chart";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
+import { Card } from "~/app/_components/primitives/card";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { PlusIcon } from "lucide-react";
 
 const feesPageQuery = groq`*[_type == "fees-page"][0] {
-  ...
+  ...,
+  defaultProgram -> { _id }
 }`;
 
 const feesPageProgramsQuery = groq`*[_type == "educational-program"] {
   _id,
   name,
+  fees,
   educationalProgramType -> {
     _id,
     name,
@@ -31,46 +36,83 @@ const FeesPage: FC = async () => {
     tags: ["educational-program", "educational-program-type"],
   });
 
-  const programFees: ComponentProps<typeof ProgramFeesChart>["programFees"] = programs
-    ?.filter((program) => program.educationalProgramType)
-    .map((program) => ({
-      program: {
-        ID: program._id,
-        title: program.name || "",
-        type: { ID: program.educationalProgramType!._id, title: program.educationalProgramType?.name || "" },
-        color: ensureValidHSL(program.educationalProgramType?.color?.hsl),
-      },
-      // TODO: connect CMS data
-      fees: [
-        { incomeRangeLabel: "unter 19k €", fee: 75 },
-        { incomeRangeLabel: "19k bis 22k €", fee: 80 },
-        { incomeRangeLabel: "22k bis 24k €", fee: 90 },
-        { incomeRangeLabel: "24k bis 26k €", fee: 100 },
-        { incomeRangeLabel: "26k bis 28k €", fee: 115 },
-        { incomeRangeLabel: "28k bis 32k €", fee: 125 },
-        { incomeRangeLabel: "32k bis 35k €", fee: 130 },
-        { incomeRangeLabel: "35k bis 38k €", fee: 135 },
-        { incomeRangeLabel: "38k bis 40k €", fee: 145 },
-        { incomeRangeLabel: "40k bis 42k €", fee: 155 },
-        { incomeRangeLabel: "42k bis 44k €", fee: 165 },
-        { incomeRangeLabel: "44k bis 48k €", fee: 175 },
-        { incomeRangeLabel: "48k bis 52k €", fee: 190 },
-        { incomeRangeLabel: "52k bis 56k €", fee: 200 },
-        { incomeRangeLabel: "über 56k €", fee: 220 },
-      ],
-    }));
+  type FeeGroups = ComponentProps<typeof ProgramFeesChart>["programFees"][0]["feeGroups"];
+
+  const programFees: ComponentProps<typeof ProgramFeesChart>["programFees"] =
+    programs
+      ?.filter((program) => program.educationalProgramType)
+      .map((program) => {
+        const feeCoverageRateIndex = program.fees?.fees?.findIndex((fee) => fee.isCoverageRate);
+
+        const fees: FeeGroups[0]["fees"] =
+          program.fees?.fees?.map((fee) => ({
+            incomeRangeLabel: fee.income || "-",
+            fee: fee.fee || 0,
+            isCoverageRate: fee.isCoverageRate || false,
+          })) || [];
+
+        return {
+          program: {
+            ID: program._id,
+            title: program.name || "",
+            type: { ID: program.educationalProgramType!._id, title: program.educationalProgramType?.name || "" },
+            color: ensureValidHSL(program.educationalProgramType?.color?.hsl),
+          },
+          feeGroups:
+            feeCoverageRateIndex !== undefined
+              ? [
+                  {
+                    title: pageData.feeGroups?.belowCoverage?.title || "",
+                    description: pageData.feeGroups?.belowCoverage?.description,
+                    fees: fees.slice(0, feeCoverageRateIndex),
+                  },
+                  {
+                    title: pageData.feeGroups?.coverage || "",
+                    fees: [fees[feeCoverageRateIndex]],
+                    highlight: true,
+                  },
+                  {
+                    title: pageData.feeGroups?.aboveCoverage?.title || "",
+                    description: pageData.feeGroups?.aboveCoverage?.description,
+                    fees: fees.slice(feeCoverageRateIndex + 1),
+                  },
+                ]
+              : [],
+        };
+      }) || [];
 
   return (
-    <Container width="narrow" className="my-32">
-      <Heading>{pageData.heading}</Heading>
-      {/* TODO: Connect CMS data */}
-      <Paragraph>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet aliquid consectetur, doloremque architecto
-        aliquam quae. Minus, porro laudantium? Facere tempora perspiciatis minima impedit illo ducimus fugit totam
-        distinctio atque expedita?
-      </Paragraph>
-      <ProgramFeesChart className="mt-12" programFees={programFees} />
-    </Container>
+    <>
+      <div className="bg-neutral-200">
+        <Container className="pb-4 pt-32">
+          <Container width="narrow" className="text-center">
+            <Heading>{pageData.heading}</Heading>
+            <Paragraph>{pageData.introduction}</Paragraph>
+          </Container>
+          <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-2 sm:gap-4">
+            {pageData.highlights?.map((highlight, index) => (
+              <Card key={index} className="flex-1 border bg-primary-900 text-neutral-900-text">
+                <IconChip className="bg-primary-100 text-primary-100-text">
+                  <PlusIcon />
+                </IconChip>
+                <Paragraph className="mt-4">{highlight.description}</Paragraph>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </div>
+      <Container className="mt-24">
+        <ProgramFeesChart
+          className="mt-12"
+          programSelectLabel={pageData.programSelectLabel || ""}
+          programSelectPlaceholder={pageData.programSelectPlaceholder || ""}
+          incomeLabel={pageData.incomeLabel || ""}
+          feeLabel={pageData.feeLabel || ""}
+          defaultProgramID={pageData.defaultProgram?._id || null}
+          programFees={programFees}
+        />
+      </Container>
+    </>
   );
 };
 

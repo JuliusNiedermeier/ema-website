@@ -6,7 +6,7 @@ import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, ChevronUpIcon } from "lucide-react";
 import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 import { cn } from "~/app/_utils/cn";
-import { Label } from "../primitives/typography";
+import { Heading, Label, Paragraph } from "../primitives/typography";
 import { groupBy } from "~/app/_utils/group-by";
 import { Chip } from "../primitives/chip";
 import { create } from "zustand";
@@ -30,46 +30,62 @@ const useProgramFeesChartStore = create(
 );
 
 export type ProgramFeesChartProps = ComponentProps<"div"> & {
+  programSelectLabel: string;
+  programSelectPlaceholder: string;
+  incomeLabel: string;
+  feeLabel: string;
+  defaultProgramID: string | null;
   programFees: {
     program: { ID: string; title: string; type: { ID: string; title: string }; color: HSLValue };
-    fees: { incomeRangeLabel: string; fee: number }[];
+    feeGroups: {
+      title: string;
+      description?: string;
+      highlight?: boolean;
+      fees: { incomeRangeLabel: string; fee: number; isCoverageRate: boolean }[];
+    }[];
   }[];
 };
 
-export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({ className, programFees, ...restProps }) => {
+export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({
+  className,
+  programSelectLabel,
+  programSelectPlaceholder,
+  incomeLabel,
+  feeLabel,
+  defaultProgramID,
+  programFees,
+  ...restProps
+}) => {
   const { selectedProgramID, setSelectedProgramID } = useProgramFeesChartStore();
 
   const selectedProgram = useMemo(() => {
-    const selectedProgram = programFees.find(({ program }) => program.ID === selectedProgramID);
+    const program = programFees.find(({ program }) => program.ID === (selectedProgramID || defaultProgramID));
+    if (!program) return null;
 
-    if (!selectedProgram) return { program: null, fees: [] };
-
-    const feeValues = selectedProgram.fees.map((fee) => fee.fee);
+    const feeValues = program.feeGroups.map((group) => group.fees.map((fee) => fee.fee)).flat();
     const minFee = Math.min(...feeValues);
     const maxFee = Math.max(...feeValues);
 
-    const mappedFees = selectedProgram.fees.map((fee) => ({
-      ...fee,
-      feePercentage: transform(fee.fee, [minFee, maxFee], [75, 100]),
-    }));
-
-    return { program: selectedProgram.program, fees: mappedFees };
-  }, [programFees, selectedProgramID]);
+    return {
+      ...program,
+      feeGroups: program.feeGroups.map((group) => ({
+        ...group,
+        fees: group.fees.map((fee) => ({ ...fee, feePercentage: transform(fee.fee, [minFee, maxFee], [75, 100]) })),
+      })),
+    };
+  }, [programFees, selectedProgramID, defaultProgramID]);
 
   const groupedPrograms = groupBy(programFees, (program) => program.program.type.ID);
 
   return (
     <div className={cn("", className)} {...restProps}>
-      {/* PROGRAM SELECT */}
       <Chip className="border border-neutral-400 bg-neutral-200">
-        {/* TODO: Connect CMS */}
-        <Label>Ausgewählter Bildungsgang</Label>
+        <Label>{programSelectLabel}</Label>
       </Chip>
-      <Select.Root value={selectedProgramID || ""} onValueChange={setSelectedProgramID}>
+      <Select.Root value={selectedProgramID || defaultProgramID || ""} onValueChange={setSelectedProgramID}>
         <Select.Trigger className="relative mt-2 w-full rounded-2xl">
-          {/* TODO: Connect CMS */}
           <Select.Value
-            placeholder={<Label className="block w-full p-4 text-left">Bildungsgang wählen</Label>}
+            placeholder={<Label className="block w-full p-4 text-left">{programSelectPlaceholder}</Label>}
             className="text-left"
           />
           <Select.Icon className="absolute bottom-0 right-0 top-0 grid w-12 place-items-center">
@@ -83,10 +99,12 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({ className, program
             </Select.ScrollUpButton>
             <Select.Viewport className="grid gap-2 p-2">
               {Object.keys(groupedPrograms).map((programID) => {
-                const colorThemeStyles = createColorThemeStyles(groupedPrograms[programID][0].program.color);
+                const currentGroupPrograms = groupedPrograms[programID] || [];
+                if (!currentGroupPrograms.length) return null;
+                const colorThemeStyles = createColorThemeStyles(currentGroupPrograms[0].program.color);
                 return (
                   <Select.Group key={programID} className="rounded-2xl bg-themed-primary p-1" style={colorThemeStyles}>
-                    {groupedPrograms[programID].map(({ program }) => (
+                    {currentGroupPrograms.map(({ program }) => (
                       <Select.Item
                         key={program.ID}
                         value={program.ID}
@@ -118,26 +136,43 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({ className, program
         </Select.Portal>
       </Select.Root>
 
-      {/* FEE CHART */}
-      <div className="mt-8 flex items-center justify-between rounded-full border border-neutral-400 bg-neutral-200 p-2">
-        <Chip className="border border-neutral-400 bg-neutral-300">
-          {/* TODO: Connect CMS */}
-          <Label>Haushaltseinkommen</Label>
+      <div className="mt-8 flex items-center justify-between rounded-3xl border border-neutral-400 bg-neutral-200 p-2">
+        <Chip className="rounded-2xl border border-neutral-400 bg-neutral-300">
+          <Label>{incomeLabel}</Label>
         </Chip>
-        {/* TODO: Connect CMS */}
-        <Label className="mr-4 block">Beitrag</Label>
+        <Label className="mr-4 block">{feeLabel}</Label>
       </div>
       <div className="mt-2 flex flex-col gap-2">
-        {selectedProgram.fees.toReversed().map((fee, index) => (
+        {(selectedProgram?.feeGroups || []).map((group, groupIndex) => (
           <div
-            key={index}
-            className="flex items-center justify-between rounded-full bg-primary-900 p-2 hover:bg-primary-900/90"
-            style={{ width: `${fee.feePercentage}%` }}
+            key={groupIndex}
+            className={cn(
+              "flex flex-col justify-between gap-2 rounded-3xl border border-neutral-400 bg-neutral-200 p-2 md:flex-row-reverse md:gap-[10vw]",
+              {
+                "bg-primary-100/100": group.highlight,
+              },
+            )}
           >
-            <Chip>
-              <Label>{fee.incomeRangeLabel}</Label>
-            </Chip>
-            <Label className="mr-4 text-neutral-900-text">{fee.fee} €</Label>
+            <div className="min-w-60 flex-1 px-2 md:px-0">
+              <Heading size="sm" className="mb-0">
+                {group.title}
+              </Heading>
+              <Paragraph className="mt-1">{group.description}</Paragraph>
+            </div>
+            <div className="flex flex-[2] flex-col gap-2">
+              {group.fees.map((fee, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between rounded-2xl bg-primary-900 p-2 hover:bg-primary-900/90"
+                  style={{ width: `${fee.feePercentage}%` }}
+                >
+                  <Chip className="rounded-xl">
+                    <Label>{fee.incomeRangeLabel}</Label>
+                  </Chip>
+                  <Label className="mr-4 text-neutral-900-text">{fee.fee} €</Label>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
