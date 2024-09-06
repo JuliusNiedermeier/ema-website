@@ -452,6 +452,10 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+      defineField({
+        name: "fees",
+        type: "program-fees",
+      }),
     ],
     preview: {
       select: {
