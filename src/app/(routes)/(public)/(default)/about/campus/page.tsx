@@ -54,7 +54,7 @@ const CampusPage: FC = async () => {
         description={data?.contactCTA?.description || ""}
       >
         <Container className="flex flex-col items-stretch gap-8 xl:flex-row">
-          <Link href="/kontakt#info-event" className="flex-[2]">
+          <Link href="/kontakt/info-abend" className="flex-[2]">
             <InfoEventCTACard
               heading={contact?.infoEvening?.heading || ""}
               description={contact?.infoEvening?.previewText || ""}
@@ -67,7 +67,7 @@ const CampusPage: FC = async () => {
               }
             />
           </Link>
-          <Link href="/kontakt#personal-consulting" className="flex-1">
+          <Link href="/kontakt/beratung" className="flex-1">
             <Card className="group flex h-full flex-col rounded-3xl border border-neutral-400 bg-neutral-300">
               <Heading>{contact?.personalConsulting?.name}</Heading>
               <Paragraph className="flex-1">{contact?.personalConsulting?.previewText}</Paragraph>

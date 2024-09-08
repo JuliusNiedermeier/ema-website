@@ -32,7 +32,7 @@ export const ContactPreviewCard: FC<ContactPreviewCardProps> = async ({ classNam
         </Card>
       </Link>
 
-      <Link href="/kontakt#info-event" className="group block flex-1">
+      <Link href="/kontakt/info-abend" className="group block flex-1">
         <Card className="flex h-full flex-col bg-primary-900">
           <Heading size="sm" className="text-primary-900-text-muted">
             {contactPage?.infoEvening?.name}
@@ -43,7 +43,7 @@ export const ContactPreviewCard: FC<ContactPreviewCardProps> = async ({ classNam
         </Card>
       </Link>
 
-      <Link href="/kontakt#personal-consulting" className="group block flex-1">
+      <Link href="/kontakt/beratung" className="group block flex-1">
         <Card className="flex h-full flex-col bg-primary-100">
           <Heading size="sm" className="text-primary-100-text-muted">
             {contactPage?.personalConsulting?.name}

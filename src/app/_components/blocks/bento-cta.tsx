@@ -58,7 +58,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
           />
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Link className="flex-[1]" href="/kontakt">
+          <Link className="flex-[1]" href="/kontakt/info-abend">
             <InfoEventCTACard
               heading={contact?.infoEvening?.name || ""}
               description={contact?.infoEvening?.previewText || ""}
@@ -79,7 +79,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
           <Paragraph className="mt-8">{contact?.personalConsulting?.previewText}</Paragraph>
           <Button
             vairant="filled"
-            href="/kontakt"
+            href="/kontakt/beratung"
             className="mt-12 !rounded-full bg-[hsl(var(--themed-primary,var(--primary-900)))]"
           >
             <Label>{contact?.personalConsulting?.readMoreLabel}</Label>
