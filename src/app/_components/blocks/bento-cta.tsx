@@ -10,6 +10,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { BentoCTAContactQueryResult, BentoCTAQueryResult } from "../../../../generated/sanity/types";
 import Image from "next/image";
 import { InfoEventCTACard } from "../compounds/info-event-cta-card";
+import Link from "next/link";
 
 const bentoCTAQuery = groq`*[_type == "bento-cta-config"][0]{
   ...,
@@ -57,7 +58,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
           />
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
-          <a className="flex-[1]" href="/kontakt">
+          <Link className="flex-[1]" href="/kontakt">
             <InfoEventCTACard
               heading={contact?.infoEvening?.name || ""}
               description={contact?.infoEvening?.previewText || ""}
@@ -69,7 +70,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
                   .map(({ eventDate }) => new Date(eventDate!)) || []
               }
             />
-          </a>
+          </Link>
         </div>
       </div>
       <Card className="flex flex-1 flex-col justify-end gap-8 rounded-3xl border border-neutral-400 p-0 pb-16">
