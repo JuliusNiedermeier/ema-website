@@ -2,51 +2,33 @@
 
 import { ComponentProps, FC, useState } from "react";
 import { cn } from "~/app/_utils/cn";
-import { Tab, TabList } from "../primitives/tabs";
-import { IconChip } from "../primitives/icon-chip";
-import { LoaderCircle, MapPinIcon, VideoIcon } from "lucide-react";
-import { Heading, Label, Paragraph } from "../primitives/typography";
-import {
-  sendInternalAppointmentRequest,
-  type SendInternalAppointmentRequestConfig,
-} from "~/server/resources/appointment/actions/send-internal-appointment-request";
+import { LoaderCircle, SendHorizonalIcon } from "lucide-react";
+import { Label, Paragraph } from "../primitives/typography";
+import { sendInternalAppointmentRequest } from "~/server/resources/appointment/actions/send-internal-appointment-request";
 import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { useMutation } from "@tanstack/react-query";
-import { Card } from "../primitives/card";
 import { Turnstile } from "./turnstile";
 
 export type AppointmentRequestFormProps = ComponentProps<"div"> & {
-  onlineTypeLabel: string;
-  inPersonTypeLabel: string;
-  namePlaceholder: string;
   emailPlaceholder: string;
   submitButtonLabel: string;
-  defaultType: SendInternalAppointmentRequestConfig["type"];
 };
 
 export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
   className,
-  onlineTypeLabel,
-  inPersonTypeLabel,
-  namePlaceholder,
   emailPlaceholder,
   submitButtonLabel,
-  defaultType,
   ...restProps
 }) => {
-  const [type, setType] = useState(defaultType);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  const valid = name && email && turnstileToken;
+  const valid = email && turnstileToken;
 
   const submitAppointmentRequest = useMutation({
-    mutationFn: async (data: { type: AppointmentRequestFormProps["defaultType"]; name: string; email: string }) => {
+    mutationFn: async (data: { email: string }) => {
       if (!valid) return false;
       const success = await sendInternalAppointmentRequest({
-        type: data.type,
-        name: data.name,
         email: data.email,
         turnstileToken: turnstileToken,
       });
@@ -56,71 +38,53 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
 
   return (
     <div className={cn("", className)} {...restProps}>
-      {submitAppointmentRequest.isSuccess ? (
-        <Card className="mb-8">
-          <Heading>Danke, wir haben deine Anfrage erhalten!</Heading>
-          <Paragraph>Wir werden uns in Kürze bei dir per Email melden und einen Termin mit dir vereinbaren.</Paragraph>
-        </Card>
-      ) : (
-        <>
-          <TabList>
-            <Tab
-              active={type === "online"}
-              className="justify-start gap-4 pl-2"
-              onClick={() => setType("online")}
-              asChild
-            >
-              <button>
-                <IconChip on={type === "online" ? "dark" : "light"}>
-                  <VideoIcon size="18" />
-                </IconChip>
-                <Label className={cn({ "text-neutral-900-text": type === "online" })}>{onlineTypeLabel}</Label>
-              </button>
-            </Tab>
-            <Tab
-              active={type === "in-person"}
-              className="justify-start gap-4 pl-2"
-              onClick={() => setType("in-person")}
-              asChild
-            >
-              <button>
-                <IconChip on={type === "in-person" ? "dark" : "light"}>
-                  <MapPinIcon size="18" />
-                </IconChip>
-                <Label className={cn({ "text-neutral-900-text": type === "in-person" })}>{onlineTypeLabel}</Label>
-              </button>
-            </Tab>
-          </TabList>
-          <input
-            className="mt-8 block w-full rounded-2xl border border-neutral-900-text bg-transparent p-4 font-serif text-neutral-900-text outline-none"
-            placeholder={namePlaceholder}
-            value={name}
-            onInput={(e) => setName(e.currentTarget.value)}
-          />
-          <input
-            className="mt-8 block w-full rounded-2xl border border-neutral-900-text bg-transparent p-4 font-serif text-neutral-900-text outline-none"
-            type="email"
-            placeholder={emailPlaceholder}
-            value={email}
-            onInput={(e) => setEmail(e.currentTarget.value)}
-          />
-          <Turnstile onVerify={(token) => setTurnstileToken(token)} className="mt-8" />
-          <Button
-            className="mt-8 w-full justify-center bg-primary-100 text-primary-100-text"
-            onClick={() => submitAppointmentRequest.mutate({ type, name, email })}
-            disabled={!valid}
-          >
-            {submitAppointmentRequest.isPending ? (
-              <LoaderCircle className="animate-spin" />
-            ) : (
-              <>
-                <Label>{submitButtonLabel}</Label>
-                <ButtonInteractionBubble />
-              </>
-            )}
-          </Button>
-        </>
-      )}
+      <div
+        className={cn("grid grid-rows-[0fr] overflow-hidden opacity-0 transition-all [&>*]:min-h-0", {
+          "mb-8 grid-rows-[1fr] opacity-100": submitAppointmentRequest.isSuccess,
+        })}
+      >
+        <div>
+          <div className="flex flex-col gap-2 rounded-2xl bg-primary-900 p-4 text-neutral-900-text sm:flex-row sm:items-center sm:gap-4 sm:p-2">
+            <div className="flex items-center gap-3 rounded-xl bg-primary-100 p-3 text-primary-100-text">
+              <SendHorizonalIcon
+                className={cn("-translate-x-4 opacity-0 transition-all delay-300", {
+                  "translate-x-0 opacity-100": submitAppointmentRequest.isSuccess,
+                })}
+              />
+              <Label>Gesendet</Label>
+            </div>
+            <Paragraph>Wir melden uns so schnell wie möglich bei dir.</Paragraph>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <input
+          className="block flex-1 rounded-2xl border bg-transparent p-4 font-serif text-neutral-100-text outline-none"
+          type="email"
+          placeholder={emailPlaceholder}
+          value={email}
+          onInput={(e) => setEmail(e.currentTarget.value)}
+        />
+        <Button
+          className="w-full justify-center sm:w-fit"
+          onClick={() => submitAppointmentRequest.mutate({ email })}
+          disabled={!valid}
+        >
+          {submitAppointmentRequest.isPending ? (
+            <LoaderCircle className="animate-spin" />
+          ) : (
+            <>
+              <Label>{submitButtonLabel}</Label>
+              <ButtonInteractionBubble />
+            </>
+          )}
+        </Button>
+      </div>
+      <Turnstile
+        onVerify={(token) => setTurnstileToken(token)}
+        className="mx-auto mt-8 rounded-2xl mix-blend-darken"
+        appearance="interaction-only"
+      />
     </div>
   );
 };

@@ -6,15 +6,11 @@ import InternalAppointmentRequestEmail from "~/emails/internal-appointment-reque
 import { verifyTurnstileToken } from "~/server/utils/verify-turnstile-token";
 
 export type SendInternalAppointmentRequestConfig = {
-  type: "online" | "in-person";
-  name: string;
   email: string;
   turnstileToken: string;
 };
 
 export const sendInternalAppointmentRequest = async ({
-  type,
-  name,
   email,
   turnstileToken,
 }: SendInternalAppointmentRequestConfig) => {
@@ -25,7 +21,7 @@ export const sendInternalAppointmentRequest = async ({
     to: env.RESEND_INTERNAL_RECIPIENT_ADDRESS,
     subject: "Gesprächsanfrage",
     reply_to: email,
-    react: <InternalAppointmentRequestEmail type={type} name={name} email={email} />,
+    react: <InternalAppointmentRequestEmail type={"in-person"} name={"Test"} email={email} />,
   });
 
   if (resendResponse.error) return false;
