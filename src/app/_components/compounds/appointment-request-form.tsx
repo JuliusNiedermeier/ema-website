@@ -12,12 +12,16 @@ import { Turnstile } from "./turnstile";
 export type AppointmentRequestFormProps = ComponentProps<"div"> & {
   emailPlaceholder: string;
   submitButtonLabel: string;
+  successLabel: string;
+  successText: string;
 };
 
 export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
   className,
   emailPlaceholder,
   submitButtonLabel,
+  successLabel,
+  successText,
   ...restProps
 }) => {
   const [email, setEmail] = useState("");
@@ -51,9 +55,9 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
                   "translate-x-0 opacity-100": submitAppointmentRequest.isSuccess,
                 })}
               />
-              <Label>Gesendet</Label>
+              <Label>{successLabel}</Label>
             </div>
-            <Paragraph>Wir melden uns so schnell wie möglich bei dir.</Paragraph>
+            <Paragraph>{successText}</Paragraph>
           </div>
         </div>
       </div>
