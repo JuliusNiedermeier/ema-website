@@ -19,7 +19,15 @@ import {
   globalConfigTypeNames,
   emailTypeNames,
 } from "~/sanity/schema";
-import { GlobeIcon, LayoutGridIcon, MailIcon, SquareMousePointerIcon, SquareStackIcon } from "lucide-react";
+import {
+  CircleHelpIcon,
+  GlobeIcon,
+  LayoutGridIcon,
+  MailIcon,
+  SquareMousePointerIcon,
+  SquareStackIcon,
+} from "lucide-react";
+import { HelpArticle } from "~/sanity/components/help-article";
 
 export default defineConfig({
   basePath: "/studio",
@@ -129,6 +137,9 @@ export default defineConfig({
               S.list({ id: "email", title: "Emails", items: emailTypes }),
             ),
             ...globaleConfigTypes,
+            S.listItem({ id: "help", title: "Hilfe", icon: CircleHelpIcon }).child(
+              S.component({ id: "help", component: HelpArticle }),
+            ),
           ]);
       },
     }),
