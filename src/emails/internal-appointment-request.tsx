@@ -3,8 +3,6 @@ import { EmailFC } from "./types";
 import { type SendInternalAppointmentRequestConfig } from "~/server/resources/appointment/actions/send-internal-appointment-request";
 
 export const InternalAppointmentRequestEmail: EmailFC<Omit<SendInternalAppointmentRequestConfig, "turnstileToken">> = ({
-  type,
-  name,
   email,
 }) => {
   return (
@@ -12,9 +10,7 @@ export const InternalAppointmentRequestEmail: EmailFC<Omit<SendInternalAppointme
       <Head />
       <Tailwind>
         <Body>
-          <Text>
-            {name} hat {type === "online" ? "einen Video-Call" : "ein Gespräch in der EMA"} angefragt!
-          </Text>
+          <Text>{email} hat eine persönliche Beratung in der EMA angefragt.</Text>
 
           <Section>
             <Text>Email:</Text>
@@ -29,7 +25,5 @@ export const InternalAppointmentRequestEmail: EmailFC<Omit<SendInternalAppointme
 export default InternalAppointmentRequestEmail;
 
 InternalAppointmentRequestEmail.PreviewProps = {
-  type: "in-person",
-  name: "John Doe",
   email: "john.doe@example.com",
 };

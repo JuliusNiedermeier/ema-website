@@ -21,7 +21,7 @@ export const sendInternalAppointmentRequest = async ({
     to: env.RESEND_INTERNAL_RECIPIENT_ADDRESS,
     subject: "Gesprächsanfrage",
     reply_to: email,
-    react: <InternalAppointmentRequestEmail type={"in-person"} name={"Test"} email={email} />,
+    react: <InternalAppointmentRequestEmail email={email} />,
   });
 
   if (resendResponse.error) return false;
