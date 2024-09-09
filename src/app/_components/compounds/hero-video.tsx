@@ -32,6 +32,7 @@ export const HeroVideo: FC<HeroVideoProps> = ({ className, src, ...restProps }) 
         transition={transition}
         className="pointer-events-none fixed bottom-0 left-0 right-0 top-0 z-50 bg-neutral-900/40 opacity-0"
         onClick={(e) => {
+          // TODO: Fix closing bug on iPad
           e.preventDefault();
           setOpen(false);
         }}
@@ -55,6 +56,7 @@ export const HeroVideo: FC<HeroVideoProps> = ({ className, src, ...restProps }) 
             src={src}
             className="absolute left-0 top-0 h-full w-full rounded-2xl object-cover"
             onClick={(e) => {
+              // TODO: Fix closing bug on iPad
               e.preventDefault();
               setOpen(!isOpen);
             }}
