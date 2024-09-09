@@ -17,32 +17,11 @@ export const contactPage: SchemaTypeDef = {
         type: "string",
       }),
       defineField({
-        name: "map",
-        title: "Karte",
-        type: "object",
-        fields: [
-          defineField({
-            name: "image",
-            title: "Kartenausschnitt",
-            description: "Ein Kartenausschnitt, der den Standort der EMA zeigt.",
-            type: "image",
-            validation: (r) => r.required(),
-          }),
-          defineField({
-            name: "buttonLabel",
-            title: "Standort-Link Button Text",
-            description: "Text auf dem Link zum Standort.",
-            type: "string",
-            validation: (r) => r.required().min(5).max(30),
-          }),
-          defineField({
-            name: "buttonLink",
-            title: "Standort-Link",
-            description: "Ein Link zur Adresse der EMA auf Google Maps",
-            type: "string",
-            validation: (r) => r.required().min(10),
-          }),
-        ],
+        name: "description",
+        title: "Beschreibung",
+        description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
+        type: "text",
+        validation: (r) => r.required().min(100).max(300),
       }),
       defineField({
         name: "preview",
@@ -67,150 +46,69 @@ export const contactPage: SchemaTypeDef = {
         ],
       }),
       defineField({
-        name: "infoEvening",
-        title: "Infoveranstaltung",
+        name: "contactInformation",
+        title: "Kontaktinformationen",
         type: "object",
         fields: [
           defineField({
-            name: "name",
-            title: "Name des Abschnitts",
+            name: "phone",
+            title: "Telefon",
             type: "string",
           }),
           defineField({
-            name: "heading",
-            title: "Überschrift",
+            name: "email",
+            title: "Email",
             type: "string",
           }),
           defineField({
-            name: "previewText",
-            title: "Vorschautext",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreLabel",
-            title: "Mehr-Lesen-Text",
+            name: "instagram",
+            title: "Instagram",
             type: "string",
-          }),
-          defineField({
-            name: "nextDates",
-            title: "Nächste Veranstaltungen",
-            description: "Daten der nächsten drei Infoveranstaltungen",
-            type: "array",
-            of: [
-              defineArrayMember({
-                name: "event",
-                title: "Veranstaltung",
-                description: "Daten zu einer Infoveranstaltung",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "eventDate",
-                    title: "Beginn der Veranstaltung",
-                    description: "An welchem Datum und um wie viel Uhr beginnt diese Veranstltung?",
-                    type: "datetime",
-                    validation: (r) => r.required(),
-                  }),
-                ],
-              }),
-            ],
-          }),
-          defineField({
-            name: "timeSuffix",
-            title: "Uhrzeit-Suffix",
-            description: 'Der Text hinter der Uhrzeit einer Veranstaltung (meistens "Uhr").',
-            type: "string",
-            validation: (r) => r.required().min(1).max(10),
           }),
         ],
       }),
       defineField({
-        name: "personalConsulting",
-        title: "One-on-one Gespräch",
-        type: "object",
-        fields: [
-          defineField({
-            name: "name",
-            title: "Name des Abschnitts",
-            type: "string",
-          }),
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "previewText",
-            title: "Vorschautext",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreLabel",
-            title: "Mehr-Lesen-Text",
-            type: "string",
-          }),
-          defineField({
-            name: "booking",
-            title: "Terminanfrage",
-            description: "",
+        name: "officeHours",
+        title: "Sprechzeiten",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "day",
+            title: "Tag",
             type: "object",
+            options: { columns: 3 },
             fields: [
               defineField({
-                name: "type",
-                title: "Auswahl der Art des Gesprächs",
-                description: "Auswahl zwischen Online oder Vor-Ort-Meeting",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "onlineLabel",
-                    title: "Bezeichnung des Online-Meetings",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "offlineLabel",
-                    title: "Bezeichnung des Vor-Ort-Meetings",
-                    type: "string",
-                  }),
-                ],
-              }),
-              defineField({
-                name: "namePlaceholder",
-                title: "Platzhaltertext im Name-Eingabefeld",
-                description: "Text der im Name-Eingabefeld angezeigt wird, solange das Feld leer ist.",
+                name: "day",
+                title: "Tag",
                 type: "string",
               }),
               defineField({
-                name: "emailPlaceholder",
-                title: "Platzhaltertext im Email-Eingabefeld",
-                description: "Text der im Email-Eingabefeld angezeigt wird, solange das Feld leer ist.",
-                type: "string",
+                name: "from",
+                title: "Von",
+                type: "time-select",
               }),
               defineField({
-                name: "requestButtonLabel",
-                title: "Text des Buttons zum Anfordern eines Termins",
-                description: "5-20 Zeichen",
-                type: "string",
-                validation: (r) => r.required().min(5).max(20),
-              }),
-              defineField({
-                name: "alternativeContact",
-                title: "Alternative Kontaktwege",
-                description: "Hinweis auf andere Wege einen Termin zu vereinbaren.",
-                type: "string",
+                name: "to",
+                title: "Bis",
+                type: "time-select",
               }),
             ],
+            preview: {
+              select: { day: "day", from: "from", to: "to" },
+              prepare: ({ day, from, to }) => ({
+                title: day,
+                subtitle: from && to && `${from} - ${to} Uhr`,
+              }),
+            },
           }),
         ],
       }),
       defineField({
-        name: "contact",
-        title: "Kontaktdaten",
+        name: "location",
+        title: "Standort",
         type: "object",
         fields: [
-          defineField({
-            name: "name",
-            title: "Name des Abschnitts",
-            type: "string",
-          }),
           defineField({
             name: "heading",
             title: "Überschrift",
@@ -222,96 +120,35 @@ export const contactPage: SchemaTypeDef = {
             type: "text",
           }),
           defineField({
-            name: "email",
-            title: "Email",
+            name: "address",
+            title: "Adresse",
             type: "object",
             fields: [
               defineField({
-                name: "heading",
-                title: "Überschrift",
+                name: "street",
+                title: "Straße & Hausnummer",
                 type: "string",
-                validation: (r) => r.required().min(5).max(20),
               }),
               defineField({
-                name: "email",
-                title: "Email",
+                name: "zipAndCity",
+                title: "PLZ und Stadt",
                 type: "string",
-                validation: (r) => r.required().email(),
               }),
             ],
           }),
           defineField({
-            name: "phone",
-            title: "Telefon",
-            type: "object",
-            fields: [
-              defineField({
-                name: "heading",
-                title: "Überschrift",
-                type: "string",
-                validation: (r) => r.required().min(5).max(20),
-              }),
-              defineField({
-                name: "number",
-                title: "Telefonnummer",
-                type: "string",
-                validation: (r) => r.required().min(5).max(20),
-              }),
-              defineField({
-                name: "officeHours",
-                title: "Sprechzeiten",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "heading",
-                    title: "Überschrift",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "days",
-                    title: "Tage",
-                    type: "array",
-                    of: [
-                      defineArrayMember({
-                        name: "day",
-                        title: "Tag",
-                        type: "object",
-                        options: { columns: 3 },
-                        fields: [
-                          defineField({
-                            name: "day",
-                            title: "Tag",
-                            type: "string",
-                          }),
-                          defineField({
-                            name: "from",
-                            title: "Von",
-                            type: "time-select",
-                          }),
-                          defineField({
-                            name: "to",
-                            title: "Bis",
-                            type: "time-select",
-                          }),
-                        ],
-                        preview: {
-                          select: { day: "day", from: "from", to: "to" },
-                          prepare: ({ day, from, to }) => ({
-                            title: day,
-                            subtitle: from && to && `${from} - ${to} Uhr`,
-                          }),
-                        },
-                      }),
-                    ],
-                  }),
-                  defineField({
-                    name: "timeSuffix",
-                    title: "Uhrzeit-Suffix",
-                    type: "string",
-                  }),
-                ],
-              }),
-            ],
+            name: "map",
+            title: "Kartenausschnitt",
+            description: "Ein Kartenausschnitt, der den Standort der EMA zeigt.",
+            type: "image",
+            validation: (r) => r.required(),
+          }),
+          defineField({
+            name: "mapsLink",
+            title: "Standort-Link",
+            description: "Ein Link zur Adresse der EMA auf Google Maps",
+            type: "string",
+            validation: (r) => r.required().min(10),
           }),
         ],
       }),
