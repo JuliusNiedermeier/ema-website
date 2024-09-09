@@ -38,11 +38,6 @@ export const bentoCTAConfigType: SchemaTypeDef = {
         type: "reference",
         to: { type: "testimonial" },
       }),
-      defineField({
-        name: "personalConsultingSplineGraphic",
-        title: "Grafik im Bereich der persönlichen Beratung",
-        type: "image",
-      }),
     ],
     preview: {
       prepare: () => ({ title: "Bento CTA" }),
