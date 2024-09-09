@@ -3,20 +3,16 @@ import { groq } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import {
-  ContactPageQueryResult,
-  ContactPageConsultingQueryResult,
-  ContactPageInfoEventQueryResult,
-} from "../../../../../../generated/sanity/types";
-import { InfoEventCTACard } from "~/app/_components/compounds/info-event-cta-card";
+import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
+import { InfoEventCTACard } from "~/app/_components/blocks/info-event-cta-card";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { InstagramIcon } from "~/app/_components/compounds/icons/instagram";
 import { notFound } from "next/navigation";
+import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
 
 const contactPageQuery = groq`*[_type == "contact-page"][0] {
   ...,
@@ -26,31 +22,10 @@ const contactPageQuery = groq`*[_type == "contact-page"][0] {
   }
 }`;
 
-const contactPageInfoEventQuery = groq`*[_type == "info-event-page"][0] {
-  preview,
-  nextDates,
-  timeSuffix
-}`;
-
-const contactPageConsultingQuery = groq`*[_type == "consulting-page"][0] {
-  preview {
-    ...,
-    splineGraphic { asset -> { url } }
-  }
-}`;
-
 const ContactPage: FC = async () => {
   const contactPageData = await sanityFetch<ContactPageQueryResult>(contactPageQuery, { tags: ["contact-page"] });
 
   if (!contactPageData) notFound();
-
-  const infoEvent = await sanityFetch<ContactPageInfoEventQueryResult>(contactPageInfoEventQuery, {
-    tags: ["info-event-page"],
-  });
-
-  const consulting = await sanityFetch<ContactPageConsultingQueryResult>(contactPageConsultingQuery, {
-    tags: ["consulting-page"],
-  });
 
   return (
     <>
@@ -120,17 +95,7 @@ const ContactPage: FC = async () => {
           <div className="mt-8 flex flex-col gap-8 lg:flex-row">
             <div className="flex-1">
               <Link href="/kontakt/info-abend">
-                <InfoEventCTACard
-                  heading={infoEvent?.preview?.title || ""}
-                  description={infoEvent?.preview?.description || ""}
-                  readMoreLabel={infoEvent?.preview?.readMoreLabel || ""}
-                  timeSuffix={infoEvent?.timeSuffix || ""}
-                  dates={
-                    infoEvent?.nextDates
-                      ?.filter(({ eventDate }) => !!eventDate)
-                      .map(({ eventDate }) => new Date(eventDate!)) || []
-                  }
-                />
+                <InfoEventCTACard />
               </Link>
               <a href={contactPageData.location?.mapsLink} target="_blank" className="group">
                 <Card className="mt-8 rounded-3xl border border-neutral-400 bg-primary-900 p-4">
@@ -166,31 +131,9 @@ const ContactPage: FC = async () => {
                 </Card>
               </a>
             </div>
-            <Card
-              className="group flex flex-[0.5] flex-col gap-8 rounded-3xl border border-neutral-400 p-0 pb-16"
-              asChild
-            >
-              <Link href="/kontakt/beratung">
-                <div className="p-8">
-                  <Heading tag="h3">{consulting?.preview?.title}</Heading>
-                  <Paragraph className="mt-8">{consulting?.preview?.description}</Paragraph>
-                  <Button
-                    vairant="filled"
-                    className="mt-12 !rounded-full bg-[hsl(var(--themed-primary,var(--primary-900)))]"
-                  >
-                    <Label>{consulting?.preview?.readMoreLabel}</Label>
-                    <ButtonInteractionBubble className="bg-primary-100 text-primary-100-text" />
-                  </Button>
-                </div>
-                <Image
-                  src={consulting?.preview?.splineGraphic?.asset?.url || ""}
-                  alt={consulting?.preview?.title || ""}
-                  width="500"
-                  height="500"
-                  className="mt-auto w-full"
-                />
-              </Link>
-            </Card>
+            <Link href="/kontakt/beratung" className="flex-[0.5] pb-16">
+              <ConsultingCTACard />
+            </Link>
           </div>
         </Container>
       </div>
