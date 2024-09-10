@@ -3,6 +3,7 @@ import { FC, Fragment } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { cn } from "~/app/_utils/cn";
+import Image from "next/image";
 
 const xCount = 7;
 const yCount = 15;
@@ -17,7 +18,20 @@ const ÜbersichtPage: FC = () => {
           nisi natus nostrum earum dolorem, unde, distinctio placeat dolor vero obcaecati quas labore!
         </Paragraph>
       </Container>
-      <Container className="mt-32">
+
+      <Container className="mt-24 overflow-hidden rounded-3xl border border-neutral-400">
+        <Image src="/overview.svg" width="2000" height="2000" alt="overview" />
+      </Container>
+
+      <Container width="narrow" className="mt-64 text-center">
+        <Heading>Alle Fächer im Überblick</Heading>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque ipsum similique nihil hic quidem non ad, ex
+          nisi natus nostrum earum dolorem, unde, distinctio placeat dolor vero obcaecati quas labore!
+        </Paragraph>
+      </Container>
+
+      <Container className="mt-24">
         <div
           className="relative grid overflow-x-auto overflow-y-hidden rounded-3xl border"
           style={{
