@@ -20,11 +20,11 @@ const variants = cva("group px-8 rounded-full flex items-center w-min whitespace
       sm: "h-10 px-6",
     },
     vairant: {
-      filled: "bg-primary-900 text-neutral-100",
+      filled: "bg-primary-900 text-neutral-900-text",
       outline: "border",
     },
     disabled: {
-      true: "pointer-events-none opacity-50",
+      true: "pointer-events-none text-neutral-900-text-muted",
     },
   },
   defaultVariants: { size: "md", vairant: "filled" },
