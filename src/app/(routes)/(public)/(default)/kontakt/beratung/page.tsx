@@ -12,6 +12,9 @@ import { IconListItem } from "~/app/_components/primitives/icon-list-item";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { AuthorTagImage } from "~/app/_components/primitives/author-tag";
 import { cn } from "~/app/_utils/cn";
+import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
+import { Button } from "~/app/_components/primitives/button";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 
 const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   ...,
@@ -27,7 +30,7 @@ const ContactPage: FC = async () => {
 
   return (
     <>
-      <div className="relative pb-12 pt-20">
+      <div className="relative pb-32 pt-20">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10" width="narrow">
           <div className="mx-auto max-w-[35rem] text-balance text-center">
@@ -70,10 +73,24 @@ const ContactPage: FC = async () => {
             </div>
           </div>
         </Container>
+
+        <Container className="mt-8">
+          <TestimonialCarousel />
+        </Container>
+
+        <EndOfPageCTA
+          className="mt-12"
+          heading={consultingPageData.alternativeCTA?.heading || ""}
+          description={consultingPageData.alternativeCTA?.description || ""}
+        >
+          <Container className="-mt-12">
+            <Button href="/kontakt/info-abend" className="mx-auto gap-4 pr-4">
+              <Label>{consultingPageData.alternativeCTA?.buttonLabel}</Label>
+              <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
+            </Button>
+          </Container>
+        </EndOfPageCTA>
       </div>
-      <Container>
-        <TestimonialCarousel />
-      </Container>
     </>
   );
 };

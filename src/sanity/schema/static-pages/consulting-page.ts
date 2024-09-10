@@ -126,6 +126,29 @@ export const consultingPage: SchemaTypeDef = {
           }),
         ],
       }),
+      defineField({
+        name: "alternativeCTA",
+        title: "Alternative: Infoabend",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "buttonLabel",
+            title: "Button-Text",
+            description: "Text auf dem Button, der zum Infoabend verlinkt.",
+            type: "string",
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Persönliche Beratung" }),
