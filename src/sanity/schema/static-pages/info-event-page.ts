@@ -48,6 +48,35 @@ export const infoEventPage: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "speaker",
+        title: "Teammitglieder, die beim Infoabend sind",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "speaker",
+            title: "Teammitglied",
+            type: "image",
+          }),
+        ],
+      }),
+      defineField({
+        name: "directionsCTA",
+        title: "Wegbeschreibungs-Button",
+        type: "object",
+        fields: [
+          defineField({
+            name: "label",
+            title: "Button-Text",
+            type: "string",
+          }),
+          defineField({
+            name: "link",
+            title: "Button-Text",
+            type: "url",
+          }),
+        ],
+      }),
+      defineField({
         name: "nextDates",
         title: "Nächste Veranstaltungen",
         description: "Daten der nächsten drei Infoveranstaltungen",
@@ -76,6 +105,58 @@ export const infoEventPage: SchemaTypeDef = {
         description: 'Der Text hinter der Uhrzeit einer Veranstaltung (meistens "Uhr").',
         type: "string",
         validation: (r) => r.required().min(1).max(10),
+      }),
+      defineField({
+        name: "benefits",
+        title: "Event Highlights/Vorteile",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "benefit",
+            title: "Highlight/Vorteil",
+            type: "object",
+            fields: [
+              defineField({
+                name: "title",
+                title: "Überschrift",
+                type: "string",
+              }),
+              defineField({
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                type: "image",
+              }),
+            ],
+          }),
+        ],
+      }),
+      defineField({
+        name: "alternativeCTA",
+        title: "Alternative: Persönliche Beratung",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "buttonLabel",
+            title: "Button-Text",
+            description: "Text auf dem Button, der zur persönlichen Beratung verlinkt.",
+            type: "string",
+          }),
+        ],
       }),
     ],
     preview: {
