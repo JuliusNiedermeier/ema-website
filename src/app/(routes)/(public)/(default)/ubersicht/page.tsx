@@ -56,19 +56,21 @@ const ÜbersichtPage: FC = () => {
                       <Label>Heilerziehungspflege</Label>
                     </div>
                   ) : xIndex === 0 ? (
-                    <div className="sticky left-0 max-w-[10vw] overflow-hidden border-t border-primary-900 bg-primary-900 p-2">
-                      <Label className="text-neutral-900-text" style={{ overflowWrap: "break-word" }}>
-                        Politikwissenschaften
-                      </Label>
+                    <div className="sticky left-0 overflow-hidden border-r border-t border-neutral-400 bg-neutral-200 p-4">
+                      <Label className="text-neutral-200-text">Politikwissenschaften</Label>
                     </div>
                   ) : (
                     <div
-                      className={cn("wrap grid place-content-center border-l border-t border-neutral-400 p-2", {
-                        "bg-primary-900/40 text-primary-900": checked,
-                        "text-neutral-400": !checked,
-                      })}
+                      className={cn(
+                        "wrap grid place-content-center border-l border-t border-neutral-400 bg-neutral-200 p-2",
+                        { "bg-primary-900/10": checked },
+                      )}
                     >
-                      {checked ? <CheckIcon /> : <MinusIcon />}
+                      {checked && (
+                        <div className={cn("rounded-xl bg-primary-900 p-2 text-primary-900-text")}>
+                          <CheckIcon />
+                        </div>
+                      )}
                     </div>
                   )}
                 </Fragment>
