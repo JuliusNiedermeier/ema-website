@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { InfoIcon } from "lucide-react";
 
@@ -53,6 +53,35 @@ export const consultingPage: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "consultants",
+        title: "Gesprächspartner",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "consultant",
+            title: "Gesprächspartner",
+            type: "image",
+          }),
+        ],
+      }),
+      defineField({
+        name: "steps",
+        title: "Schritte",
+        type: "object",
+        fields: [
+          defineField({
+            name: "sendEmailLabel",
+            title: "Email absenden",
+            type: "string",
+          }),
+          defineField({
+            name: "recieveAppointmentLabel",
+            title: "Termin erhalten",
+            type: "string",
+          }),
+        ],
+      }),
+      defineField({
         name: "form",
         title: "Formular",
         type: "object",
@@ -76,6 +105,24 @@ export const consultingPage: SchemaTypeDef = {
             name: "successText",
             title: "Erfolgsbenachrichtigungs-Text",
             type: "string",
+          }),
+        ],
+      }),
+      defineField({
+        name: "benefits",
+        title: "Liste der Vorteile",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "benefit",
+            title: "Vorteil",
+            type: "object",
+            fields: [
+              defineField({
+                name: "label",
+                type: "string",
+              }),
+            ],
           }),
         ],
       }),
