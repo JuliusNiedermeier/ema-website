@@ -75,7 +75,7 @@ const ContactPage: FC = async () => {
                 />
               </a>
             </Card>
-            <Card className="flex flex-[2] flex-col gap-2 border border-neutral-400 bg-neutral-300 p-2 sm:flex-row">
+            <Card className="flex flex-[2] flex-wrap gap-2 border border-neutral-400 bg-neutral-300 p-2">
               {contactPageData.officeHours?.map((day, index) => (
                 <div key={index} className="flex flex-1 flex-col justify-end rounded-2xl bg-primary-100 p-6">
                   <Heading size="lg">{day.day}</Heading>
