@@ -71,6 +71,16 @@ export const footerConfigType: SchemaTypeDef = {
                     type: "string",
                   }),
                   defineField({
+                    name: "infoEvent",
+                    title: "Infoabend",
+                    type: "string",
+                  }),
+                  defineField({
+                    name: "consulting",
+                    title: "Persönliche Beratung",
+                    type: "string",
+                  }),
+                  defineField({
                     name: "fees",
                     title: "Schulbeitrag",
                     type: "string",
