@@ -71,7 +71,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
       {...restProps}
     >
       <Container asChild>
-        <footer>
+        <footer className="p-4 sm:p-0">
           <div className="flex flex-col justify-between gap-12 pt-28 sm:gap-40 lg:flex-row">
             <div>
               <SiteLogo show="mark" variant="light" />
@@ -134,32 +134,37 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
             </div>
           </div>
           <div className="mt-16 h-px bg-neutral-900-text-muted" />
-          <div className="flex flex-col-reverse gap-4 py-8 text-neutral-900-text sm:flex-row sm:items-center sm:gap-12">
-            <Label className="mr-auto text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.copyrightNotice}</Label>
+          <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
+            <Label className="text-balance text-[0.9rem] text-neutral-900-text-muted">
+              {footerConfig?.copyrightNotice}
+            </Label>
 
-            <div className="flex items-center gap-4 text-neutral-900-text-muted">
-              <Link href="/datenschutz">
-                <Label>{footerConfig?.legalLinks?.privacy}</Label>
-              </Link>
-              <Link href="/impressum">
-                <Label>{footerConfig?.legalLinks?.impressum}</Label>
-              </Link>
-            </div>
-
-            <ResetCookieConsent label="Cookie-Einstellungen" />
-
-            <div className="flex items-center gap-4">
-              {footerConfig?.socialLinks?.map((link, index) => (
-                <Link key={index} href={link.url || ""}>
-                  <Image
-                    src={link.logoIcon?.asset?.url || ""}
-                    width={100}
-                    height={100}
-                    alt={link.platformName || ""}
-                    className="h-6 w-6 object-contain"
-                  />
+            <div className="flex flex-col-reverse gap-4 sm:flex-row lg:items-center">
+              <div className="flex items-center gap-4 text-neutral-900-text-muted">
+                <Link href="/datenschutz">
+                  <Label>{footerConfig?.legalLinks?.privacy}</Label>
                 </Link>
-              ))}
+                <Link href="/impressum">
+                  <Label>{footerConfig?.legalLinks?.impressum}</Label>
+                </Link>
+              </div>
+
+              <ResetCookieConsent label="Cookie-Einstellungen" />
+
+              <div className="mb-8 flex items-center gap-4 sm:mb-0 sm:ml-auto lg:ml-0">
+                {footerConfig?.socialLinks?.map((link, index) => (
+                  <Link key={index} href={link.url || ""} className="h-6 w-6">
+                    <Image
+                      key={index}
+                      src={link.logoIcon?.asset?.url || ""}
+                      width={100}
+                      height={100}
+                      alt={link.platformName || ""}
+                      className="h-full w-full object-contain"
+                    />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </footer>
