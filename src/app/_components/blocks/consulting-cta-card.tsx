@@ -22,7 +22,7 @@ export const ConsultingCTACard: FC<ConsultingCTACardProps> = async ({ className,
 
   return (
     <Card
-      className={cn("group flex flex-col gap-8 rounded-3xl border border-neutral-400 p-0", className)}
+      className={cn("group flex flex-col gap-8 rounded-3xl border border-neutral-400 p-0 pb-8", className)}
       {...restProps}
     >
       <div className="p-8">
