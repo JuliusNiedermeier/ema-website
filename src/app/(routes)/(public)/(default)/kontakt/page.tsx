@@ -92,7 +92,7 @@ const ContactPage: FC = async () => {
               ))}
             </Card>
           </div>
-          <div className="mt-8 flex flex-col gap-8 lg:flex-row">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start">
             <div className="flex-1">
               <Link href="/kontakt/info-abend">
                 <InfoEventCTACard />
@@ -131,7 +131,7 @@ const ContactPage: FC = async () => {
                 </Card>
               </a>
             </div>
-            <Link href="/kontakt/beratung" className="flex-[0.5] pb-16">
+            <Link href="/kontakt/beratung" className="flex-[0.5]">
               <ConsultingCTACard />
             </Link>
           </div>
