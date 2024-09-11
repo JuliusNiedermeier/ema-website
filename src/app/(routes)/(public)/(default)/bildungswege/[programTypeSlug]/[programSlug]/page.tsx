@@ -238,7 +238,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
         {program.showExternalCTA && (
           <GenericCTA
-            className="mt-32"
+            className="mt-8"
             preHeading={program.externalCTA?.preHeading || ""}
             mainheading={program.externalCTA?.mainHeading || ""}
             paragraph={program.externalCTA?.paragraph || ""}
@@ -249,7 +249,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
         {program.followUpTrainingEnabled && (
           <FollowUpTrainingCTA
-            className="mt-60"
+            className={cn("mt-32 sm:mt-60")}
             heading={program.followUpTraining?.heading || ""}
             description={program.followUpTraining?.description || ""}
           >
@@ -272,7 +272,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           </FollowUpTrainingCTA>
         )}
 
-        <div className="mt-60 flex flex-col gap-32">
+        <div
+          className={cn("mt-32 flex flex-col gap-32 sm:mt-60", { "mt-8 sm:mt-60": !program.followUpTrainingEnabled })}
+        >
           {program.furtherInformation?.map((item, index) => (
             <div
               key={index}
