@@ -52,7 +52,7 @@ export const ArtEducation: FC<ArtEducationProps> = ({
         {title}
       </Heading>
       <Paragraph className="max-w-96">{body}</Paragraph>
-      <div className="mt-80 flex h-8 items-center gap-4">
+      <div className="mt-80 flex w-fit items-center gap-4 rounded-full bg-neutral-100 h-12 px-2 pr-6">
         <InteractionBubble /> <Label>{actionLabel}</Label>
       </div>
     </div>
