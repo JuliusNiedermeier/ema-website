@@ -43,7 +43,7 @@ export const GenericCTA: FC<GenericCTAProps> = ({
           <InteractionBubble animated={false} />
         </Button>
       </div>
-      <div className="h-36 flex-1 md:h-auto">
+      <div className="aspect-square h-36 flex-1 md:aspect-auto md:h-auto">
         <Image
           src={imageURL}
           alt={mainheading}
