@@ -39,7 +39,7 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
             </Link>
 
             <NavigationMenuList className="text-sm flex h-full items-stretch font-medium">
-              <div className="hidden md:contents">
+              <div className="hidden xl:contents">
                 <NavigationMenuItem label={headerConfig?.navLinks?.home || ""} href="/" exact />
                 <NavigationMenuItem
                   label={headerConfig?.navLinks?.about || ""}
@@ -65,7 +65,7 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
                 </Button>
               </div>
 
-              <NavigationMenuMobileMenuItem className="self-center md:hidden">
+              <NavigationMenuMobileMenuItem className="self-center xl:hidden">
                 <MobileMenu />
               </NavigationMenuMobileMenuItem>
 
