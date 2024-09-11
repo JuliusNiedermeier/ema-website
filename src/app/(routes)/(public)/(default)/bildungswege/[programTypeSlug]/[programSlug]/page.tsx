@@ -273,33 +273,33 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         )}
 
         <div
-          className={cn("mt-32 flex flex-col gap-32 sm:mt-60", { "mt-8 sm:mt-60": !program.followUpTrainingEnabled })}
+          className={cn("mt-32 flex flex-col gap-8 sm:mt-60", { "mt-8 sm:mt-60": !program.followUpTrainingEnabled })}
         >
           {program.furtherInformation?.map((item, index) => (
             <div
               key={index}
-              className={cn("flex flex-col items-center gap-[5vw] sm:flex-row", {
+              className={cn("flex flex-col items-stretch gap-8 sm:flex-row", {
                 "sm:flex-row-reverse": index % 2 !== 0,
               })}
             >
-              <div className="aspect-video w-full sm:flex-1">
+              <div className="relative aspect-square w-full sm:aspect-auto sm:flex-1">
                 <Image
-                  className="h-full w-full rounded-2xl object-cover"
+                  className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
                   src={item.image?.asset?.url || ""}
                   alt={item.heading || ""}
                   width="500"
                   height="500"
                 />
               </div>
-              <div className="sm:flex-[1.25]">
+              <Card className="rounded-3xl border border-neutral-400 sm:flex-1">
                 <Heading tag="h3">{item.heading}</Heading>
                 <Paragraph>{item.content}</Paragraph>
-              </div>
+              </Card>
             </div>
           ))}
         </div>
 
-        <Container width="narrow" className="mt-32 text-center sm:mt-64">
+        <Container width="narrow" className="mt-40 text-center sm:mt-64">
           <Heading tag="h3">{programPage.prerequisites?.heading}</Heading>
           <Paragraph className="">{program.prerequisites?.description}</Paragraph>
           <RequirementList
@@ -329,14 +329,14 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           </Card>
         </Container>
 
-        <Container width="narrow" className="mt-32 text-balance text-center sm:mt-64">
-          <Heading>{program.testimonials?.heading}</Heading>
+        <Container width="narrow" className="mt-48 text-balance text-center sm:mt-64">
+          <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
           <Paragraph>{program.testimonials?.subheading}</Paragraph>
         </Container>
         <TestimonialCarousel className="mt-16" />
       </Container>
 
-      <Container className="mt-64" width="narrow">
+      <Container className="mt-48 sm:mt-64" width="narrow">
         <Heading className="text-center">{program.FAQs?.heading}</Heading>
         <Paragraph>{program.FAQs?.subheading}</Paragraph>
         <div className="mt-16">
