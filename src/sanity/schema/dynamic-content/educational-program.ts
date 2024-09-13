@@ -46,6 +46,11 @@ export const educationalProgram: SchemaTypeDef = {
         validation: (r) => r.required().min(50).max(300),
       }),
       defineField({
+        name: "coverImage",
+        title: "Titelbild",
+        type: "image",
+      }),
+      defineField({
         name: "highlights",
         title: "Highlights des Bildungsgangs",
         description:
