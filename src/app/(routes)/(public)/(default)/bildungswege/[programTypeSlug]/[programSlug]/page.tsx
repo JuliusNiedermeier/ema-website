@@ -250,23 +250,17 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       </Section>
 
       {program.showExternalCTA && (
-        <Section connect="both" className="bg-neutral-200">
-          <div className="py-24">
-            <Container className="text-center" width="narrow">
-              <Heading>Das könnte dich auch interessieren</Heading>
-              <Paragraph>Hier sind wir besonders stolz drauf!</Paragraph>
-            </Container>
-            <Container className="mt-16">
-              <GenericCTA
-                className="mt-8"
-                preHeading={program.externalCTA?.preHeading || ""}
-                mainheading={program.externalCTA?.mainHeading || ""}
-                paragraph={program.externalCTA?.paragraph || ""}
-                ctaText={program.externalCTA?.ctaText || ""}
-                imageURL={program.externalCTA?.image?.asset?.url || ""}
-              />
-            </Container>
-          </div>
+        <Section connect="both" className="bg-primary-900">
+          <Container className="py-24 md:py-48">
+            <GenericCTA
+              className="p-0 md:p-0"
+              preHeading={program.externalCTA?.preHeading || ""}
+              mainheading={program.externalCTA?.mainHeading || ""}
+              paragraph={program.externalCTA?.paragraph || ""}
+              ctaText={program.externalCTA?.ctaText || ""}
+              imageURL={program.externalCTA?.image?.asset?.url || ""}
+            />
+          </Container>
         </Section>
       )}
 
