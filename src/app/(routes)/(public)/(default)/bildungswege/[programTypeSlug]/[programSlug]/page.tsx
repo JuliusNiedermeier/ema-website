@@ -5,7 +5,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
-import { CheckIcon, ChevronRightIcon, PlusIcon, SparkleIcon } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon, PlusIcon, SparkleIcon } from "lucide-react";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { cn } from "~/app/_utils/cn";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
@@ -34,6 +34,7 @@ import { ScrollProgress } from "~/app/_components/primitives/scroll-progress";
 import { CardCarousel, CardCarouselItem } from "~/app/_components/primitives/card-carousel";
 import { ProgressBar, ProgressBarIndicator } from "~/app/_components/primitives/progress-bar";
 import { Section } from "~/app/_components/primitives/section";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -293,13 +294,22 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       )}
 
       <Section className="bg-themed-primary">
-        <Container className="py-24">
-          <Heading className="text-center">Was dich erwartet</Heading>
-          <div className={cn("mt-24 flex flex-col gap-8", { "": !program.followUpTrainingEnabled })}>
+        <Container className="py-24 sm:py-48">
+          <Container width="narrow" className="text-balance text-center">
+            <Heading>{program.furtherInformationIntro?.heading}</Heading>
+            <Paragraph>{program.furtherInformationIntro?.description}</Paragraph>
+            <div className="flex flex-col items-center">
+              <div className="h-24 w-px bg-gradient-to-b from-transparent to-primary-900" />
+              <IconChip>
+                <ChevronDownIcon />
+              </IconChip>
+            </div>
+          </Container>
+          <div className={cn("mt-24 flex flex-col gap-8 sm:gap-12", { "": !program.followUpTrainingEnabled })}>
             {program.furtherInformation?.map((item, index) => (
               <div
                 key={index}
-                className={cn("flex flex-col items-stretch gap-8 sm:flex-row", {
+                className={cn("flex flex-col items-stretch gap-8 sm:flex-row sm:gap-12", {
                   "sm:flex-row-reverse": index % 2 !== 0,
                 })}
               >
@@ -312,7 +322,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                     height="500"
                   />
                 </div>
-                <Card className="rounded-3xl border border-neutral-400/20 bg-themed-secondary sm:flex-1">
+                <Card className="rounded-3xl border border-neutral-400/20 bg-themed-secondary sm:flex-[1.2]">
                   <Heading tag="h3">{item.heading}</Heading>
                   <Paragraph>{item.content}</Paragraph>
                 </Card>

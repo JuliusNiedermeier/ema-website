@@ -241,6 +241,23 @@ export const educationalProgram: SchemaTypeDef = {
         hidden: ({ document }) => !document?.followUpTrainingEnabled,
       }),
       defineField({
+        name: "furtherInformationIntro",
+        title: "Einleitung der weiteren Informationen",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+        ],
+      }),
+      defineField({
         name: "furtherInformation",
         title: "Weitere Informationen",
         description: "2-10 Einträge",
