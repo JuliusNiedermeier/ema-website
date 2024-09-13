@@ -30,8 +30,8 @@ export const EconomyXSocialHero: FC<EconomyXSocialHeroProps> = ({
   const reversedProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   return (
-    <div className={cn("rounded-b-2xl bg-neutral-200 pb-16 pt-32", className)} {...restProps} ref={containerRef}>
-      <Container width="narrow" className="text-center">
+    <div className={cn("rounded-b-2xl bg-neutral-200 pb-16", className)} {...restProps} ref={containerRef}>
+      <Container width="narrow" className="pt-32 text-center">
         <Heading>{headingUpper}</Heading>
         <Heading>{headingLower}</Heading>
         <Paragraph>{description}</Paragraph>

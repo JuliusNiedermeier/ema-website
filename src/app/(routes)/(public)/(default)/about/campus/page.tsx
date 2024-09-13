@@ -32,10 +32,10 @@ const CampusPage: FC = async () => {
 
   return (
     <div className="rounded-b-3xl">
-      <div className="bg-neutral-200 pb-40">
-        <Container className="py-16">
+      <div className="pt-header bg-neutral-200 pb-40">
+        <Container width="narrow" className="text-balance py-24 text-center">
           <Heading>{data?.heading}</Heading>
-          <Paragraph className="max-w-[40rem]">{data?.previewText}</Paragraph>
+          <Paragraph>{data?.previewText}</Paragraph>
         </Container>
       </div>
       <ParalaxGallery items={galleryItems} className="-mt-40" />

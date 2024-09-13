@@ -11,7 +11,7 @@ const yCount = 15;
 const ÜbersichtPage: FC = () => {
   return (
     <div className="bg-neutral-200 py-32">
-      <Container width="narrow" className="text-center">
+      <Container width="narrow" className="mt-header text-center">
         <Heading>Alle Bildungsgänge im Überblick</Heading>
         <Paragraph>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque ipsum similique nihil hic quidem non ad, ex

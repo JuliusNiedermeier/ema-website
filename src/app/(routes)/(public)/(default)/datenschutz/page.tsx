@@ -14,7 +14,7 @@ const PrivacyPage: FC = async () => {
   if (!data) notFound();
 
   return (
-    <Container width="narrow" className="my-32">
+    <Container width="narrow" className="pt-header my-32">
       <TextPortableContent content={data.content || []} />
     </Container>
   );

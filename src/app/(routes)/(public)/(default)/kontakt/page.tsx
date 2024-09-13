@@ -29,7 +29,7 @@ const ContactPage: FC = async () => {
 
   return (
     <>
-      <div className="relative">
+      <div className="pt-header relative">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10">
           <div className="mx-auto max-w-[35rem] text-balance py-28 text-center">

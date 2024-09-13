@@ -65,7 +65,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
 
   return (
     <>
-      <div className="bg-neutral-200">
+      <div className="pt-header bg-neutral-200">
         <Container width="narrow" className="flex flex-col pt-20 sm:items-center sm:pt-32">
           <Chip>{post.category?.title}</Chip>
           <Heading className="mt-8 sm:mt-16 sm:text-center">{post.title}</Heading>

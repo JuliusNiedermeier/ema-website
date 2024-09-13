@@ -45,13 +45,16 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
 }`;
 
 const EconomyXSocialPage: FC = async () => {
-  const data = await sanityFetch<EconomySocialPageQueryResult>(economySocialPageQuery, { tags: ["economy-social-page"] });
+  const data = await sanityFetch<EconomySocialPageQueryResult>(economySocialPageQuery, {
+    tags: ["economy-social-page"],
+  });
 
   if (!data) notFound();
 
   return (
     <>
       <EconomyXSocialHero
+        className="pt-header"
         headingUpper={data.headingUpper || ""}
         headingLower={data.headingLower || ""}
         description={data.previewText || ""}

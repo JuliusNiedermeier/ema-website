@@ -83,7 +83,7 @@ const FeesPage: FC = async () => {
 
   return (
     <>
-      <div className="bg-neutral-200">
+      <div className="pt-header bg-neutral-200">
         <Container className="pb-4 pt-32">
           <Container width="narrow" className="text-center">
             <Heading>{pageData.heading}</Heading>
