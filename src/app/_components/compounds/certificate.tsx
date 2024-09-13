@@ -28,7 +28,7 @@ export const Certificate: FC<CertificateProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({ axis: "y", target: cardRef, offset: ["start end", "end start"] });
-  const paralaxx = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+  const transform = useTransform(scrollYProgress, [0, 1], [-300, 300]);
 
   return (
     <Card
@@ -61,14 +61,13 @@ export const Certificate: FC<CertificateProps> = ({
       <div className="relative h-full min-h-[30rem] overflow-hidden">
         <motion.div
           className="absolute left-0 top-0 flex h-full w-full flex-col items-end justify-center gap-4"
-          style={{ y: paralaxx }}
+          style={{ y: transform }}
         >
           {jobs.map((job, index) => (
             <div
               key={index}
-              className="flex w-fit max-w-full items-center gap-4 rounded-3xl border border-neutral-900/20 bg-neutral-100 p-2 pl-6"
+              className="flex w-full max-w-full items-center gap-4 rounded-3xl border border-neutral-900/20 bg-neutral-100 p-2 sm:w-fit sm:flex-row-reverse sm:pl-6"
             >
-              <Label>{job.content}</Label>
               <Image
                 src={job.image}
                 alt={job.content}
@@ -76,6 +75,7 @@ export const Certificate: FC<CertificateProps> = ({
                 width={300}
                 className="aspect-square w-12 rounded-2xl object-cover"
               />
+              <Label>{job.content}</Label>
             </div>
           ))}
         </motion.div>
