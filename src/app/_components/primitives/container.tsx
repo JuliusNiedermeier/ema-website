@@ -1,4 +1,4 @@
-import { ComponentProps, FC, PropsWithChildren } from "react";
+import { ComponentProps, FC, forwardRef, PropsWithChildren } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "~/app/_utils/cn";
@@ -20,12 +20,14 @@ const variants = cva("w-full mx-auto", {
   defaultVariants: { width: "medium" },
 });
 
-export const Container: FC<ContainerProps> = ({ asChild, width, className, children, ...restProps }) => {
-  const Component = asChild ? Slot : "div";
+export const Container: FC<ContainerProps> = forwardRef(
+  ({ asChild, width, className, children, ...restProps }, ref) => {
+    const Component = asChild ? Slot : "div";
 
-  return (
-    <Component className={cn(variants({ width }), className)} {...restProps}>
-      {children}
-    </Component>
-  );
-};
+    return (
+      <Component ref={ref} className={cn(variants({ width }), className)} {...restProps}>
+        {children}
+      </Component>
+    );
+  },
+);
