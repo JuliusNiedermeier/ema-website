@@ -13,8 +13,8 @@ const variants = cva("w-full mx-auto", {
   variants: {
     width: {
       wide: "max-w-[calc(100vw-6px*2)] sm:max-w-[min(2200px,calc(100vw-2vw*2))]",
-      medium: "max-w-[calc(100vw-12px*2)] sm:max-w-[min(1920px,calc(100vw-8vw*2))]",
-      narrow: "max-w-[calc(100vw-12px*2)] sm:max-w-[min(800px,calc(100vw-8vw*2))]",
+      medium: "max-w-[calc(100vw-0.75rem*2)] sm:max-w-[min(1920px,calc(100vw-8vw*2))]", // 0.75rem = p-3
+      narrow: "max-w-[calc(100vw-0.75rem*2)] sm:max-w-[min(800px,calc(100vw-8vw*2))]", // 0.75rem = p-3
     },
   },
   defaultVariants: { width: "medium" },
