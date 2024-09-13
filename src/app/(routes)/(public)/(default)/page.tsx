@@ -27,6 +27,7 @@ import { ContactPreviewCard } from "~/app/_components/blocks/contact-preview-car
 import Link from "next/link";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { HeroVideo } from "~/app/_components/compounds/hero-video";
+import { Section } from "~/app/_components/primitives/section";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -115,8 +116,7 @@ const HomePage: FC = async () => {
         </Container>
       </div>
 
-      <div className="relative pt-8">
-        <div className="absolute left-0 top-0 h-1/2 w-full bg-neutral-200"></div>
+      <div className="relative bg-gradient-to-b from-neutral-200 to-neutral-100 pt-8">
         <Container width="wide" className="relative">
           <HeroVideo src={homePage.video?.asset?.url || ""} />
           <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full items-end">
@@ -173,10 +173,10 @@ const HomePage: FC = async () => {
         readMoreButtonLabel={economyXSocial?.previewReadMoreLabel || ""}
       />
 
-      <Container>
-        <EducationalProgramTypePreviewList className="mt-64" />
+      <EducationalProgramTypePreviewList className="-z-10 mt-64" />
 
-        <Container width="narrow" className="mt-32 flex flex-col items-center text-center">
+      <Section connect="bottom" className="-mt-[4rem] bg-neutral-300">
+        <Container width="narrow" className="flex flex-col items-center pb-24 pt-32 text-center">
           <Heading size="sm">{checkupPreview?.heading}</Heading>
           <Paragraph className="mt-0">{checkupPreview?.previewText}</Paragraph>
           <Button vairant="filled" className="mt-8" href="/checkup">
@@ -184,51 +184,56 @@ const HomePage: FC = async () => {
             <ButtonInteractionBubble />
           </Button>
         </Container>
+      </Section>
 
-        <Link href="/about/kunst">
-          <ArtEducation
-            className="mt-64"
-            title={artPreview?.heading || ""}
-            body={artPreview?.preview?.excerpt || ""}
-            actionLabel={artPreview?.preview?.readMoreButtonLabel || ""}
-            backgroundImage={{
-              src: artPreview?.preview?.backgroundImage?.asset?.url || "",
-              alt: artPreview?.heading || "",
-            }}
-            leftImage={{
-              src: artPreview?.preview?.leftImage?.asset?.url || "",
-              alt: artPreview?.heading || "",
-            }}
-            rightImage={{
-              src: artPreview?.preview?.rightImage?.asset?.url || "",
-              alt: artPreview?.heading || "",
-            }}
-          />
-        </Link>
-      </Container>
+      <Section connect="both" className="bg-neutral-300">
+        <Container className="py-24">
+          <Link href="/about/kunst">
+            <ArtEducation
+              title={artPreview?.heading || ""}
+              body={artPreview?.preview?.excerpt || ""}
+              actionLabel={artPreview?.preview?.readMoreButtonLabel || ""}
+              backgroundImage={{
+                src: artPreview?.preview?.backgroundImage?.asset?.url || "",
+                alt: artPreview?.heading || "",
+              }}
+              leftImage={{
+                src: artPreview?.preview?.leftImage?.asset?.url || "",
+                alt: artPreview?.heading || "",
+              }}
+              rightImage={{
+                src: artPreview?.preview?.rightImage?.asset?.url || "",
+                alt: artPreview?.heading || "",
+              }}
+            />
+          </Link>
 
-      <CampusCard className="mt-16" />
+          <Link href="/about/campus" className="mt-16 block">
+            <CampusCard />
+          </Link>
 
-      <Container>
-        <ContactPreviewCard className="mt-32" />
-      </Container>
+          <ContactPreviewCard className="mt-16" />
+        </Container>
+      </Section>
 
-      <Container width="narrow" className="mt-64 text-balance text-center">
-        <Heading>{homePage.testimonials?.heading}</Heading>
-        <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
-      </Container>
-      <Container>
-        <TestimonialCarousel className="mt-16" />
-      </Container>
+      <Section connect="top" className="-mb-2 bg-neutral-100">
+        <Container width="narrow" className="text-balance pt-32 text-center">
+          <Heading>{homePage.testimonials?.heading}</Heading>
+          <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
+        </Container>
+        <Container>
+          <TestimonialCarousel className="mt-16" />
+        </Container>
 
-      <Container width="narrow" className="mt-64">
-        <Heading className="text-center">{homePage.faq?.heading}</Heading>
-        <BasicAccordion className="mt-16" items={FAQItems} />
-      </Container>
+        <Container width="narrow" className="mt-64">
+          <Heading className="text-center">{homePage.faq?.heading}</Heading>
+          <BasicAccordion className="mt-16" items={FAQItems} />
+        </Container>
 
-      <Container className="mt-32 sm:mt-64">
-        <BentoCTA />
-      </Container>
+        <Container className="mt-32 sm:mt-64">
+          <BentoCTA />
+        </Container>
+      </Section>
     </>
   );
 };
