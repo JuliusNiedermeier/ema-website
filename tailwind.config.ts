@@ -9,6 +9,11 @@ const config = {
     "./src/sanity/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    extend: {
+      spacing: {
+        header: "var(--header-height)",
+      },
+    },
     fontFamily: {
       sans: ["var(--font-catamaran)", ...fontFamily.sans],
       serif: ["var(--font-tiempos)", ...fontFamily.serif],
