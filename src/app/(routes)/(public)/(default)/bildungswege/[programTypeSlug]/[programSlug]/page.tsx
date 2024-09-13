@@ -267,7 +267,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
       {program.followUpTrainingEnabled && (
         <Section connect="both" className="bg-neutral-300">
-          <Container className="py-24">
+          <Container className="py-24 sm:py-48">
             <FollowUpTrainingCTA
               heading={program.followUpTraining?.heading || ""}
               description={program.followUpTraining?.description || ""}
@@ -333,7 +333,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       </Section>
 
       <Section className="bg-neutral-300">
-        <Container width="narrow" className="pb-24 pt-32 text-center">
+        <Container width="narrow" className="py-24 text-center sm:py-48">
           <Heading tag="h3">{programPage.prerequisites?.heading}</Heading>
           <Paragraph className="">{program.prerequisites?.description}</Paragraph>
           <RequirementList
@@ -365,7 +365,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       </Section>
 
       <Section className="-mb-2 bg-neutral-100">
-        <Container className="pt-32">
+        <Container className="pt-24 sm:pt-48">
           <Container width="narrow" className="text-balance text-center">
             <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
             <Paragraph>{program.testimonials?.subheading}</Paragraph>
