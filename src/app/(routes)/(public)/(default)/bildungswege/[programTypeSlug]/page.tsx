@@ -71,7 +71,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
-      <div className="bg-neutral-200 pb-16 pt-16 sm:pt-24">
+      <div className="bg-gradient-to-b from-neutral-200 to-neutral-100 pb-16 pt-16 sm:pt-24">
         <Container>
           <div className="mx-auto max-w-[40rem] sm:text-center">
             <Heading size="sm">{programType.name}</Heading>
@@ -79,9 +79,6 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             <Paragraph className="mt-8">{programType.introduction}</Paragraph>
           </div>
         </Container>
-      </div>
-      <div className="relative">
-        <div className="absolute top-0 -z-10 h-1/2 w-full bg-neutral-200"></div>
         <Container>
           <Certificate
             className="border-themed-primary"
