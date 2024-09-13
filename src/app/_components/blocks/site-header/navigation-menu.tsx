@@ -114,7 +114,7 @@ export const NavigationMenuItem: FC<NavigationMenuItemProps> = ({
 
 export const NavigationMenuBackdrop: FC = () => {
   const { activeMenu } = useNavigationMenu();
-  return <Backdrop visible={Boolean(activeMenu)} onClick={() => {}} className="z-50 backdrop-blur-md" />;
+  return <Backdrop visible={Boolean(activeMenu)} onClick={() => {}} className="z-50 backdrop-blur-sm" />;
 };
 
 // Hamburger
