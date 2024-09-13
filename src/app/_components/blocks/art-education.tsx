@@ -26,35 +26,37 @@ export const ArtEducation: FC<ArtEducationProps> = ({
   ...restProps
 }) => {
   return (
-    <div className={cn("group relative block w-full overflow-hidden rounded-2xl p-4 sm:p-8", className)} {...restProps}>
+    <div className={cn("group relative block w-full overflow-hidden rounded-2xl", className)} {...restProps}>
+      <div className="relative z-10 bg-neutral-900/10 p-4 sm:p-8">
+        <Heading size="sm" className="mt-8 sm:text-heading-lg">
+          {title}
+        </Heading>
+        <Paragraph className="max-w-96">{body}</Paragraph>
+        <div className="mt-80 flex h-12 w-fit items-center gap-4 rounded-full bg-neutral-100 px-2 pr-6">
+          <InteractionBubble /> <Label>{actionLabel}</Label>
+        </div>
+      </div>
       <Image
         width={1920}
         height={1080}
         src={backgroundImage.src}
         alt={backgroundImage.alt}
-        className="absolute left-0 top-0 -z-10 h-full w-full origin-left object-cover transition-all group-hover:scale-[1.1]"
+        className="absolute left-0 top-0 h-full w-full origin-left object-cover transition-all group-hover:scale-[1.1]"
       />
       <Image
         width={500}
         height={500}
         src={rightImage.src}
         alt={rightImage.alt}
-        className="absolute -right-8 bottom-0 -z-10 h-[65vw] max-h-80 w-min object-cover transition-all group-hover:translate-x-10 group-hover:scale-[1.5]"
+        className="absolute -right-8 bottom-0 h-[65vw] max-h-80 w-min object-cover transition-all group-hover:translate-x-10 group-hover:scale-[1.5]"
       />
       <Image
         width={500}
         height={500}
         src={leftImage.src}
         alt={leftImage.src}
-        className="absolute bottom-0 right-[10vw] -z-10 h-[80vw] max-h-96 w-min object-cover transition-all group-hover:-translate-x-10 group-hover:scale-[1.1]"
+        className="absolute bottom-0 right-[10vw] h-[80vw] max-h-96 w-min object-cover transition-all group-hover:-translate-x-10 group-hover:scale-[1.1]"
       />
-      <Heading size="sm" className="mt-8 sm:text-heading-lg">
-        {title}
-      </Heading>
-      <Paragraph className="max-w-96">{body}</Paragraph>
-      <div className="mt-80 flex w-fit items-center gap-4 rounded-full bg-neutral-100 h-12 px-2 pr-6">
-        <InteractionBubble /> <Label>{actionLabel}</Label>
-      </div>
     </div>
   );
 };
