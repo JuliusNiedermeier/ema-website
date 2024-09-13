@@ -5,7 +5,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
-import { CheckIcon, PlusIcon, SparkleIcon } from "lucide-react";
+import { CheckIcon, ChevronRightIcon, PlusIcon, SparkleIcon } from "lucide-react";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { cn } from "~/app/_utils/cn";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
@@ -33,6 +33,7 @@ import { ProgressProvider } from "~/app/_components/primitives/progress-provider
 import { ScrollProgress } from "~/app/_components/primitives/scroll-progress";
 import { CardCarousel, CardCarouselItem } from "~/app/_components/primitives/card-carousel";
 import { ProgressBar, ProgressBarIndicator } from "~/app/_components/primitives/progress-bar";
+import { Section } from "~/app/_components/primitives/section";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -133,173 +134,202 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
-      <div className="bg-neutral-200">
-        <Container className="items-end justify-between gap-16 pt-16 sm:flex sm:pt-24">
-          <Heading className="mb-0 text-primary-900">
-            {program.educationalProgramType?.name}
-            <br />
-            {program.name}
+      <div className="bg-neutral-200 pb-32 pt-20">
+        <Container className="text-center" width="narrow">
+          <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
+            <Label className="mb-0 text-primary-900">{program.educationalProgramType?.name}</Label>
+            <ChevronRightIcon size="14" />
+            <Label className="mb-0 text-primary-900">{program.name}</Label>
+          </div>
+          <Heading tag="h2" className="mt-8">
+            {program.promotionalHeadline}
           </Heading>
+          <Paragraph>{program.introduction}</Paragraph>
         </Container>
       </div>
 
-      <div className="relative pt-4 sm:pt-8">
-        <div className="absolute left-0 top-0 h-1/2 w-full bg-neutral-200"></div>
-        <Container width="wide" className="relative rounded-2xl bg-themed-primary">
-          <Container className="pb-[6px] pt-16 sm:pb-8 sm:pt-32">
-            <div className="px-2 sm:px-0">
-              <Heading tag="h2">{program.promotionalHeadline}</Heading>
-              <Paragraph className="max-w-96">{program.promotionalHeadline}</Paragraph>
-            </div>
-
-            <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-2 sm:mt-32 sm:gap-4">
-              {program.highlights?.map((highlight) => (
-                <Card key={highlight._key} className="bg-themed-secondary">
-                  <div className="w-min rounded-full bg-primary-900 p-4">
-                    <PlusIcon className="text-primary-900-text" />
-                  </div>
-                  <Heading size="sm" tag="h3">
-                    {highlight.heading}
-                  </Heading>
-                  <Paragraph>{highlight.content}</Paragraph>
-                </Card>
-              ))}
-            </div>
-          </Container>
-        </Container>
-      </div>
-
-      <Container className="mt-8">
-        <Certificate
-          heading={program.certificate?.heading || ""}
-          name={program.certificate?.name || ""}
-          description={program.certificate?.description || ""}
-          qualifications={program.certificate?.qualifications || []}
-          jobs={
-            program.certificate?.jobs?.map((job) => ({
-              image: job.image?.asset?.url || "",
-              content: job.name || "",
-            })) || []
-          }
-        />
-
-        <div className="mt-8 flex flex-col gap-8 md:flex-row">
-          <EducationalProgramDetails
-            className="md:flex-[2]"
-            durationHeading={program.programDetails?.durationAndType?.heading || ""}
-            holidaysHeading={program.programDetails?.holidays?.heading || ""}
-            lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
-            startDateHeading={program.programDetails?.startDate?.heading || ""}
-            trainingType={program.programDetails?.durationAndType?.type || ""}
-            duration={program.programDetails?.durationAndType?.duration || ""}
-            startEndTime={[
-              program.programDetails?.lessonTimes?.start || "",
-              program.programDetails?.lessonTimes?.end || "",
-            ]}
-            holidays={program.programDetails?.holidays?.info || ""}
-            startDate={program.programDetails?.startDate?.date || ""}
-            applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
-            startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
-          />
-
-          <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
-            <Card>
-              <Heading>{program.subjects?.heading}</Heading>
-              <Paragraph>{program.subjects?.description}</Paragraph>
-            </Card>
-
-            <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
-              {program.subjects?.items
-                ?.filter(({ isExamSubject }) => !isExamSubject)
-                .map((subject, index) => (
-                  <IconListItem key={index}>
-                    <CheckIcon />
-                    <Label>{subject.name}</Label>
-                  </IconListItem>
-                ))}
-            </Card>
-
-            <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
-              <div className="flex items-center gap-4">
-                <SparkleIcon />
-                <Heading size="sm">{program.subjects?.examSubjectsHeading}</Heading>
+      <Section connect="both" className="bg-themed-primary">
+        <Container className="grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-2 py-3 sm:gap-4 sm:py-24">
+          {program.highlights?.map((highlight) => (
+            <Card
+              key={highlight._key}
+              className="rounded-3xl border border-neutral-400/20 bg-themed-secondary p-2 shadow"
+            >
+              <div className="p-6">
+                <div className="w-min rounded-full bg-primary-900 p-4">
+                  <PlusIcon className="text-primary-900-text" />
+                </div>
+                <Heading size="sm" tag="h3">
+                  {highlight.heading}
+                </Heading>
+                <Paragraph>{highlight.content}</Paragraph>
               </div>
-              {program.subjects?.items
-                ?.filter(({ isExamSubject }) => isExamSubject)
-                .map((subject, index) => (
-                  <IconListItem key={index}>
-                    <CheckIcon />
-                    <Label>{subject.name}</Label>
-                  </IconListItem>
-                ))}
-            </Card>
-          </Card>
-        </div>
-
-        {program.showExternalCTA && (
-          <GenericCTA
-            className="mt-8"
-            preHeading={program.externalCTA?.preHeading || ""}
-            mainheading={program.externalCTA?.mainHeading || ""}
-            paragraph={program.externalCTA?.paragraph || ""}
-            ctaText={program.externalCTA?.ctaText || ""}
-            imageURL={program.externalCTA?.image?.asset?.url || ""}
-          />
-        )}
-
-        {program.followUpTrainingEnabled && (
-          <FollowUpTrainingCTA
-            className={cn("mt-32 sm:mt-60")}
-            heading={program.followUpTraining?.heading || ""}
-            description={program.followUpTraining?.description || ""}
-          >
-            <Container
-              width="narrow"
-              style={createColorThemeStyles(
-                ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
-              )}
-            >
-              <Link
-                href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
-              >
-                <EducationalProgramCard
-                  name={program.followUpTraining?.educationalProgram?.name || ""}
-                  headline={program.followUpTraining?.educationalProgram?.promotionalHeadline || ""}
-                  programType={program.followUpTraining?.educationalProgram?.educationalProgramType?.name || ""}
-                />
-              </Link>
-            </Container>
-          </FollowUpTrainingCTA>
-        )}
-
-        <div
-          className={cn("mt-32 flex flex-col gap-8 sm:mt-60", { "mt-8 sm:mt-60": !program.followUpTrainingEnabled })}
-        >
-          {program.furtherInformation?.map((item, index) => (
-            <div
-              key={index}
-              className={cn("flex flex-col items-stretch gap-8 sm:flex-row", {
-                "sm:flex-row-reverse": index % 2 !== 0,
-              })}
-            >
-              <div className="relative aspect-square w-full sm:aspect-auto sm:flex-1">
+              <div className="relative aspect-square overflow-hidden rounded-2xl shadow sm:aspect-video">
                 <Image
-                  className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
-                  src={item.image?.asset?.url || ""}
-                  alt={item.heading || ""}
-                  width="500"
+                  src="/campus.png"
                   height="500"
+                  width="500"
+                  alt=""
+                  className="absolute left-0 top-0 h-full w-full object-cover"
                 />
               </div>
-              <Card className="rounded-3xl border border-neutral-400 sm:flex-1">
-                <Heading tag="h3">{item.heading}</Heading>
-                <Paragraph>{item.content}</Paragraph>
-              </Card>
-            </div>
+            </Card>
           ))}
-        </div>
+        </Container>
+      </Section>
 
-        <Container width="narrow" className="mt-40 text-center sm:mt-64">
+      <Section connect="both" className="bg-neutral-100">
+        <Container className="pb-24 pt-3 sm:pt-24">
+          <Certificate
+            className="rounded-t-3xl sm:rounded-t-2xl"
+            heading={program.certificate?.heading || ""}
+            name={program.certificate?.name || ""}
+            description={program.certificate?.description || ""}
+            qualifications={program.certificate?.qualifications || []}
+            jobs={
+              program.certificate?.jobs?.map((job) => ({
+                image: job.image?.asset?.url || "",
+                content: job.name || "",
+              })) || []
+            }
+          />
+
+          <div className="mt-8 flex flex-col gap-8 md:flex-row">
+            <EducationalProgramDetails
+              className="md:flex-[2]"
+              durationHeading={program.programDetails?.durationAndType?.heading || ""}
+              holidaysHeading={program.programDetails?.holidays?.heading || ""}
+              lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
+              startDateHeading={program.programDetails?.startDate?.heading || ""}
+              trainingType={program.programDetails?.durationAndType?.type || ""}
+              duration={program.programDetails?.durationAndType?.duration || ""}
+              startEndTime={[
+                program.programDetails?.lessonTimes?.start || "",
+                program.programDetails?.lessonTimes?.end || "",
+              ]}
+              holidays={program.programDetails?.holidays?.info || ""}
+              startDate={program.programDetails?.startDate?.date || ""}
+              applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
+              startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
+            />
+
+            <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
+              <Card>
+                <Heading>{program.subjects?.heading}</Heading>
+                <Paragraph>{program.subjects?.description}</Paragraph>
+              </Card>
+
+              <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
+                {program.subjects?.items
+                  ?.filter(({ isExamSubject }) => !isExamSubject)
+                  .map((subject, index) => (
+                    <IconListItem key={index}>
+                      <CheckIcon />
+                      <Label>{subject.name}</Label>
+                    </IconListItem>
+                  ))}
+              </Card>
+
+              <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
+                <div className="flex items-center gap-4">
+                  <SparkleIcon />
+                  <Heading size="sm">{program.subjects?.examSubjectsHeading}</Heading>
+                </div>
+                {program.subjects?.items
+                  ?.filter(({ isExamSubject }) => isExamSubject)
+                  .map((subject, index) => (
+                    <IconListItem key={index}>
+                      <CheckIcon />
+                      <Label>{subject.name}</Label>
+                    </IconListItem>
+                  ))}
+              </Card>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
+      {program.showExternalCTA && (
+        <Section connect="both" className="bg-neutral-200">
+          <div className="py-24">
+            <Container className="text-center" width="narrow">
+              <Heading>Das könnte dich auch interessieren</Heading>
+              <Paragraph>Hier sind wir besonders stolz drauf!</Paragraph>
+            </Container>
+            <Container className="mt-16">
+              <GenericCTA
+                className="mt-8"
+                preHeading={program.externalCTA?.preHeading || ""}
+                mainheading={program.externalCTA?.mainHeading || ""}
+                paragraph={program.externalCTA?.paragraph || ""}
+                ctaText={program.externalCTA?.ctaText || ""}
+                imageURL={program.externalCTA?.image?.asset?.url || ""}
+              />
+            </Container>
+          </div>
+        </Section>
+      )}
+
+      {program.followUpTrainingEnabled && (
+        <Section connect="both" className="bg-neutral-300">
+          <Container className="py-24">
+            <FollowUpTrainingCTA
+              heading={program.followUpTraining?.heading || ""}
+              description={program.followUpTraining?.description || ""}
+            >
+              <Container
+                width="narrow"
+                style={createColorThemeStyles(
+                  ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
+                )}
+              >
+                <Link
+                  href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
+                >
+                  <EducationalProgramCard
+                    name={program.followUpTraining?.educationalProgram?.name || ""}
+                    headline={program.followUpTraining?.educationalProgram?.promotionalHeadline || ""}
+                    programType={program.followUpTraining?.educationalProgram?.educationalProgramType?.name || ""}
+                  />
+                </Link>
+              </Container>
+            </FollowUpTrainingCTA>
+          </Container>
+        </Section>
+      )}
+
+      <Section className="bg-themed-primary">
+        <Container className="py-24">
+          <Heading className="text-center">Was dich erwartet</Heading>
+          <div className={cn("mt-24 flex flex-col gap-8", { "": !program.followUpTrainingEnabled })}>
+            {program.furtherInformation?.map((item, index) => (
+              <div
+                key={index}
+                className={cn("flex flex-col items-stretch gap-8 sm:flex-row", {
+                  "sm:flex-row-reverse": index % 2 !== 0,
+                })}
+              >
+                <div className="relative aspect-square w-full sm:aspect-auto sm:flex-1">
+                  <Image
+                    className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
+                    src={item.image?.asset?.url || ""}
+                    alt={item.heading || ""}
+                    width="500"
+                    height="500"
+                  />
+                </div>
+                <Card className="rounded-3xl border border-neutral-400/20 bg-themed-secondary sm:flex-1">
+                  <Heading tag="h3">{item.heading}</Heading>
+                  <Paragraph>{item.content}</Paragraph>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section className="bg-neutral-300">
+        <Container width="narrow" className="pb-24 pt-32 text-center">
           <Heading tag="h3">{programPage.prerequisites?.heading}</Heading>
           <Paragraph className="">{program.prerequisites?.description}</Paragraph>
           <RequirementList
@@ -308,7 +338,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             groups={program.prerequisites?.requirementGroups?.map(({ requirements }) => requirements || []) || []}
           />
 
-          <Card className="mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-transparent p-2 md:flex-row">
+          <Card className="mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
             <div className="relative min-h-40 flex-1">
               <Image
                 src={programPage.prerequisites?.checkupCTA?.image?.asset?.url || ""}
@@ -328,66 +358,73 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             </div>
           </Card>
         </Container>
+      </Section>
 
-        <Container width="narrow" className="mt-48 text-balance text-center sm:mt-64">
-          <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
-          <Paragraph>{program.testimonials?.subheading}</Paragraph>
-        </Container>
-        <TestimonialCarousel className="mt-16" />
-      </Container>
-
-      <Container className="mt-48 sm:mt-64" width="narrow">
-        <Heading className="text-center">{program.FAQs?.heading}</Heading>
-        <Paragraph>{program.FAQs?.subheading}</Paragraph>
-        <div className="mt-16">
-          <BasicAccordion
-            items={
-              program.FAQs?.faq?.map(({ question, answer }) => ({ title: question || "", content: answer || "" })) || []
-            }
-          />
-        </div>
-      </Container>
-
-      <Container>
-        <div className="mt-32">
-          <BentoCTA />
-        </div>
-      </Container>
-
-      <EndOfPageCTA
-        className="mt-12"
-        heading={program.alternatives?.heading || ""}
-        description={program.alternatives?.description || ""}
-      >
-        <ProgressProvider>
-          <Container>
-            <ScrollProgress className="scrollbar-none items-stretch overflow-x-auto" asChild>
-              <CardCarousel>
-                {alternatePrograms.map((program, index) => (
-                  <CardCarouselItem key={index} asChild>
-                    <Link
-                      href={`/bildungswege/${program.educationalProgramType?.slug?.current}/${program.slug?.current}`}
-                    >
-                      <EducationalProgramCard
-                        className="h-full"
-                        style={{
-                          ...createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl)),
-                        }}
-                        programType={program.educationalProgramType?.name || ""}
-                        name={program.name || ""}
-                        headline={program.promotionalHeadline || ""}
-                      />
-                    </Link>
-                  </CardCarouselItem>
-                ))}
-              </CardCarousel>
-            </ScrollProgress>
-            <ProgressBar className="mx-8 mt-4">
-              <ProgressBarIndicator />
-            </ProgressBar>
+      <Section className="-mb-2 bg-neutral-100">
+        <Container className="pt-32">
+          <Container width="narrow" className="text-balance text-center">
+            <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
+            <Paragraph>{program.testimonials?.subheading}</Paragraph>
           </Container>
-        </ProgressProvider>
-      </EndOfPageCTA>
+          <TestimonialCarousel className="mt-16" />
+        </Container>
+
+        <Container className="mt-48 sm:mt-64" width="narrow">
+          <Heading className="text-center">{program.FAQs?.heading}</Heading>
+          <Paragraph>{program.FAQs?.subheading}</Paragraph>
+          <div className="mt-16">
+            <BasicAccordion
+              items={
+                program.FAQs?.faq?.map(({ question, answer }) => ({
+                  title: question || "",
+                  content: answer || "",
+                })) || []
+              }
+            />
+          </div>
+        </Container>
+
+        <Container>
+          <div className="mt-32">
+            <BentoCTA />
+          </div>
+        </Container>
+
+        <EndOfPageCTA
+          className="mt-12"
+          heading={program.alternatives?.heading || ""}
+          description={program.alternatives?.description || ""}
+        >
+          <ProgressProvider>
+            <Container>
+              <ScrollProgress className="scrollbar-none items-stretch overflow-x-auto" asChild>
+                <CardCarousel>
+                  {alternatePrograms.map((program, index) => (
+                    <CardCarouselItem key={index} asChild>
+                      <Link
+                        href={`/bildungswege/${program.educationalProgramType?.slug?.current}/${program.slug?.current}`}
+                      >
+                        <EducationalProgramCard
+                          className="h-full"
+                          style={{
+                            ...createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl)),
+                          }}
+                          programType={program.educationalProgramType?.name || ""}
+                          name={program.name || ""}
+                          headline={program.promotionalHeadline || ""}
+                        />
+                      </Link>
+                    </CardCarouselItem>
+                  ))}
+                </CardCarousel>
+              </ScrollProgress>
+              <ProgressBar className="mx-8 mt-4">
+                <ProgressBarIndicator />
+              </ProgressBar>
+            </Container>
+          </ProgressProvider>
+        </EndOfPageCTA>
+      </Section>
     </div>
   );
 };
