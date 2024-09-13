@@ -7,9 +7,7 @@ import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cook
 const PublicDefaultLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <div className="sticky top-0 z-50">
-        <SiteHeader />
-      </div>
+      <SiteHeader className="fixed left-0 right-0 top-10 z-50" />
       {children}
       <SiteFooter />
       <CookieNoticeRoot>

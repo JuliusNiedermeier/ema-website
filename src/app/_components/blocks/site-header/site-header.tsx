@@ -29,13 +29,13 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
   const headerConfig = await sanityFetch<SiteHeaderQueryResult>(siteHeaderQuery, { tags: ["header-config"] });
 
   return (
-    <NavigationMenu>
+    <NavigationMenu asChild>
       <NavigationMenuBackdrop />
-      <header className={cn("border-b border-[gray]/20 bg-neutral-200/90 backdrop-blur-3xl", className)} {...restProps}>
-        <Container className="py-3x">
-          <nav className="flex h-16 items-stretch gap-8">
+      <header className={cn(className)} {...restProps}>
+        <Container className="rounded-full border border-neutral-900/20 bg-neutral-200/90 pl-6 pr-3 backdrop-blur-3xl">
+          <nav className="flex h-12 items-stretch gap-8 sm:h-16">
             <Link href="/" className="mr-auto self-center">
-              <SiteLogo />
+              <SiteLogo show="text" />
             </Link>
 
             <NavigationMenuList className="text-sm flex h-full items-stretch font-medium">
@@ -70,14 +70,16 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
               </NavigationMenuMobileMenuItem>
 
               <NavigationMenuIndicator className="text-center transition-transform">
-                <div className="mx-auto h-4 w-4 -translate-y-[calc(50%-1px)] rotate-45 rounded-tl border border-[gray]/30 bg-neutral-200" />
+                <div className="mx-auto -mt-3 h-1 w-6 rounded-full bg-neutral-900" />
               </NavigationMenuIndicator>
             </NavigationMenuList>
           </nav>
         </Container>
 
-        <div className="absolute bottom-0 w-full translate-y-[calc(100%+1px)] overflow-hidden rounded-b-3xl sm:block">
-          <NavigationMenuViewport className="z-10 h-[var(--radix-navigation-menu-viewport-height)] bg-neutral-200 transition-all data-[state='closed']:animate-contractUp data-[state='open']:animate-expandDown" />
+        <div className="absolute -bottom-2 w-full translate-y-[calc(100%+1px)] overflow-hidden rounded-b-3xl sm:block">
+          <Container>
+            <NavigationMenuViewport className="relative z-10 h-[var(--radix-navigation-menu-viewport-height)] overflow-hidden rounded-[2rem] border border-neutral-900/20 bg-neutral-200 transition-all data-[state='closed']:animate-contractUp data-[state='open']:animate-expandDown" />
+          </Container>
         </div>
       </header>
     </NavigationMenu>

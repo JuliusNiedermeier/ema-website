@@ -164,12 +164,12 @@ const config = {
         to: { opacity: "0", transform: "translateX(-200px)" },
       },
       expandDown: {
-        from: { height: "0" },
-        to: { hieght: "var(--radix-navigation-menu-viewport-height)" },
+        from: { opacity: "0", transform: "translateY(-1rem)" },
+        to: { opacity: "1", transform: "translateY(0)" },
       },
       contractUp: {
-        from: { hieght: "var(--radix-navigation-menu-viewport-height)" },
-        to: { height: "0" },
+        from: { opacity: "1", transform: "translateY(0)" },
+        to: { opacity: "0", transform: "translateY(-1rem)" },
       },
       marqueeScroll: {
         from: { transform: "translateX(0)" },

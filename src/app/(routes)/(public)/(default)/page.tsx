@@ -99,7 +99,7 @@ const HomePage: FC = async () => {
 
   return (
     <>
-      <div className="bg-neutral-200">
+      <div className="bg-neutral-200 pt-[var(--header-height)]">
         <Container className="items-end justify-between gap-16 pt-16 sm:flex sm:pt-24">
           <Heading size="lg" className="mb-0 text-primary-900">
             {homePage.heading?.split("\\n").map((line, index, lines) => (

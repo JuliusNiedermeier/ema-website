@@ -2,7 +2,6 @@ import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { OffersMenu } from "./programs-menu";
 import { AboutMenu } from "./about-menu";
-import { Container } from "~/app/_components/primitives/container";
 import Link from "next/link";
 import { Heading } from "~/app/_components/primitives/typography";
 
@@ -11,7 +10,7 @@ export type MobileMenuProps = ComponentProps<"div"> & {};
 export const MobileMenu: FC<MobileMenuProps> = ({ className, ...restProps }) => {
   return (
     <div className={cn("max-h-[75vh] overflow-y-auto overflow-x-hidden", className)} {...restProps}>
-      <Container className="mt-16 text-center">
+      <div className="mt-16 text-center">
         <Link href="/">
           <Heading size="lg" tag="h3">
             Home
@@ -27,7 +26,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({ className, ...restProps }) => 
             Kontakt
           </Heading>
         </Link>
-      </Container>
+      </div>
 
       <Seperator label="About" className="mt-16" />
 

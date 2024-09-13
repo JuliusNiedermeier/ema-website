@@ -5,6 +5,8 @@
 @layer base {
   :root {
     font-size: 18px;
+    /* height + margin-top + 2x border | mobile height is 3rem */
+    --header-height: calc(4rem + 0.5rem + 2px);
   }
 
   ::-moz-selection {

@@ -1,5 +1,4 @@
 import { ComponentProps, FC } from "react";
-import { Container } from "~/app/_components/primitives/container";
 import { cn } from "~/app/_utils/cn";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
@@ -63,12 +62,10 @@ export const AboutMenu: FC<AboutMenuProps> = async ({ className, ...restProps })
   ];
 
   return (
-    <div className={cn(className)} {...restProps}>
-      <Container className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-4 py-4">
-        {links.map((link, index) => (
-          <AboutMenuItem key={index} {...link} />
-        ))}
-      </Container>
+    <div className={cn("grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-3 p-3", className)} {...restProps}>
+      {links.map((link, index) => (
+        <AboutMenuItem key={index} {...link} />
+      ))}
     </div>
   );
 };
