@@ -89,7 +89,8 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
         color
       }
     }
-  }
+  },
+  subjects[] ->
 }`;
 
 const alternateProgramsQuery = groq`*[_type == "educational-program" && slug.current != $currentProgramSlug]{
@@ -135,7 +136,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
-      <div className="pt-header bg-neutral-200 pb-32">
+      <div className="bg-neutral-200 pb-32 pt-header">
         <Container className="pt-20 text-center" width="narrow">
           <div className="mx-auto flex w-fit items-center gap-2 rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
             <Label className="mb-0 text-primary-900">{program.educationalProgramType?.name}</Label>
@@ -216,13 +217,13 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
             <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
               <Card>
-                <Heading>{program.subjects?.heading}</Heading>
-                <Paragraph>{program.subjects?.description}</Paragraph>
+                <Heading>{programPage.subjects?.heading}</Heading>
+                <Paragraph>{programPage.subjects?.description}</Paragraph>
               </Card>
 
               <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
-                {program.subjects?.items
-                  ?.filter(({ isExamSubject }) => !isExamSubject)
+                {program.subjects
+                  ?.filter((subject) => !subject.isLearningField)
                   .map((subject, index) => (
                     <IconListItem key={index}>
                       <CheckIcon />
@@ -234,10 +235,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
                 <div className="flex items-center gap-4">
                   <SparkleIcon />
-                  <Heading size="sm">{program.subjects?.examSubjectsHeading}</Heading>
+                  <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
                 </div>
-                {program.subjects?.items
-                  ?.filter(({ isExamSubject }) => isExamSubject)
+                {program.subjects
+                  ?.filter((subject) => subject.isLearningField)
                   .map((subject, index) => (
                     <IconListItem key={index}>
                       <CheckIcon />

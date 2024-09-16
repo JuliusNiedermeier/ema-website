@@ -36,6 +36,30 @@ export const educationalProgramPage: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "subjects",
+        title: "Fächer",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "string",
+          }),
+          defineField({
+            name: "learningFieldsHeading",
+            title: "Überschrift der Lernfelder",
+            description: "5-20 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(5).max(20),
+          }),
+        ],
+      }),
+      defineField({
         name: "prerequisites",
         title: "Voraussetzungen",
         type: "object",

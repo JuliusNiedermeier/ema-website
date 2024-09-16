@@ -349,56 +349,15 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "subjects",
         title: "Fächer",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "5-20 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "10-50 Zeichen",
-            type: "text",
-            validation: (r) => r.min(10).max(50),
-          }),
-          defineField({
-            name: "examSubjectsHeading",
-            title: "Prüfungsfächer Überschrift",
-            description: "5-20 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          }),
-          defineField({
-            name: "items",
-            title: "Subjects",
-            description: "Mindestens 3 Fächer erforderlich",
-            type: "array",
-            validation: (r) => r.min(3),
-            of: [
-              defineArrayMember({
-                name: "subject",
-                title: "Fach",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "name",
-                    title: "Bezeichnung",
-                    description: "5-30 Zeichen",
-                    type: "string",
-                    validation: (r) => r.required().min(5).max(30),
-                  }),
-                  defineField({
-                    name: "isExamSubject",
-                    title: "Ist dies ein Prüfungsfach?",
-                    type: "boolean",
-                  }),
-                ],
-              }),
-            ],
+        description: "Mindestens 3 Fächer erforderlich",
+        type: "array",
+        validation: (r) => r.min(3),
+        of: [
+          defineArrayMember({
+            name: "subject",
+            title: "Fach",
+            type: "reference",
+            to: { type: "subject" },
           }),
         ],
       }),
