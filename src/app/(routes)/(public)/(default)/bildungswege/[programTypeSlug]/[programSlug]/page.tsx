@@ -120,7 +120,7 @@ export const generateStaticParams = async () => {
 const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) => {
   const program = await sanityFetch<ProgramPageContentQueryResult>(programPageContentQuery, {
     params: { slug: decodeURIComponent(programSlug) },
-    tags: ["educational-program", "educational-program-type"],
+    tags: ["educational-program", "educational-program-type", "subject"],
   });
 
   const programPage = await sanityFetch<ProgramPageQueryResult>(programPageQuery, {
