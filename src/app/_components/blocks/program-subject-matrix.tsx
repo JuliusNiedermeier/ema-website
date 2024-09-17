@@ -33,7 +33,6 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
     .map((programType) => {
       const { programs, ...type } = programType;
       return programs.map((program) => {
-        console.log(program);
         return {
           ...program,
           type,
