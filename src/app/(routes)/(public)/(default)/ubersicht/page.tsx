@@ -1,12 +1,8 @@
-import { CheckIcon, MinusIcon } from "lucide-react";
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
-import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
-import { cn } from "~/app/_utils/cn";
+import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import Image from "next/image";
-
-const xCount = 7;
-const yCount = 15;
+import { ProgramSubjectMatrix } from "~/app/_components/blocks/program-subject-matrix";
 
 const ÜbersichtPage: FC = () => {
   return (
@@ -32,52 +28,7 @@ const ÜbersichtPage: FC = () => {
       </Container>
 
       <Container className="mt-24">
-        <div
-          className="relative grid overflow-x-auto overflow-y-hidden rounded-3xl border"
-          style={{
-            gridTemplateColumns: `repeat(${xCount},min-content)`,
-            // gridTemplateRows: `repeat(${yCount},fit-content)`,
-          }}
-        >
-          {Array.from(new Array(yCount)).map((_, yIndex) =>
-            Array.from(new Array(xCount)).map((_, xIndex) => {
-              const checked = Boolean(Math.round(Math.random()));
-              return (
-                <Fragment key={`${yIndex}-${xIndex}`}>
-                  {yIndex === 0 && xIndex === 0 ? (
-                    <div className="bg-[#e38264]" />
-                  ) : yIndex === 0 ? (
-                    <div
-                      className={cn("bg-[#e38264] p-4", {
-                        "border-l border-neutral-100-text-muted": xIndex > 0,
-                      })}
-                    >
-                      <Label className="block text-neutral-100-text-muted">Fachschule</Label>
-                      <Label>Heilerziehungspflege</Label>
-                    </div>
-                  ) : xIndex === 0 ? (
-                    <div className="sticky left-0 overflow-hidden border-r border-t border-neutral-400 bg-neutral-200 p-4">
-                      <Label className="text-neutral-200-text">Politikwissenschaften</Label>
-                    </div>
-                  ) : (
-                    <div
-                      className={cn(
-                        "wrap grid place-content-center border-l border-t border-neutral-400 bg-neutral-200 p-2",
-                        { "bg-primary-900/10": checked },
-                      )}
-                    >
-                      {checked && (
-                        <div className={cn("rounded-xl bg-primary-900 p-2 text-primary-900-text")}>
-                          <CheckIcon />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </Fragment>
-              );
-            }),
-          )}
-        </div>
+        <ProgramSubjectMatrix />
       </Container>
     </div>
   );
