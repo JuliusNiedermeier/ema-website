@@ -54,6 +54,7 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
 
       {programs.map((program, index) => (
         <div
+          key={program._id}
           style={createColorThemeStyles(ensureValidHSL(program.type.color?.hsl))}
           className={cn("whitespace-nowrap bg-themed-primary p-4", {
             "border-l border-neutral-100-text-muted": index > 0,
@@ -66,10 +67,7 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
 
       {subjects.map((subject) => (
         <Fragment key={subject._id}>
-          <div
-            key={subject._id}
-            className="sticky left-0 overflow-hidden border-r border-t border-neutral-100-text-muted bg-neutral-100/60 p-4 backdrop-blur-xl"
-          >
+          <div className="sticky left-0 overflow-hidden border-r border-t border-neutral-100-text-muted bg-neutral-100/60 p-4 backdrop-blur-xl">
             <Label className="whitespace-nowrap text-neutral-200-text">{subject.name}</Label>
           </div>
 
