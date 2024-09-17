@@ -39,6 +39,7 @@ import { programFeesType } from "./internal/program-fees";
 import { infoEventPage } from "./static-pages/info-event-page";
 import { consultingPage } from "./static-pages/consulting-page";
 import { subjectType } from "./dynamic-content/subject";
+import { comparisonPage } from "./static-pages/comparison-page";
 
 export type SchemaTypeDef = {
   type:
@@ -60,6 +61,7 @@ const typeDefs = [
   artPage,
   blogPage,
   applicationPage,
+  comparisonPage,
   checkupPage,
   contactPage,
   infoEventPage,
