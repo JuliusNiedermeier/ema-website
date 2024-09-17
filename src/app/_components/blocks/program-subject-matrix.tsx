@@ -50,7 +50,7 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
       style={{ gridTemplateColumns: `repeat(${programs.length + 1},min-content)` }}
       {...restProps}
     >
-      <div className="sticky left-0 border-r border-neutral-100-text-muted bg-neutral-100/60 backdrop-blur-xl"></div>
+      <div className="sticky left-0 hidden border-r border-neutral-100-text-muted bg-neutral-100/60 backdrop-blur-xl md:block" />
 
       {programs.map((program, index) => (
         <div
@@ -67,8 +67,13 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
 
       {subjects.map((subject) => (
         <Fragment key={subject._id}>
-          <div className="sticky left-0 overflow-hidden border-r border-t border-neutral-100-text-muted bg-neutral-100/60 p-4 backdrop-blur-xl">
-            <Label className="whitespace-nowrap text-neutral-200-text">{subject.name}</Label>
+          <div
+            className="left-0 z-10 col-start-1 -mb-10 grid h-10 items-center border-r border-t border-neutral-100-text-muted bg-neutral-900/5 md:sticky md:!col-span-1 md:mb-0 md:h-16 md:bg-neutral-100/60 md:backdrop-blur-xl"
+            style={{ gridColumnEnd: programs.length + 2 }}
+          >
+            <Label className="sticky left-0 block w-fit whitespace-nowrap px-4 text-neutral-200-text">
+              {subject.name}
+            </Label>
           </div>
 
           {programs.map((program, programIndex) => {
@@ -78,7 +83,7 @@ export const ProgramSubjectMatrix: FC<ProgramSubjectMatrixProps> = async ({ clas
                 key={program._id}
                 style={createColorThemeStyles(ensureValidHSL(program.type.color?.hsl))}
                 className={cn(
-                  "grid place-content-center border-t border-neutral-100-text-muted bg-themed-primary/50 p-2",
+                  "grid place-content-center border-t border-neutral-100-text-muted bg-themed-primary/50 p-2 pt-12 md:pt-2",
                   {
                     "bg-themed-primary/80": checked,
                     "border-l": programIndex > 0,
