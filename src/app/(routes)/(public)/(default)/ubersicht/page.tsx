@@ -3,6 +3,7 @@ import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import Image from "next/image";
 import { ProgramSubjectMatrix } from "~/app/_components/blocks/program-subject-matrix";
+import { ProgramLearningFieldsComparison } from "~/app/_components/blocks/program-learning-fields-comparison";
 
 const ÜbersichtPage: FC = () => {
   return (
@@ -29,6 +30,18 @@ const ÜbersichtPage: FC = () => {
 
       <Container className="mt-24">
         <ProgramSubjectMatrix />
+      </Container>
+
+      <Container width="narrow" className="mt-64 text-center">
+        <Heading>Lernfelder im Überblick</Heading>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque ipsum similique nihil hic quidem non ad, ex
+          nisi natus nostrum earum dolorem, unde, distinctio placeat dolor vero obcaecati quas labore!
+        </Paragraph>
+      </Container>
+
+      <Container className="mt-24">
+        <ProgramLearningFieldsComparison />
       </Container>
     </div>
   );
