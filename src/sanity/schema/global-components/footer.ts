@@ -61,6 +61,11 @@ export const footerConfigType: SchemaTypeDef = {
                     type: "string",
                   }),
                   defineField({
+                    name: "comparison",
+                    title: "Vergleich",
+                    type: "string",
+                  }),
+                  defineField({
                     name: "blog",
                     title: "Blog",
                     type: "string",
