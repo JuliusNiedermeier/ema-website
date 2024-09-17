@@ -75,7 +75,7 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
         </div>
       </Card>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-3 xl:flex-1">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-3 xl:flex-1">
         {programTypesWithPrograms.map((programType) => (
           <div key={programType._id} className="flex flex-1 flex-col gap-2 rounded-3xl border p-2">
             <ProgramTypeMenuLink

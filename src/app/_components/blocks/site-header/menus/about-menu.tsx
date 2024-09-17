@@ -62,7 +62,7 @@ export const AboutMenu: FC<AboutMenuProps> = async ({ className, ...restProps })
   ];
 
   return (
-    <div className={cn("grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-3 p-3", className)} {...restProps}>
+    <div className={cn("grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-3 p-3", className)} {...restProps}>
       {links.map((link, index) => (
         <AboutMenuItem key={index} {...link} />
       ))}
