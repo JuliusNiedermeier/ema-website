@@ -17,17 +17,15 @@ import { ArtEducation } from "~/app/_components/blocks/art-education";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
-import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
-import { EducationalProgramTypePreviewList } from "~/app/_components/blocks/educational-program-type-preview-list";
 import { EconomyXSocial } from "~/app/_components/compounds/economy-x-social";
 import { CampusCard } from "~/app/_components/blocks/campus-card";
 import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 import { notFound } from "next/navigation";
-import { ContactPreviewCard } from "~/app/_components/blocks/contact-preview-card";
 import Link from "next/link";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { HeroVideo } from "~/app/_components/compounds/hero-video";
 import { Section } from "~/app/_components/primitives/section";
+import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -144,7 +142,7 @@ const HomePage: FC = async () => {
       </div>
 
       <Container>
-        <EducationalProgramTypeCards className="mt-32" />
+        <ProgramGrid className="mt-32" />
 
         <div className="mx-auto mt-64 max-w-[40rem] text-center">
           <Heading>{homePage.introduction?.heading}</Heading>
@@ -173,13 +171,13 @@ const HomePage: FC = async () => {
         readMoreButtonLabel={economyXSocial?.previewReadMoreLabel || ""}
       />
 
-      <EducationalProgramTypePreviewList className="-z-10 mt-64" />
-
-      <Section connect="bottom" className="-mt-[4rem] bg-neutral-300">
-        <Container width="narrow" className="flex flex-col items-center pb-24 pt-32 text-center">
-          <Heading size="sm">{checkupPreview?.heading}</Heading>
-          <Paragraph className="mt-0">{checkupPreview?.previewText}</Paragraph>
-          <Button vairant="filled" className="mt-8" href="/checkup">
+      <Section connect="bottom" className="mt-32 bg-primary-900">
+        <Container width="narrow" className="flex flex-col items-center py-32 text-center">
+          <Heading size="sm" className="text-neutral-900-text">
+            {checkupPreview?.heading}
+          </Heading>
+          <Paragraph className="mt-0 text-neutral-900-text-muted">{checkupPreview?.previewText}</Paragraph>
+          <Button vairant="filled" className="mt-8 bg-primary-100 text-primary-100-text" href="/checkup">
             <Label>{checkupPreview?.previewReadMoreLabel}</Label>
             <ButtonInteractionBubble />
           </Button>
@@ -212,7 +210,7 @@ const HomePage: FC = async () => {
             <CampusCard />
           </Link>
 
-          <ContactPreviewCard className="mt-16" />
+          {/* <ContactPreviewCard className="mt-16" /> */}
         </Container>
       </Section>
 
