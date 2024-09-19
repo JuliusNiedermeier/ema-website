@@ -33,7 +33,7 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
       <NavigationMenuBackdrop />
       <header className={cn(className)} {...restProps}>
         <Container className="rounded-full border border-neutral-900/20 bg-neutral-200/90 pl-6 pr-3 backdrop-blur-3xl">
-          <nav className="flex h-12 items-stretch gap-8 sm:h-16">
+          <nav className="flex h-12 items-stretch gap-8 xl:h-16">
             <Link href="/" className="mr-auto self-center">
               <SiteLogo show="text" />
             </Link>
