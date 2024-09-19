@@ -5,24 +5,10 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { groq } from "next-sanity";
-import {
-  OffersGridProgramTypesQueryResult,
-  OffersGridProgramsQueryResult,
-  ProgramsMenuCheckupQueryResult,
-} from "../../../../../../generated/sanity/types";
+import { ProgramsMenuCheckupQueryResult } from "../../../../../../generated/sanity/types";
 import { sanityFetch } from "~/sanity/lib/client";
 import Image from "next/image";
-import { ensureValidHSL } from "~/app/_utils/color-swatch";
-import { ProgramMenuLink, ProgramTypeMenuLink } from "~/app/_components/compounds/programs-menu-link";
-
-const offersGridProgramTypesQuery = groq`*[_type == "educational-program-type"]{
-  ...,
-}`;
-
-const offersGridProgramsQuery = groq`*[_type == "educational-program"]{
-  ...,
-  educationalProgramType->{ _id }
-}`;
+import { ProgramGrid } from "../../program-grid";
 
 const programsMenuCheckupQuery = groq`*[_type == "checkup-page"][0]{
   heading,
@@ -33,19 +19,6 @@ const programsMenuCheckupQuery = groq`*[_type == "checkup-page"][0]{
 export type OffersMenuProps = ComponentProps<"div"> & {};
 
 export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps }) => {
-  const programTypes = await sanityFetch<OffersGridProgramTypesQueryResult>(offersGridProgramTypesQuery, {
-    tags: ["educational-program-type"],
-  });
-
-  const programs = await sanityFetch<OffersGridProgramsQueryResult>(offersGridProgramsQuery, {
-    tags: ["educational-program", "educational-program-type"],
-  });
-
-  const programTypesWithPrograms = programTypes.map((programType) => ({
-    ...programType,
-    programs: programs.filter((program) => program.educationalProgramType?._id === programType._id),
-  }));
-
   const checkup = await sanityFetch<ProgramsMenuCheckupQueryResult>(programsMenuCheckupQuery, {
     tags: ["checkup-page"],
   });
@@ -75,27 +48,7 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
         </div>
       </Card>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-3 xl:flex-1">
-        {programTypesWithPrograms.map((programType) => (
-          <div key={programType._id} className="flex flex-1 flex-col gap-2 rounded-3xl border p-2">
-            <ProgramTypeMenuLink
-              href={`/bildungswege/${programType.slug?.current}`}
-              heading={programType.name || ""}
-              description={programType.promotionalHeadline || ""}
-            />
-            <div className="flex flex-1 flex-col gap-2">
-              {programType.programs.map((program) => (
-                <ProgramMenuLink
-                  key={program._id}
-                  href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
-                  heading={program.name || ""}
-                  color={ensureValidHSL(programType.color?.hsl)}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <ProgramGrid />
     </div>
   );
 };
