@@ -14,7 +14,7 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
       {...restProps}
     >
       {Array.from(new Array(2)).map((_, index) => (
-        <div key={index} className="animate-marqueeScroll flex min-w-full shrink-0 justify-around gap-[var(--gap)]">
+        <div key={index} className="flex min-w-full shrink-0 animate-marqueeScroll justify-around gap-[var(--gap)]">
           {partners.map((partner) => (
             <Image
               key={partner.name}
@@ -22,7 +22,7 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
               width={500}
               src={partner.imageURL}
               alt={partner.name}
-              className="h-8 w-min object-contain mix-blend-multiply"
+              className="h-8 w-auto mix-blend-multiply"
             />
           ))}
         </div>
