@@ -40,6 +40,7 @@ import { infoEventPage } from "./static-pages/info-event-page";
 import { consultingPage } from "./static-pages/consulting-page";
 import { subjectType } from "./dynamic-content/subject";
 import { comparisonPage } from "./static-pages/comparison-page";
+import { infoBannerConfigType } from "./global-components/info-banner";
 
 export type SchemaTypeDef = {
   type:
@@ -89,6 +90,7 @@ const typeDefs = [
   footerConfigType,
   cookieNoticeConfigType,
   bentoCTAConfigType,
+  infoBannerConfigType,
 
   // Global config
   websiteSettingsType,

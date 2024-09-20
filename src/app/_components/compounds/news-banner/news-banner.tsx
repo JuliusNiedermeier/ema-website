@@ -1,16 +1,29 @@
 "use client";
 
-import { ComponentProps, FC } from "react";
+import { ComponentProps, FC, useEffect } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Container } from "../../primitives/container";
 import { MegaphoneIcon, XIcon } from "lucide-react";
 import { Label } from "../../primitives/typography";
 import { useNewsBanner } from "./state";
 
-export type NewsBannerProps = ComponentProps<"div"> & {};
+export type NewsBannerProps = ComponentProps<"div"> & {
+  text: string;
+  link?: string;
+  updatedAt: Date;
+};
 
-export const NewsBanner: FC<NewsBannerProps> = ({ className, ...restProps }) => {
+export const NewsBanner: FC<NewsBannerProps> = ({ className, text, link, updatedAt, ...restProps }) => {
   const { dismissed, setDismissed } = useNewsBanner();
+
+  const handleDismiss: ComponentProps<"div">["onClick"] = () => {
+    setDismissed(Date.now().toString());
+  };
+
+  useEffect(() => {
+    if (dismissed === null || dismissed === false || updatedAt <= new Date(Number(dismissed))) return;
+    setDismissed(false);
+  }, [updatedAt, dismissed]);
 
   return (
     <div
@@ -25,13 +38,10 @@ export const NewsBanner: FC<NewsBannerProps> = ({ className, ...restProps }) => 
     >
       <Container className="flex h-full items-center gap-4 overflow-hidden">
         <MegaphoneIcon size="20" className="shrink-0" />
-        <Label className="overflow-hidden text-ellipsis whitespace-nowrap">
-          NEWS ohne Voranmeldung: zusätzliche offene Beratungen bis einschließlich 23.09.2024 jeweils montags von 16:00
-          bis 17:00 Uhr!
-        </Label>
+        <Label className="overflow-hidden text-ellipsis whitespace-nowrap">{text}</Label>
         <div
           className="ml-auto rounded-full border border-transparent p-1 hover:border-neutral-900/20"
-          onClick={() => setDismissed(true)}
+          onClick={handleDismiss}
         >
           <XIcon size="18" />
         </div>

@@ -1,3 +1,4 @@
+import { groq } from "next-sanity";
 import { FC, PropsWithChildren } from "react";
 import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
 import { SiteFooter } from "~/app/_components/blocks/site-footer";
@@ -5,12 +6,28 @@ import { SiteHeader } from "~/app/_components/blocks/site-header/site-header";
 import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice";
 import { NewsBanner } from "~/app/_components/compounds/news-banner/news-banner";
 import { SiteHeaderContainer } from "~/app/_components/compounds/site-header-container";
+import { sanityFetch } from "~/sanity/lib/client";
+import { PublicDefaultLayoutInfoBannerQueryResult } from "../../../../../generated/sanity/types";
 
-const PublicDefaultLayout: FC<PropsWithChildren> = ({ children }) => {
+const publicDefaultLayoutInfoBannerQuery = groq`*[_type == "info-banner-component"][0
+]`;
+
+const PublicDefaultLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const infoBanner = await sanityFetch<PublicDefaultLayoutInfoBannerQueryResult>(publicDefaultLayoutInfoBannerQuery, {
+    tags: ["info-banner-component"],
+  });
+
   return (
     <>
-      <NewsBanner className="sticky top-0 z-40" />
-      <SiteHeaderContainer>
+      {infoBanner && (
+        <NewsBanner
+          className="sticky top-0 z-40"
+          text={infoBanner.content || ""}
+          link={infoBanner.link}
+          updatedAt={new Date(infoBanner._updatedAt)}
+        />
+      )}
+      <SiteHeaderContainer isNewsBannerEnabled={Boolean(infoBanner)}>
         <SiteHeader className="relative z-50" />
       </SiteHeaderContainer>
       {children}

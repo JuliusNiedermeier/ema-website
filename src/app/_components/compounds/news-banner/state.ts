@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type NewsBannerStatus = null | boolean;
+type NewsBannerStatus = null | false | string;
 
 export type NewsBannerState = {
   dismissed: NewsBannerStatus;
