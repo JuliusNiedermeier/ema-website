@@ -5,7 +5,10 @@ import { AppointmentRequestForm } from "~/app/_components/compounds/appointment-
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
-import { ConsultingPageQueryResult } from "../../../../../../../generated/sanity/types";
+import {
+  ConsultingPageQueryResult,
+  ConsultingPageFooterLinksQueryResult,
+} from "../../../../../../../generated/sanity/types";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { CalendarCheckIcon, CheckIcon, type LucideIcon, MoveRightIcon, SendHorizonalIcon } from "lucide-react";
 import { IconListItem } from "~/app/_components/primitives/icon-list-item";
@@ -21,6 +24,10 @@ const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   consultants[] { asset -> { url } }
 }`;
 
+const consultingPageFooterLinksQuery = groq`*[_type == "footer-config"][0] {
+  legalLinks { privacy }
+}`;
+
 const ContactPage: FC = async () => {
   const consultingPageData = await sanityFetch<ConsultingPageQueryResult>(consultingPageQuery, {
     tags: ["consulting-page"],
@@ -28,9 +35,13 @@ const ContactPage: FC = async () => {
 
   if (!consultingPageData) notFound();
 
+  const footerLinkData = await sanityFetch<ConsultingPageFooterLinksQueryResult>(consultingPageFooterLinksQuery, {
+    tags: ["footer-config"],
+  });
+
   return (
     <>
-      <div className="pt-header relative pb-32">
+      <div className="relative pb-32 pt-header">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full" />
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto max-w-[35rem] text-balance text-center">
@@ -61,6 +72,7 @@ const ContactPage: FC = async () => {
             submitButtonLabel={consultingPageData.form?.submitLabel || ""}
             successLabel={consultingPageData.form?.successLabel || ""}
             successText={consultingPageData.form?.successText || ""}
+            privacyLinkLabel={footerLinkData?.legalLinks?.privacy || ""}
           />
           <div className="mt-4 flex justify-center">
             <div className="flex w-fit flex-wrap gap-4">

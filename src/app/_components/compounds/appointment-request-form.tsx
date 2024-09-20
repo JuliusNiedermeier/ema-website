@@ -8,12 +8,14 @@ import { sendInternalAppointmentRequest } from "~/server/resources/appointment/a
 import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { useMutation } from "@tanstack/react-query";
 import { Turnstile } from "./turnstile";
+import Link from "next/link";
 
 export type AppointmentRequestFormProps = ComponentProps<"div"> & {
   emailPlaceholder: string;
   submitButtonLabel: string;
   successLabel: string;
   successText: string;
+  privacyLinkLabel: string;
 };
 
 export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
@@ -22,6 +24,7 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
   submitButtonLabel,
   successLabel,
   successText,
+  privacyLinkLabel,
   ...restProps
 }) => {
   const [email, setEmail] = useState("");
@@ -92,6 +95,9 @@ export const AppointmentRequestForm: FC<AppointmentRequestFormProps> = ({
           )}
         </Button>
       </div>
+      <Link href="/datenschutz" className="mx-auto mt-2 block w-fit text-neutral-100-text-muted">
+        <Label>{privacyLinkLabel}</Label>
+      </Link>
       <Turnstile
         onVerify={(token) => setTurnstileToken(token)}
         className="mx-auto mt-4 rounded-2xl mix-blend-darken"
