@@ -9,18 +9,32 @@ export const educationalProgram: SchemaTypeDef = {
     title: "Bildungsgang",
     type: "document",
     icon: GraduationCapIcon,
+    groups: [
+      { name: "hero", title: "Hero", default: true },
+      { name: "highlights", title: "Highlights" },
+      { name: "details", title: "Eckdaten" },
+      { name: "subjects", title: "Fächer" },
+      { name: "external-cta", title: "Externer CTA" },
+      { name: "follow-up-program", title: "Folgeausbildung" },
+      { name: "information-gallery", title: "Informations-Gallerie" },
+      { name: "prerequisites", title: "Voraussetungen" },
+      { name: "closing-section", title: "Abschluss-Bereich" },
+      { name: "fees", title: "Beiträge" },
+    ],
     fields: [
       defineField({
         name: "name",
         title: "Bezeichnung des Bildungsgangs",
         description: "5-30 Zeichen",
         type: "string",
+        group: "hero",
         validation: (r) => r.required().min(5).max(30),
       }),
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
+        group: "hero",
       }),
       defineField({
         name: "educationalProgramType",
@@ -28,6 +42,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "Zu welchem Bildungsweg gehört dieser Bildungsgang?",
         type: "reference",
         to: { type: "educational-program-type" },
+        group: "hero",
         validation: (r) => r.required(),
       }),
       defineField({
@@ -36,6 +51,7 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "10-40 Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",
         type: "string",
+        group: "hero",
         validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
@@ -43,12 +59,14 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Einleitende Kurzbeschreibung",
         description: "50-300 Zeichen",
         type: "text",
+        group: "hero",
         validation: (r) => r.required().min(50).max(300),
       }),
       defineField({
         name: "coverImage",
         title: "Titelbild",
         type: "image",
+        group: "hero",
       }),
       defineField({
         name: "highlights",
@@ -56,6 +74,7 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "2-4 Highlights. Welche Aspekte des Bildungsgangs kommen bei Schülern besonders gut an? Welche Vorteile sollen hervorgehoben werden?",
         type: "array",
+        group: "highlights",
         validation: (r) => r.required().min(2).max(4),
         of: [
           defineArrayMember({
@@ -85,12 +104,14 @@ export const educationalProgram: SchemaTypeDef = {
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
+        group: "details",
       }),
       defineField({
         name: "programDetails",
         title: "Eckdaten zum Bildungsgang",
         description: "Wichtige Daten, und Zeiten.",
         type: "object",
+        group: "details",
         fields: [
           defineField({
             name: "durationAndType",
@@ -194,20 +215,39 @@ export const educationalProgram: SchemaTypeDef = {
         ],
       }),
       defineField({
+        name: "subjects",
+        title: "Fächer",
+        description: "Mindestens 3 Fächer erforderlich",
+        type: "array",
+        group: "subjects",
+        validation: (r) => r.min(3),
+        of: [
+          defineArrayMember({
+            name: "subject",
+            title: "Fach",
+            type: "reference",
+            to: { type: "subject" },
+          }),
+        ],
+      }),
+      defineField({
         name: "showExternalCTA",
         title: "Externen Call-To-Action anzeigen",
         type: "boolean",
+        group: "external-cta",
       }),
       defineField({
         name: "externalCTA",
         title: "Externer Call-To-Action",
         type: "generic-cta",
+        group: "external-cta",
         hidden: ({ document }) => !document?.showExternalCTA,
       }),
       defineField({
         name: "followUpTrainingEnabled",
         title: "Gibt es einen anderen Bildungsgang, der im Anschluss an diesen Bildungsgang empfohlen wird?",
         type: "boolean",
+        group: "follow-up-program",
       }),
       defineField({
         name: "followUpTraining",
@@ -215,6 +255,7 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, den er im Anschluss an diesen Bildungsgang gehen kann.",
         type: "object",
+        group: "follow-up-program",
         fields: [
           defineField({
             name: "heading",
@@ -244,6 +285,7 @@ export const educationalProgram: SchemaTypeDef = {
         name: "furtherInformationIntro",
         title: "Einleitung der weiteren Informationen",
         type: "object",
+        group: "information-gallery",
         fields: [
           defineField({
             name: "heading",
@@ -262,6 +304,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Weitere Informationen",
         description: "2-10 Einträge",
         type: "array",
+        group: "information-gallery",
         validation: (r) => r.min(2).max(10),
         of: [
           defineArrayMember({
@@ -301,6 +344,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Voraussetzungen",
         description: "Welche Voraussetzungen müssen Bewerber für diesen Bildungsgang erfüllen?",
         type: "object",
+        group: "prerequisites",
         fields: [
           defineField({
             name: "description",
@@ -347,25 +391,11 @@ export const educationalProgram: SchemaTypeDef = {
         ],
       }),
       defineField({
-        name: "subjects",
-        title: "Fächer",
-        description: "Mindestens 3 Fächer erforderlich",
-        type: "array",
-        validation: (r) => r.min(3),
-        of: [
-          defineArrayMember({
-            name: "subject",
-            title: "Fach",
-            type: "reference",
-            to: { type: "subject" },
-          }),
-        ],
-      }),
-      defineField({
         name: "testimonials",
         title: "Testimonials",
         description: "Positive Aussagen der Schüler zu diesem Bildungsweg",
         type: "object",
+        group: "closing-section",
         fields: [
           defineField({
             name: "heading",
@@ -389,6 +419,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "FAQ - Frequently Asked Questions",
         description: "Die häufigsten Fragen zu diesem Bildungsgang können hier beantwortet werden.",
         type: "object",
+        group: "closing-section",
         fields: [
           defineField({
             name: "heading",
@@ -416,6 +447,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Andere Bildungsgänge",
         description: "Hier werden alle anderen Bildungsgänge aufgelistet.",
         type: "object",
+        group: "closing-section",
         fields: [
           defineField({
             name: "heading",
@@ -436,6 +468,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "fees",
         type: "program-fees",
+        group: "fees",
       }),
     ],
     preview: {
