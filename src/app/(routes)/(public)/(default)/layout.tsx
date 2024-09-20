@@ -23,7 +23,7 @@ const PublicDefaultLayout: FC<PropsWithChildren> = async ({ children }) => {
         <NewsBanner
           className="sticky top-0 z-40"
           text={infoBanner.content || ""}
-          link={infoBanner.link}
+          link={infoBanner.link || "/"}
           updatedAt={new Date(infoBanner._updatedAt)}
         />
       )}

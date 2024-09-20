@@ -6,10 +6,11 @@ import { Container } from "../../primitives/container";
 import { MegaphoneIcon, XIcon } from "lucide-react";
 import { Label } from "../../primitives/typography";
 import { useNewsBanner } from "./state";
+import Link from "next/link";
 
-export type NewsBannerProps = ComponentProps<"div"> & {
+export type NewsBannerProps = Omit<ComponentProps<typeof Link>, "children" | "href"> & {
   text: string;
-  link?: string;
+  link: string;
   updatedAt: Date;
 };
 
@@ -26,9 +27,11 @@ export const NewsBanner: FC<NewsBannerProps> = ({ className, text, link, updated
   }, [updatedAt, dismissed]);
 
   return (
-    <div
+    <Link
+      target={link.startsWith("/") ? "_self" : "_blank"}
+      href={link}
       className={cn(
-        "h-0 overflow-hidden border-b-[gray]/20 bg-primary-100 transition-[height,_border-bottom-width]",
+        "block h-0 overflow-hidden border-b-[gray]/20 bg-primary-100 transition-[height,_border-bottom-width,_filter] hover:brightness-95",
         {
           "h-10 border-b": dismissed === false,
         },
@@ -46,6 +49,6 @@ export const NewsBanner: FC<NewsBannerProps> = ({ className, text, link, updated
           <XIcon size="18" />
         </div>
       </Container>
-    </div>
+    </Link>
   );
 };

@@ -19,7 +19,7 @@ export const infoBannerConfigType: SchemaTypeDef = {
       defineField({
         name: "link",
         title: "Link",
-        type: "url",
+        type: "string",
       }),
     ],
     preview: {
