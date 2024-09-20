@@ -1,7 +1,7 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { groq } from "next-sanity";
-import { OffersGridProgramTypesQueryResult, OffersGridProgramsQueryResult } from "../../../../generated/sanity/types";
+import { ProgramGridProgramTypesQueryResult, ProgramGridProgramsQueryResult } from "../../../../generated/sanity/types";
 import { sanityFetch } from "~/sanity/lib/client";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { ProgramMenuLink, ProgramTypeMenuLink } from "~/app/_components/compounds/programs-menu-link";
@@ -18,11 +18,11 @@ const programGridProgramsQuery = groq`*[_type == "educational-program"]{
 export type ProgramGridProps = ComponentProps<"div"> & {};
 
 export const ProgramGrid: FC<ProgramGridProps> = async ({ className, ...restProps }) => {
-  const programTypes = await sanityFetch<OffersGridProgramTypesQueryResult>(programGridProgramTypesQuery, {
+  const programTypes = await sanityFetch<ProgramGridProgramTypesQueryResult>(programGridProgramTypesQuery, {
     tags: ["educational-program-type"],
   });
 
-  const programs = await sanityFetch<OffersGridProgramsQueryResult>(programGridProgramsQuery, {
+  const programs = await sanityFetch<ProgramGridProgramsQueryResult>(programGridProgramsQuery, {
     tags: ["educational-program", "educational-program-type"],
   });
 
