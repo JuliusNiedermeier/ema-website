@@ -6,6 +6,7 @@ import { GoogleTagManager } from "~/app/_components/compounds/GoogleTagManager";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import { LeavePreviewModeButton } from "~/app/_components/compounds/leave-preview-mode-button";
+import { OnPageNavigationChecker } from "~/app/_components/compounds/on-page-navigation-checker";
 import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice";
 import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
 
@@ -17,7 +18,7 @@ const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
   const data = await sanityFetch<PublicLayoutQueryResult>(publicLayoutQuery, { tags: ["website-settings"] });
 
   return (
-    <>
+    <OnPageNavigationChecker>
       <GoogleTagManager gtmID={data?.gtmID || ""} />
 
       {children}
@@ -34,7 +35,7 @@ const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
           </div>
         </>
       )}
-    </>
+    </OnPageNavigationChecker>
   );
 };
 
