@@ -120,7 +120,7 @@ const HomePage: FC = async () => {
           <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full items-end">
             <Container className="items- sticky bottom-2 my-2 flex justify-between sm:bottom-8 sm:my-8 sm:items-end">
               <Button
-                href="/go"
+                href="/online-bewerbung"
                 className="pointer-events-auto w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-16 md:pr-6"
                 size="md"
               >

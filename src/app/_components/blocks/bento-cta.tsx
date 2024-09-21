@@ -55,7 +55,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
       <div className="flex flex-[2.5] flex-col gap-4">
         <div className="flex flex-col gap-4 md:flex-row">
           <Card className="group flex-[1.2] rounded-3xl border-none bg-primary-900 p-8" asChild>
-            <Link href="/go">
+            <Link href="/online-bewerbung">
               <SiteLogo show="mark" variant="light" />
               <Heading tag="h3" className="mt-8 text-neutral-200">
                 {data?.primarySection?.heading}

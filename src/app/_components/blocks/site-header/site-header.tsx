@@ -55,7 +55,7 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
                 <NavigationMenuItem label={headerConfig?.navLinks?.contact || ""} href="/kontakt" />
 
                 <Button
-                  href="/go"
+                  href="/online-bewerbung"
                   size="sm"
                   vairant="outline"
                   className="ml-8 self-center transition-[padding] hover:pr-1"

@@ -122,7 +122,7 @@ const StartDateCard: FC<{
         className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"
       />
 
-      <Button className="z-10 gap-4 bg-primary-100 pr-4 lg:ml-auto" href="/go">
+      <Button className="z-10 gap-4 bg-primary-100 pr-4 lg:ml-auto" href="/online-bewerbung">
         <Label className="text-neutral-900">{applyButtonLabel}</Label>
         <InteractionBubble animated={false} />
       </Button>

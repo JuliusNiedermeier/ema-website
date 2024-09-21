@@ -6,5 +6,5 @@ import { redirect } from "next/navigation";
 
 export const restartApplicationProcess = async () => {
   cookies().delete(applicationCookieName);
-  redirect("/go");
+  redirect("/online-bewerbung");
 };

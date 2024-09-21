@@ -88,7 +88,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                   ))}
                 </Paragraph>
                 <Button
-                  href="/go"
+                  href="/online-bewerbung"
                   className="mt-8 w-full gap-4 bg-primary-100 pl-4 text-primary-100-text sm:w-fit"
                   vairant="outline"
                 >

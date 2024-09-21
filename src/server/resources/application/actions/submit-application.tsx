@@ -30,7 +30,7 @@ export const submitApplication = async (input: z.infer<typeof applicationInputSc
 
   if (!emailContent) return false;
 
-  const verificationURL = new URL(`${env.NEXT_PUBLIC_SITE_URL}/go/verify`);
+  const verificationURL = new URL(`${env.NEXT_PUBLIC_SITE_URL}/online-bewerbung/bestaetigung`);
   verificationURL.searchParams.set("application", applicationRecord.ID);
   verificationURL.searchParams.set("token", applicationRecord.verificationToken);
 
