@@ -31,7 +31,7 @@ const goPageEducationalProgramsQuery = groq`*[_type == "educational-program"]{
 }`;
 
 const GoPage: FC = async () => {
-  if (cookies().has(applicationCookieName)) redirect("/go/verify");
+  if (cookies().has(applicationCookieName)) redirect("/online-bewerbung/bestaetigung");
 
   const data = await sanityFetch<ApplicationPageFormQueryResult>(applicationPageFormQuery, {
     tags: ["application-page"],
@@ -117,7 +117,7 @@ const GoPage: FC = async () => {
 
         <GoLayoutFooter className="mt-4">
           <ApplicationFormNavigation
-            verifyPath="/go/verify"
+            verifyPath="/online-bewerbung/bestaetigung"
             buttonLabels={{
               back: data.navigation?.backLabel || "",
               next: data.navigation?.nextLabel || "",
