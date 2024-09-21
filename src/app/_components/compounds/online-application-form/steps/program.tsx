@@ -7,6 +7,8 @@ import { Heading, Label } from "~/app/_components/primitives/typography";
 import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 import { cn } from "~/app/_utils/cn";
 import { BaseStep } from "../base-step";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { CheckIcon } from "lucide-react";
 
 export type ProgramStepProps = {
   heading: string;
@@ -23,14 +25,22 @@ export const ProgramStep: FormStepComponent<ProgramStepProps> = ({ heading, prog
           <div
             key={program.ID}
             style={createColorThemeStyles(program.color)}
-            className={cn("cursor-pointer rounded-2xl bg-themed-primary p-4 transition-all", {
+            className={cn("flex cursor-pointer overflow-hidden rounded-2xl bg-themed-primary p-4 transition-all", {
               "ring-4 ring-themed-secondary/50": program.ID === selectedProgram,
-              "opacity-90": selectedProgram && program.ID !== selectedProgram,
             })}
             onClick={() => setProgram(selectedProgram === program.ID ? null : program.ID)}
           >
-            <Label className="opacity-50">{program.type}</Label>
-            <Label className="mt-1 block">{program.name}</Label>
+            <div className="flex-1">
+              <Label>{program.type}</Label>
+              <Heading size="sm" className="mb-0 mt-0">
+                {program.name}
+              </Heading>
+            </div>
+            <IconChip
+              className={cn("transition-all", { "translate-x-[200%] rotate-90": program.ID !== selectedProgram })}
+            >
+              <CheckIcon />
+            </IconChip>
           </div>
         ))}
       </div>

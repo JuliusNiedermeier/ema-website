@@ -7,6 +7,7 @@ import { FormInput } from "../utils/input";
 import { useApplicationFormState } from "../state";
 import { Turnstile } from "../../turnstile";
 import { useEffect } from "react";
+import { z } from "zod";
 
 export type EmailStepProps = {
   heading: string;
@@ -21,7 +22,12 @@ export const EmailStep: FormStepComponent<EmailStepProps> = ({ heading, descript
 
   return (
     <BaseStep heading={heading} description={description}>
-      <FormInput placeholder={placeholder} value={email || ""} onInput={(e) => setEmail(e.currentTarget.value)} />
+      <FormInput
+        autoFocus
+        placeholder={placeholder}
+        value={email || ""}
+        onInput={(e) => setEmail(e.currentTarget.value)}
+      />
       <div className="mt-4 overflow-hidden rounded-3xl bg-neutral-100/10 p-2">
         <Turnstile
           onVerify={(token) => setTurnstileToken(token)}
@@ -33,8 +39,8 @@ export const EmailStep: FormStepComponent<EmailStepProps> = ({ heading, descript
   );
 };
 
-const schema = applicationInputSchema.pick({ email: true });
+const schema = applicationInputSchema.pick({ email: true }).extend({ turnstileToken: z.string().min(1) });
 
-EmailStep.validate = ({ email }) => {
-  return schema.safeParse({ email }).success;
+EmailStep.validate = ({ email, turnstileToken }) => {
+  return schema.safeParse({ email, turnstileToken }).success;
 };

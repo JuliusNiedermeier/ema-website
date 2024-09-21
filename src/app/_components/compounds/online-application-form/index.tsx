@@ -7,6 +7,9 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { OnlineApplicationFormProgramTypesQueryResult } from "../../../../../generated/sanity/types";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
+import { FormProgressIndicator } from "./progress-indicator";
+import { SiteLogo } from "../site-logo";
+import { FormLeaveButton } from "./utils/leave-button";
 
 const onlineApplicationFormProgramTypesQuery = groq`*[_type == "educational-program-type"] {
   _id,
@@ -68,10 +71,19 @@ export const OnlineApplicationForm: FC<OnlineApplicationFormProps> = async ({ cl
         },
       }}
     >
-      <div className={cn("flex h-full w-full flex-col justify-end", className)} {...restProps}>
-        <FormCarousel className="" />
+      <div className={cn("flex w-full flex-col justify-end rounded-md", className)} {...restProps}>
+        <div className="sticky top-0 z-10 mb-[20svh] flex items-center gap-8 rounded-b-[2.5rem] bg-primary-900/80 p-[1rem] backdrop-blur-md">
+          <FormLeaveButton />
+          <div>
+            <SiteLogo show="text" variant="light" />
+            <FormProgressIndicator className="mt-4" />
+          </div>
+        </div>
+
+        <FormCarousel className="mt-auto px-4" />
+
         <FormNavigation
-          className="sticky bottom-4 mt-8 h-fit"
+          className="sticky bottom-0 mt-8 h-fit rounded-t-[3rem] bg-primary-900/80 p-[1rem] backdrop-blur-md"
           buttonLabels={{ start: "Los geht's", back: "Zurück", next: "Weiter", submit: "Fertigstellen" }}
           verifyPath="/online-bewerbung/bestaetigung"
         />

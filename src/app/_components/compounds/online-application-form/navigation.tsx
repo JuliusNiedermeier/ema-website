@@ -38,7 +38,6 @@ export const FormNavigation: FC<FormNavigationProps> = ({ className, verifyPath,
         },
         formState.turnstileToken!,
       );
-      setIsSubmitting(false);
       if (!success) router.replace(verifyPath);
       router.replace(verifyPath);
     }
@@ -47,7 +46,7 @@ export const FormNavigation: FC<FormNavigationProps> = ({ className, verifyPath,
   }, [formState, router, verifyPath, moveStep, isLastStep]);
 
   return (
-    <div className={cn("flex gap-4 bg-primary-900 rounded-full ring-[1rem] ring-primary-900", className)} {...restProps}>
+    <div className={cn("flex gap-4", className)} {...restProps}>
       {!isFirstStep && (
         <Button
           className="flex-1 justify-center border-neutral-900-text text-neutral-900-text"

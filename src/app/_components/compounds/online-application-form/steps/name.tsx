@@ -17,7 +17,12 @@ export const NameStep: FormStepComponent<NameStepProps> = ({ heading, descriptio
 
   return (
     <BaseStep heading={heading} description={description}>
-      <FormInput placeholder={placeholder} value={name || ""} onInput={(e) => setName(e.currentTarget.value)} />
+      <FormInput
+        autoFocus
+        placeholder={placeholder}
+        value={name || ""}
+        onInput={(e) => setName(e.currentTarget.value)}
+      />
     </BaseStep>
   );
 };

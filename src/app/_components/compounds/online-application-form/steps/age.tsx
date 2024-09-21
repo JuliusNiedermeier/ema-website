@@ -18,6 +18,7 @@ export const AgeStep: FormStepComponent<AgeStepProps> = ({ heading, description,
   return (
     <BaseStep heading={heading} description={description}>
       <FormInput
+        autoFocus
         placeholder={placeholder}
         value={age || ""}
         onInput={(e) => setAge(Number(e.currentTarget.value))}
