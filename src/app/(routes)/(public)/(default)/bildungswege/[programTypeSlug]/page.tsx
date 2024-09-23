@@ -7,17 +7,16 @@ import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import {
   ProgramTypePageProgramsQueryResult,
   ProgramTypePageQueryResult,
-  // ProgramTypePageSlugsQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
-import { EducationalProgramTypeCard } from "~/app/_components/compounds/educational-program-type-card";
 import Link from "next/link";
 import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
-import { FollowUpTrainingCTA } from "~/app/_components/compounds/follow-up-training-cta";
+import { Section } from "~/app/_components/primitives/section";
+import Image from "next/image";
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
@@ -29,10 +28,6 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
       ...,
       image { asset -> { url } }
     }
-  },
-  followUpTraining {
-    ...,
-    educationalProgramType ->
   }
 }`;
 
@@ -71,7 +66,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
-      <div className="pt-header bg-gradient-to-b from-neutral-200 to-neutral-100 pb-16">
+      <div className="bg-gradient-to-b from-neutral-200 to-neutral-100 pb-16 pt-header">
         <Container className="pt-16 sm:pt-24">
           <div className="mx-auto max-w-[40rem] sm:text-center">
             <Heading size="sm">{programType.name}</Heading>
@@ -118,30 +113,30 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             </Link>
           ))}
         </div>
+      </Container>
 
-        {programType.followUpTrainingEnabled && (
-          <FollowUpTrainingCTA
-            className="mt-60"
-            heading={programType.followUpTraining?.heading || ""}
-            description={programType.followUpTraining?.description || ""}
-          >
-            <Container
-              width="narrow"
-              style={createColorThemeStyles(
-                ensureValidHSL(programType.followUpTraining?.educationalProgramType?.color?.hsl),
-              )}
-            >
-              <Link href={`/bildungswege/${programType.followUpTraining?.educationalProgramType?.slug?.current}`}>
-                <EducationalProgramTypeCard
-                  name={programType.followUpTraining?.educationalProgramType?.name || ""}
-                  description={programType.followUpTraining?.educationalProgramType?.promotionalHeadline || ""}
-                />
-              </Link>
-            </Container>
-          </FollowUpTrainingCTA>
-        )}
+      <Section connect="bottom" className="mt-24 bg-primary-900">
+        <Container className="flex items-center gap-24 py-24">
+          <div className="flex-1 text-neutral-900-text">
+            <Heading>Dein Weg zum Studium</Heading>
+            <Paragraph>
+              Verbinde Berufsfachschule und Fachoberschule und erreiche dein Abitur in nur einem Jahr. Verbinde
+              Berufsfachschule und Fachoberschule und erreiche dein Abitur in nur einem Jahr.
+            </Paragraph>
+          </div>
+          <div className="relative min-h-96 flex-1">
+            <Image
+              src="/overview.svg"
+              alt="Übersicht"
+              fill
+              className="absolute left-0 top-0 h-full w-full object-contain"
+            />
+          </div>
+        </Container>
+      </Section>
 
-        <Container width="narrow" className="mt-64">
+      <Section connect="top" className="bg-neutral-100">
+        <Container width="narrow" className="pb-24 pt-64">
           <Heading className="text-center">{programType.faq?.heading}</Heading>
           <BasicAccordion
             className="mt-16"
@@ -155,10 +150,15 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
           <Heading className="">{programType.alternatives?.heading}</Heading>
           <Paragraph className="">{programType.alternatives?.description}</Paragraph>
         </Container>
-        <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
 
-        <BentoCTA className="mt-8" />
-      </Container>
+        <Container>
+          <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
+        </Container>
+
+        <Container>
+          <BentoCTA className="mt-8" />
+        </Container>
+      </Section>
     </div>
   );
 };
