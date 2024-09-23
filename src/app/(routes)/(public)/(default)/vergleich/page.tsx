@@ -7,6 +7,7 @@ import { ProgramLearningFieldsComparison } from "~/app/_components/blocks/progra
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { ComparisonPageQueryResult } from "../../../../../../generated/sanity/types";
+import { Section } from "~/app/_components/primitives/section";
 
 const comparisonPageQuery = groq`*[_type == "comparison-page"][0]`;
 
@@ -16,34 +17,43 @@ const ÜbersichtPage: FC = async () => {
   });
 
   return (
-    <div className="bg-neutral-200 py-32">
-      <Container width="narrow" className="mt-header text-center">
-        <Heading>{comparisonPageData?.pathsSection?.heading}</Heading>
-        <Paragraph>{comparisonPageData?.pathsSection?.heading}</Paragraph>
-      </Container>
+    <>
+      <div className="bg-neutral-200 pb-[4rem] pt-header">
+        <Container width="narrow" className="py-24 text-center">
+          <Heading>{comparisonPageData?.pathsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData?.pathsSection?.heading}</Paragraph>
+        </Container>
+      </div>
 
-      <Container className="mt-24 overflow-hidden rounded-3xl border border-neutral-400">
-        <Image src="/overview.svg" width="2000" height="2000" alt="overview" />
-      </Container>
+      <Section className="overflow-hidden bg-primary-900">
+        {/* <InteractiveProgramFlow /> */}
+        <Container className="py-8">
+          <Image src="/overview.svg" width="2000" height="2000" alt="overview" />
+        </Container>
+      </Section>
 
-      <Container width="narrow" className="mt-64 text-center">
-        <Heading>{comparisonPageData?.subjectsSection?.heading}</Heading>
-        <Paragraph>{comparisonPageData?.subjectsSection?.heading}</Paragraph>
-      </Container>
+      <Section className="relative bg-neutral-400 pb-24 pt-64">
+        <Container width="narrow" className="text-center">
+          <Heading>{comparisonPageData?.subjectsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData?.subjectsSection?.heading}</Paragraph>
+        </Container>
 
-      <Container className="mt-24">
-        <ProgramSubjectMatrix />
-      </Container>
+        <Container className="mt-24">
+          <ProgramSubjectMatrix />
+        </Container>
+      </Section>
 
-      <Container width="narrow" className="mt-64 text-center">
-        <Heading>{comparisonPageData?.learningFieldsSection?.heading}</Heading>
-        <Paragraph>{comparisonPageData?.learningFieldsSection?.heading}</Paragraph>
-      </Container>
+      <Section connect="top" className="relative bg-neutral-100 pt-64">
+        <Container width="narrow" className="ext-center">
+          <Heading>{comparisonPageData?.learningFieldsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData?.learningFieldsSection?.heading}</Paragraph>
+        </Container>
 
-      <Container className="mt-24">
-        <ProgramLearningFieldsComparison />
-      </Container>
-    </div>
+        <Container className="mt-24">
+          <ProgramLearningFieldsComparison />
+        </Container>
+      </Section>
+    </>
   );
 };
 
