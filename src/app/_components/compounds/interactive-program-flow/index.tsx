@@ -5,15 +5,13 @@ import {
   Edge,
   Node,
   ReactFlow,
-  OnNodesChange,
-  OnEdgesChange,
-  applyNodeChanges,
-  applyEdgeChanges,
   ReactFlowProvider,
   useReactFlow,
+  useNodesState,
+  useEdgesState,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { ComponentProps, FC, useCallback, useEffect, useRef, useState } from "react";
+import { ComponentProps, FC, useEffect, useRef } from "react";
 import { nodeTypes, CustomNodeTypeMap, CustomNode, CustomNodeMap } from "./node-types";
 import { checkNodeRectsEquality, getLayoutedNodes } from "./utils";
 
@@ -47,22 +45,12 @@ const Flow: FC<ProgramFlowProps> = ({ items, ...restProps }) => {
     )
     .flat();
 
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(initialEdges);
 
   const lastLayoutedNodesLookup = useRef(new Map<string, Node>());
 
   const { fitView } = useReactFlow();
-
-  const onNodesChange = useCallback<OnNodesChange<Node>>(
-    (changes) => setNodes((nodes) => applyNodeChanges(changes, nodes)),
-    [],
-  );
-
-  const onEdgesChange = useCallback<OnEdgesChange>(
-    (changes) => setEdges((edges) => applyEdgeChanges(changes, edges)),
-    [],
-  );
 
   useEffect(() => {
     const someNodeRectsChanged = nodes.some((node) => {
