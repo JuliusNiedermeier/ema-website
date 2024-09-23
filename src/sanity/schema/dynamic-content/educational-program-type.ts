@@ -80,42 +80,6 @@ export const educationalProgramType: SchemaTypeDef = {
         ],
       }),
       defineField({
-        name: "followUpTrainingEnabled",
-        title: "Gibt es einen anderen Bildungsweg, der im Anschluss an diesen Bildungsweg empfohlen wird?",
-        type: "boolean",
-      }),
-      defineField({
-        name: "followUpTraining",
-        title: "Empfehlung des Folgebildungswegs",
-        description:
-          "Dem Besucher wird hier ein weiterer Bildungsweg empfohlen, den er im Anschluss an diesen Bildungsweg gehen kann.",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "Was sind die Vorteile die beiden Bildungswege zu verbinden?",
-            type: "text",
-            validation: (r) => r.required().min(50).max(300),
-          }),
-          defineField({
-            name: "educationalProgramType",
-            title: "Folgebildungsweg",
-            type: "reference",
-            to: { type: "educational-program-type" },
-            validation: (r) => r.required(),
-          }),
-        ],
-        hidden: ({ document }) => !document?.followUpTrainingEnabled,
-      }),
-      defineField({
         name: "faq",
         title: "FAQ - Frequently Asked Questions",
         description: "Hier können häufig gestellte Fragen beantwortet werden.",
