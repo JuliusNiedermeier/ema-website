@@ -244,6 +244,43 @@ export const educationalProgram: SchemaTypeDef = {
         hidden: ({ document }) => !document?.showExternalCTA,
       }),
       defineField({
+        deprecated: { reason: "Wird nicht verwendet" },
+        name: "nextOptions",
+        title: "Möglichkeiten nach diesem Bildungsgang",
+        type: "array",
+        group: "follow-up-program",
+        of: [
+          defineArrayMember({
+            name: "educationalProgram",
+            title: "Bildungsgang",
+            type: "object",
+            fields: [
+              defineField({
+                name: "reference",
+                title: "Bildungsgang",
+                type: "reference",
+                to: { type: "educational-program" },
+              }),
+            ],
+            preview: {
+              select: { title: "reference.name", subtitle: "reference.educationalProgramType.name" },
+            },
+          }),
+          defineArrayMember({
+            name: "textNode",
+            title: "Text",
+            type: "object",
+            fields: [
+              defineField({
+                name: "content",
+                title: "Text",
+                type: "string",
+              }),
+            ],
+          }),
+        ],
+      }),
+      defineField({
         name: "followUpTrainingEnabled",
         title: "Gibt es einen anderen Bildungsgang, der im Anschluss an diesen Bildungsgang empfohlen wird?",
         type: "boolean",
@@ -474,7 +511,7 @@ export const educationalProgram: SchemaTypeDef = {
     preview: {
       select: {
         title: "name",
-        subtitle: "promotionalHeadline",
+        subtitle: "educationalProgramType.name",
       },
     },
   }),
