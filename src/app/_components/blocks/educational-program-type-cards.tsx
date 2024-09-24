@@ -1,15 +1,14 @@
 import { ComponentProps, FC } from "react";
-import { cn } from "~/app/_utils/cn";
-import { Card } from "../primitives/card";
-import { Heading, Paragraph } from "../primitives/typography";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Link from "next/link";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { EducationalProgramTypeCardsQueryResult } from "../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
+import { LinkCard, LinkCardContent, LinkCardSubtitle, LinkCardTitle } from "../primitives/link-card";
+import { LinkCardCollection } from "../primitives/link-card-collection";
 
-export type EducationalProgramTypeCardsProps = ComponentProps<"div"> & {
+export type EducationalProgramTypeCardsProps = ComponentProps<typeof LinkCardCollection> & {
   filter?: {
     excludeSlugs?: string[];
   };
@@ -19,32 +18,25 @@ const educationalProgramTypeCardsQuery = groq`*[_type == "educational-program-ty
   ...
 }`;
 
-export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> = async ({
-  className,
-  filter,
-  ...restProps
-}) => {
+export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> = async ({ filter, ...restProps }) => {
   const programTypes = await sanityFetch<EducationalProgramTypeCardsQueryResult>(educationalProgramTypeCardsQuery, {
     params: { excludeSlugs: filter?.excludeSlugs || [] },
     tags: ["educational-program-type"],
   });
 
   return (
-    <div className={cn("flex flex-wrap items-stretch gap-4", className)} {...restProps}>
+    <LinkCardCollection {...restProps}>
       {programTypes.map((type) => (
-        <Card
-          asChild
-          key={type._id}
-          className="group flex min-w-60 flex-1 flex-col bg-themed-secondary"
-          style={createColorThemeStyles(ensureValidHSL(type.color?.hsl))}
-        >
-          <Link href={`/bildungswege/${type.slug?.current}`}>
-            <Heading size="sm">{type.name}</Heading>
-            <Paragraph className="mt-0 flex-1">{type.promotionalHeadline}</Paragraph>
-            <InteractionBubble animated={false} className="mt-4" />
-          </Link>
-        </Card>
+        <Link href={`/bildungswege/${type.slug?.current}`}>
+          <LinkCard style={createColorThemeStyles(ensureValidHSL(type.color?.hsl))}>
+            <InteractionBubble animated={false} className="bg-themed-primary text-primary-900" />
+            <LinkCardContent>
+              <LinkCardTitle>{type.name}</LinkCardTitle>
+              <LinkCardSubtitle>{type.introduction}</LinkCardSubtitle>
+            </LinkCardContent>
+          </LinkCard>
+        </Link>
       ))}
-    </div>
+    </LinkCardCollection>
   );
 };
