@@ -6,7 +6,7 @@ import { cn } from "~/app/_utils/cn";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { InteractionBubble } from "./interaction-bubble";
 import { usePathname } from "next/navigation";
-import { createColorThemeStyles, ensureValidHSL, HSLValue } from "~/app/_utils/color-swatch";
+import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 
 export type ProgramTypeMenuLinkProps = ComponentProps<typeof Link> & {
   heading: string;
