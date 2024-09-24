@@ -43,8 +43,8 @@ const ÜbersichtPage: FC = async () => {
         </Container>
       </Section>
 
-      <Section connect="top" className="relative bg-neutral-100 pt-64">
-        <Container width="narrow" className="ext-center">
+      <Section connect="top" className="relative bg-neutral-100 pb-8 pt-64">
+        <Container width="narrow" className="text-center">
           <Heading>{comparisonPageData?.learningFieldsSection?.heading}</Heading>
           <Paragraph>{comparisonPageData?.learningFieldsSection?.heading}</Paragraph>
         </Container>
