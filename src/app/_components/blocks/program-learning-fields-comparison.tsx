@@ -6,8 +6,7 @@ import { ProgramLearningFieldsComparisonQueryResult } from "../../../../generate
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import { Card } from "../primitives/card";
 import { Heading, Label } from "../primitives/typography";
-import { IconListItem } from "../primitives/icon-list-item";
-import { CheckIcon } from "lucide-react";
+import { IconList, IconListItem, IconListItemIcon } from "../primitives/icon-list";
 
 const programLearningFieldsComparisonQuery = groq`*[_type == "educational-program-type"] {
   _id,
@@ -59,14 +58,18 @@ export const ProgramLearningFieldsComparison: FC<ProgramLearningFieldsComparison
           <Heading size="sm" className="mt-1">
             {program.name}
           </Heading>
-          <div className="mt-8">
+          <IconList className="mt-8">
             {program.subjects?.map((subject) => (
               <IconListItem>
-                <CheckIcon />
+                <IconListItemIcon>
+                  <div className="rounded-md border border-neutral-100/10 bg-themed-secondary px-2 py-px shadow">
+                    <Label className="text-small">LF 1</Label>
+                  </div>
+                </IconListItemIcon>
                 <Label>{subject.name}</Label>
               </IconListItem>
             ))}
-          </div>
+          </IconList>
         </Card>
       ))}
     </div>
