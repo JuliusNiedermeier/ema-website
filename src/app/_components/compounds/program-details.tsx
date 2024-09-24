@@ -9,7 +9,7 @@ import {
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 import { Label } from "../primitives/typography";
-import { IconListItem } from "../primitives/icon-list-item";
+import { IconListItem } from "../primitives/icon-list";
 
 export type ProgramDetailsProps = ComponentProps<"div"> & {
   details: { type: string; startEndTime: string; startDate: string; holidays: string; totalDuration: string };
