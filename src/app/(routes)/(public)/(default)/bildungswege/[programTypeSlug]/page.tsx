@@ -151,7 +151,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
           <Paragraph className="">{programType.alternatives?.description}</Paragraph>
         </Container>
 
-        <Container>
+        <Container width="narrow">
           <EducationalProgramTypeCards className="mt-16" filter={{ excludeSlugs: [programType.slug?.current || ""] }} />
         </Container>
 
