@@ -156,7 +156,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </Container>
 
         <Container>
-          <BentoCTA className="mt-8" />
+          <BentoCTA className="mt-24" />
         </Container>
       </Section>
     </div>
