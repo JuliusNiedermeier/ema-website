@@ -23,6 +23,7 @@ const config = {
       "heading-sm": ["25px", { fontWeight: 500, letterSpacing: "-0.9px", lineHeight: "90%" }],
       label: ["clamp(17px, 3vw, 18px)", { fontWeight: 500, letterSpacing: "0.3px", lineHeight: "100%" }],
       paragraph: ["clamp(19px, 1.39vw, 20px)", { fontWeight: 300, letterSpacing: "0.72px", lineHeight: "145%" }],
+      small: ["clamp(14px, 3vw, 16px)", { fontWeight: 500, letterSpacing: "0.3px", lineHeight: "100%" }],
     },
     colors: {
       transparent: "transparent",
@@ -139,6 +140,7 @@ const config = {
         // Possibly switch to 25% opacity for more of a pastelly look and stronger contrast
         primary: "hsl(var(--themed-primary) / <alpha-value>)",
         secondary: "hsl(var(--themed-secondary) / <alpha-value>)",
+        foreground: "hsl(var(--themed-foreground) / <alpha-value>)",
       },
     },
     animation: {
