@@ -17,7 +17,8 @@ export type NewsBannerProps = Omit<ComponentProps<typeof Link>, "children" | "hr
 export const NewsBanner: FC<NewsBannerProps> = ({ className, text, link, updatedAt, ...restProps }) => {
   const { dismissed, setDismissed } = useNewsBanner();
 
-  const handleDismiss: ComponentProps<"div">["onClick"] = () => {
+  const handleDismiss: ComponentProps<"div">["onClick"] = (e) => {
+    e.preventDefault();
     setDismissed(Date.now().toString());
   };
 
