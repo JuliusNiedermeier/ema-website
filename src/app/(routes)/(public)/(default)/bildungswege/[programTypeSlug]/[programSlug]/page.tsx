@@ -20,7 +20,7 @@ import {
 } from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
-import { IconListItem } from "~/app/_components/primitives/icon-list-item";
+import { IconList, IconListItem, IconListItemIcon } from "~/app/_components/primitives/icon-list";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 import { GenericCTA } from "~/app/_components/compounds/generic-cta";
 import { Button } from "~/app/_components/primitives/button";
@@ -222,6 +222,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </Card>
 
               <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
+                <IconList>
                 {program.subjects
                   ?.filter((subject) => !subject.isLearningField)
                   .map((subject, index) => (
@@ -230,6 +231,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       <Label>{subject.name}</Label>
                     </IconListItem>
                   ))}
+                </IconList>
               </Card>
 
               <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
@@ -237,14 +239,18 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   <SparkleIcon />
                   <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
                 </div>
+                <IconList>
                 {program.subjects
                   ?.filter((subject) => subject.isLearningField)
                   .map((subject, index) => (
                     <IconListItem key={index}>
+                        <IconListItemIcon>
                       <CheckIcon />
+                        </IconListItemIcon>
                       <Label>{subject.name}</Label>
                     </IconListItem>
                   ))}
+                </IconList>
               </Card>
             </Card>
           </div>
