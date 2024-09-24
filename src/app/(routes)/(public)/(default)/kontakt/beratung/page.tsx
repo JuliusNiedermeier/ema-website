@@ -11,7 +11,7 @@ import {
 } from "../../../../../../../generated/sanity/types";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { CalendarCheckIcon, CheckIcon, type LucideIcon, MoveRightIcon, SendHorizonalIcon } from "lucide-react";
-import { IconListItem } from "~/app/_components/primitives/icon-list-item";
+import { IconListItem, IconListItemIcon } from "~/app/_components/primitives/icon-list";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { AuthorTagImage } from "~/app/_components/primitives/author-tag";
 import { cn } from "~/app/_utils/cn";
@@ -78,7 +78,9 @@ const ContactPage: FC = async () => {
             <div className="flex w-fit flex-wrap gap-4">
               {consultingPageData.benefits?.map(({ label, _key }) => (
                 <IconListItem key={_key} className="w-fit">
-                  <CheckIcon />
+                  <IconListItemIcon>
+                    <CheckIcon />
+                  </IconListItemIcon>
                   <Label>{label}</Label>
                 </IconListItem>
               ))}
