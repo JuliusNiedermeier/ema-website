@@ -24,16 +24,20 @@ import { EducationalProgramDetails } from "~/app/_components/compounds/education
 import { GenericCTA } from "~/app/_components/compounds/generic-cta";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
-import { FollowUpTrainingCTA } from "~/app/_components/compounds/follow-up-training-cta";
-import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import Link from "next/link";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
-import { ProgressProvider } from "~/app/_components/primitives/progress-provider";
-import { ScrollProgress } from "~/app/_components/primitives/scroll-progress";
-import { CardCarousel, CardCarouselItem } from "~/app/_components/primitives/card-carousel";
-import { ProgressBar, ProgressBarIndicator } from "~/app/_components/primitives/progress-bar";
 import { Section } from "~/app/_components/primitives/section";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
+import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
+import { LinkCardCollection } from "~/app/_components/primitives/link-card-collection";
+import {
+  LinkCard,
+  LinkCardContent,
+  LinkCardLabel,
+  LinkCardSubtitle,
+  LinkCardTitle,
+} from "~/app/_components/primitives/link-card";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
@@ -207,14 +211,14 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
               <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
                 <IconList>
-                {program.subjects
-                  ?.filter((subject) => !subject.isLearningField)
-                  .map((subject, index) => (
-                    <IconListItem key={index}>
-                      <CheckIcon />
-                      <Label>{subject.name}</Label>
-                    </IconListItem>
-                  ))}
+                  {program.subjects
+                    ?.filter((subject) => !subject.isLearningField)
+                    .map((subject, index) => (
+                      <IconListItem key={index}>
+                        <CheckIcon />
+                        <Label>{subject.name}</Label>
+                      </IconListItem>
+                    ))}
                 </IconList>
               </Card>
 
@@ -224,16 +228,16 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
                 </div>
                 <IconList>
-                {program.subjects
-                  ?.filter((subject) => subject.isLearningField)
-                  .map((subject, index) => (
-                    <IconListItem key={index}>
+                  {program.subjects
+                    ?.filter((subject) => subject.isLearningField)
+                    .map((subject, index) => (
+                      <IconListItem key={index}>
                         <IconListItemIcon>
-                      <CheckIcon />
+                          <CheckIcon />
                         </IconListItemIcon>
-                      <Label>{subject.name}</Label>
-                    </IconListItem>
-                  ))}
+                        <Label>{subject.name}</Label>
+                      </IconListItem>
+                    ))}
                 </IconList>
               </Card>
             </Card>
@@ -258,28 +262,41 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
       {program.followUpTrainingEnabled && (
         <Section connect="both" className="bg-neutral-300">
-          <Container className="py-24 sm:py-48">
-            <FollowUpTrainingCTA
-              heading={program.followUpTraining?.heading || ""}
-              description={program.followUpTraining?.description || ""}
-            >
-              <Container
-                width="narrow"
-                style={createColorThemeStyles(
-                  ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
-                )}
+          <Container width="narrow" className="py-24 sm:py-48">
+            <div className="text-center">
+              <Heading>{program.followUpTraining?.heading}</Heading>
+              <Paragraph>{program.followUpTraining?.description}</Paragraph>
+            </div>
+            <GradientStrokeIcon>
+              <GradientStroke />
+              <IconChip>
+                <ChevronDownIcon />
+              </IconChip>
+            </GradientStrokeIcon>
+            <LinkCardCollection className="mt-24 justify-center">
+              <Link
+                href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
+                className="!min-w-[min(24rem,100%)] !flex-grow-0"
               >
-                <Link
-                  href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
+                <LinkCard
+                  style={createColorThemeStyles(
+                    ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
+                  )}
+                  className="bg-themed-primary hover:bg-themed-secondary"
                 >
-                  <EducationalProgramCard
-                    name={program.followUpTraining?.educationalProgram?.name || ""}
-                    headline={program.followUpTraining?.educationalProgram?.promotionalHeadline || ""}
-                    programType={program.followUpTraining?.educationalProgram?.educationalProgramType?.name || ""}
-                  />
-                </Link>
-              </Container>
-            </FollowUpTrainingCTA>
+                  <InteractionBubble animated={false} />
+                  <LinkCardContent>
+                    <LinkCardLabel>
+                      {program.followUpTraining?.educationalProgram?.educationalProgramType?.name}
+                    </LinkCardLabel>
+                    <LinkCardTitle>{program.followUpTraining?.educationalProgram?.name}</LinkCardTitle>
+                    <LinkCardSubtitle>
+                      {program.followUpTraining?.educationalProgram?.promotionalHeadline}
+                    </LinkCardSubtitle>
+                  </LinkCardContent>
+                </LinkCard>
+              </Link>
+            </LinkCardCollection>
           </Container>
         </Section>
       )}
@@ -390,9 +407,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           heading={program.alternatives?.heading || ""}
           description={program.alternatives?.description || ""}
         >
-            <Container>
+          <Container>
             <ProgramGrid />
-            </Container>
+          </Container>
         </EndOfPageCTA>
       </Section>
     </div>
