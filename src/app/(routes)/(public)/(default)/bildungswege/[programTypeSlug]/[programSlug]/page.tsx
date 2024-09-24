@@ -13,7 +13,6 @@ import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { Certificate } from "~/app/_components/compounds/certificate";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import {
-  AlternateProgramsQueryResult,
   ProgramPageContentQueryResult,
   ProgramPageQueryResult,
   ProgramPageSlugsQueryResult,
@@ -35,6 +34,7 @@ import { CardCarousel, CardCarouselItem } from "~/app/_components/primitives/car
 import { ProgressBar, ProgressBarIndicator } from "~/app/_components/primitives/progress-bar";
 import { Section } from "~/app/_components/primitives/section";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -93,17 +93,6 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   subjects[] ->
 }`;
 
-const alternateProgramsQuery = groq`*[_type == "educational-program" && slug.current != $currentProgramSlug]{
-  slug,
-  name,
-  promotionalHeadline,
-  educationalProgramType -> {
-    slug,
-    name,
-    color
-  }
-}`;
-
 type Params = { programTypeSlug: string; programSlug: string };
 type Props = { params: Params };
 
@@ -125,11 +114,6 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
   const programPage = await sanityFetch<ProgramPageQueryResult>(programPageQuery, {
     tags: ["educational-program-page"],
-  });
-
-  const alternatePrograms = await sanityFetch<AlternateProgramsQueryResult>(alternateProgramsQuery, {
-    params: { currentProgramSlug: programSlug },
-    tags: ["educational-program", "educational-program-type"],
   });
 
   if (!program || !programPage) notFound();
@@ -406,34 +390,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           heading={program.alternatives?.heading || ""}
           description={program.alternatives?.description || ""}
         >
-          <ProgressProvider>
             <Container>
-              <ScrollProgress className="scrollbar-none items-stretch overflow-x-auto" asChild>
-                <CardCarousel>
-                  {alternatePrograms.map((program, index) => (
-                    <CardCarouselItem key={index} asChild>
-                      <Link
-                        href={`/bildungswege/${program.educationalProgramType?.slug?.current}/${program.slug?.current}`}
-                      >
-                        <EducationalProgramCard
-                          className="h-full"
-                          style={{
-                            ...createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl)),
-                          }}
-                          programType={program.educationalProgramType?.name || ""}
-                          name={program.name || ""}
-                          headline={program.promotionalHeadline || ""}
-                        />
-                      </Link>
-                    </CardCarouselItem>
-                  ))}
-                </CardCarousel>
-              </ScrollProgress>
-              <ProgressBar className="mx-8 mt-4">
-                <ProgressBarIndicator />
-              </ProgressBar>
+            <ProgramGrid />
             </Container>
-          </ProgressProvider>
         </EndOfPageCTA>
       </Section>
     </div>
