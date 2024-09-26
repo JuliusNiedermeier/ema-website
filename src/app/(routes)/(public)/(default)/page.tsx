@@ -26,6 +26,7 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import { HeroVideo } from "~/app/_components/compounds/hero-video";
 import { Section } from "~/app/_components/primitives/section";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
+import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -181,6 +182,7 @@ const HomePage: FC = async () => {
             <Label>{checkupPreview?.previewReadMoreLabel}</Label>
             <ButtonInteractionBubble />
           </Button>
+          <ComparisonTeaserCard className="mt-16 aspect-video w-full" />
         </Container>
       </Section>
 
