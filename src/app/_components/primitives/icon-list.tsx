@@ -33,3 +33,9 @@ export type IconListItemIconProps = ComponentProps<"div"> & {};
 export const IconListItemIcon: FC<IconListItemIconProps> = ({ className, ...restProps }) => {
   return <div className={cn("shrink-0", className)} {...restProps} />;
 };
+
+export type IconListItemContentProps = ComponentProps<"div"> & {};
+
+export const IconListItemContent: FC<IconListItemContentProps> = ({ className, ...restProps }) => {
+  return <div className={cn("self-center", className)} {...restProps} />;
+};
