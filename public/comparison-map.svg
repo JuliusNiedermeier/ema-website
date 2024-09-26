@@ -1,0 +1,29 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="500" height="500" fill="#082B21"/>
+<rect x="43" y="39" width="183" height="75" rx="10" fill="#E38264"/>
+<rect x="66" y="59" width="69" height="12" rx="6" fill="#B3593C"/>
+<rect x="66" y="74" width="121" height="20" rx="10" fill="#B3593C"/>
+<rect x="43" y="384" width="183" height="75" rx="10" fill="#BAA7E3"/>
+<rect x="66" y="404" width="69" height="12" rx="6" fill="#9376D0"/>
+<rect x="66" y="419" width="121" height="20" rx="10" fill="#9376D0"/>
+<rect x="276" y="39" width="183" height="75" rx="10" fill="#A4A7EB"/>
+<rect x="299" y="59" width="69" height="12" rx="6" fill="#767BD5"/>
+<rect x="299" y="74" width="121" height="20" rx="10" fill="#767BD5"/>
+<rect x="276" y="384" width="183" height="75" rx="10" fill="#A4A7EB"/>
+<rect x="299" y="404" width="69" height="12" rx="6" fill="#767BD5"/>
+<rect x="299" y="419" width="121" height="20" rx="10" fill="#767BD5"/>
+<path d="M0 213H99C104.523 213 109 217.477 109 223V278C109 283.523 104.523 288 99 288H0V213Z" fill="#64E39F"/>
+<path d="M0 233H12C15.3137 233 18 235.686 18 239V239C18 242.314 15.3137 245 12 245H0V233Z" fill="#3CB374"/>
+<path d="M0 248H60C65.5228 248 70 252.477 70 258V258C70 263.523 65.5228 268 60 268H0V248Z" fill="#3CB374"/>
+<path d="M390 223C390 217.477 394.477 213 400 213H500V288H400C394.477 288 390 283.523 390 278V223Z" fill="#BAA7E3"/>
+<rect x="413" y="233" width="69" height="12" rx="6" fill="#9376D0"/>
+<path d="M413 258C413 252.477 417.477 248 423 248H500V268H423C417.477 268 413 263.523 413 258V258Z" fill="#9376D0"/>
+<rect x="158" y="213" width="183" height="75" rx="10" fill="#E38264"/>
+<rect x="181" y="233" width="69" height="12" rx="6" fill="#B3593C"/>
+<rect x="181" y="248" width="121" height="20" rx="10" fill="#B3593C"/>
+<path d="M18 203C18 164.742 135 167.226 135 124" stroke="#8DC4B4"/>
+<path d="M18 296C18 331.836 120 329.509 120 370" stroke="#8DC4B4"/>
+<path d="M238 296C238 331.836 144 329.509 144 370" stroke="#8DC4B4"/>
+<path d="M260 296C260 331.836 368 329.509 368 370" stroke="#8DC4B4"/>
+<path d="M250 203C250 164.258 368 166.774 368 123" stroke="#8DC4B4"/>
+</svg>
