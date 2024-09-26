@@ -5,15 +5,20 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { ProgramLearningFieldsComparisonQueryResult } from "../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import { Card } from "../primitives/card";
-import { Heading, Label } from "../primitives/typography";
-import { IconList, IconListItem, IconListItemIcon } from "../primitives/icon-list";
+import { Label } from "../primitives/typography";
+import { IconList, IconListItem, IconListItemContent, IconListItemIcon } from "../primitives/icon-list";
+import { InteractionBubble } from "../compounds/interaction-bubble";
+import { LinkCard, LinkCardContent, LinkCardLabel, LinkCardTitle } from "../primitives/link-card";
+import Link from "next/link";
 
 const programLearningFieldsComparisonQuery = groq`*[_type == "educational-program-type"] {
   _id,
+  slug,
   name,
   color,
   "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] {
     _id,
+    slug,
     name,
     "subjects": select(subjects[] -> {
       _id,
@@ -45,31 +50,40 @@ export const ProgramLearningFieldsComparison: FC<ProgramLearningFieldsComparison
 
   return (
     <div
-      className={cn("grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-8 overflow-hidden", className)}
+      className={cn("grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-4 overflow-hidden", className)}
       {...restProps}
     >
       {programs.map((program) => (
         <Card
           key={program._id}
           style={createColorThemeStyles(ensureValidHSL(program.type.color?.hsl))}
-          className="bg-themed-primary"
+          className="flex flex-col overflow-hidden rounded-3xl bg-themed-primary p-0"
         >
-          <Label className="text-neutral-100-text-muted">{program.type.name}</Label>
-          <Heading size="sm" className="mt-1">
-            {program.name}
-          </Heading>
-          <IconList className="mt-8">
-            {program.subjects?.map((subject) => (
-              <IconListItem>
-                <IconListItemIcon>
-                  <div className="rounded-md border border-neutral-100/10 bg-themed-secondary px-2 py-px shadow">
-                    <Label className="text-small">LF 1</Label>
-                  </div>
-                </IconListItemIcon>
-                <Label>{subject.name}</Label>
-              </IconListItem>
-            ))}
-          </IconList>
+          <Link href={`/bildungswege/${program.type.slug?.current}/${program.slug?.current}`} className="m-2">
+            <LinkCard className="border-none bg-transparent shadow-none hover:bg-themed-secondary">
+              <LinkCardContent>
+                <LinkCardLabel>{program.type.name}</LinkCardLabel>
+                <LinkCardTitle>{program.name}</LinkCardTitle>
+              </LinkCardContent>
+              <InteractionBubble animated={false} />
+            </LinkCard>
+          </Link>
+          <div className="flex-1 rounded-t-3xl bg-themed-secondary p-8">
+            <IconList>
+              {program.subjects?.map((subject) => (
+                <IconListItem align="top">
+                  <IconListItemIcon>
+                    <div className="rounded-md border border-neutral-100/10 bg-themed-primary px-2 py-px shadow">
+                      <Label className="text-small">LF 1</Label>
+                    </div>
+                  </IconListItemIcon>
+                  <IconListItemContent>
+                    <Label>{subject.name}</Label>
+                  </IconListItemContent>
+                </IconListItem>
+              ))}
+            </IconList>
+          </div>
         </Card>
       ))}
     </div>
