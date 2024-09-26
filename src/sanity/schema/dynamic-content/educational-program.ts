@@ -244,53 +244,10 @@ export const educationalProgram: SchemaTypeDef = {
         hidden: ({ document }) => !document?.showExternalCTA,
       }),
       defineField({
-        deprecated: { reason: "Wird nicht verwendet" },
-        name: "nextOptions",
-        title: "Möglichkeiten nach diesem Bildungsgang",
-        type: "array",
-        group: "follow-up-program",
-        of: [
-          defineArrayMember({
-            name: "educationalProgram",
-            title: "Bildungsgang",
-            type: "object",
-            fields: [
-              defineField({
-                name: "reference",
-                title: "Bildungsgang",
-                type: "reference",
-                to: { type: "educational-program" },
-              }),
-            ],
-            preview: {
-              select: { title: "reference.name", subtitle: "reference.educationalProgramType.name" },
-            },
-          }),
-          defineArrayMember({
-            name: "textNode",
-            title: "Text",
-            type: "object",
-            fields: [
-              defineField({
-                name: "content",
-                title: "Text",
-                type: "string",
-              }),
-            ],
-          }),
-        ],
-      }),
-      defineField({
-        name: "followUpTrainingEnabled",
-        title: "Gibt es einen anderen Bildungsgang, der im Anschluss an diesen Bildungsgang empfohlen wird?",
-        type: "boolean",
-        group: "follow-up-program",
-      }),
-      defineField({
-        name: "followUpTraining",
-        title: "Empfehlung des Folgebildungsgangs",
+        name: "followUpPrograms",
+        title: "Welche Bildungsgänge der EMA können im Anschluss absolviert werden?",
         description:
-          "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, den er im Anschluss an diesen Bildungsgang gehen kann.",
+          "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, der ihm nach dieser Ausbildung offen steht.",
         type: "object",
         group: "follow-up-program",
         fields: [
@@ -304,19 +261,25 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Was sind die Vorteile die beiden Bildungsgänge zu verbinden?",
+            description: "Was sind die Vorteile diese Bildungsgänge zu verbinden?",
             type: "text",
             validation: (r) => r.required().min(50).max(300),
           }),
           defineField({
-            name: "educationalProgram",
-            title: "Folgebildungsgang",
-            type: "reference",
-            to: { type: "educational-program" },
-            validation: (r) => r.required(),
+            name: "programs",
+            title: "Bildungsgänge",
+            type: "array",
+            of: [
+              defineArrayMember({
+                name: "educationalProgram",
+                title: "Folgebildungsgang",
+                type: "reference",
+                to: { type: "educational-program" },
+                validation: (r) => r.required(),
+              }),
+            ],
           }),
         ],
-        hidden: ({ document }) => !document?.followUpTrainingEnabled,
       }),
       defineField({
         name: "furtherInformationIntro",

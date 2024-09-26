@@ -81,9 +81,9 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
     ...,
     image { asset -> { url } }
   },
-  followUpTraining {
+  followUpPrograms {
     ...,
-    educationalProgram -> {
+    programs[] -> {
       slug,
       name,
       promotionalHeadline,
@@ -121,6 +121,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
   });
 
   if (!program || !programPage) notFound();
+
+  const hasFollowUpProgram = !!program.followUpPrograms?.programs?.length;
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
@@ -260,12 +262,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         </Section>
       )}
 
-      {program.followUpTrainingEnabled && (
+      {hasFollowUpProgram && (
         <Section connect="both" className="bg-neutral-300">
           <Container width="narrow" className="py-24 sm:py-48">
             <div className="text-center">
-              <Heading>{program.followUpTraining?.heading}</Heading>
-              <Paragraph>{program.followUpTraining?.description}</Paragraph>
+              <Heading>{program.followUpPrograms?.heading}</Heading>
+              <Paragraph>{program.followUpPrograms?.description}</Paragraph>
             </div>
             <GradientStrokeIcon>
               <GradientStroke />
@@ -274,34 +276,31 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </GradientStrokeIcon>
             <LinkCardCollection className="mt-24 justify-center">
-              <Link
-                href={`/bildungswege/${program.followUpTraining?.educationalProgram?.educationalProgramType?.slug?.current}/${program.followUpTraining?.educationalProgram?.slug?.current}`}
-                className="!min-w-[min(24rem,100%)] !flex-grow-0"
-              >
-                <LinkCard
-                  style={createColorThemeStyles(
-                    ensureValidHSL(program.followUpTraining?.educationalProgram?.educationalProgramType?.color?.hsl),
-                  )}
-                  className="bg-themed-primary hover:bg-themed-secondary"
+              {program.followUpPrograms!.programs!.map((followUpProgram, index) => (
+                <Link
+                  key={index}
+                  href={`/bildungswege/${followUpProgram.educationalProgramType?.slug?.current}/${followUpProgram.slug?.current}`}
+                  className="!min-w-[min(24rem,100%)] !flex-grow-0"
                 >
-                  <InteractionBubble animated={false} />
-                  <LinkCardContent>
-                    <LinkCardLabel>
-                      {program.followUpTraining?.educationalProgram?.educationalProgramType?.name}
-                    </LinkCardLabel>
-                    <LinkCardTitle>{program.followUpTraining?.educationalProgram?.name}</LinkCardTitle>
-                    <LinkCardSubtitle>
-                      {program.followUpTraining?.educationalProgram?.promotionalHeadline}
-                    </LinkCardSubtitle>
-                  </LinkCardContent>
-                </LinkCard>
-              </Link>
+                  <LinkCard
+                    style={createColorThemeStyles(ensureValidHSL(followUpProgram.educationalProgramType?.color?.hsl))}
+                    className="bg-themed-primary hover:bg-themed-secondary"
+                  >
+                    <InteractionBubble animated={false} />
+                    <LinkCardContent>
+                      <LinkCardLabel>{followUpProgram.educationalProgramType?.name}</LinkCardLabel>
+                      <LinkCardTitle>{followUpProgram.name}</LinkCardTitle>
+                      <LinkCardSubtitle>{followUpProgram.promotionalHeadline}</LinkCardSubtitle>
+                    </LinkCardContent>
+                  </LinkCard>
+                </Link>
+              ))}
             </LinkCardCollection>
           </Container>
         </Section>
       )}
 
-      <Section className="bg-themed-primary">
+      <Section className="bg-themed-primary ring-0">
         <Container className="py-24 sm:py-48">
           <Container width="narrow" className="text-balance text-center">
             <Heading>{program.furtherInformationIntro?.heading}</Heading>
@@ -313,7 +312,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </div>
           </Container>
-          <div className={cn("mt-24 flex flex-col gap-8 sm:gap-12", { "": !program.followUpTrainingEnabled })}>
+          <div className={cn("mt-24 flex flex-col gap-8 sm:gap-12", { "": !hasFollowUpProgram })}>
             {program.furtherInformation?.map((item, index) => (
               <div
                 key={index}
