@@ -20,7 +20,7 @@ const programLearningFieldsComparisonQuery = groq`*[_type == "educational-progra
       name,
       isLearningField
     }) [isLearningField == true]
-  }
+  } [count(subjects) > 0]
 }`;
 
 export type ProgramLearningFieldsComparisonProps = ComponentProps<"div"> & {};
