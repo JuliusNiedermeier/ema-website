@@ -39,6 +39,7 @@ import {
   LinkCardTitle,
 } from "~/app/_components/primitives/link-card";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
+import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -349,20 +350,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             groups={program.prerequisites?.requirementGroups?.map(({ requirements }) => requirements || []) || []}
           />
 
-          <Card className="mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
-            <div className="relative min-h-40 flex-1">
-              <Image
-                src={programPage.prerequisites?.checkupCTA?.image?.asset?.url || ""}
-                alt={programPage.prerequisites?.checkupCTA?.heading || ""}
-                height="500"
-                width="500"
-                className="absolute left-0 top-0 h-full w-full rounded-2xl object-cover object-right"
-              />
-            </div>
+          <Card className="group mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
+            <ComparisonTeaserCard className="min-h-40 flex-1 bg-neutral-400" />
             <div className="flex-1 p-6 text-left">
               <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
               <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
-              <Button href="/checkup" size="sm" className="mt-6 gap-4 pr-1">
+              <Button href="/vergleich" size="sm" className="mt-6 gap-4 pr-1">
                 <Label>{programPage.prerequisites?.checkupCTA?.linkLabel}</Label>
                 <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
               </Button>
