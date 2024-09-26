@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
-import { Heading, Paragraph } from "~/app/_components/primitives/typography";
+import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import {
   ProgramTypePageProgramsQueryResult,
   ProgramTypePageQueryResult,
@@ -66,15 +66,20 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
-      <div className="bg-gradient-to-b from-neutral-200 to-neutral-100 pb-16 pt-header">
-        <Container className="pt-16 sm:pt-24">
-          <div className="mx-auto max-w-[40rem] sm:text-center">
-            <Heading size="sm">{programType.name}</Heading>
-            <Heading>{programType.promotionalHeadline}</Heading>
-            <Paragraph className="mt-8">{programType.introduction}</Paragraph>
+      <div className="bg-neutral-200 pb-32 pt-header">
+        <Container className="pt-20 text-center" width="narrow">
+          <div className="mx-auto w-fit rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
+            <Label className="mb-0 text-primary-900">{programType.name}</Label>
           </div>
+          <Heading tag="h2" className="mt-8">
+            {programType.promotionalHeadline}
+          </Heading>
+          <Paragraph>{programType.introduction}</Paragraph>
         </Container>
-        <Container className="mt-24">
+      </div>
+
+      <Section className="bg-themed-primary">
+        <Container className="py-24">
           <Certificate
             className="border-themed-primary"
             heading={programType.certificate?.heading || ""}
@@ -89,7 +94,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             }
           />
         </Container>
-      </div>
+      </Section>
 
       <Container className="pt-16 sm:pt-64">
         <Container width="narrow" className="text-center">
