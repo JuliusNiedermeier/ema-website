@@ -9,7 +9,7 @@ export const LinkCard: FC<LinkCardProps> = ({ className, ...restProps }) => {
   return (
     <Card
       className={cn(
-        "group flex items-center gap-6 border border-neutral-900/50 bg-neutral-100 p-6 transition-colors hover:bg-neutral-400 shadow",
+        "group flex items-center gap-6 border border-neutral-900/50 bg-neutral-100 p-6 transition-colors hover:bg-neutral-400",
         className,
       )}
       {...restProps}
