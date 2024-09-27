@@ -9,14 +9,25 @@ import {
   ProgramTypePageQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
-import { Certificate } from "~/app/_components/compounds/certificate";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import Link from "next/link";
-import { EducationalProgramCard } from "~/app/_components/compounds/educational-program-card";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import { Section } from "~/app/_components/primitives/section";
-import Image from "next/image";
+import { LinkCardCollection } from "~/app/_components/primitives/link-card-collection";
+import {
+  LinkCard,
+  LinkCardContent,
+  LinkCardLabel,
+  LinkCardSubtitle,
+  LinkCardTitle,
+} from "~/app/_components/primitives/link-card";
+import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
+import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { BadgeIcon, CheckIcon, PlusIcon } from "lucide-react";
+import { Chip } from "~/app/_components/primitives/chip";
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
@@ -78,65 +89,93 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </Container>
       </div>
 
-      <Section className="bg-themed-primary">
-        <Container className="py-24">
-          <Certificate
-            className="border-themed-primary"
-            heading={programType.certificate?.heading || ""}
-            name={programType.certificate?.name || ""}
-            description={programType.certificate?.description || ""}
-            qualifications={programType.certificate?.qualifications || []}
-            jobs={
-              programType.certificate?.jobs?.map((job) => ({
-                image: job.image?.asset?.url || "",
-                content: job.name || "",
-              })) || []
-            }
-          />
-        </Container>
+      <Section className="bg-neutral-400">
+        <div className="py-24">
+          <Container className="" width="narrow">
+            <GradientStrokeIcon>
+              <GradientStroke />
+              <IconChip>
+                <BadgeIcon />
+              </IconChip>
+            </GradientStrokeIcon>
+            <div className="mt-8 text-center">
+              <Heading>Du wirst Staatlich Anerkannter Sozialassistent</Heading>
+              <Paragraph className="mt-8">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
+                cupiditate animi praesentium veritatis! Dolorem officia nemo distinctio corporis. Quae consectetur
+                pariatur recusandae commodi natus aliquid!
+              </Paragraph>
+            </div>
+          </Container>
+
+          <Container className="mt-12 flex flex-wrap justify-center gap-4">
+            {Array.from(new Array(10)).map((_, index) => (
+              <Chip key={index} className="bg-neutral-100 p-2 pr-6">
+                <div className="rounded-full bg-primary-900 p-2 text-neutral-100">
+                  <CheckIcon />
+                </div>
+                <Label>Studium</Label>
+              </Chip>
+            ))}
+          </Container>
+        </div>
       </Section>
 
-      <Container className="pt-16 sm:pt-64">
-        <Container width="narrow" className="text-center">
-          <Heading>{programType.educationalPrograms?.heading}</Heading>
-          <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
-        </Container>
-
-        <div className="relative mt-16 flex flex-wrap items-stretch gap-4 rounded-3xl border bg-neutral-100 p-4">
-          {programs.map((program) => (
-            <Link
-              key={program._id}
-              href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
-              className="flex-1"
-            >
-              <EducationalProgramCard
-                className="h-full pt-8"
-                programType={programType.name || ""}
-                name={program.name || ""}
-                headline={program.promotionalHeadline || ""}
-              />
-            </Link>
-          ))}
+      <Section className="bg-neutral-300">
+        <IconChip className="mx-auto -translate-y-1/2">
+          <PlusIcon />
+        </IconChip>
+        <div className="pb-4 pt-24 sm:py-24">
+          <Container width="narrow">
+            <div className="text-center">
+              <Heading>Qualifiziere dich für das Fachabitur!</Heading>
+              <Paragraph>Du kannst im Anschluss dein Fachabi bei uns machen.</Paragraph>
+            </div>
+          </Container>
+          <Container>
+            <LinkCardCollection className="mt-16 justify-center">
+              {Array.from(new Array(1))
+                .fill(null)
+                .map((followUpProgram, index) => (
+                  <Link
+                    key={index}
+                    href={`/bildungswege/${"-"}/${"-"}`}
+                    className="!min-w-[min(24rem,100%)] !flex-grow-0"
+                  >
+                    <LinkCard className="border-none bg-themed-primary p-4 hover:bg-themed-secondary">
+                      <InteractionBubble animated={false} />
+                      <LinkCardContent>
+                        <LinkCardTitle>{"Bildungsweg"}</LinkCardTitle>
+                        <LinkCardSubtitle>{"Dies ist ein platzhalter text"}</LinkCardSubtitle>
+                      </LinkCardContent>
+                    </LinkCard>
+                  </Link>
+                ))}
+            </LinkCardCollection>
+          </Container>
         </div>
-      </Container>
+      </Section>
 
-      <Section connect="bottom" className="mt-24 bg-primary-900">
-        <Container className="flex items-center gap-24 py-24">
-          <div className="flex-1 text-neutral-900-text">
-            <Heading>Dein Weg zum Studium</Heading>
-            <Paragraph>
-              Verbinde Berufsfachschule und Fachoberschule und erreiche dein Abitur in nur einem Jahr. Verbinde
-              Berufsfachschule und Fachoberschule und erreiche dein Abitur in nur einem Jahr.
-            </Paragraph>
+      <Section className="bg-neutral-200">
+        <Container width="narrow" className="py-24">
+          <div className="text-center">
+            <Heading>{programType.educationalPrograms?.heading}</Heading>
+            <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
           </div>
-          <div className="relative min-h-96 flex-1">
-            <Image
-              src="/overview.svg"
-              alt="Übersicht"
-              fill
-              className="absolute left-0 top-0 h-full w-full object-contain"
-            />
-          </div>
+          <LinkCardCollection className="mt-16">
+            {programs.map((program) => (
+              <Link key={program._id} href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}>
+                <LinkCard className="border-none bg-themed-primary hover:bg-themed-secondary">
+                  <InteractionBubble animated={false} />
+                  <LinkCardContent>
+                    <LinkCardLabel>{programType.name}</LinkCardLabel>
+                    <LinkCardTitle>{program.name}</LinkCardTitle>
+                    <LinkCardSubtitle>{program.promotionalHeadline}</LinkCardSubtitle>
+                  </LinkCardContent>
+                </LinkCard>
+              </Link>
+            ))}
+          </LinkCardCollection>
         </Container>
       </Section>
 
