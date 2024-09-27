@@ -5,12 +5,19 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { Card } from "~/app/_components/primitives/card";
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon, PlusIcon, SparkleIcon } from "lucide-react";
+import {
+  ArrowDownIcon,
+  BadgeIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  ExternalLinkIcon,
+  PlusIcon,
+  SparkleIcon,
+} from "lucide-react";
 import { BentoCTA } from "~/app/_components/blocks/bento-cta";
 import { cn } from "~/app/_utils/cn";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
-import { Certificate } from "~/app/_components/compounds/certificate";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import {
   ProgramPageContentQueryResult,
@@ -31,15 +38,10 @@ import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
 import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
 import { LinkCardCollection } from "~/app/_components/primitives/link-card-collection";
-import {
-  LinkCard,
-  LinkCardContent,
-  LinkCardLabel,
-  LinkCardSubtitle,
-  LinkCardTitle,
-} from "~/app/_components/primitives/link-card";
+import { LinkCard, LinkCardContent, LinkCardLabel, LinkCardTitle } from "~/app/_components/primitives/link-card";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
+import { Chip } from "~/app/_components/primitives/chip";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -123,8 +125,6 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
   if (!program || !programPage) notFound();
 
-  const hasFollowUpProgram = !!program.followUpPrograms?.programs?.length;
-
   return (
     <div style={createColorThemeStyles(ensureValidHSL(program.educationalProgramType?.color?.hsl))}>
       <div className="bg-neutral-200 pb-32 pt-header">
@@ -171,88 +171,162 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         </Container>
       </Section>
 
-      <Section connect="both" className="bg-neutral-100">
-        <Container className="pb-24 pt-3 sm:pt-24">
-          <Certificate
-            className="rounded-t-3xl sm:rounded-t-2xl"
-            heading={program.certificate?.heading || ""}
-            name={program.certificate?.name || ""}
-            description={program.certificate?.description || ""}
-            qualifications={program.certificate?.qualifications || []}
-            jobs={
-              program.certificate?.jobs?.map((job) => ({
-                image: job.image?.asset?.url || "",
-                content: job.name || "",
-              })) || []
-            }
-          />
+      <Section className="bg-neutral-400">
+        <div className="py-24">
+          <Container className="" width="narrow">
+            <GradientStrokeIcon>
+              <GradientStroke />
+              <IconChip>
+                <BadgeIcon />
+              </IconChip>
+            </GradientStrokeIcon>
+            <div className="mt-8 text-center">
+              <Heading>Du wirst Staatlich Anerkannter Sozialassistent</Heading>
+              <Paragraph className="mt-8">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
+                cupiditate animi praesentium veritatis! Dolorem officia nemo distinctio corporis. Quae consectetur
+                pariatur recusandae commodi natus aliquid!
+              </Paragraph>
+            </div>
+          </Container>
 
-          <div className="mt-8 flex flex-col gap-8 md:flex-row">
-            <EducationalProgramDetails
-              className="md:flex-[2]"
-              durationHeading={program.programDetails?.durationAndType?.heading || ""}
-              holidaysHeading={program.programDetails?.holidays?.heading || ""}
-              lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
-              startDateHeading={program.programDetails?.startDate?.heading || ""}
-              trainingType={program.programDetails?.durationAndType?.type || ""}
-              duration={program.programDetails?.durationAndType?.duration || ""}
-              startEndTime={[
-                program.programDetails?.lessonTimes?.start || "",
-                program.programDetails?.lessonTimes?.end || "",
-              ]}
-              holidays={program.programDetails?.holidays?.info || ""}
-              startDate={program.programDetails?.startDate?.date || ""}
-              applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
-              startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
-            />
-
-            <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
-              <Card>
-                <Heading>{programPage.subjects?.heading}</Heading>
-                <Paragraph>{programPage.subjects?.description}</Paragraph>
-              </Card>
-
-              <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
-                <IconList>
-                  {program.subjects
-                    ?.filter((subject) => !subject.isLearningField)
-                    .map((subject, index) => (
-                      <IconListItem key={index}>
-                        <CheckIcon />
-                        <Label>{subject.name}</Label>
-                      </IconListItem>
-                    ))}
-                </IconList>
-              </Card>
-
-              <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
-                <div className="flex items-center gap-4">
-                  <SparkleIcon />
-                  <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
+          <Container className="mt-12 flex flex-wrap justify-center gap-4">
+            {Array.from(new Array(10)).map((_, index) => (
+              <Chip key={index} className="bg-neutral-100 p-2 pr-6">
+                <div className="rounded-full bg-primary-900 p-2 text-neutral-100">
+                  <CheckIcon />
                 </div>
-                <IconList>
-                  {program.subjects
-                    ?.filter((subject) => subject.isLearningField)
-                    .map((subject, index) => (
-                      <IconListItem key={index}>
-                        <IconListItemIcon>
-                          <CheckIcon />
-                        </IconListItemIcon>
-                        <Label>{subject.name}</Label>
-                      </IconListItem>
-                    ))}
-                </IconList>
-              </Card>
-            </Card>
+                <Label>Studium</Label>
+              </Chip>
+            ))}
+          </Container>
+        </div>
+      </Section>
+
+      {program.followUpPrograms?.programs && (
+        <Section className="bg-neutral-300">
+          <IconChip className="mx-auto -translate-y-1/2">
+            <PlusIcon />
+          </IconChip>
+          <div className="pb-4 pt-24 sm:py-24">
+            <Container width="narrow">
+              <div className="text-center">
+                <Heading>Qualifiziere dich für das Fachabitur!</Heading>
+                <Paragraph>Du kannst im Anschluss dein Fachabi bei uns machen.</Paragraph>
+              </div>
+            </Container>
+            <Container>
+              <LinkCardCollection className="mt-16 justify-center">
+                {program.followUpPrograms.programs.map((followUpProgram, index) => (
+                  <Link
+                    key={index}
+                    href={`/bildungswege/${followUpProgram.educationalProgramType?.slug?.current}/${followUpProgram.slug?.current}`}
+                    className="!min-w-[min(24rem,100%)] !flex-grow-0"
+                  >
+                    <LinkCard
+                      style={createColorThemeStyles(ensureValidHSL(followUpProgram.educationalProgramType?.color?.hsl))}
+                      className="border-none bg-themed-primary p-4 hover:bg-themed-secondary"
+                    >
+                      <InteractionBubble animated={false} />
+                      <LinkCardContent>
+                        <LinkCardLabel>{followUpProgram.educationalProgramType?.name}</LinkCardLabel>
+                        <LinkCardTitle>{followUpProgram.name}</LinkCardTitle>
+                      </LinkCardContent>
+                    </LinkCard>
+                  </Link>
+                ))}
+              </LinkCardCollection>
+            </Container>
           </div>
-        </Container>
+        </Section>
+      )}
+
+      <Section connect="both" className="bg-neutral-100">
+        <div className="pb-4 pt-24 sm:py-24">
+          <Container width="narrow">
+            <GradientStrokeIcon>
+              <GradientStroke />
+              <IconChip>
+                <ArrowDownIcon />
+              </IconChip>
+            </GradientStrokeIcon>
+            <div className="mt-16 text-center">
+              <Heading>Das erwartet dich</Heading>
+              <Paragraph>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloremque architecto voluptatibus
+                quisquam modi earum tempore error a cum, officiis quis mollitia dignissimos sapiente qui deleniti
+                aspernatur quibusdam dolores quod.
+              </Paragraph>
+            </div>
+          </Container>
+          <Container className="mt-24">
+            <div className="flex flex-col gap-4 md:flex-row">
+              <EducationalProgramDetails
+                className="md:flex-[2]"
+                durationHeading={program.programDetails?.durationAndType?.heading || ""}
+                holidaysHeading={program.programDetails?.holidays?.heading || ""}
+                lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
+                startDateHeading={program.programDetails?.startDate?.heading || ""}
+                trainingType={program.programDetails?.durationAndType?.type || ""}
+                duration={program.programDetails?.durationAndType?.duration || ""}
+                startEndTime={[
+                  program.programDetails?.lessonTimes?.start || "",
+                  program.programDetails?.lessonTimes?.end || "",
+                ]}
+                holidays={program.programDetails?.holidays?.info || ""}
+                startDate={program.programDetails?.startDate?.date || ""}
+                applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
+                startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
+              />
+
+              <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
+                <Card>
+                  <Heading>{programPage.subjects?.heading}</Heading>
+                  <Paragraph>{programPage.subjects?.description}</Paragraph>
+                </Card>
+
+                <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
+                  <IconList>
+                    {program.subjects
+                      ?.filter((subject) => !subject.isLearningField)
+                      .map((subject, index) => (
+                        <IconListItem key={index}>
+                          <CheckIcon />
+                          <Label>{subject.name}</Label>
+                        </IconListItem>
+                      ))}
+                  </IconList>
+                </Card>
+
+                <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
+                  <div className="flex items-center gap-4">
+                    <SparkleIcon />
+                    <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
+                  </div>
+                  <IconList>
+                    {program.subjects
+                      ?.filter((subject) => subject.isLearningField)
+                      .map((subject, index) => (
+                        <IconListItem key={index}>
+                          <IconListItemIcon>
+                            <CheckIcon />
+                          </IconListItemIcon>
+                          <Label>{subject.name}</Label>
+                        </IconListItem>
+                      ))}
+                  </IconList>
+                </Card>
+              </Card>
+            </div>
+          </Container>
+        </div>
       </Section>
 
       {program.showExternalCTA && (
-        <Section connect="both" className="bg-primary-900">
-          <Container className="py-24 md:py-48">
+        <Section connect="both" className="bg-neutral-300">
+          <Container className="py-4 sm:py-24">
             <GenericCTA
-              className="p-0 md:p-0"
+              className=""
               preHeading={program.externalCTA?.preHeading || ""}
               mainheading={program.externalCTA?.mainHeading || ""}
               paragraph={program.externalCTA?.paragraph || ""}
@@ -263,47 +337,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         </Section>
       )}
 
-      {hasFollowUpProgram && (
-        <Section connect="both" className="bg-neutral-300">
-          <Container width="narrow" className="py-24 sm:py-48">
-            <div className="text-center">
-              <Heading>{program.followUpPrograms?.heading}</Heading>
-              <Paragraph>{program.followUpPrograms?.description}</Paragraph>
-            </div>
-            <GradientStrokeIcon>
-              <GradientStroke />
-              <IconChip>
-                <ChevronDownIcon />
-              </IconChip>
-            </GradientStrokeIcon>
-            <LinkCardCollection className="mt-24 justify-center">
-              {program.followUpPrograms!.programs!.map((followUpProgram, index) => (
-                <Link
-                  key={index}
-                  href={`/bildungswege/${followUpProgram.educationalProgramType?.slug?.current}/${followUpProgram.slug?.current}`}
-                  className="!min-w-[min(24rem,100%)] !flex-grow-0"
-                >
-                  <LinkCard
-                    style={createColorThemeStyles(ensureValidHSL(followUpProgram.educationalProgramType?.color?.hsl))}
-                    className="bg-themed-primary hover:bg-themed-secondary"
-                  >
-                    <InteractionBubble animated={false} />
-                    <LinkCardContent>
-                      <LinkCardLabel>{followUpProgram.educationalProgramType?.name}</LinkCardLabel>
-                      <LinkCardTitle>{followUpProgram.name}</LinkCardTitle>
-                      <LinkCardSubtitle>{followUpProgram.promotionalHeadline}</LinkCardSubtitle>
-                    </LinkCardContent>
-                  </LinkCard>
-                </Link>
-              ))}
-            </LinkCardCollection>
-          </Container>
-        </Section>
-      )}
-
       <Section className="bg-themed-primary ring-0">
-        <Container className="py-24 sm:py-48">
-          <Container width="narrow" className="text-balance text-center">
+        <Container className="py-4 sm:py-24">
+          {/* <Container width="narrow" className="text-balance text-center">
             <Heading>{program.furtherInformationIntro?.heading}</Heading>
             <Paragraph>{program.furtherInformationIntro?.description}</Paragraph>
             <div className="flex flex-col items-center">
@@ -312,8 +348,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <ChevronDownIcon />
               </IconChip>
             </div>
-          </Container>
-          <div className={cn("mt-24 flex flex-col gap-8 sm:gap-12", { "": !hasFollowUpProgram })}>
+          </Container> */}
+
+          <div className={cn("flex flex-col gap-8 sm:gap-24")}>
             {program.furtherInformation?.map((item, index) => (
               <div
                 key={index}
@@ -321,7 +358,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   "sm:flex-row-reverse": index % 2 !== 0,
                 })}
               >
-                <div className="relative aspect-square w-full sm:aspect-auto sm:flex-1">
+                <div className="relative aspect-square w-full sm:flex-1">
                   <Image
                     className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
                     src={item.image?.asset?.url || ""}
@@ -330,10 +367,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                     height="500"
                   />
                 </div>
-                <Card className="rounded-3xl border border-neutral-400/20 bg-themed-secondary sm:flex-[1.2]">
-                  <Heading tag="h3">{item.heading}</Heading>
-                  <Paragraph>{item.content}</Paragraph>
-                </Card>
+                <div className="flex-1 self-center">
+                  <div className="max-w-96 pb-16 sm:py-16">
+                    <Heading tag="h3">{item.heading}</Heading>
+                    <Paragraph>{item.content}</Paragraph>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -350,17 +389,19 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             groups={program.prerequisites?.requirementGroups?.map(({ requirements }) => requirements || []) || []}
           />
 
-          <Card className="group mt-24 flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
-            <ComparisonTeaserCard className="min-h-40 flex-1 bg-neutral-400" />
-            <div className="flex-1 p-6 text-left">
-              <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
-              <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
-              <Button href="/vergleich" size="sm" className="mt-6 gap-4 pr-1">
-                <Label>{programPage.prerequisites?.checkupCTA?.linkLabel}</Label>
-                <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
-              </Button>
-            </div>
-          </Card>
+          <Link href="/vergleich" className="mt-24 block">
+            <Card className="group flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
+              <ComparisonTeaserCard className="min-h-40 flex-1 bg-neutral-400" />
+              <div className="flex-1 p-6 text-left">
+                <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
+                <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
+                <Button size="sm" className="mt-6 gap-4 pr-1">
+                  <Label>{programPage.prerequisites?.checkupCTA?.linkLabel}</Label>
+                  <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
+                </Button>
+              </div>
+            </Card>
+          </Link>
         </Container>
       </Section>
 
@@ -386,6 +427,15 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               }
             />
           </div>
+          <Link href="/schulbeitrag" target="_blank">
+            <LinkCard className="mt-16 p-4">
+              <InteractionBubble animated={false} />
+              <LinkCardContent className="flex-row items-center gap-4">
+                <LinkCardLabel className="text-neutral-100-text">Schulbeiträge ansehen</LinkCardLabel>
+                <ExternalLinkIcon className="ml-auto" />
+              </LinkCardContent>
+            </LinkCard>
+          </Link>
         </Container>
 
         <Container>
