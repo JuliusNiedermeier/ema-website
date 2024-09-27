@@ -32,7 +32,7 @@ const ÜbersichtPage: FC = async () => {
         </Container>
       </Section>
 
-      <Section className="relative bg-neutral-400 py-24 sm:pt-36 lg:pt-64">
+      <Section className="bg-neutral-400 py-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
           <Heading>{comparisonPageData?.subjectsSection?.heading}</Heading>
           <Paragraph>{comparisonPageData?.subjectsSection?.heading}</Paragraph>
@@ -43,7 +43,7 @@ const ÜbersichtPage: FC = async () => {
         </Container>
       </Section>
 
-      <Section connect="top" className="relative bg-neutral-100 pb-8 pt-24 sm:pt-36 lg:pt-64">
+      <Section connect="top" className="bg-neutral-100 pb-8 pt-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
           <Heading>{comparisonPageData?.learningFieldsSection?.heading}</Heading>
           <Paragraph>{comparisonPageData?.learningFieldsSection?.heading}</Paragraph>
