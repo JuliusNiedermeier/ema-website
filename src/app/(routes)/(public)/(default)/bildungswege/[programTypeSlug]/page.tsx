@@ -77,8 +77,8 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
   return (
     <div style={createColorThemeStyles(ensureValidHSL(programType.color?.hsl))}>
-      <div className="bg-neutral-200 pb-32 pt-header">
-        <Container className="pt-20 text-center" width="narrow">
+      <div className="bg-neutral-200 pt-header">
+        <Container className="py-32 text-center" width="narrow">
           <div className="mx-auto w-fit rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
             <Label className="mb-0 text-primary-900">{programType.name}</Label>
           </div>
