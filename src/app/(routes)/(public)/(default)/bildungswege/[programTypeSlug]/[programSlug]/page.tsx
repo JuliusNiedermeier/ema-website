@@ -28,7 +28,6 @@ import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatc
 import Image from "next/image";
 import { IconList, IconListItem, IconListItemIcon } from "~/app/_components/primitives/icon-list";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
-import { GenericCTA } from "~/app/_components/compounds/generic-cta";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import Link from "next/link";
@@ -318,6 +317,34 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 </Card>
               </Card>
             </div>
+            {program.showExternalCTA && (
+              <Link href={"missing"}>
+                <Card
+                  className={cn(
+                    "group relative mt-4 flex flex-col items-stretch gap-2 overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-300 p-2 md:flex-row",
+                  )}
+                >
+                  <div className="aspect-square h-36 flex-1 md:aspect-auto md:h-auto">
+                    <Image
+                      src={program.externalCTA?.image?.asset?.url || ""}
+                      alt={program.externalCTA?.mainHeading || ""}
+                      height="500"
+                      width="500"
+                      className="h-full w-full rounded-2xl object-cover"
+                    />
+                  </div>
+                  <div className="max-w-[40rem] flex-[2] px-6 py-10 pb-6 md:py-10">
+                    <Label className="text-neutral-400-text">{program.externalCTA?.preHeading}</Label>
+                    <Heading className="mt-2 text-neutral-400-text">{program.externalCTA?.mainHeading}</Heading>
+                    <Paragraph className="mt-6 text-neutral-400-text-muted">{program.externalCTA?.paragraph}</Paragraph>
+                    <Button vairant="outline" className="mt-8 gap-4 pr-4 text-neutral-400-text">
+                      <Label>{program.externalCTA?.ctaText}</Label>
+                      <InteractionBubble animated={false} />
+                    </Button>
+                  </div>
+                </Card>
+              </Link>
+            )}
           </Container>
         </div>
       </Section>
