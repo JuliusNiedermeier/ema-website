@@ -6,6 +6,7 @@ import { Heading, Label, Paragraph } from "../primitives/typography";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
 import Image from "next/image";
+import Link from "next/link";
 
 export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   durationHeading: string;
@@ -105,27 +106,29 @@ const StartDateCard: FC<{
   backgroundGraphicURL: string;
 }> = ({ heading, startDate, applyButtonLabel, backgroundGraphicURL }) => {
   return (
-    <Card className="relative flex flex-1 flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
-      <div>
-        <CalendarCheck2Icon />
-        <Heading>{heading}</Heading>
-        <Heading size="sm" className="mt-auto">
-          {startDate}
-        </Heading>
-      </div>
+    <Link href="/online-bewerbung" className="flex-1">
+      <Card className="group relative flex h-full flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
+        <div>
+          <CalendarCheck2Icon />
+          <Heading>{heading}</Heading>
+          <Heading size="sm" className="mt-auto">
+            {startDate}
+          </Heading>
+        </div>
 
-      <Image
-        src={backgroundGraphicURL}
-        alt={heading}
-        height={500}
-        width={500}
-        className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"
-      />
+        <Image
+          src={backgroundGraphicURL}
+          alt={heading}
+          height={500}
+          width={500}
+          className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"
+        />
 
-      <Button className="z-10 gap-4 bg-primary-100 pr-4 lg:ml-auto" href="/online-bewerbung">
-        <Label className="text-neutral-900">{applyButtonLabel}</Label>
-        <InteractionBubble animated={false} />
-      </Button>
-    </Card>
+        <Button className="z-10 gap-4 bg-primary-100 pr-4 lg:ml-auto">
+          <Label className="text-neutral-900">{applyButtonLabel}</Label>
+          <InteractionBubble animated={false} />
+        </Button>
+      </Card>
+    </Link>
   );
 };
