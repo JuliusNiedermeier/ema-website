@@ -26,7 +26,7 @@ import {
 } from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import Image from "next/image";
-import { IconList, IconListItem, IconListItemIcon } from "~/app/_components/primitives/icon-list";
+import { IconList, IconListItem, IconListItemContent, IconListItemIcon } from "~/app/_components/primitives/icon-list";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
@@ -259,9 +259,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             </div>
           </Container>
           <Container className="mt-24">
-            <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-col gap-4 lg:flex-row">
+              <div className="flex flex-col md:flex-[2]">
               <EducationalProgramDetails
-                className="md:flex-[2]"
+                  className="flex-1"
                 durationHeading={program.programDetails?.durationAndType?.heading || ""}
                 holidaysHeading={program.programDetails?.holidays?.heading || ""}
                 lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
@@ -275,114 +276,102 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 holidays={program.programDetails?.holidays?.info || ""}
                 startDate={program.programDetails?.startDate?.date || ""}
                 applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
-                startDateBackgroundGraphic={programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""}
+                  startDateBackgroundGraphic={
+                    programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""
+                  }
               />
+                {program.showExternalCTA && (
+                  <Link href={"missing"}>
+                    <Card
+                      className={cn(
+                        "group relative mt-4 flex flex-col items-stretch gap-2 overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-300 p-2 lg:flex-row-reverse",
+                      )}
+                    >
+                      <div className="aspect-video flex-1 lg:aspect-auto lg:h-auto">
+                        <Image
+                          src={program.externalCTA?.image?.asset?.url || ""}
+                          alt={program.externalCTA?.mainHeading || ""}
+                          height="500"
+                          width="500"
+                          className="h-full w-full rounded-2xl object-cover"
+                        />
+                      </div>
+                      <div className="py-10x pb-6x lg:py-10x max-w-[40rem] flex-[2] p-6">
+                        <Label className="text-neutral-400-text">{program.externalCTA?.preHeading}</Label>
+                        <Heading className="mt-2 text-neutral-400-text">{program.externalCTA?.mainHeading}</Heading>
+                        <Paragraph className="mt-6 text-neutral-400-text">
+                          {program.externalCTA?.paragraph}
+                        </Paragraph>
+                        <div className="mt-8 flex h-12 w-fit items-center gap-4 rounded-full bg-neutral-100 px-2 pr-6">
+                          <InteractionBubble /> <Label>{program.externalCTA?.ctaText}</Label>
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                )}
+              </div>
 
               <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
-                <Card>
+                <GradientStroke className="ml-[50%] flex-1" />
+
+                <Card className="text-center">
                   <Heading>{programPage.subjects?.heading}</Heading>
                   <Paragraph>{programPage.subjects?.description}</Paragraph>
                 </Card>
 
-                <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
-                  <IconList>
+                <Card className="-mb-8 mt-12 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
+                  <IconList className="gap-3">
                     {program.subjects
                       ?.filter((subject) => !subject.isLearningField)
                       .map((subject, index) => (
-                        <IconListItem key={index}>
+                        <IconListItem key={index} align="top">
+                          <IconListItemIcon>
                           <CheckIcon />
-                          <Label>{subject.name}</Label>
+                          </IconListItemIcon>
+                          <IconListItemContent>
+                            <Label className="text-balance break-all">{subject.name}</Label>
+                          </IconListItemContent>
                         </IconListItem>
                       ))}
                   </IconList>
                 </Card>
 
-                <Card className="flex-1 rounded-2xl rounded-b-none bg-themed-primary">
+                <Card className="rounded-2xl rounded-b-none bg-themed-primary">
                   <div className="flex items-center gap-4">
                     <SparkleIcon />
                     <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
                   </div>
-                  <IconList>
+                  <IconList className="mt-4 gap-3">
                     {program.subjects
                       ?.filter((subject) => subject.isLearningField)
                       .map((subject, index) => (
-                        <IconListItem key={index}>
+                        <IconListItem key={index} align="top">
                           <IconListItemIcon>
-                            <CheckIcon />
+                            <div className="rounded-md border border-neutral-100/10 bg-themed-secondary px-2 py-px shadow">
+                              <Label className="text-small">LF 1</Label>
+                            </div>
                           </IconListItemIcon>
-                          <Label>{subject.name}</Label>
+                          <IconListItemContent>
+                            <Label className="text-balance break-all">{subject.name}</Label>
+                          </IconListItemContent>
                         </IconListItem>
                       ))}
                   </IconList>
                 </Card>
               </Card>
             </div>
-            {program.showExternalCTA && (
-              <Link href={"missing"}>
-                <Card
-                  className={cn(
-                    "group relative mt-4 flex flex-col items-stretch gap-2 overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-300 p-2 md:flex-row",
-                  )}
-                >
-                  <div className="aspect-square h-36 flex-1 md:aspect-auto md:h-auto">
-                    <Image
-                      src={program.externalCTA?.image?.asset?.url || ""}
-                      alt={program.externalCTA?.mainHeading || ""}
-                      height="500"
-                      width="500"
-                      className="h-full w-full rounded-2xl object-cover"
-                    />
-                  </div>
-                  <div className="max-w-[40rem] flex-[2] px-6 py-10 pb-6 md:py-10">
-                    <Label className="text-neutral-400-text">{program.externalCTA?.preHeading}</Label>
-                    <Heading className="mt-2 text-neutral-400-text">{program.externalCTA?.mainHeading}</Heading>
-                    <Paragraph className="mt-6 text-neutral-400-text-muted">{program.externalCTA?.paragraph}</Paragraph>
-                    <Button vairant="outline" className="mt-8 gap-4 pr-4 text-neutral-400-text">
-                      <Label>{program.externalCTA?.ctaText}</Label>
-                      <InteractionBubble animated={false} />
-                    </Button>
-                  </div>
-                </Card>
-              </Link>
-            )}
           </Container>
         </div>
       </Section>
 
-      {program.showExternalCTA && (
-        <Section connect="both" className="bg-neutral-300">
-          <Container className="py-4 sm:py-24">
-            <GenericCTA
-              className=""
-              preHeading={program.externalCTA?.preHeading || ""}
-              mainheading={program.externalCTA?.mainHeading || ""}
-              paragraph={program.externalCTA?.paragraph || ""}
-              ctaText={program.externalCTA?.ctaText || ""}
-              imageURL={program.externalCTA?.image?.asset?.url || ""}
-            />
-          </Container>
-        </Section>
-      )}
-
       <Section className="bg-themed-primary ring-0">
         <Container className="py-4 sm:py-24">
-          {/* <Container width="narrow" className="text-balance text-center">
-            <Heading>{program.furtherInformationIntro?.heading}</Heading>
-            <Paragraph>{program.furtherInformationIntro?.description}</Paragraph>
-            <div className="flex flex-col items-center">
-              <div className="h-24 w-px bg-gradient-to-b from-transparent to-primary-900" />
-              <IconChip>
-                <ChevronDownIcon />
-              </IconChip>
-            </div>
-          </Container> */}
-
           <div className={cn("flex flex-col gap-8 sm:gap-24")}>
             {program.furtherInformation?.map((item, index) => (
               <div
                 key={index}
-                className={cn("flex flex-col items-stretch gap-8 sm:flex-row sm:gap-12", {
-                  "sm:flex-row-reverse": index % 2 !== 0,
+                className={cn("flex flex-col items-stretch gap-8 sm:flex-row sm:gap-24", {
+                  "sm:flex-row-reverse": index % 2 == 0,
                 })}
               >
                 <div className="relative aspect-square w-full sm:flex-1">
@@ -395,9 +384,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   />
                 </div>
                 <div className="flex-1 self-center">
-                  <div className="max-w-96 pb-16 sm:py-16">
+                  <div className="max-w-96 text-balance pb-16 sm:py-16">
+                    <Heading size="sm" className="text-neutral-100-text-muted">
+                      Phase 1
+                    </Heading>
                     <Heading tag="h3">{item.heading}</Heading>
-                    <Paragraph>{item.content}</Paragraph>
+                    <Paragraph className="line-clamp-6">{item.content}</Paragraph>
                   </div>
                 </div>
               </div>
