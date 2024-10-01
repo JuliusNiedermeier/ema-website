@@ -106,7 +106,7 @@ const StartDateCard: FC<{
   backgroundGraphicURL: string;
 }> = ({ heading, startDate, applyButtonLabel, backgroundGraphicURL }) => {
   return (
-    <Link href="/online-bewerbung" className="flex-1">
+    <Link href="/online-bewerbung" className="flex-1 min-h-64">
       <Card className="group relative flex h-full flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
         <div>
           <CalendarCheck2Icon />
