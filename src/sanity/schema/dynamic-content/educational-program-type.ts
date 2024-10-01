@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
 
@@ -9,6 +9,7 @@ export const educationalProgramType: SchemaTypeDef = {
     title: "Bildungsweg",
     type: "document",
     icon: RouteIcon,
+    groups: [{ name: "follow-up-program-types", title: "Anschlussbildungswege" }],
     fields: [
       defineField({
         name: "name",
@@ -56,6 +57,44 @@ export const educationalProgramType: SchemaTypeDef = {
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
+      }),
+      defineField({
+        name: "followUpProgramTypes",
+        title: "Welche Bildungswege der EMA können im Anschluss gegangen werden?",
+        description:
+          "Dem Besucher wird hier ein weiterer Bildungsweg empfohlen, der ihm nach diesem Bildungsweg offen steht.",
+        type: "object",
+        group: "follow-up-program-types",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: "10-40 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(10).max(40),
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            description: "Was sind die Vorteile diese Bildungswege zu verbinden?",
+            type: "text",
+            validation: (r) => r.required().min(50).max(300),
+          }),
+          defineField({
+            name: "programTypes",
+            title: "Bildungswege",
+            type: "array",
+            of: [
+              defineArrayMember({
+                name: "educationalProgramType",
+                title: "Folgebildungsweg",
+                type: "reference",
+                to: { type: "educational-program-type" },
+                validation: (r) => r.required(),
+              }),
+            ],
+          }),
+        ],
       }),
       defineField({
         name: "educationalPrograms",
