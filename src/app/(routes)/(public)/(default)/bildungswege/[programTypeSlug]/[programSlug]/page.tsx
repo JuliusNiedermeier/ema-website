@@ -7,6 +7,7 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { Card } from "~/app/_components/primitives/card";
 import {
   ArrowDownIcon,
+  ArrowRightIcon,
   BadgeIcon,
   CheckIcon,
   ChevronRightIcon,
@@ -41,10 +42,11 @@ import { LinkCard, LinkCardContent, LinkCardLabel, LinkCardTitle } from "~/app/_
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
 import { Chip } from "~/app/_components/primitives/chip";
+import { mapRange } from "~/app/_utils/map-range";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
-  educationalProgramType -> { slug }  
+  educationalProgramType -> { slug }
 }`;
 
 const programPageQuery = groq`*[_type == "educational-program-page"][0]{
@@ -170,57 +172,67 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
         </Container>
       </Section>
 
-      <Section className="bg-neutral-400">
-        <div className="py-24">
-          <Container className="" width="narrow">
-            <GradientStrokeIcon>
-              <GradientStroke />
-              <IconChip>
-                <BadgeIcon />
-              </IconChip>
-            </GradientStrokeIcon>
-            <div className="mt-8 text-center">
-              <Heading>Du wirst Staatlich Anerkannter Sozialassistent</Heading>
-              <Paragraph className="mt-8">
+      <Section className="overflow-hidden bg-primary-900">
+        <Container className="flex flex-col pb-8 xl:flex-row xl:items-end xl:pb-0">
+          <div className="flex-[0_0_50%] pt-32 pb-16 xl:pb-48 xl:pr-24">
+            <IconChip className="bg-primary-100x bg-themed-primary text-primary-100-text">
+              <BadgeIcon />
+            </IconChip>
+            <div className="mt-16 max-w-[40rem] text-balance">
+              <Heading className="text-neutral-900-text">Du wirst Staatlich Anerkannter Sozialassistent</Heading>
+              <Paragraph className="text-neutral-900-text-muted">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
                 cupiditate animi praesentium veritatis! Dolorem officia nemo distinctio corporis. Quae consectetur
                 pariatur recusandae commodi natus aliquid!
               </Paragraph>
             </div>
-          </Container>
+            <div className="relative mt-12 flex flex-wrap gap-4">
+              <div className="absolute bottom-0 top-0 z-10 w-full bg-gradient-to-b from-transparent to-primary-900/90" />
+              {[
+                "Bäcker",
+                "Sportler",
+                "Produkttester",
+                "Mailschreiber",
+                "Berufsbauer",
+                "Elektroniker",
+                "Arzt",
+                "Beinträchtigter Maurer",
+              ].map((label, index, array) => (
+                <Chip
+                  key={index}
+                  className="flex-1 bg-neutral-100 p-2 pr-6"
+                  style={{ opacity: mapRange(index, [0, array.length], [1, 0]) }}
+                >
+                  <div className="rounded-full bg-primary-900 p-2 text-neutral-100">
+                    <CheckIcon />
+                  </div>
+                  <Label>{label}</Label>
+                </Chip>
+              ))}
+            </div>
+          </div>
 
-          <Container className="mt-12 flex flex-wrap justify-center gap-4">
-            {Array.from(new Array(10)).map((_, index) => (
-              <Chip key={index} className="bg-neutral-100 p-2 pr-6">
-                <div className="rounded-full bg-primary-900 p-2 text-neutral-100">
-                  <CheckIcon />
-                </div>
-                <Label>Studium</Label>
-              </Chip>
-            ))}
-          </Container>
-        </div>
-      </Section>
-
-      {program.followUpPrograms?.programs && (
-        <Section className="bg-neutral-300">
-          <IconChip className="mx-auto -translate-y-1/2">
-            <PlusIcon />
-          </IconChip>
-          <div className="pb-4 pt-24 sm:py-24">
-            <Container width="narrow">
-              <div className="text-center">
-                <Heading>Qualifiziere dich für das Fachabitur!</Heading>
-                <Paragraph>Du kannst im Anschluss dein Fachabi bei uns machen.</Paragraph>
+          <div className="relative mt-auto flex-[0_0_50%] flex-col p-2 sm:p-8 xl:overflow-visible xl:pb-24 xl:pr-0">
+            <div className="absolute left-0 top-0 h-full w-full rounded-3xl bg-neutral-100/10 xl:h-[calc(100%+4rem)] xl:w-[50vw] xl:rounded-none xl:rounded-tl-3xl" />
+            <div className="relative">
+              <div className="sm: max-w-[30rem] p-6 sm:p-0">
+                <IconChip className="bg-themed-primary text-primary-100-text">
+                  <ArrowRightIcon />
+                </IconChip>
+                <Heading size="sm" className="mt-16 text-neutral-900-text">
+                  Ermögliche dir dein Studium
+                </Heading>
+                <Paragraph className="text-neutral-900-text-muted">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
+                  cupiditate animi praesentium veritatis!
+                </Paragraph>
               </div>
-            </Container>
-            <Container>
-              <LinkCardCollection className="mt-16 justify-center">
-                {program.followUpPrograms.programs.map((followUpProgram, index) => (
+              <LinkCardCollection className="mt-2 sm:mt-12">
+                {program?.followUpPrograms?.programs?.map((followUpProgram, index) => (
                   <Link
                     key={index}
                     href={`/bildungswege/${followUpProgram.educationalProgramType?.slug?.current}/${followUpProgram.slug?.current}`}
-                    className="!min-w-[min(24rem,100%)] !flex-grow-0"
+                    className="!min-w-[min(24rem,100%)]"
                   >
                     <LinkCard
                       style={createColorThemeStyles(ensureValidHSL(followUpProgram.educationalProgramType?.color?.hsl))}
@@ -235,10 +247,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   </Link>
                 ))}
               </LinkCardCollection>
-            </Container>
+            </div>
           </div>
-        </Section>
-      )}
+        </Container>
+      </Section>
 
       <Section connect="both" className="bg-neutral-100">
         <div className="pb-4 pt-24 sm:py-24">
@@ -261,25 +273,25 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           <Container className="mt-24">
             <div className="flex flex-col gap-4 lg:flex-row">
               <div className="flex flex-col md:flex-[2]">
-              <EducationalProgramDetails
+                <EducationalProgramDetails
                   className="flex-1"
-                durationHeading={program.programDetails?.durationAndType?.heading || ""}
-                holidaysHeading={program.programDetails?.holidays?.heading || ""}
-                lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
-                startDateHeading={program.programDetails?.startDate?.heading || ""}
-                trainingType={program.programDetails?.durationAndType?.type || ""}
-                duration={program.programDetails?.durationAndType?.duration || ""}
-                startEndTime={[
-                  program.programDetails?.lessonTimes?.start || "",
-                  program.programDetails?.lessonTimes?.end || "",
-                ]}
-                holidays={program.programDetails?.holidays?.info || ""}
-                startDate={program.programDetails?.startDate?.date || ""}
-                applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
+                  durationHeading={program.programDetails?.durationAndType?.heading || ""}
+                  holidaysHeading={program.programDetails?.holidays?.heading || ""}
+                  lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
+                  startDateHeading={program.programDetails?.startDate?.heading || ""}
+                  trainingType={program.programDetails?.durationAndType?.type || ""}
+                  duration={program.programDetails?.durationAndType?.duration || ""}
+                  startEndTime={[
+                    program.programDetails?.lessonTimes?.start || "",
+                    program.programDetails?.lessonTimes?.end || "",
+                  ]}
+                  holidays={program.programDetails?.holidays?.info || ""}
+                  startDate={program.programDetails?.startDate?.date || ""}
+                  applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
                   startDateBackgroundGraphic={
                     programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""
                   }
-              />
+                />
                 {program.showExternalCTA && (
                   <Link href={"missing"}>
                     <Card
@@ -326,7 +338,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       .map((subject, index) => (
                         <IconListItem key={index} align="top">
                           <IconListItemIcon>
-                          <CheckIcon />
+                            <CheckIcon />
                           </IconListItemIcon>
                           <IconListItemContent>
                             <Label className="text-balance break-all">{subject.name}</Label>
