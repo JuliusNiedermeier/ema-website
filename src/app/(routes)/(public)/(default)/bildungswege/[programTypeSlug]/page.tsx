@@ -23,6 +23,10 @@ import {
   LinkCardTitle,
 } from "~/app/_components/primitives/link-card";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { ArrowDown, ArrowRightIcon, BadgeIcon, CheckIcon } from "lucide-react";
+import { Card } from "~/app/_components/primitives/card";
+import Image from "next/image";
 import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
 import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
@@ -157,26 +161,43 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
       </Section>
 
       <Section className="bg-neutral-200">
-        <Container width="narrow" className="py-24">
-          <div className="text-center">
+        <div className="pb-4 pt-24 sm:py-24">
+          <GradientStrokeIcon>
+            <GradientStroke />
+            <IconChip>
+              <ArrowDown />
+            </IconChip>
+          </GradientStrokeIcon>
+          <Container width="narrow" className="mt-16 text-balance text-center">
             <Heading>{programType.educationalPrograms?.heading}</Heading>
             <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
+          </Container>
+          <Container className="mt-16">
+            <LinkCardCollection className="justify-center">
+              {programs.map((program) => (
+                <Link
+                  key={program._id}
+                  href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
+                  className="max-w-[30rem]"
+                >
+                  <Card className="group rounded-3xl border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
+                    <div className="relative aspect-video overflow-hidden rounded-2xl">
+                      <Image src="/campus.png" alt="" fill />
           </div>
-          <LinkCardCollection className="mt-16">
-            {programs.map((program) => (
-              <Link key={program._id} href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}>
-                <LinkCard className="border-none bg-themed-primary hover:bg-themed-secondary">
-                  <InteractionBubble animated={false} />
-                  <LinkCardContent>
+                    <div className="flex items-center gap-4 p-6">
+                      <LinkCardContent className="">
                     <LinkCardLabel>{programType.name}</LinkCardLabel>
                     <LinkCardTitle>{program.name}</LinkCardTitle>
                     <LinkCardSubtitle>{program.promotionalHeadline}</LinkCardSubtitle>
                   </LinkCardContent>
-                </LinkCard>
+                      <InteractionBubble animated={false} />
+                    </div>
+                  </Card>
               </Link>
             ))}
           </LinkCardCollection>
         </Container>
+        </div>
       </Section>
 
       <Section connect="top" className="bg-neutral-100">
