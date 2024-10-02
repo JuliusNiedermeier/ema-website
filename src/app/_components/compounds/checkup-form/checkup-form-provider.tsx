@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, FC, PropsWithChildren, useContext, useMemo, useState } from "react";
+import { createContext, FC, PropsWithChildren, useContext, useMemo } from "react";
 import { CheckupFormState, useCheckupFormState } from "./state";
 import { rankEducationalPrograms } from "./rank-educational-programs";
 import { HSLValue } from "~/app/_utils/color-swatch";
