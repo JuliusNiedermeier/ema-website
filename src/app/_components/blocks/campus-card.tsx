@@ -41,7 +41,7 @@ export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps 
         src={data?.heroImage?.asset?.url || ""}
         height={1000}
         width={1000}
-        alt="Campus"
+        alt={data?.heading || ""}
         className="absolute left-0 top-0 h-full w-full object-cover"
       />
     </div>
