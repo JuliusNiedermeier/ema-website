@@ -9,7 +9,13 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { ComparisonPageQueryResult } from "../../../../../../generated/sanity/types";
 import { Section } from "~/app/_components/primitives/section";
 
-const comparisonPageQuery = groq`*[_type == "comparison-page"][0]`;
+const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
+  ...,
+  pathsSection {
+    ...,
+    image { asset -> { url } }
+  }
+}`;
 
 const ÜbersichtPage: FC = async () => {
   const comparisonPageData = await sanityFetch<ComparisonPageQueryResult>(comparisonPageQuery, {
@@ -28,7 +34,12 @@ const ÜbersichtPage: FC = async () => {
       <Section className="overflow-hidden bg-primary-900">
         {/* <InteractiveProgramFlow /> */}
         <Container className="py-8">
-          <Image src="/overview.svg" width="2000" height="2000" alt="overview" />
+          <Image
+            src={comparisonPageData?.pathsSection?.image?.asset?.url || ""}
+            width="2000"
+            height="2000"
+            alt={comparisonPageData?.pathsSection?.heading || ""}
+          />
         </Container>
       </Section>
 

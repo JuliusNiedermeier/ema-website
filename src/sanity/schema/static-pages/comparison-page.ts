@@ -25,6 +25,11 @@ export const comparisonPage: SchemaTypeDef = {
             title: "Beschreibung",
             type: "text",
           }),
+          defineField({
+            name: "image",
+            title: "Übersichtsbild",
+            type: "image",
+          }),
         ],
       }),
       defineField({
