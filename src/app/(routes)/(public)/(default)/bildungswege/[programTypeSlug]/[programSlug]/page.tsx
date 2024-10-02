@@ -183,25 +183,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <BadgeIcon />
             </IconChip>
             <div className="mt-16 max-w-[40rem] text-balance">
-              <Heading className="text-neutral-900-text">Du wirst Staatlich Anerkannter Sozialassistent</Heading>
-              <Paragraph className="text-neutral-900-text-muted">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
-                cupiditate animi praesentium veritatis! Dolorem officia nemo distinctio corporis. Quae consectetur
-                pariatur recusandae commodi natus aliquid!
-              </Paragraph>
+              <Heading className="text-neutral-900-text">{program.certificate?.heading}</Heading>
+              <Paragraph className="text-neutral-900-text-muted">{program.certificate?.description}</Paragraph>
             </div>
             <div className="relative mt-12 flex flex-wrap gap-4">
               <div className="absolute bottom-0 top-0 z-10 w-full bg-gradient-to-b from-transparent to-primary-900/90" />
-              {[
-                "Bäcker",
-                "Sportler",
-                "Produkttester",
-                "Mailschreiber",
-                "Berufsbauer",
-                "Elektroniker",
-                "Arzt",
-                "Beinträchtigter Maurer",
-              ].map((label, index, array) => (
+              {program.certificate?.qualifications?.map((label, index, array) => (
                 <Chip
                   key={index}
                   className="flex-1 bg-neutral-100 p-2 pr-6"
@@ -224,12 +211,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   <ArrowRightIcon />
                 </IconChip>
                 <Heading size="sm" className="mt-16 text-neutral-900-text">
-                  Ermögliche dir dein Studium
+                  {program.followUpPrograms?.heading}
                 </Heading>
-                <Paragraph className="text-neutral-900-text-muted">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
-                  cupiditate animi praesentium veritatis!
-                </Paragraph>
+                <Paragraph className="text-neutral-900-text-muted">{program.followUpPrograms?.description}</Paragraph>
               </div>
               <LinkCardCollection className="mt-2 sm:mt-12">
                 {program?.followUpPrograms?.programs?.map((followUpProgram, index) => (
@@ -266,12 +250,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </GradientStrokeIcon>
             <div className="mt-16 text-center">
-              <Heading>Das erwartet dich</Heading>
-              <Paragraph>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores doloremque architecto voluptatibus
-                quisquam modi earum tempore error a cum, officiis quis mollitia dignissimos sapiente qui deleniti
-                aspernatur quibusdam dolores quod.
-              </Paragraph>
+              <Heading>{program.programDescriptionIntroduction?.heading}</Heading>
+              <Paragraph>{program.programDescriptionIntroduction?.description}</Paragraph>
             </div>
           </Container>
           <Container className="mt-24">
@@ -297,7 +277,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   }
                 />
                 {program.showExternalCTA && (
-                  <Link href={"missing"}>
+                  <Link href={program.externalCTA?.linkURL || ""}>
                     <Card
                       className={cn(
                         "group relative mt-4 flex flex-col items-stretch gap-2 overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-300 p-2 lg:flex-row-reverse",
