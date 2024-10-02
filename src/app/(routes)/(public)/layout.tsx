@@ -1,7 +1,10 @@
 import { FC, PropsWithChildren } from "react";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import { PublicLayoutQueryResult } from "../../../../generated/sanity/types";
+import {
+  PublicLayoutSiteSettingsMetaQueryResult,
+  PublicLayoutSiteSettingsQueryResult,
+} from "../../../../generated/sanity/types";
 import { GoogleTagManager } from "~/app/_components/compounds/GoogleTagManager";
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
@@ -9,13 +12,34 @@ import { LeavePreviewModeButton } from "~/app/_components/compounds/leave-previe
 import { OnPageNavigationChecker } from "~/app/_components/compounds/on-page-navigation-checker";
 import { CookieNoticeRoot } from "~/app/_components/compounds/cookie-notice/cookie-notice";
 import { CookieNotice } from "~/app/_components/blocks/cookie-notice";
+import { Metadata } from "next";
 
-const publicLayoutQuery = groq`*[_type == "website-settings"][0]{
+const publicLayoutSiteSettingsMetaQuery = groq`*[_type == "website-settings"][0] {
+  websiteTitle,
+  websiteDescription,
+  preventIndexing
+}`;
+
+const publicLayoutSiteSettingsQuery = groq`*[_type == "website-settings"][0]{
     gtmID
 }`;
 
+export const generateMetadata = async (): Promise<Metadata> => {
+  const siteSettings = await sanityFetch<PublicLayoutSiteSettingsMetaQueryResult>(publicLayoutSiteSettingsMetaQuery, {
+    tags: ["website-settings"],
+  });
+
+  return {
+    title: siteSettings?.websiteTitle,
+    description: siteSettings?.websiteDescription,
+    robots: { index: !siteSettings?.preventIndexing },
+  };
+};
+
 const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const data = await sanityFetch<PublicLayoutQueryResult>(publicLayoutQuery, { tags: ["website-settings"] });
+  const data = await sanityFetch<PublicLayoutSiteSettingsQueryResult>(publicLayoutSiteSettingsQuery, {
+    tags: ["website-settings"],
+  });
 
   return (
     <OnPageNavigationChecker>

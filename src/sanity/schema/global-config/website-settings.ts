@@ -23,6 +23,13 @@ export const websiteSettingsType: SchemaTypeDef = {
         type: "string",
       }),
       defineField({
+        name: "preventIndexing",
+        title: "Suchmaschienen abhalten diese Website zu indexieren",
+        description:
+          "Ist diese Option aktiviert wird diese Seite von der Indexierung durch Suchmaschienen ausgeschlossen.",
+        type: "boolean",
+      }),
+      defineField({
         name: "gtmID",
         title: "Google-Tag-Manager ID",
         type: "string",
