@@ -6,6 +6,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { WebsiteSettingsQueryResult } from "../../../../generated/sanity/types";
 
 const websiteSettingsQuery = groq`*[_type == "website-settings"][0] {
+  websiteTitle,
   logo {
     textLogoDark { asset -> { url } },
     textLogoLight { asset -> { url } },
@@ -37,12 +38,18 @@ export const SiteLogo: FC<SiteLogoProps> = async ({ className, show = "both", va
   return (
     <div className={cn("flex items-center gap-4", className)} {...restProps}>
       {(show === "mark" || show === "both") && (
-        <Image src={markURL || ""} alt="Logo" width={200} height={200} className="h-12 w-12" />
+        <Image
+          src={markURL || ""}
+          alt={websiteSettings?.websiteTitle || ""}
+          width={200}
+          height={200}
+          className="h-12 w-12"
+        />
       )}
       {(show === "text" || show === "both") && (
         <Image
           src={textURL || ""}
-          alt="Logo"
+          alt={websiteSettings?.websiteTitle || ""}
           width={200}
           height={200}
           className="h-[0.9rem] object-contain object-left"
