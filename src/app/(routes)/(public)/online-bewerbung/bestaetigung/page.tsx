@@ -1,7 +1,6 @@
 import { HistoryIcon, MailCheckIcon, PartyPopperIcon, ShieldAlertIcon } from "lucide-react";
 import { FC, ReactNode } from "react";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
-import { StepIcon } from "~/app/_components/primitives/step-list";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "~/server/resources/application/application-cookie";
 import { notFound, redirect } from "next/navigation";
