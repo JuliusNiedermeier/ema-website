@@ -9,7 +9,7 @@ import {
   EconomyXSocialPreviewQueryResult,
   FeaturedPostsQueryResult,
   HomePageArtPreviewQueryResult,
-  HomePageCheckupPreviewQueryResult,
+  HomePageComparisonPreviewQueryResult,
   HomePageQueryResult,
 } from "../../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
@@ -26,7 +26,7 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import { HeroVideo } from "~/app/_components/compounds/hero-video";
 import { Section } from "~/app/_components/primitives/section";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
-import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
+import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -51,10 +51,11 @@ const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
   previewReadMoreLabel
 }`;
 
-const homePageCheckupPreviewQuery = groq`*[_type == "checkup-page"][0]{
-  heading,
-  previewText,
-  previewReadMoreLabel
+const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
+  preview {
+    ...,
+    images[] { asset -> { url } }
+  }
 }`;
 
 const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
@@ -78,8 +79,8 @@ const HomePage: FC = async () => {
     tags: ["economy-social-page"],
   });
 
-  const checkupPreview = await sanityFetch<HomePageCheckupPreviewQueryResult>(homePageCheckupPreviewQuery, {
-    tags: ["checkup-page"],
+  const comparisonPreview = await sanityFetch<HomePageComparisonPreviewQueryResult>(homePageComparisonPreviewQuery, {
+    tags: ["comparison-page"],
   });
 
   const artPreview = await sanityFetch<HomePageArtPreviewQueryResult>(homePageArtPreviewQuery, { tags: ["art-page"] });
@@ -175,14 +176,22 @@ const HomePage: FC = async () => {
       <Section connect="bottom" className="mt-32 bg-primary-900">
         <Container width="narrow" className="flex flex-col items-center py-32 text-center">
           <Heading size="sm" className="text-neutral-900-text">
-            {checkupPreview?.heading}
+            {comparisonPreview?.preview?.heading}
           </Heading>
-          <Paragraph className="mt-0 text-neutral-900-text-muted">{checkupPreview?.previewText}</Paragraph>
-          <Button vairant="filled" className="mt-8 bg-primary-100 text-primary-100-text" href="/checkup">
-            <Label>{checkupPreview?.previewReadMoreLabel}</Label>
+          <Paragraph className="mt-0 text-neutral-900-text-muted">{comparisonPreview?.preview?.description}</Paragraph>
+          <Button vairant="filled" className="mt-8 bg-primary-100 text-primary-100-text" href="/vergleich">
+            <Label>{comparisonPreview?.preview?.readMoreLabel}</Label>
             <ButtonInteractionBubble />
           </Button>
-          <ComparisonTeaserCard className="mt-16 aspect-video w-full" />
+          <StackedImageCard
+            className="mt-16 aspect-video w-full bg-neutral-100/10"
+            images={
+              comparisonPreview?.preview?.images?.map((image, index) => ({
+                url: image.asset?.url || "",
+                alt: `${comparisonPreview.preview?.heading} ${index + 1}`,
+              })) || []
+            }
+          />
         </Container>
       </Section>
 
