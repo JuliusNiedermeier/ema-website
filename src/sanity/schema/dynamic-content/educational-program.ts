@@ -112,6 +112,64 @@ export const educationalProgram: SchemaTypeDef = {
         group: "details",
       }),
       defineField({
+        name: "followUpPrograms",
+        title: "Welche Bildungsgänge der EMA können im Anschluss absolviert werden?",
+        description:
+          "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, der ihm nach dieser Ausbildung offen steht.",
+        type: "object",
+        group: "follow-up-program",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: "10-40 Zeichen",
+            type: "string",
+            validation: (r) => r.required().min(10).max(40),
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            description: "Was sind die Vorteile diese Bildungsgänge zu verbinden?",
+            type: "text",
+            validation: (r) => r.required().min(50).max(300),
+          }),
+          defineField({
+            name: "programs",
+            title: "Bildungsgänge",
+            type: "array",
+            of: [
+              defineArrayMember({
+                name: "educationalProgram",
+                title: "Folgebildungsgang",
+                type: "reference",
+                to: { type: "educational-program" },
+                validation: (r) => r.required(),
+              }),
+            ],
+          }),
+        ],
+      }),
+      defineField({
+        name: "programDescriptionIntroduction",
+        title: "Einleitung der Bildungsgang-Beschreibung",
+        description:
+          "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
+        type: "object",
+        group: "information-gallery",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+        ],
+      }),
+      defineField({
         name: "programDetails",
         title: "Eckdaten zum Bildungsgang",
         description: "Wichtige Daten, und Zeiten.",
@@ -247,62 +305,6 @@ export const educationalProgram: SchemaTypeDef = {
         type: "generic-cta",
         group: "external-cta",
         hidden: ({ document }) => !document?.showExternalCTA,
-      }),
-      defineField({
-        name: "followUpPrograms",
-        title: "Welche Bildungsgänge der EMA können im Anschluss absolviert werden?",
-        description:
-          "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, der ihm nach dieser Ausbildung offen steht.",
-        type: "object",
-        group: "follow-up-program",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "Was sind die Vorteile diese Bildungsgänge zu verbinden?",
-            type: "text",
-            validation: (r) => r.required().min(50).max(300),
-          }),
-          defineField({
-            name: "programs",
-            title: "Bildungsgänge",
-            type: "array",
-            of: [
-              defineArrayMember({
-                name: "educationalProgram",
-                title: "Folgebildungsgang",
-                type: "reference",
-                to: { type: "educational-program" },
-                validation: (r) => r.required(),
-              }),
-            ],
-          }),
-        ],
-      }),
-      defineField({
-        name: "furtherInformationIntro",
-        title: "Einleitung der weiteren Informationen",
-        type: "object",
-        group: "information-gallery",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-        ],
       }),
       defineField({
         name: "furtherInformation",
