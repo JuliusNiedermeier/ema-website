@@ -35,7 +35,7 @@ export const EducationalProgramPreviewList: FC<EducationalProgramPreviewListProp
         heading: program.promotionalHeadline || "",
         description: program.introduction || "",
         imageURL: program.coverImage?.asset?.url || "",
-        readMoreLabel: "Ansehen",
+        readMoreLabel: "Ansehen", // TODO: Create cms field
         programType: {
           slug: programType.slug?.current || "",
           name: programType.name || "",
