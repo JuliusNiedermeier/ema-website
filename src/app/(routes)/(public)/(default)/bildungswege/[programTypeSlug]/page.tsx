@@ -108,25 +108,12 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
               <BadgeIcon />
             </IconChip>
             <div className="mt-16 max-w-[40rem] text-balance">
-              <Heading className="text-neutral-900-text">Du wirst Staatlich Anerkannter Sozialassistent</Heading>
-              <Paragraph className="text-neutral-900-text-muted">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
-                cupiditate animi praesentium veritatis! Dolorem officia nemo distinctio corporis. Quae consectetur
-                pariatur recusandae commodi natus aliquid!
-              </Paragraph>
+              <Heading className="text-neutral-900-text">{programType.certificate?.heading}</Heading>
+              <Paragraph className="text-neutral-900-text-muted">{programType.certificate?.description}</Paragraph>
             </div>
             <div className="relative mt-12 flex flex-wrap gap-4">
               <div className="absolute bottom-0 top-0 z-10 w-full bg-gradient-to-b from-transparent to-primary-900/90" />
-              {[
-                "Bäcker",
-                "Sportler",
-                "Produkttester",
-                "Mailschreiber",
-                "Berufsbauer",
-                "Elektroniker",
-                "Arzt",
-                "Beinträchtigter Maurer",
-              ].map((label, index, array) => (
+              {programType.certificate?.qualifications?.map((label, index, array) => (
                 <Chip
                   key={index}
                   className="flex-1 bg-neutral-100 p-2 pr-6"
@@ -149,11 +136,10 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                   <ArrowRightIcon />
                 </IconChip>
                 <Heading size="sm" className="mt-16 text-neutral-900-text">
-                  Ermögliche dir dein Studium
+                  {programType.followUpProgramTypes?.heading}
                 </Heading>
                 <Paragraph className="text-neutral-900-text-muted">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis quae commodi cum adipisci
-                  cupiditate animi praesentium veritatis!
+                  {programType.followUpProgramTypes?.description}
                 </Paragraph>
               </div>
               <LinkCardCollection className="mt-2 sm:mt-12">
