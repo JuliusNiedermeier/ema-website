@@ -60,7 +60,19 @@ export const consultingPage: SchemaTypeDef = {
           defineArrayMember({
             name: "consultant",
             title: "Gesprächspartner",
-            type: "image",
+            type: "object",
+            fields: [
+              defineField({
+                name: "name",
+                title: "Name",
+                type: "string",
+              }),
+              defineField({
+                name: "image",
+                title: "Foto",
+                type: "image",
+              }),
+            ],
           }),
         ],
       }),

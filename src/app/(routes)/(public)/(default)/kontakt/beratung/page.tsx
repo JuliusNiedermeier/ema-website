@@ -21,7 +21,10 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 
 const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   ...,
-  consultants[] { asset -> { url } }
+  consultants[] { 
+    ...,
+    image { asset -> { url } }
+  }
 }`;
 
 const consultingPageFooterLinksQuery = groq`*[_type == "footer-config"][0] {
@@ -53,8 +56,8 @@ const ContactPage: FC = async () => {
             {consultingPageData.consultants?.map((consultant, index) => (
               <AuthorTagImage
                 key={index}
-                src={consultant.asset?.url || ""}
-                alt={index.toString()}
+                src={consultant.image?.asset?.url || ""}
+                alt={consultant.name || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}

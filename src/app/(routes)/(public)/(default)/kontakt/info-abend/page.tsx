@@ -18,7 +18,10 @@ import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 
 const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   ...,
-  speaker[] { asset -> { url } },
+  speaker[] {
+    ...,
+    image { asset -> { url } }
+  },
   benefits[] {
     ...,
     image { asset -> { url } }
@@ -34,7 +37,7 @@ const ContactPage: FC = async () => {
 
   return (
     <>
-      <div className="pt-header relative pb-32">
+      <div className="relative pb-32 pt-header">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto text-balance text-center">
@@ -46,8 +49,8 @@ const ContactPage: FC = async () => {
             {infoEventPageData.speaker?.map((speaker, index) => (
               <AuthorTagImage
                 key={index}
-                src={speaker.asset?.url || ""}
-                alt={index.toString()}
+                src={speaker.image?.asset?.url || ""}
+                alt={speaker.name || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}

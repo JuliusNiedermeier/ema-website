@@ -54,8 +54,20 @@ export const infoEventPage: SchemaTypeDef = {
         of: [
           defineArrayMember({
             name: "speaker",
-            title: "Teammitglied",
-            type: "image",
+            title: "Team-Mitglied",
+            type: "object",
+            fields: [
+              defineField({
+                name: "name",
+                title: "Name",
+                type: "string",
+              }),
+              defineField({
+                name: "image",
+                title: "Foto",
+                type: "image",
+              }),
+            ],
           }),
         ],
       }),
