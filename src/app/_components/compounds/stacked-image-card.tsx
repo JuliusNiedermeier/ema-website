@@ -3,7 +3,7 @@ import { cn } from "~/app/_utils/cn";
 import Image from "next/image";
 import { mapRange } from "~/app/_utils/map-range";
 
-export type StackedImageCardProps = ComponentProps<"div"> & {
+export type StackedImageCardProps = Omit<ComponentProps<"div">, "children"> & {
   images: { url: string; alt: string }[];
 };
 

@@ -7,8 +7,8 @@ const images: ComponentProps<typeof StackedImageCard>["images"] = [
   { url: "/comparison-map.svg", alt: "Bildungswege" },
 ];
 
-export type ComparisonTeaserCardProps = ComponentProps<"div"> & {};
+export type ComparisonTeaserCardProps = Omit<ComponentProps<typeof StackedImageCard>, "images"> & {};
 
-export const ComparisonTeaserCard: FC<ComparisonTeaserCardProps> = ({ className, ...restProps }) => {
-  return <StackedImageCard images={images} />;
+export const ComparisonTeaserCard: FC<ComparisonTeaserCardProps> = ({ ...restProps }) => {
+  return <StackedImageCard images={images} {...restProps} />;
 };
