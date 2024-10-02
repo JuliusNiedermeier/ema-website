@@ -9,7 +9,9 @@ import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
 
 const campusCardQuery = groq`*[_type == "campus-page"][0] {
-    ...,
+    heading,
+    previewText,
+    previewReadMoreButtonLabel,
     heroImage { asset -> { url } },
 }`;
 
