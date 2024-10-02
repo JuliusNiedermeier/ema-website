@@ -21,7 +21,7 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { SiteHeaderQueryResult } from "../../../../../generated/sanity/types";
 
-const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
+export const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
 
 export type SiteHeaderProps = ComponentProps<"header"> & {};
 
