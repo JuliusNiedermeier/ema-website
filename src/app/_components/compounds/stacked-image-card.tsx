@@ -10,7 +10,7 @@ export type StackedImageCardProps = Omit<ComponentProps<"div">, "children"> & {
 export const StackedImageCard: FC<StackedImageCardProps> = ({ className, images, ...restProps }) => {
   return (
     <div className={cn("group relative overflow-hidden rounded-2xl bg-neutral-200", className)} {...restProps}>
-      {images.map((image, index, array) => {
+      {images.toReversed().map((image, index, array) => {
         const hoveringOffsetPercentage = mapRange(index, [-1, array.length - 1], [0, 0.4]);
         const offsetPercentage = mapRange(index, [-1, array.length - 1], [0, 0.5]);
         const sizePercentage = mapRange(index, [-1, array.length - 1], [1, 0.6]);
