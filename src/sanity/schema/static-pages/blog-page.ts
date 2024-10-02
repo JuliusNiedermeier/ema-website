@@ -19,6 +19,12 @@ export const blogPage: SchemaTypeDef = {
         validation: (r) => r.required().min(5).max(30),
       }),
       defineField({
+        name: "categoryFilterAllLabel",
+        title: "Alle Blogbeiträge Text",
+        description: "Bezeichnung der Option im Kategorie-Filter um alle Blogbeiträge anzuzeigen",
+        type: "string",
+      }),
+      defineField({
         name: "placeholder",
         title: "Platzhalter",
         description: "Inhalte die angezeigt werden, wenn keine veröffentlichte Blogbeiträge vorhanden sind.",
