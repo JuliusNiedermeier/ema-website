@@ -33,6 +33,11 @@ export const genericCTAType: SchemaTypeDef = {
         title: "Bild",
         type: "image",
       }),
+      defineField({
+        name: "linkURL",
+        title: "Link-URL",
+        type: "string",
+      }),
     ],
   }),
 };
