@@ -70,6 +70,10 @@ const programPageQuery = groq`*[_type == "educational-program-page"][0]{
 const programPageContentQuery = groq`*[_type == "educational-program" && slug.current == $slug][0]{
   ...,
   educationalProgramType->,
+  highlights[] {
+    ...,
+    image { asset -> { url } }
+  },
   certificate {
     ...,
     jobs[] {
@@ -160,10 +164,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl shadow sm:aspect-video">
                 <Image
-                  src="/campus.png"
+                  src={highlight.image?.asset?.url || ""}
                   height="500"
                   width="500"
-                  alt=""
+                  alt={highlight.heading || ""}
                   className="absolute left-0 top-0 h-full w-full object-cover"
                 />
               </div>
@@ -174,7 +178,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
       <Section className="overflow-hidden bg-primary-900">
         <Container className="flex flex-col pb-8 xl:flex-row xl:items-end xl:pb-0">
-          <div className="flex-[0_0_50%] pt-32 pb-16 xl:pb-48 xl:pr-24">
+          <div className="flex-[0_0_50%] pb-16 pt-32 xl:pb-48 xl:pr-24">
             <IconChip className="bg-primary-100x bg-themed-primary text-primary-100-text">
               <BadgeIcon />
             </IconChip>
@@ -311,9 +315,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       <div className="py-10x pb-6x lg:py-10x max-w-[40rem] flex-[2] p-6">
                         <Label className="text-neutral-400-text">{program.externalCTA?.preHeading}</Label>
                         <Heading className="mt-2 text-neutral-400-text">{program.externalCTA?.mainHeading}</Heading>
-                        <Paragraph className="mt-6 text-neutral-400-text">
-                          {program.externalCTA?.paragraph}
-                        </Paragraph>
+                        <Paragraph className="mt-6 text-neutral-400-text">{program.externalCTA?.paragraph}</Paragraph>
                         <div className="mt-8 flex h-12 w-fit items-center gap-4 rounded-full bg-neutral-100 px-2 pr-6">
                           <InteractionBubble /> <Label>{program.externalCTA?.ctaText}</Label>
                         </div>
