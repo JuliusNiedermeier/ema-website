@@ -17,10 +17,30 @@ export const educationalProgramPage: SchemaTypeDef = {
         type: "object",
         fields: [
           defineField({
+            name: "durationAndTypeHeading",
+            title: "Dauer und Ausbildungsart - Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "lessonTimesHeading",
+            title: "Unterrichtszeiten - Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "holidaysHeading",
+            title: "Ferien - Überschrift",
+            type: "string",
+          }),
+          defineField({
             name: "startDate",
             title: "Ausbildungsbeginn",
             type: "object",
             fields: [
+              defineField({
+                name: "heading",
+                title: "überschrift",
+                type: "string",
+              }),
               defineField({
                 name: "applyButtonLabel",
                 title: "Bewerbungbutton Text",

@@ -259,18 +259,18 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <div className="flex flex-col md:flex-[2]">
                 <EducationalProgramDetails
                   className="flex-1"
-                  durationHeading={program.programDetails?.durationAndType?.heading || ""}
-                  holidaysHeading={program.programDetails?.holidays?.heading || ""}
-                  lessonTimesHeading={program.programDetails?.lessonTimes?.heading || ""}
-                  startDateHeading={program.programDetails?.startDate?.heading || ""}
-                  trainingType={program.programDetails?.durationAndType?.type || ""}
-                  duration={program.programDetails?.durationAndType?.duration || ""}
+                  durationHeading={programPage.programDetails?.durationAndTypeHeading || ""}
+                  holidaysHeading={programPage.programDetails?.holidaysHeading || ""}
+                  lessonTimesHeading={programPage.programDetails?.lessonTimesHeading || ""}
+                  startDateHeading={programPage.programDetails?.startDate?.heading || ""}
+                  trainingType={program.programDetails?.type || ""}
+                  duration={program.programDetails?.duration || ""}
                   startEndTime={[
                     program.programDetails?.lessonTimes?.start || "",
                     program.programDetails?.lessonTimes?.end || "",
                   ]}
-                  holidays={program.programDetails?.holidays?.info || ""}
-                  startDate={program.programDetails?.startDate?.date || ""}
+                  holidays={program.programDetails?.holidays || ""}
+                  startDate={program.programDetails?.startDate || ""}
                   applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
                   startDateBackgroundGraphic={
                     programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""
