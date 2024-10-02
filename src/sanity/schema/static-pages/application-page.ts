@@ -18,6 +18,11 @@ export const applicationPage: SchemaTypeDef = {
     ],
     fields: [
       defineField({
+        name: "heroImage",
+        title: "Titelbild",
+        type: "image",
+      }),
+      defineField({
         name: "title",
         title: "Seitenname",
         type: "string",
