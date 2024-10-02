@@ -71,7 +71,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           <Heading className="mt-8 sm:mt-16 sm:text-center">{post.title}</Heading>
           <PostCardMeta>
             <AuthorTag>
-              <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || "Author"} />
+              <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
               <AuthorTagName>{post.author?.name}</AuthorTagName>
             </AuthorTag>
             <PostCardMetaSeparator />
