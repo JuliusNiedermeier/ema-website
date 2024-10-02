@@ -20,7 +20,7 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = async ({ ...res
         (testimonial) => ({
           rating: testimonial.stars || 0,
           body: testimonial.testimonial || "",
-          authorName: testimonial.authorName || "Anonym",
+          authorName: testimonial.authorName || "",
           authorImage: testimonial.authorImage?.asset?.url || "",
         }),
       )}
