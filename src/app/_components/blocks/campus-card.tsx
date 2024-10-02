@@ -7,8 +7,6 @@ import { CampusCardQueryResult } from "../../../../generated/sanity/types";
 import { Card } from "../primitives/card";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
-import Link from "next/link";
-import { Container } from "../primitives/container";
 
 const campusCardQuery = groq`*[_type == "campus-page"][0] {
     ...,
