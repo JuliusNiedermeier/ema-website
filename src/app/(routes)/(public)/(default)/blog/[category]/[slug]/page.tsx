@@ -107,7 +107,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
             <AuthorTagImage
               className="h-12 w-12"
               src={post.author?.image?.asset?.url || ""}
-              alt={post.author?.name || "Author"}
+              alt={post.author?.name || ""}
             />
             <div>
               <AuthorTagName>{`${postPage?.metadata?.authorPrefix} ${post.author?.name}`}</AuthorTagName>
