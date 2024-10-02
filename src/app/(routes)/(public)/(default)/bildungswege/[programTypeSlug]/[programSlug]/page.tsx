@@ -380,7 +380,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <div className="flex-1 self-center">
                   <div className="max-w-96 text-balance pb-16 sm:py-16">
                     <Heading size="sm" className="text-neutral-100-text-muted">
-                      Phase 1
+                      {item.preHeading}
                     </Heading>
                     <Heading tag="h3">{item.heading}</Heading>
                     <Paragraph className="line-clamp-6">{item.content}</Paragraph>
@@ -444,7 +444,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             <LinkCard className="mt-16 p-4">
               <InteractionBubble animated={false} />
               <LinkCardContent className="flex-row items-center gap-4">
-                <LinkCardLabel className="text-neutral-100-text">Schulbeiträge ansehen</LinkCardLabel>
+                <LinkCardLabel className="text-neutral-100-text">{programPage.feesLinkLabel}</LinkCardLabel>
                 <ExternalLinkIcon className="ml-auto" />
               </LinkCardContent>
             </LinkCard>
