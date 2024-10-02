@@ -321,6 +321,13 @@ export const educationalProgram: SchemaTypeDef = {
             type: "object",
             fields: [
               defineField({
+                name: "preHeading",
+                title: "Über-Überschrift",
+                description: "<20 Zeichen",
+                type: "string",
+                validation: (r) => r.required().max(20),
+              }),
+              defineField({
                 name: "heading",
                 title: "Überschrift",
                 description: "5-40 Zeichen",
