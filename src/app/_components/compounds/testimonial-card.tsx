@@ -33,7 +33,7 @@ export const TestimonialCard: FC<TestimonialCardProps> = ({
       <StarRating rating={[rating, 5]} className="opacity-80" />
       <Paragraph className="mt-8">{body}</Paragraph>
       <AuthorTag className="mt-8">
-        <AuthorTagImage src={authorImage as any} alt={authorName} />
+        <AuthorTagImage src={authorImage} alt={authorName} />
         <AuthorTagName>{authorName}</AuthorTagName>
       </AuthorTag>
     </Card>
