@@ -166,6 +166,11 @@ export const footerConfigType: SchemaTypeDef = {
           }),
         ],
       }),
+      defineField({
+        name: "cookieSettingsLabel",
+        title: "Cookie-Einstellungen Text",
+        type: "string",
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Footer" }),

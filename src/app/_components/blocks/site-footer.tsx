@@ -148,7 +148,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                   </Link>
                 </div>
 
-                <ResetCookieConsent label="Cookie-Einstellungen" />
+                <ResetCookieConsent label={footerConfig?.cookieSettingsLabel || ""} />
 
                 <div className="mb-8 flex items-center gap-4 sm:mb-0 sm:ml-auto lg:ml-0">
                   {footerConfig?.socialLinks?.map((link, index) => (
