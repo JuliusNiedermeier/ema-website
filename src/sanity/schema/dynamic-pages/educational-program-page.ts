@@ -105,6 +105,11 @@ export const educationalProgramPage: SchemaTypeDef = {
           }),
         ],
       }),
+      defineField({
+        name: "feesLinkLabel",
+        title: "Text für den Link zur Schulbeitragsseite",
+        type: "string",
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Bildungsgang" }),
