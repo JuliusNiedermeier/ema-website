@@ -96,6 +96,11 @@ export const educationalProgram: SchemaTypeDef = {
                 type: "text",
                 validation: (r) => r.required().min(20).max(150),
               }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                type: "image",
+              }),
             ],
           }),
         ],
