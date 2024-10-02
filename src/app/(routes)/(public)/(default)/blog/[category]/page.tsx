@@ -122,7 +122,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                   <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
                   <PostCardMeta>
                     <AuthorTag>
-                      <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || "Author"} />
+                      <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
                       <AuthorTagName>{post.author?.name}</AuthorTagName>
                     </AuthorTag>
                     <PostCardMetaSeparator />
