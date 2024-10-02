@@ -202,7 +202,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                       images={
                         program.highlights?.map((highlight) => ({
                           url: highlight.image?.asset?.url || "",
-                          alt: "",
+                          alt: highlight.heading || "",
                         })) || []
                       }
                     />
