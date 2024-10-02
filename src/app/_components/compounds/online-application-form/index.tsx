@@ -91,7 +91,12 @@ export const OnlineApplicationForm: FC<OnlineApplicationFormProps> = async ({ cl
 
         <FormNavigation
           className="sticky bottom-0 mt-8 h-fit rounded-t-[3rem] bg-primary-900/80 p-[1rem] backdrop-blur-md"
-          buttonLabels={{ start: "Los geht's", back: "Zurück", next: "Weiter", submit: "Fertigstellen" }}
+          buttonLabels={{
+            start: pageData?.navigation?.startLabel || "",
+            back: pageData?.navigation?.backLabel || "",
+            next: pageData?.navigation?.nextLabel || "",
+            submit: pageData?.navigation?.submitLabel || "",
+          }}
           verifyPath="/online-bewerbung/bestaetigung"
         />
       </div>
