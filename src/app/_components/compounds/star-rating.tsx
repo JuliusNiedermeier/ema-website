@@ -1,4 +1,3 @@
-import { StarIcon } from "lucide-react";
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
 
