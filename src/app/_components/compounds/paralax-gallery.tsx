@@ -26,7 +26,7 @@ export const ParalaxGallery: FC<ParalaxGalleryProps> = ({ className, items, ...r
                 <ParalaxContainer className="h-full w-full">
                   <Image
                     src={item.imageURL}
-                    alt={"TODO"}
+                    alt={item.heading}
                     width="1920"
                     height="1080"
                     className="h-full w-full overflow-hidden object-cover"
