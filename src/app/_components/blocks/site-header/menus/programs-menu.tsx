@@ -5,23 +5,24 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { groq } from "next-sanity";
-import { ProgramsMenuCheckupQueryResult } from "../../../../../../generated/sanity/types";
+import { ProgramsMenuComparisonQueryResult } from "../../../../../../generated/sanity/types";
 import { sanityFetch } from "~/sanity/lib/client";
 import { ProgramGrid } from "../../program-grid";
-import { ComparisonTeaserCard } from "../../comparison-teaser-card";
 import Link from "next/link";
+import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 
-const programsMenuCheckupQuery = groq`*[_type == "checkup-page"][0]{
-  heading,
-  previewText,
-  previewReadMoreLabel
+const programsMenuComparisonQuery = groq`*[_type == "comparison-page"][0]{
+  preview {
+    ...,
+    images[] { asset -> { url } }
+  }
 }`;
 
 export type OffersMenuProps = ComponentProps<"div"> & {};
 
 export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps }) => {
-  const checkup = await sanityFetch<ProgramsMenuCheckupQueryResult>(programsMenuCheckupQuery, {
-    tags: ["checkup-page"],
+  const comparison = await sanityFetch<ProgramsMenuComparisonQueryResult>(programsMenuComparisonQuery, {
+    tags: ["comparison-page"],
   });
 
   return (
@@ -31,14 +32,22 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
           className="group flex h-full w-full flex-col justify-end rounded-3xl bg-primary-900 p-2 text-neutral-900-text xl:max-w-96"
           data-animate
         >
-          <ComparisonTeaserCard className="flex-[10rem] bg-neutral-100/10 xl:flex-1" />
+          <StackedImageCard
+            className="flex-[10rem] border border-neutral-100/10 bg-neutral-100/10 xl:flex-1"
+            images={
+              comparison?.preview?.images?.map((image, index) => ({
+                url: image.asset?.url || "",
+                alt: `${comparison.preview?.heading} ${index + 1}`,
+              })) || []
+            }
+          />
           <div className="p-6">
             <Heading size="sm" className="mt-8">
-              {checkup?.heading}
+              {comparison?.preview?.heading}
             </Heading>
-            <Paragraph className="flex-1xsd text-neutral-900-text-muted">{checkup?.previewText}</Paragraph>
+            <Paragraph className="flex-1xsd text-neutral-900-text-muted">{comparison?.preview?.description}</Paragraph>
             <Button vairant="outline" size="sm" className="mt-8">
-              <Label>{checkup?.previewReadMoreLabel}</Label>
+              <Label>{comparison?.preview?.readMoreLabel}</Label>
               <InteractionBubble />
             </Button>
           </div>
