@@ -87,7 +87,7 @@ const HomePage: FC = async () => {
   const partners: ComponentProps<typeof PartnersBanner>["partners"] =
     homePage.partners?.map((partner) => ({
       imageURL: partner.logo?.asset?.url || "",
-      name: partner.name || "Partner",
+      name: partner.name || "",
     })) || [];
 
   const FAQItems: ComponentProps<typeof BasicAccordion>["items"] =
