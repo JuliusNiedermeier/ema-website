@@ -30,45 +30,34 @@ export const applicationPage: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
-        name: "infoBanner",
-        title: "Info-Banner",
-        description: "",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-          defineField({
-            name: "dismissLabel",
-            title: "Text auf dem Button zum AAusblenden der Info",
-            type: "string",
-          }),
-        ],
-      }),
-      defineField({
         name: "steps",
         title: "Formular-Schritte",
         type: "object",
         group: "form",
         fields: [
           defineField({
+            name: "introduction",
+            title: "Einleitung",
+            type: "object",
+            fields: [
+              defineField({
+                name: "heading",
+                title: "Überschrift",
+                type: "string",
+              }),
+              defineField({
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+            ],
+          }),
+          defineField({
             name: "program",
             title: "Auswahl des Bildungsgangs",
             type: "object",
             fields: [
               defineField({
-                name: "title",
-                title: "Name dieses Schrittes",
-                type: "string",
-              }),
-              defineField({
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
@@ -76,15 +65,10 @@ export const applicationPage: SchemaTypeDef = {
             ],
           }),
           defineField({
-            name: "applicant",
-            title: "Persönliche Angaben",
+            name: "name",
+            title: "Name",
             type: "object",
             fields: [
-              defineField({
-                name: "title",
-                title: "Name dieses Schrittes",
-                type: "string",
-              }),
               defineField({
                 name: "heading",
                 title: "Überschrift",
@@ -96,52 +80,17 @@ export const applicationPage: SchemaTypeDef = {
                 type: "text",
               }),
               defineField({
-                name: "nameInputLabel",
-                title: "Label über dem Namens-Eingabefeld",
-                type: "string",
-              }),
-              defineField({
-                name: "nameInputPlaceholder",
-                title: "Platzhaltertext im Namens-Eingabefeld",
-                type: "string",
-              }),
-              defineField({
-                name: "ageInputLabel",
-                title: "Label über dem Alters-Eingabefeld",
-                type: "string",
-              }),
-              defineField({
-                name: "ageInputPlaceholder",
-                title: "Platzhaltertext im Alters-Eingabefeld",
-                type: "string",
-              }),
-              defineField({
-                name: "motivationInputLabel",
-                title: "Label über dem Motivations-Eingabefeld",
-                type: "string",
-              }),
-              defineField({
-                name: "motivationInputDescription",
-                title: "Beschreibung über dem Motivations-Eingabefeld",
-                type: "text",
-              }),
-              defineField({
-                name: "motivationInputPlaceholder",
-                title: "Platzhaltertext im Motivations-Eingabefeld",
+                name: "placeholder",
+                title: "Platzhaltertext",
                 type: "string",
               }),
             ],
           }),
           defineField({
-            name: "verification",
-            title: "Eingabe der Email zur Verifizierung und Rückmeldung",
+            name: "age",
+            title: "Alter",
             type: "object",
             fields: [
-              defineField({
-                name: "title",
-                title: "Name dieses Schrittes",
-                type: "string",
-              }),
               defineField({
                 name: "heading",
                 title: "Überschrift",
@@ -153,13 +102,30 @@ export const applicationPage: SchemaTypeDef = {
                 type: "text",
               }),
               defineField({
-                name: "emailInputLabel",
-                title: "Label über dem Email-Eingabefeld",
+                name: "placeholder",
+                title: "Platzhaltertext",
+                type: "string",
+              }),
+            ],
+          }),
+          defineField({
+            name: "email",
+            title: "Email",
+            type: "object",
+            fields: [
+              defineField({
+                name: "heading",
+                title: "Überschrift",
                 type: "string",
               }),
               defineField({
-                name: "emailInputPlaceholder",
-                title: "Platzhaltertext im Email-Eingabefeld",
+                name: "description",
+                title: "Beschreibung",
+                type: "text",
+              }),
+              defineField({
+                name: "placeholder",
+                title: "Platzhaltertext",
                 type: "string",
               }),
             ],
@@ -173,6 +139,11 @@ export const applicationPage: SchemaTypeDef = {
         group: "form",
         fields: [
           defineField({
+            name: "startLabel",
+            title: "Text auf dem Start-Button",
+            type: "string",
+          }),
+          defineField({
             name: "backLabel",
             title: "Text auf dem Zurück-Button",
             type: "string",
@@ -184,17 +155,7 @@ export const applicationPage: SchemaTypeDef = {
           }),
           defineField({
             name: "submitLabel",
-            title: "Text auf dem Weiter-Button im letzten schritt",
-            type: "string",
-          }),
-          defineField({
-            name: "pendingLabel",
-            title: "Statusbezeichnung für ausstehende Schritte",
-            type: "string",
-          }),
-          defineField({
-            name: "completeLabel",
-            title: "Statusbezeichnung für abgeschlossene Schritte",
+            title: "Text auf dem Abschließen-Button im letzten schritt",
             type: "string",
           }),
         ],

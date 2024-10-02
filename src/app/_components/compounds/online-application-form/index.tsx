@@ -5,7 +5,10 @@ import { cn } from "~/app/_utils/cn";
 import { FormCarousel } from "./carousel";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import { OnlineApplicationFormProgramTypesQueryResult } from "../../../../../generated/sanity/types";
+import {
+  OnlineApplicationFormPageQueryResult,
+  OnlineApplicationFormProgramTypesQueryResult,
+} from "../../../../../generated/sanity/types";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { FormProgressIndicator } from "./progress-indicator";
 import { SiteLogo } from "../site-logo";
@@ -21,6 +24,8 @@ const onlineApplicationFormProgramTypesQuery = groq`*[_type == "educational-prog
   }
 }`;
 
+const onlineApplicationFormPageQuery = groq`*[_type == "application-page"][0]`;
+
 type OnlineApplicationFormProps = Omit<ComponentProps<"div">, "children"> & {};
 
 export const OnlineApplicationForm: FC<OnlineApplicationFormProps> = async ({ className, ...restProps }) => {
@@ -30,6 +35,10 @@ export const OnlineApplicationForm: FC<OnlineApplicationFormProps> = async ({ cl
       tags: ["educational-program-type", "educational-program"],
     },
   );
+
+  const pageData = await sanityFetch<OnlineApplicationFormPageQueryResult>(onlineApplicationFormPageQuery, {
+    tags: ["application-page"],
+  });
 
   const programs = programTypes
     .map((programType) =>
@@ -48,26 +57,24 @@ export const OnlineApplicationForm: FC<OnlineApplicationFormProps> = async ({ cl
     <FormProvider
       stepData={{
         introduction: {
-          heading: "Melde dich jetzt ganz einfach online an.",
-          description:
-            "Du kannst uns online deine Entscheidung mitteilen, deine Ausbildung bei uns machen zu wollen. Wir antworten dir so schnell wir können, und lassen dich wissen, ob du deinen Ausbildungsplatz bekommst.",
+          heading: pageData?.steps?.introduction?.heading || "",
+          description: pageData?.steps?.introduction?.description || "",
         },
-        program: { heading: "Wofür möchtest du dich bewerben?", programs },
+        program: { heading: pageData?.steps?.program?.heading || "", programs },
         name: {
-          heading: "Wie möchtest du genannt werden?",
-          description: "Verrate uns deinen Namen, bevor wir uns besser kennenlernen.",
-          placeholder: "Dein Name",
+          heading: pageData?.steps?.name?.heading || "",
+          description: pageData?.steps?.name?.description || "",
+          placeholder: pageData?.steps?.name?.placeholder || "",
         },
         age: {
-          heading: "Verrate uns dein Alter.",
-          description:
-            "Um zu prüfen ob du die VOraussetzungen für die Ausbildung erfüllst, müssen wir dein Alter wissen..",
-          placeholder: "Dein Alter",
+          heading: pageData?.steps?.age?.heading || "",
+          description: pageData?.steps?.age?.description || "",
+          placeholder: pageData?.steps?.age?.placeholder || "",
         },
         email: {
-          heading: "Wohin sollen wir dir schreiben?.",
-          description: "Um dich zu kontaktieren benötigen wir deine Email-Adresse.",
-          placeholder: "Deine Email-Adresse",
+          heading: pageData?.steps?.email?.heading || "",
+          description: pageData?.steps?.email?.description || "",
+          placeholder: pageData?.steps?.email?.placeholder || "",
         },
       }}
     >
