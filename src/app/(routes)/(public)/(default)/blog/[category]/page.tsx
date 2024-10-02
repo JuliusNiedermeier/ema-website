@@ -51,7 +51,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
 
   if (!latestPost)
     return (
-      <div className="pt-header rounded-b-3xl bg-neutral-200">
+      <div className="rounded-b-3xl bg-neutral-200 pt-header">
         <Container width="narrow" className="flex flex-col items-center py-32 text-center">
           <IconChip>
             <BrainIcon size="24" />
@@ -65,7 +65,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
 
   return (
     <>
-      <div className="pt-header bg-neutral-200 pb-16">
+      <div className="bg-neutral-200 pb-16 pt-header">
         <Container className="pt-12">
           <div className="flex items-center gap-4">
             <SparkleIcon />
@@ -91,7 +91,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                 <AuthorTag>
                   <AuthorTagImage
                     src={latestPost.author?.image?.asset?.url || ""}
-                    alt={latestPost.author?.name || "Author"}
+                    alt={latestPost.author?.name || ""}
                   />
                   <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
                 </AuthorTag>
