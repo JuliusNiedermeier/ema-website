@@ -28,9 +28,9 @@ import { ArrowDown, ArrowRightIcon, BadgeIcon, CheckIcon } from "lucide-react";
 import { Chip } from "~/app/_components/primitives/chip";
 import { mapRange } from "~/app/_utils/map-range";
 import { Card } from "~/app/_components/primitives/card";
-import Image from "next/image";
 import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
 import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
+import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
@@ -54,7 +54,16 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
   },
 }`;
 
-const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug]`;
+const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug] {
+  _id,
+  slug,
+  name,
+  promotionalHeadline,
+  highlights[] {
+    heading,
+    image { asset -> { url } }
+  }
+}`;
 
 type Params = { programTypeSlug: string };
 type Props = { params: Params };
@@ -188,9 +197,15 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                   className="max-w-[30rem]"
                 >
                   <Card className="group rounded-3xl border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
-                    <div className="relative aspect-video overflow-hidden rounded-2xl">
-                      <Image src="/campus.png" alt="" fill />
-                    </div>
+                    <StackedImageCard
+                      className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-100/20 text-themed-primary"
+                      images={
+                        program.highlights?.map((highlight) => ({
+                          url: highlight.image?.asset?.url || "",
+                          alt: "",
+                        })) || []
+                      }
+                    />
                     <div className="flex items-center gap-4 p-6">
                       <LinkCardContent className="">
                         <LinkCardLabel>{programType.name}</LinkCardLabel>
