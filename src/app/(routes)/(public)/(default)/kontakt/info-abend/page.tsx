@@ -40,7 +40,7 @@ const ContactPage: FC = async () => {
       <div className="relative pb-32 pt-header">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10 pt-20" width="narrow">
-          <div className="mx-auto text-balance text-center">
+          <div className="mx-auto text-center">
             <Heading>{infoEventPageData.heading}</Heading>
             <Paragraph>{infoEventPageData.description}</Paragraph>
           </div>

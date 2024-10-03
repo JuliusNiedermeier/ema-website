@@ -23,10 +23,10 @@ export const EducationalProgramCard: FC<EducationalProgramCardProps> = ({
       <Chip className="bg-themed-secondary">
         <Label>{programType}</Label>
       </Chip>
-      <Heading size="lg" className="mt-8 text-balance">
+      <Heading size="lg" className="mt-8">
         {name}
       </Heading>
-      <Paragraph className="flex-1 text-balance">{headline}</Paragraph>
+      <Paragraph className="flex-1">{headline}</Paragraph>
       <InteractionBubble animated={false} className="mt-8" />
     </Card>
   );

@@ -47,7 +47,7 @@ const ContactPage: FC = async () => {
       <div className="relative pb-32 pt-header">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full" />
         <Container className="z-10 pt-20" width="narrow">
-          <div className="mx-auto max-w-[35rem] text-balance text-center">
+          <div className="mx-auto max-w-[35rem] text-center">
             <Heading>{consultingPageData.heading}</Heading>
             <Paragraph>{consultingPageData.description}</Paragraph>
           </div>
@@ -116,7 +116,7 @@ export default ContactPage;
 
 const StepItem: FC<{ text: string; icon: LucideIcon }> = ({ text, icon: Icon }) => {
   return (
-    <div className="flex max-w-40 flex-col items-center gap-2 text-balance text-center">
+    <div className="flex max-w-40 flex-col items-center gap-2 text-center">
       <IconChip>
         <Icon />
       </IconChip>

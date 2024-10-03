@@ -14,7 +14,7 @@ const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
           className={cn(
             catamaran.variable,
             tiempos.variable,
-            "overflow-x-hidden bg-neutral-100 font-sans text-neutral-200-text",
+            "overflow-x-hidden text-balance bg-neutral-100 font-sans text-neutral-200-text",
           )}
         >
           {children}

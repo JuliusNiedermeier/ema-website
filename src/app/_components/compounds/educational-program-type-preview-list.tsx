@@ -78,7 +78,7 @@ const Section: FC<{ programType: EducationalProgramTypePreviewListProps["program
       >
         <Container className={cn("py-12 md:py-24")}>
           <motion.div
-            className={cn("text-balance px-4 text-center md:w-1/3 md:px-0 md:text-left md:!opacity-100", {
+            className={cn("px-4 text-center md:w-1/3 md:px-0 md:text-left md:!opacity-100", {
               "ml-auto": index % 2 !== 0,
             })}
             style={{ opacity: sheetContentOpacity }}

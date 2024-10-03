@@ -116,7 +116,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             <IconChip className="bg-primary-100x bg-themed-primary text-primary-100-text">
               <BadgeIcon />
             </IconChip>
-            <div className="mt-16 max-w-[40rem] text-balance">
+            <div className="mt-16 max-w-[40rem]">
               <Heading className="text-neutral-900-text">{programType.certificate?.heading}</Heading>
               <Paragraph className="text-neutral-900-text-muted">{programType.certificate?.description}</Paragraph>
             </div>
@@ -184,7 +184,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
               <ArrowDown />
             </IconChip>
           </GradientStrokeIcon>
-          <Container width="narrow" className="mt-16 text-balance text-center">
+          <Container width="narrow" className="mt-16 text-center">
             <Heading>{programType.educationalPrograms?.heading}</Heading>
             <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
           </Container>

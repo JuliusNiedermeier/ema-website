@@ -134,7 +134,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
             </div>
             <div className="mt-16 h-px bg-neutral-900-text-muted" />
             <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
-              <Label className="text-balance text-[0.9rem] text-neutral-900-text-muted">
+              <Label className="text-[0.9rem] text-neutral-900-text-muted">
                 {footerConfig?.copyrightNotice}
               </Label>
 

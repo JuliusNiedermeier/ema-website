@@ -18,7 +18,7 @@ export const EndOfPageCTA: FC<EndOfPageCTAProps> = ({ className, children, headi
           <ChevronDownIcon className="text-primary-900-text" />
         </div>
       </div>
-      <Container width="narrow" className="mt-24 text-balance text-center">
+      <Container width="narrow" className="mt-24 text-center">
         <Heading>{heading}</Heading>
         <Paragraph>{description}</Paragraph>
       </Container>

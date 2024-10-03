@@ -96,11 +96,11 @@ const Card: FC<CardProps> = ({ program, globalProgress, relativePlacement, style
         className="absolute bottom-8 w-full overflow-hidden rounded-3xl border-2 border-themed-secondary bg-themed-primary md:rounded-[3rem]"
       >
         <div className="flex h-[70vh] flex-col p-2 md:flex-row-reverse md:p-8">
-          <div className="h-fit flex-1 text-balance p-6">
+          <div className="h-fit flex-1 p-6">
             <Label className="inline-block rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
               {program.programType.name}
             </Label>
-            <Heading size="lg" className="line-clamp-2 text-balance break-words">
+            <Heading size="lg" className="line-clamp-2 break-words">
               {program.name}
             </Heading>
             <Paragraph className="line-clamp-3">{program.description}</Paragraph>

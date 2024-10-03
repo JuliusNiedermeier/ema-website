@@ -225,7 +225,7 @@ const HomePage: FC = async () => {
       </Section>
 
       <Section connect="top" className="-mb-2 bg-neutral-100">
-        <Container width="narrow" className="text-balance pt-32 text-center">
+        <Container width="narrow" className="pt-32 text-center">
           <Heading>{homePage.testimonials?.heading}</Heading>
           <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
         </Container>

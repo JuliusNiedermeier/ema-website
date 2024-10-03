@@ -182,7 +182,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             <IconChip className="bg-primary-100x bg-themed-primary text-primary-100-text">
               <BadgeIcon />
             </IconChip>
-            <div className="mt-16 max-w-[40rem] text-balance">
+            <div className="mt-16 max-w-[40rem]">
               <Heading className="text-neutral-900-text">{program.certificate?.heading}</Heading>
               <Paragraph className="text-neutral-900-text-muted">{program.certificate?.description}</Paragraph>
             </div>
@@ -323,7 +323,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                             <CheckIcon />
                           </IconListItemIcon>
                           <IconListItemContent>
-                            <Label className="text-balance break-all">{subject.name}</Label>
+                            <Label className="break-all">{subject.name}</Label>
                           </IconListItemContent>
                         </IconListItem>
                       ))}
@@ -346,7 +346,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                             </div>
                           </IconListItemIcon>
                           <IconListItemContent>
-                            <Label className="text-balance break-all">{subject.name}</Label>
+                            <Label className="break-all">{subject.name}</Label>
                           </IconListItemContent>
                         </IconListItem>
                       ))}
@@ -378,7 +378,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   />
                 </div>
                 <div className="flex-1 self-center">
-                  <div className="max-w-96 text-balance pb-16 sm:py-16">
+                  <div className="max-w-96 pb-16 sm:py-16">
                     <Heading size="sm" className="text-neutral-100-text-muted">
                       {item.preHeading}
                     </Heading>
@@ -420,7 +420,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
       <Section className="-mb-2 bg-neutral-100">
         <Container className="pt-24 sm:pt-48">
-          <Container width="narrow" className="text-balance text-center">
+          <Container width="narrow" className="text-center">
             <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
             <Paragraph>{program.testimonials?.subheading}</Paragraph>
           </Container>
