@@ -32,13 +32,6 @@ export const homePage: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
-        name: "videoFullscreenButtonLabel",
-        title: "Text des Video-Vollbild-Buttons",
-        description: "5-20 Zeichen. Text des Buttons, der den Video-Vollbildmodus aktiviert.",
-        type: "string",
-        validation: (r) => r.required().min(5).max(20),
-      }),
-      defineField({
         name: "videoCTAButtonLabel",
         title: "Primärer Call-To-Action-Text",
         description:

@@ -120,19 +120,18 @@ const HomePage: FC = async () => {
         <Container width="wide" className="relative">
           <HeroVideo src={homePage.video?.asset?.url || ""} />
           <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full items-end">
-            <Container className="items- sticky bottom-2 my-2 flex justify-between sm:bottom-8 sm:my-8 sm:items-end">
+            <Container className="sticky bottom-2 my-2 flex items-stretch justify-between gap-2 sm:bottom-8 sm:my-8">
               <Button
                 href="/online-bewerbung"
-                className="pointer-events-auto w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-16 md:pr-6"
+                className="pointer-events-auto w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-12 md:pr-6"
                 size="md"
               >
                 <Label className="flex-1">{homePage.videoCTAButtonLabel}</Label>
                 <InteractionBubble animated={false} />
               </Button>
 
-              <div className="hidden w-min items-center gap-3 whitespace-nowrap text-neutral-200 md:flex">
-                <Label className="hidden sm:block">{homePage.videoFullscreenButtonLabel}</Label>
-                <PlayIcon className="mr-8 sm:mr-0" />
+              <div className="grid aspect-square h-16 place-content-center rounded-full bg-neutral-100/50 text-neutral-900 backdrop-blur-lg md:h-24">
+                <PlayIcon />
               </div>
             </Container>
           </div>
