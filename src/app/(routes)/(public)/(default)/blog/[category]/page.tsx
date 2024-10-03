@@ -56,7 +56,9 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
           <IconChip>
             <BrainIcon size="24" />
           </IconChip>
-          <Chip className="mt-4">{blogPage?.placeholder?.preHeading}</Chip>
+          <Chip className="mt-4">
+            <Label>{blogPage?.placeholder?.preHeading}</Label>
+          </Chip>
           <Heading className="mt-8">{blogPage?.placeholder?.heading}</Heading>
           <Paragraph>{blogPage?.placeholder?.description}</Paragraph>
         </Container>
@@ -81,7 +83,9 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                   alt={latestPost.title || ""}
                   className="max-h-[50vh]"
                 />
-                <PostCardThumbnailTag>{latestPost.category?.title}</PostCardThumbnailTag>
+                <PostCardThumbnailTag>
+                  <Label>{latestPost.category?.title}</Label>
+                </PostCardThumbnailTag>
                 <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </PostCardThumbnail>
               <PostCardTitle size="lg" className="max-w-[40rem]">
@@ -115,7 +119,9 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
               <PostCard className="h-full border border-neutral-400">
                 <PostCardThumbnail>
                   <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
-                  <PostCardThumbnailTag>{post.category?.title}</PostCardThumbnailTag>
+                  <PostCardThumbnailTag>
+                    <Label>{post.category?.title}</Label>
+                  </PostCardThumbnailTag>
                   <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                 </PostCardThumbnail>
                 <PostCardContent>
