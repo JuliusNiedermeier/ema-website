@@ -6,7 +6,7 @@ import "~/app/_styles/globals.css";
 import "~/app/_styles/theme.css";
 import { QueryProvider } from "../_components/primitives/query-provider";
 
-const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
+const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (
     <QueryProvider>
       <html lang="de">
@@ -24,4 +24,4 @@ const PublicLayout: FC<PropsWithChildren> = async ({ children }) => {
   );
 };
 
-export default PublicLayout;
+export default RootLayout;
