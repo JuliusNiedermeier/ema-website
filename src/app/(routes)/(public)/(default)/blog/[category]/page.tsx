@@ -67,14 +67,30 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
 
   return (
     <>
-      <div className="bg-neutral-200 pb-16 pt-header">
-        <Container className="pt-12">
+      <div className="bg-neutral-200 pt-header">
+        <Container className="mt-12 md:mt-32">
+          <div className="max-w-[40rem]">
+            <Heading size="sm" className="text-neutral-100-text-muted">
+              {blogPage?.preHeading}
+            </Heading>
+            <Heading>{blogPage?.heading}</Heading>
+            <Paragraph>{blogPage?.description}</Paragraph>
+          </div>
+          <BlogCategorySelector
+            currentCategorySlug={params.category || ""}
+            className="scrollbar-none mt-8 max-w-full"
+          />
+        </Container>
+      </div>
+
+      <div className="bg-gradient-to-b from-neutral-200 to-transparent pt-12 md:pt-16">
+        <Container>
           <div className="flex items-center gap-4">
             <SparkleIcon />
             <Label>{blogPage?.latestPostLabel}</Label>
           </div>
-          <Link href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`}>
-            <PostCard className="mt-4 block">
+          <Link href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`} className="mt-4 block">
+            <PostCard className="bg-neutral-100 transition-colors">
               <PostCardThumbnail>
                 <PostCardThumbnailImage
                   width={1920}
@@ -88,60 +104,58 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                 </PostCardThumbnailTag>
                 <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </PostCardThumbnail>
-              <PostCardTitle size="lg" className="max-w-[40rem]">
-                {latestPost.title}
-              </PostCardTitle>
-              <PostCardMeta>
-                <AuthorTag>
-                  <AuthorTagImage
-                    src={latestPost.author?.image?.asset?.url || ""}
-                    alt={latestPost.author?.name || ""}
-                  />
-                  <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
-                </AuthorTag>
-                <PostCardMetaSeparator />
-                <PostCardMetaDate>
-                  {new Date(latestPost.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
-                </PostCardMetaDate>
-              </PostCardMeta>
-              <PostCardExcerpt className="max-w-[40rem]">{latestPost.excerpt}</PostCardExcerpt>
+              <PostCardContent className="md:mt-4">
+                <PostCardTitle size="lg" className="max-w-[40rem]">
+                  {latestPost.title}
+                </PostCardTitle>
+                <PostCardMeta>
+                  <AuthorTag>
+                    <AuthorTagImage
+                      src={latestPost.author?.image?.asset?.url || ""}
+                      alt={latestPost.author?.name || ""}
+                    />
+                    <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
+                  </AuthorTag>
+                  <PostCardMetaSeparator />
+                  <PostCardMetaDate>
+                    {new Date(latestPost.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
+                  </PostCardMetaDate>
+                </PostCardMeta>
+                <PostCardExcerpt className="max-w-[40rem]">{latestPost.excerpt}</PostCardExcerpt>
+              </PostCardContent>
             </PostCard>
           </Link>
         </Container>
       </div>
 
-      <Container className="mt-8">
-        <BlogCategorySelector currentCategorySlug={params.category || ""} />
-
-        <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-x-4 gap-y-4">
-          {posts.map((post) => (
-            <Link key={post._id} href={`/blog/${post.category?.slug?.current}/${post.slug?.current}`}>
-              <PostCard className="h-full border border-neutral-400">
-                <PostCardThumbnail>
-                  <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
-                  <PostCardThumbnailTag>
-                    <Label>{post.category?.title}</Label>
-                  </PostCardThumbnailTag>
-                  <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-                </PostCardThumbnail>
-                <PostCardContent>
-                  <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
-                  <PostCardMeta>
-                    <AuthorTag>
-                      <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
-                      <AuthorTagName>{post.author?.name}</AuthorTagName>
-                    </AuthorTag>
-                    <PostCardMetaSeparator />
-                    <PostCardMetaDate>
-                      {new Date(post.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
-                    </PostCardMetaDate>
-                  </PostCardMeta>
-                  <PostCardExcerpt className="line-clamp-4">{post.excerpt}</PostCardExcerpt>
-                </PostCardContent>
-              </PostCard>
-            </Link>
-          ))}
-        </div>
+      <Container className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-x-4 gap-y-4">
+        {posts.map((post) => (
+          <Link key={post._id} href={`/blog/${post.category?.slug?.current}/${post.slug?.current}`}>
+            <PostCard className="h-full border border-neutral-400">
+              <PostCardThumbnail>
+                <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
+                <PostCardThumbnailTag>
+                  <Label>{post.category?.title}</Label>
+                </PostCardThumbnailTag>
+                <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+              </PostCardThumbnail>
+              <PostCardContent>
+                <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
+                <PostCardMeta>
+                  <AuthorTag>
+                    <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
+                    <AuthorTagName>{post.author?.name}</AuthorTagName>
+                  </AuthorTag>
+                  <PostCardMetaSeparator />
+                  <PostCardMetaDate>
+                    {new Date(post.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
+                  </PostCardMetaDate>
+                </PostCardMeta>
+                <PostCardExcerpt className="line-clamp-4">{post.excerpt}</PostCardExcerpt>
+              </PostCardContent>
+            </PostCard>
+          </Link>
+        ))}
       </Container>
     </>
   );

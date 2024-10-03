@@ -12,6 +12,21 @@ export const blogPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "preHeading",
+        title: "Über-Überschrift",
+        type: "string",
+      }),
+      defineField({
+        name: "heading",
+        title: "Überschrift",
+        type: "string",
+      }),
+      defineField({
+        name: "description",
+        title: "Beschreibung",
+        type: "text",
+      }),
+      defineField({
         name: "latestPostLabel",
         title: "Text über dem neuesten Blogbeitrag",
         description: "5-30 Zeichen",
