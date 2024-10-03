@@ -47,7 +47,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                     <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                     <PostCardThumbnailTag>{post.category.title}</PostCardThumbnailTag>
                   </div>
-                  <Label className="block p-2">{post.title}</Label>
+                  <Label className="block p-4">{post.title}</Label>
                 </Link>
               </CardCarouselItem>
             ))}
