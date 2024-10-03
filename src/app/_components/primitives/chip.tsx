@@ -7,7 +7,7 @@ export const Chip: FC<ChipProps> = ({ className, ...restProps }) => {
   return (
     <div
       className={cn(
-        "text-sm flex w-min items-center gap-4 whitespace-nowrap rounded-full bg-primary-100 px-4 py-1",
+        "text-sm flex w-min items-center gap-4 whitespace-nowrap rounded-full bg-primary-100 px-4 py-2",
         className,
       )}
       {...restProps}
