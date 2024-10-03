@@ -1,6 +1,5 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import Image from "next/image";
 import { Label } from "../primitives/typography";
 import { ArrowRight } from "lucide-react";
 import { InteractionBubble } from "../compounds/interaction-bubble";
@@ -9,7 +8,14 @@ import { ProgressProvider } from "../primitives/progress-provider";
 import { ScrollProgress } from "../primitives/scroll-progress";
 import { ProgressBar, ProgressBarIndicator } from "../primitives/progress-bar";
 import { CardCarousel, CardCarouselItem } from "../primitives/card-carousel";
-import { PostCardContent, PostCardMeta, PostCardThumbnailTag } from "../primitives/post-card";
+import {
+  PostCard,
+  PostCardContent,
+  PostCardMeta,
+  PostCardThumbnail,
+  PostCardThumbnailImage,
+  PostCardThumbnailTag,
+} from "../primitives/post-card";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-tag";
 
 export type LatestPostsProps = ComponentProps<"div"> & {
@@ -33,32 +39,25 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
           <CardCarousel>
             {posts.map((post, index) => (
               <CardCarouselItem key={index} asChild>
-                <Link
-                  href={`/blog/${post.category.slug}/${post.slug}`}
-                  className="group min-w-60 flex-1 rounded-3xl border border-neutral-900/10 bg-neutral-200 p-2"
-                >
-                  <div className="relative aspect-video overflow-hidden rounded-2xl">
-                    <Image
-                      src={post.imageURL}
-                      alt={post.title}
-                      width="500"
-                      height="500"
-                      className="w-full object-cover"
-                    />
-                    <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-                    <PostCardThumbnailTag>
-                      <Label>{post.category.title}</Label>
-                    </PostCardThumbnailTag>
-                  </div>
-                  <PostCardContent>
-                    <Label className="leading-tight">{post.title}</Label>
-                    <PostCardMeta className="mt-4">
-                      <AuthorTag>
-                        <AuthorTagImage src="/campus.png" alt="Author" />
-                        <AuthorTagName>Jane Doe</AuthorTagName>
-                      </AuthorTag>
-                    </PostCardMeta>
-                  </PostCardContent>
+                <Link href={`/blog/${post.category.slug}/${post.slug}`} className="flex-1">
+                  <PostCard className="h-full">
+                    <PostCardThumbnail className="">
+                      <PostCardThumbnailImage src={post.imageURL} alt={post.title} />
+                      <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+                      <PostCardThumbnailTag>
+                        <Label>{post.category.title}</Label>
+                      </PostCardThumbnailTag>
+                    </PostCardThumbnail>
+                    <PostCardContent>
+                      <Label className="leading-tight">{post.title}</Label>
+                      <PostCardMeta className="mt-4">
+                        <AuthorTag>
+                          <AuthorTagImage src="/campus.png" alt="Author" />
+                          <AuthorTagName>Jane Doe</AuthorTagName>
+                        </AuthorTag>
+                      </PostCardMeta>
+                    </PostCardContent>
+                  </PostCard>
                 </Link>
               </CardCarouselItem>
             ))}
