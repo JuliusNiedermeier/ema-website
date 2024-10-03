@@ -9,7 +9,8 @@ import { ProgressProvider } from "../primitives/progress-provider";
 import { ScrollProgress } from "../primitives/scroll-progress";
 import { ProgressBar, ProgressBarIndicator } from "../primitives/progress-bar";
 import { CardCarousel, CardCarouselItem } from "../primitives/card-carousel";
-import { PostCardThumbnailTag } from "../primitives/post-card";
+import { PostCardContent, PostCardMeta, PostCardThumbnailTag } from "../primitives/post-card";
+import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-tag";
 
 export type LatestPostsProps = ComponentProps<"div"> & {
   heading: string;
@@ -34,7 +35,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
               <CardCarouselItem key={index} asChild>
                 <Link
                   href={`/blog/${post.category.slug}/${post.slug}`}
-                  className="group min-w-60 flex-1 rounded-3xl border p-2"
+                  className="group min-w-60 flex-1 rounded-3xl border border-neutral-900/10 bg-neutral-200 p-2"
                 >
                   <div className="relative aspect-video overflow-hidden rounded-2xl">
                     <Image
@@ -49,7 +50,15 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                       <Label>{post.category.title}</Label>
                     </PostCardThumbnailTag>
                   </div>
-                  <Label className="block p-4">{post.title}</Label>
+                  <PostCardContent>
+                    <Label className="leading-tight">{post.title}</Label>
+                    <PostCardMeta className="mt-4">
+                      <AuthorTag>
+                        <AuthorTagImage src="/campus.png" alt="Author" />
+                        <AuthorTagName>Jane Doe</AuthorTagName>
+                      </AuthorTag>
+                    </PostCardMeta>
+                  </PostCardContent>
                 </Link>
               </CardCarouselItem>
             ))}
