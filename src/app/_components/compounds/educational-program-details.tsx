@@ -19,7 +19,7 @@ export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   holidays: string;
   startDate: string;
   applyButtonLabel: string;
-  startDateBackgroundGraphic: string;
+  startDateBackgroundGraphic: { url: string; alt: string };
 };
 
 export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
@@ -46,7 +46,7 @@ export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
         heading={startDateHeading}
         startDate={startDate}
         applyButtonLabel={applyButtonLabel}
-        backgroundGraphicURL={startDateBackgroundGraphic}
+        backgroundGraphic={startDateBackgroundGraphic}
       />
     </div>
   );
@@ -103,10 +103,10 @@ const StartDateCard: FC<{
   heading: string;
   startDate: string;
   applyButtonLabel: string;
-  backgroundGraphicURL: string;
-}> = ({ heading, startDate, applyButtonLabel, backgroundGraphicURL }) => {
+  backgroundGraphic: { url: string; alt: string };
+}> = ({ heading, startDate, applyButtonLabel, backgroundGraphic }) => {
   return (
-    <Link href="/online-bewerbung" className="flex-1 min-h-64">
+    <Link href="/online-bewerbung" className="min-h-64 flex-1">
       <Card className="group relative flex h-full flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
         <div>
           <CalendarCheck2Icon />
@@ -117,8 +117,8 @@ const StartDateCard: FC<{
         </div>
 
         <Image
-          src={backgroundGraphicURL}
-          alt={heading}
+          src={backgroundGraphic.url}
+          alt={backgroundGraphic.alt}
           height={500}
           width={500}
           className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"

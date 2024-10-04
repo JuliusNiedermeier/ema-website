@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export type ParalaxGalleryProps = ComponentProps<"div"> & {
   items: {
-    imageURL: string;
+    image: { url: string; alt: string };
     heading: string;
     subheading: string;
     description: string;
@@ -25,8 +25,8 @@ export const ParalaxGallery: FC<ParalaxGalleryProps> = ({ className, items, ...r
               <Container width="wide" className="h-full overflow-hidden rounded-3xl">
                 <ParalaxContainer className="h-full w-full">
                   <Image
-                    src={item.imageURL}
-                    alt={item.heading}
+                    src={item.image.url}
+                    alt={item.image.alt}
                     width="1920"
                     height="1080"
                     className="h-full w-full overflow-hidden object-cover"

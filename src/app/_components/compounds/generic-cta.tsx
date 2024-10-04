@@ -11,7 +11,7 @@ export type GenericCTAProps = ComponentProps<typeof Card> & {
   mainheading: string;
   paragraph: string;
   ctaText: string;
-  imageURL: string;
+  image: { url: string; alt: string };
 };
 
 export const GenericCTA: FC<GenericCTAProps> = ({
@@ -20,7 +20,7 @@ export const GenericCTA: FC<GenericCTAProps> = ({
   mainheading,
   paragraph,
   ctaText,
-  imageURL,
+  image,
   ...restProps
 }) => {
   return (
@@ -45,8 +45,8 @@ export const GenericCTA: FC<GenericCTAProps> = ({
       </div>
       <div className="aspect-square h-36 flex-1 md:aspect-auto md:h-auto">
         <Image
-          src={imageURL}
-          alt={mainheading}
+          src={image.url}
+          alt={image.alt}
           height="500"
           width="500"
           className="h-full w-full rounded-2xl object-cover"

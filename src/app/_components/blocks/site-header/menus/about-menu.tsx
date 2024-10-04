@@ -13,20 +13,20 @@ const aboutMenuArtQuery = groq`*[_type == "art-page"][0]{
   navigationLabel,
   preview {
     excerpt,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
 const aboutMenuCampusQuery = groq`*[_type == "campus-page"][0]{
   navigationLabel,
   previewText,
-  previewImage { asset -> { url } }
+  previewImage { alt, asset -> { url } }
 }`;
 
 const aboutMenuEconomySocialQuery = groq`*[_type == "economy-social-page"][0]{
   navigationLabel,
   previewText,
-  previewImage { asset -> { url } }
+  previewImage { alt, asset -> { url } }
 }`;
 
 export type AboutMenuProps = ComponentProps<"div"> & {};
@@ -40,24 +40,24 @@ export const AboutMenu: FC<AboutMenuProps> = async ({ className, ...restProps })
     }),
   ]);
 
-  const links: Pick<ComponentProps<typeof AboutMenuItem>, "href" | "heading" | "description" | "imageURL">[] = [
+  const links: Pick<ComponentProps<typeof AboutMenuItem>, "href" | "heading" | "description" | "image">[] = [
     {
       href: "/about/wirtschaft-und-soziales",
       heading: economySocial?.navigationLabel || "",
       description: economySocial?.previewText || "",
-      imageURL: economySocial?.previewImage?.asset?.url || "",
+      image: { url: economySocial?.previewImage?.asset?.url || "", alt: economySocial?.previewImage?.alt || "" },
     },
     {
       href: "/about/kunst",
       heading: art?.navigationLabel || "",
       description: art?.preview?.excerpt || "",
-      imageURL: art?.preview?.image?.asset?.url || "",
+      image: { url: art?.preview?.image?.asset?.url || "", alt: art?.preview?.image?.alt || "" },
     },
     {
       href: "/about/campus",
       heading: campus?.navigationLabel || "",
       description: campus?.previewText || "",
-      imageURL: campus?.previewImage?.asset?.url || "",
+      image: { url: campus?.previewImage?.asset?.url || "", alt: campus?.previewImage?.alt || "" },
     },
   ];
 

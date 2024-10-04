@@ -32,10 +32,10 @@ const postsQuery = groq`*[_type == "post" && (!defined($category) || category->s
   _id,
   slug,
   title,
-  mainImage{asset->{url}},
+  mainImage{ alt, asset ->{url}},
   publishedAt,
   category->,
-  author->{name, image{asset->{url}}},
+  author->{name, image{ alt, asset ->{url}}},
   excerpt
 }`;
 
@@ -96,7 +96,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                   width={1920}
                   height={1080}
                   src={latestPost.mainImage?.asset?.url || ""}
-                  alt={latestPost.title || ""}
+                  alt={latestPost.mainImage?.alt || ""}
                   className="max-h-[50vh]"
                 />
                 <PostCardThumbnailTag>
@@ -112,7 +112,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                   <AuthorTag>
                     <AuthorTagImage
                       src={latestPost.author?.image?.asset?.url || ""}
-                      alt={latestPost.author?.name || ""}
+                      alt={latestPost.author?.image?.alt || ""}
                     />
                     <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
                   </AuthorTag>
@@ -133,7 +133,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
           <Link key={post._id} href={`/blog/${post.category?.slug?.current}/${post.slug?.current}`}>
             <PostCard className="h-full border border-neutral-400">
               <PostCardThumbnail>
-                <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.title || ""} />
+                <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.mainImage?.alt || ""} />
                 <PostCardThumbnailTag>
                   <Label>{post.category?.title}</Label>
                 </PostCardThumbnailTag>
@@ -143,7 +143,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                 <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
                 <PostCardMeta>
                   <AuthorTag>
-                    <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
+                    <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
                     <AuthorTagName>{post.author?.name}</AuthorTagName>
                   </AuthorTag>
                   <PostCardMetaSeparator />

@@ -6,7 +6,7 @@ import { TestimonialsQueryResult } from "../../../../generated/sanity/types";
 
 const testimonialsQuery = groq`*[_type == "testimonial"]{
     ...,
-    authorImage{asset->{url}}
+    authorImage{ alt, asset ->{url}}
 }`;
 
 export type TestimonialCarouselProps = Omit<ComponentProps<typeof TestimonialCarouselCompound>, "testimonials"> & {};
@@ -21,7 +21,7 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = async ({ ...res
           rating: testimonial.stars || 0,
           body: testimonial.testimonial || "",
           authorName: testimonial.authorName || "",
-          authorImage: testimonial.authorImage?.asset?.url || "",
+          authorImage: { url: testimonial.authorImage?.asset?.url || "", alt: testimonial.authorImage?.alt || "" },
         }),
       )}
       {...restProps}

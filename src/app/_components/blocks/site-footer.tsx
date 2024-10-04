@@ -28,7 +28,7 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
   ...,
   socialLinks[] {
     ...,
-    logoIcon { asset -> { url } }
+    logoIcon { alt, asset -> { url } }
   }
 }`;
 
@@ -134,9 +134,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
             </div>
             <div className="mt-16 h-px bg-neutral-900-text-muted" />
             <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
-              <Label className="text-[0.9rem] text-neutral-900-text-muted">
-                {footerConfig?.copyrightNotice}
-              </Label>
+              <Label className="text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.copyrightNotice}</Label>
 
               <div className="flex flex-col-reverse gap-4 sm:flex-row lg:items-center">
                 <div className="flex items-center gap-4 text-neutral-900-text-muted">
@@ -158,7 +156,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                         src={link.logoIcon?.asset?.url || ""}
                         width={100}
                         height={100}
-                        alt={link.platformName || ""}
+                        alt={link.logoIcon?.alt || ""}
                         className="h-full w-full object-contain"
                       />
                     </Link>

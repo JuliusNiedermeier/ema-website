@@ -21,7 +21,13 @@ import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-t
 export type LatestPostsProps = ComponentProps<"div"> & {
   heading: string;
   allPostsLabel: string;
-  posts: { imageURL: string; title: string; slug: string; category: { title: string; slug: string } }[];
+  posts: {
+    image: { url: string; alt: string };
+    title: string;
+    slug: string;
+    category: { title: string; slug: string };
+    author: { name: string; image: { url: string; alt: string } };
+  }[];
 };
 
 export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, allPostsLabel, posts, ...restProps }) => {
@@ -42,7 +48,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                 <Link href={`/blog/${post.category.slug}/${post.slug}`} className="flex-1">
                   <PostCard className="h-full">
                     <PostCardThumbnail className="">
-                      <PostCardThumbnailImage src={post.imageURL} alt={post.title} />
+                      <PostCardThumbnailImage src={post.image.url} alt={post.image.alt} />
                       <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                       <PostCardThumbnailTag>
                         <Label>{post.category.title}</Label>
@@ -52,8 +58,8 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                       <Label className="leading-tight">{post.title}</Label>
                       <PostCardMeta className="mt-4">
                         <AuthorTag>
-                          <AuthorTagImage src="/campus.png" alt="Author" />
-                          <AuthorTagName>Jane Doe</AuthorTagName>
+                          <AuthorTagImage src={post.author.image.url} alt={post.author.image.alt} />
+                          <AuthorTagName>{post.author.name}</AuthorTagName>
                         </AuthorTag>
                       </PostCardMeta>
                     </PostCardContent>

@@ -22,16 +22,23 @@ const postSlugsQuery = groq`*[_type == "post"]{ slug, category -> { slug } }`;
 
 const postQuery = groq`*[_type == "post" && category->slug.current == $category && slug.current == $slug][0]{
   ...,
-  mainImage {asset->{url}},
-  author->{name, image{asset->{url}}},
+  mainImage {
+    alt,
+    asset->{url}
+  },
+  author->{name, image{ alt, asset ->{url}}},
   category->,
 }`;
 
 const relatedPostsQuery = groq`*[_type == "post" && category._ref == $currentPostCategoryID && _id != $currentPostID][0...3]{
   title,
-  mainImage { asset -> { url } },
+  mainImage { 
+    alt,
+    asset -> { url }
+  },
   slug,
-  category->
+  category->,
+  author->{name, image{ alt, asset ->{url}}},
 }`;
 
 const postPageQuery = groq`*[_type == "post-page"][0]`;
@@ -73,7 +80,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           <Heading className="mt-8 sm:mt-16 sm:text-center">{post.title}</Heading>
           <PostCardMeta>
             <AuthorTag>
-              <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.name || ""} />
+              <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
               <AuthorTagName>{post.author?.name}</AuthorTagName>
             </AuthorTag>
             <PostCardMetaSeparator />
@@ -91,7 +98,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
             width={1920}
             height={1080}
             src={post.mainImage?.asset?.url || ""}
-            alt={post.title || ""}
+            alt={post.mainImage?.alt || ""}
             className="aspect-video rounded-2xl object-cover"
           />
         </Container>
@@ -109,7 +116,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
             <AuthorTagImage
               className="h-12 w-12"
               src={post.author?.image?.asset?.url || ""}
-              alt={post.author?.name || ""}
+              alt={post.author?.image?.alt || ""}
             />
             <div>
               <AuthorTagName>{`${postPage?.metadata?.authorPrefix} ${post.author?.name}`}</AuthorTagName>
@@ -127,14 +134,18 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           allPostsLabel={postPage?.relatedPosts?.allPostsLabel || ""}
           posts={relatedPosts.map((post) => ({
             title: post.title || "",
-            imageURL: post.mainImage?.asset?.url || "",
+            image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
             slug: post.slug?.current || "",
             category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
+            author: {
+              name: post.author?.name || "",
+              image: { url: post.author?.image?.asset?.url || "", alt: post.author?.image?.alt || "" },
+            },
           }))}
         />
       </Container>
 
-      <Container width="narrow" className="md:mb-24 mt-48">
+      <Container width="narrow" className="mt-48 md:mb-24">
         <div className="text-center">
           <Heading>{postPage?.educationalProgramTypes?.heading}</Heading>
           <Paragraph>{postPage?.educationalProgramTypes?.description}</Paragraph>

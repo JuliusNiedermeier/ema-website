@@ -30,18 +30,22 @@ import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
-  video{asset->{url}},
+  video{ alt, asset ->{url}},
   partners[]{
     name,
-    logo{asset->{url}}
+    logo{ alt, asset ->{url}}
   }
 }`;
 
 const featuredPostsQuery = groq`*[_type == "post"][0...3]{
   title,
-  mainImage { asset -> { url } },
+  mainImage { alt, asset -> { url } },
   slug,
-  category ->
+  category ->,
+  author -> {
+    name,
+    image { alt, asset -> { url } }
+  }
 }`;
 
 const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
@@ -54,7 +58,7 @@ const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
 const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
   preview {
     ...,
-    images[] { asset -> { url } }
+    images[] { alt, asset -> { url } }
   }
 }`;
 
@@ -62,9 +66,9 @@ const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
   heading,
   preview {
     ...,
-    backgroundImage{asset->{url}},
-    leftImage{asset->{url}},
-    rightImage{asset->{url}}
+    backgroundImage{ alt, asset ->{url}},
+    leftImage{ alt, asset ->{url}},
+    rightImage{ alt, asset ->{url}}
   }
 }`;
 
@@ -87,7 +91,7 @@ const HomePage: FC = async () => {
 
   const partners: ComponentProps<typeof PartnersBanner>["partners"] =
     homePage.partners?.map((partner) => ({
-      imageURL: partner.logo?.asset?.url || "",
+      image: { url: partner.logo?.asset?.url || "", alt: partner.logo?.alt || "" },
       name: partner.name || "",
     })) || [];
 
@@ -156,9 +160,13 @@ const HomePage: FC = async () => {
             allPostsLabel={homePage.featuredPosts?.allPostsLabel || ""}
             posts={featuredPosts.map((post) => ({
               title: post.title || "",
-              imageURL: post.mainImage?.asset?.url || "",
+              image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
               slug: post.slug?.current || "",
               category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
+              author: {
+                name: post.author?.name || "",
+                image: { url: post.author?.image?.asset?.url || "", alt: post.author?.image?.alt || "" },
+              },
             }))}
           />
         </Container>

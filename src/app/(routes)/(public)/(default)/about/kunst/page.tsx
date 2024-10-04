@@ -11,10 +11,10 @@ import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 
 const artPageQuery = groq`*[_type == "art-page"][0]{
   ...,
-  background { asset -> { url } },
+  background { alt, asset -> { url } },
   artSubjects[] {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
@@ -25,7 +25,7 @@ const ArtPage: FC = async () => {
 
   const galleryItems: ComponentProps<typeof ParalaxGallery>["items"] =
     data?.artSubjects?.map((subject) => ({
-      imageURL: subject.image?.asset?.url || "",
+      image: { url: subject.image?.asset?.url || "", alt: subject.image?.alt || "" },
       heading: subject.title || "",
       subheading: subject.slogan || "",
       description: subject.description || "",
@@ -33,7 +33,7 @@ const ArtPage: FC = async () => {
 
   return (
     <>
-      <div className="pt-header bg-neutral-200 pb-40">
+      <div className="bg-neutral-200 pb-40 pt-header">
         <Container width="narrow" className="py-32 text-center">
           <Heading>{data.heading}</Heading>
           <Paragraph>{data.preview?.excerpt}</Paragraph>

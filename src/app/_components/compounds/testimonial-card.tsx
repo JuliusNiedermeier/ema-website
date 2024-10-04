@@ -8,7 +8,7 @@ import { cn } from "~/app/_utils/cn";
 export type TestimonialCardCoreProps = {
   rating: number;
   authorName: string;
-  authorImage: ComponentProps<typeof AuthorTagImage>["src"];
+  authorImage: { url: string; alt: string };
   body: string;
 };
 
@@ -33,7 +33,7 @@ export const TestimonialCard: FC<TestimonialCardProps> = ({
       <StarRating rating={[rating, 5]} className="opacity-80" />
       <Paragraph className="mt-8">{body}</Paragraph>
       <AuthorTag className="mt-8">
-        <AuthorTagImage src={authorImage} alt={authorName} />
+        <AuthorTagImage src={authorImage.url} alt={authorImage.alt} />
         <AuthorTagName>{authorName}</AuthorTagName>
       </AuthorTag>
     </Card>

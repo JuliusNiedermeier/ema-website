@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 export type AboutMenuItemProps = ComponentProps<typeof Link> & {
   heading: string;
   description: string;
-  imageURL: string;
+  image: { url: string; alt: string };
 };
 
 export const AboutMenuItem: FC<AboutMenuItemProps> = ({
@@ -19,7 +19,7 @@ export const AboutMenuItem: FC<AboutMenuItemProps> = ({
   href,
   heading,
   description,
-  imageURL,
+  image,
   ...restProps
 }) => {
   const pathname = usePathname();
@@ -42,8 +42,8 @@ export const AboutMenuItem: FC<AboutMenuItemProps> = ({
       </div>
       <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">
         <Image
-          src={imageURL}
-          alt={heading}
+          src={image.url}
+          alt={image.alt}
           width="500"
           height="500"
           className="h-full w-full object-cover brightness-90"

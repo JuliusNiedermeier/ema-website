@@ -13,7 +13,7 @@ const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
   ...,
   pathsSection {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
@@ -38,7 +38,7 @@ const ÜbersichtPage: FC = async () => {
             src={comparisonPageData?.pathsSection?.image?.asset?.url || ""}
             width="2000"
             height="2000"
-            alt={comparisonPageData?.pathsSection?.heading || ""}
+            alt={comparisonPageData?.pathsSection?.image?.alt || ""}
           />
         </Container>
       </Section>

@@ -54,7 +54,7 @@ export const ArtEducation: FC<ArtEducationProps> = ({
         width={500}
         height={500}
         src={leftImage.src}
-        alt={leftImage.src}
+        alt={leftImage.alt}
         className="absolute bottom-0 right-[10vw] h-[80vw] max-h-96 w-min object-cover transition-all group-hover:-translate-x-10 group-hover:scale-[1.1]"
       />
     </div>

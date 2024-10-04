@@ -12,7 +12,7 @@ const campusCardQuery = groq`*[_type == "campus-page"][0] {
     heading,
     previewText,
     previewReadMoreButtonLabel,
-    heroImage { asset -> { url } },
+    heroImage { alt, asset -> { url } },
 }`;
 
 export type CampusCardProps = ComponentProps<"div"> & {};
@@ -41,7 +41,7 @@ export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps 
         src={data?.heroImage?.asset?.url || ""}
         height={1000}
         width={1000}
-        alt={data?.heading || ""}
+        alt={data?.heroImage?.alt || ""}
         className="absolute left-0 top-0 h-full w-full object-cover"
       />
     </div>

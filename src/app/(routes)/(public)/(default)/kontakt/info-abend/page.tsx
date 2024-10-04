@@ -20,11 +20,11 @@ const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   ...,
   speaker[] {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   },
   benefits[] {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
@@ -50,7 +50,7 @@ const ContactPage: FC = async () => {
               <AuthorTagImage
                 key={index}
                 src={speaker.image?.asset?.url || ""}
-                alt={speaker.name || ""}
+                alt={speaker.image?.alt || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}
@@ -84,7 +84,7 @@ const ContactPage: FC = async () => {
                   src={benefit.image?.asset?.url || ""}
                   width="500"
                   height="500"
-                  alt={benefit.title || ""}
+                  alt={benefit.image?.alt || ""}
                   className="mt-auto aspect-video w-full rounded-xl object-cover"
                 />
               </Card>

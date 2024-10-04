@@ -15,7 +15,7 @@ export type EducationalProgramPreviewListProps = ComponentProps<"div"> & {
     heading: string;
     description: string;
     readMoreLabel: string;
-    imageURL: string;
+    image: { url: string; alt: string };
     programType: { slug: string; name: string; color: HSLValue; readMoreLabel: string };
   }[];
 };
@@ -108,8 +108,8 @@ const Card: FC<CardProps> = ({ program, globalProgress, relativePlacement, style
 
           <div className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-themed-secondary">
             <Image
-              src={program.imageURL}
-              alt={program.name}
+              src={program.image.url}
+              alt={program.image.alt}
               fill
               className="absolute left-0 top-0 h-full w-full object-cover"
             />

@@ -18,7 +18,7 @@ const contactPageQuery = groq`*[_type == "contact-page"][0] {
   ...,
   location {
     ...,
-    map { asset -> { url } }
+    map { alt, asset -> { url } }
   }
 }`;
 
@@ -29,7 +29,7 @@ const ContactPage: FC = async () => {
 
   return (
     <>
-      <div className="pt-header relative">
+      <div className="relative pt-header">
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10">
           <div className="mx-auto max-w-[35rem] py-28 text-center">
@@ -124,7 +124,7 @@ const ContactPage: FC = async () => {
                       src={contactPageData.location?.map?.asset?.url || ""}
                       width="1000"
                       height="1000"
-                      alt={`${contactPageData.location?.address?.street}, ${contactPageData.location?.address?.zipAndCity}`}
+                      alt={contactPageData.location?.map?.alt || ""}
                       className="absolute left-0 top-0 h-full w-full object-cover saturate-50 transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>

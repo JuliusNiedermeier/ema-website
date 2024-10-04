@@ -20,7 +20,7 @@ const bentoCTAQuery = groq`*[_type == "bento-cta-config"][0]{
   ...,
   testimonial -> {
     ...,
-    authorImage { asset -> { url } }
+    authorImage { alt, asset -> { url } }
   }
 }`;
 
@@ -33,7 +33,7 @@ const bentoCTAInfoEventQuery = groq`*[_type == "info-event-page"][0] {
 const bentoCTAConsultingQuery = groq`*[_type == "consulting-page"][0] {
   preview {
     ...,
-    splineGraphic { asset -> { url } }
+    splineGraphic { alt, asset -> { url } }
   }
 }`;
 
@@ -74,7 +74,10 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
             className="flex-1 rounded-3xl bg-primary-100"
             rating={data?.testimonial?.stars || 5}
             authorName={data?.testimonial?.authorName || ""}
-            authorImage={data?.testimonial?.authorImage?.asset?.url || ""}
+            authorImage={{
+              url: data?.testimonial?.authorImage?.asset?.url || "",
+              alt: data?.testimonial?.authorImage?.alt || "",
+            }}
             body={data?.testimonial?.testimonial || ""}
           />
         </div>
@@ -109,7 +112,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
           </div>
           <Image
             src={consulting?.preview?.splineGraphic?.asset?.url || ""}
-            alt={consulting?.preview?.title || ""}
+            alt={consulting?.preview?.splineGraphic?.alt || ""}
             width="500"
             height="500"
             className="w-full"

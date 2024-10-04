@@ -40,7 +40,7 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
     ...,
     jobs[] {
       ...,
-      image { asset -> { url } }
+      image { alt, asset -> { url } }
     }
   },
   followUpProgramTypes {
@@ -61,7 +61,7 @@ const programTypePageProgramsQuery = groq`*[_type == "educational-program" && ed
   promotionalHeadline,
   highlights[] {
     heading,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 

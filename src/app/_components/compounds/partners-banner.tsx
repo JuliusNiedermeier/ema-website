@@ -3,7 +3,7 @@ import { cn } from "~/app/_utils/cn";
 import Image from "next/image";
 
 export type PartnersBannerProps = ComponentProps<"div"> & {
-  partners: { imageURL: string; name: string }[];
+  partners: { image: { url: string; alt: string }; name: string }[];
 };
 
 export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, ...restProps }) => {
@@ -20,8 +20,8 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
               key={partner.name}
               height={500}
               width={500}
-              src={partner.imageURL}
-              alt={partner.name}
+              src={partner.image.url}
+              alt={partner.image.alt}
               className="h-8 w-auto mix-blend-multiply"
             />
           ))}

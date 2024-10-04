@@ -12,10 +12,10 @@ import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card"
 
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
   ...,
-  heroImage { asset -> { url } },
+  heroImage { alt, asset -> { url } },
   staff[]{
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
@@ -24,7 +24,7 @@ const CampusPage: FC = async () => {
 
   const galleryItems: ComponentProps<typeof ParalaxGallery>["items"] =
     data?.staff?.map((member) => ({
-      imageURL: member.image?.asset?.url || "",
+      image: { url: member.image?.asset?.url || "", alt: member.image?.alt || "" },
       heading: member.name || "",
       subheading: member.position || "",
       description: member.description || "",
@@ -32,7 +32,7 @@ const CampusPage: FC = async () => {
 
   return (
     <div className="rounded-b-3xl">
-      <div className="pt-header bg-neutral-200 pb-40">
+      <div className="bg-neutral-200 pb-40 pt-header">
         <Container width="narrow" className="py-24 text-center">
           <Heading>{data?.heading}</Heading>
           <Paragraph>{data?.previewText}</Paragraph>

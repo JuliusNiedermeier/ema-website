@@ -11,7 +11,7 @@ import { ConsultingCTACardQueryResult } from "../../../../generated/sanity/types
 const consultingCTACardQuery = groq`*[_type == "consulting-page"][0] {
   preview {
     ...,
-    splineGraphic { asset -> { url } }
+    splineGraphic { alt, asset -> { url } }
   }
 }`;
 
@@ -35,7 +35,7 @@ export const ConsultingCTACard: FC<ConsultingCTACardProps> = async ({ className,
       </div>
       <Image
         src={data?.preview?.splineGraphic?.asset?.url || ""}
-        alt={data?.preview?.title || ""}
+        alt={data?.preview?.splineGraphic?.alt || ""}
         width="500"
         height="500"
         className="mt-auto w-full"

@@ -19,7 +19,13 @@ export type EducationalProgramTypePreviewListProps = ComponentProps<"div"> & {
     heading: string;
     description: string;
     readMoreLabel: string;
-    programs: { slug: string; name: string; heading: string; description: string; imageURL: string }[];
+    programs: {
+      slug: string;
+      name: string;
+      heading: string;
+      description: string;
+      image: { url: string; alt: string };
+    }[];
   }[];
 };
 
@@ -86,7 +92,9 @@ const Section: FC<{ programType: EducationalProgramTypePreviewListProps["program
             <Label className="inline-block rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
               {programType.name}
             </Label>
-            <Heading size="lg" className="mt-6">{programType.heading}</Heading>
+            <Heading size="lg" className="mt-6">
+              {programType.heading}
+            </Heading>
             <Paragraph className="line-clamp-3">{programType.description}</Paragraph>
             <Button size="sm" vairant="outline" className="mx-auto mt-8 gap-4 pl-1 md:mx-0">
               <InteractionBubble animated={false} />
@@ -148,11 +156,11 @@ const ProgramCard: FC<{
         </Heading>
         <Paragraph className="line-clamp-3">{program.description}</Paragraph>
       </div>
-      {program.imageURL && (
+      {program.image && (
         <div className="relative aspect-video max-h-[40vh] flex-1">
           <Image
-            src={program.imageURL}
-            alt={program.name}
+            src={program.image.url}
+            alt={program.image.alt}
             height="500"
             width="500"
             className="h-full w-full rounded-2xl object-cover"

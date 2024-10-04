@@ -6,7 +6,7 @@ import { OnlineApplicationLayoutQueryResult } from "../../../../../generated/san
 
 const onlineApplicationLayoutQuery = groq`*[_type == "application-page"][0] {
   title,
-  heroImage { asset -> { url } }
+  heroImage { alt, asset -> { url } }
 }`;
 
 const OnlineApplicationLayout: FC<PropsWithChildren> = async ({ children }) => {
@@ -20,7 +20,7 @@ const OnlineApplicationLayout: FC<PropsWithChildren> = async ({ children }) => {
         <div className="relative h-full overflow-hidden md:rounded-xl">
           <Image
             src={data?.heroImage?.asset?.url || ""}
-            alt={data?.title || ""}
+            alt={data?.heroImage?.alt || ""}
             height="1000"
             width="1000"
             className="absolute left-0 top-0 h-full w-full object-cover"

@@ -14,7 +14,7 @@ import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card
 const programsMenuComparisonQuery = groq`*[_type == "comparison-page"][0]{
   preview {
     ...,
-    images[] { asset -> { url } }
+    images[] { alt, asset -> { url } }
   }
 }`;
 

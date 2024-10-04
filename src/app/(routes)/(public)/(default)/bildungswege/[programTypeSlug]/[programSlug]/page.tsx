@@ -55,14 +55,14 @@ const programPageQuery = groq`*[_type == "educational-program-page"][0]{
     ...,
     startDate {
       ...,
-      backgroundGraphic { asset -> { url } }
+      backgroundGraphic { alt, asset -> { url } }
     }
   },
   prerequisites {
     ...,
     checkupCTA {
       ...,
-      image { asset -> { url } }
+      image { alt, asset -> { url } }
     }
   }
 }`;
@@ -72,22 +72,22 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   educationalProgramType->,
   highlights[] {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   },
   certificate {
     ...,
     jobs[] {
       ...,
-      image { asset -> { url } }
+      image { alt, asset -> { url } }
     }
   },
   furtherInformation[] {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   },
   externalCTA {
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   },
   followUpPrograms {
     ...,
@@ -167,7 +167,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   src={highlight.image?.asset?.url || ""}
                   height="500"
                   width="500"
-                  alt={highlight.heading || ""}
+                  alt={highlight.image?.alt || ""}
                   className="absolute left-0 top-0 h-full w-full object-cover"
                 />
               </div>
@@ -272,9 +272,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   holidays={program.programDetails?.holidays || ""}
                   startDate={program.programDetails?.startDate || ""}
                   applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
-                  startDateBackgroundGraphic={
-                    programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || ""
-                  }
+                  startDateBackgroundGraphic={{
+                    url: programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || "",
+                    alt: programPage.programDetails?.startDate?.backgroundGraphic?.alt || "",
+                  }}
                 />
                 {program.showExternalCTA && (
                   <Link href={program.externalCTA?.linkURL || ""}>
@@ -286,7 +287,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       <div className="aspect-video flex-1 lg:aspect-auto lg:h-auto">
                         <Image
                           src={program.externalCTA?.image?.asset?.url || ""}
-                          alt={program.externalCTA?.mainHeading || ""}
+                          alt={program.externalCTA?.image?.alt || ""}
                           height="500"
                           width="500"
                           className="h-full w-full rounded-2xl object-cover"
@@ -372,7 +373,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   <Image
                     className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
                     src={item.image?.asset?.url || ""}
-                    alt={item.heading || ""}
+                    alt={item.image?.alt || ""}
                     width="500"
                     height="500"
                   />

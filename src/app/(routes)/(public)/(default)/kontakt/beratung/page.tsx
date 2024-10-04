@@ -23,7 +23,7 @@ const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   ...,
   consultants[] { 
     ...,
-    image { asset -> { url } }
+    image { alt, asset -> { url } }
   }
 }`;
 
@@ -57,7 +57,7 @@ const ContactPage: FC = async () => {
               <AuthorTagImage
                 key={index}
                 src={consultant.image?.asset?.url || ""}
-                alt={consultant.name || ""}
+                alt={consultant.image?.alt || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}

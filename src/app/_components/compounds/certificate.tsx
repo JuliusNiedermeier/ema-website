@@ -13,7 +13,7 @@ export type CertificateProps = ComponentProps<typeof Card> & {
   name: string;
   description: string;
   qualifications: string[];
-  jobs: { image: string; content: string }[];
+  jobs: { image: { url: string; alt: string }; content: string }[];
 };
 
 export const Certificate: FC<CertificateProps> = ({
@@ -69,8 +69,8 @@ export const Certificate: FC<CertificateProps> = ({
               className="flex w-full max-w-full items-center gap-4 rounded-3xl border border-neutral-900/20 bg-neutral-100 p-2 sm:w-fit sm:flex-row-reverse sm:pl-6"
             >
               <Image
-                src={job.image}
-                alt={job.content}
+                src={job.image.url}
+                alt={job.image.alt}
                 height={300}
                 width={300}
                 className="aspect-square w-12 rounded-2xl object-cover"
