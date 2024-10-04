@@ -24,7 +24,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "previewImage",
         title: "Vorschaubild",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "previewText",
@@ -56,7 +56,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "heroImage",
         title: "Hauptbild",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "staff",
@@ -89,7 +89,7 @@ export const campusPage: SchemaTypeDef = {
                 title: "Bild",
                 description:
                   "Ein Foto, das die Person in Ihrem Schulalltag zeigt. Dieses Bild dient dem Kennenlernen der Person und den Räumlichkeiten oder dem Gelände.",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),

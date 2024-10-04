@@ -131,7 +131,7 @@ export const footerConfigType: SchemaTypeDef = {
               defineField({
                 name: "logoIcon",
                 title: "Logo",
-                type: "image",
+                type: "default-image",
               }),
               defineField({
                 name: "url",

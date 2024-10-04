@@ -49,7 +49,7 @@ export const educationalProgramPage: SchemaTypeDef = {
               defineField({
                 name: "backgroundGraphic",
                 title: "Hintergrundgrafik",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),
@@ -119,7 +119,7 @@ export const educationalProgramPage: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Bild",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),

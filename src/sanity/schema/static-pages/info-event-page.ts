@@ -65,7 +65,7 @@ export const infoEventPage: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Foto",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),
@@ -141,7 +141,7 @@ export const infoEventPage: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Bild",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),

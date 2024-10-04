@@ -37,7 +37,7 @@ export const economySocialPage: SchemaTypeDef = {
       defineField({
         name: "previewImage",
         title: "Vorschaubild",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "previewReadMoreLabel",

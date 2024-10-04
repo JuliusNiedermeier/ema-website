@@ -36,7 +36,7 @@ export const testimonial: SchemaTypeDef = {
         name: "authorImage",
         title: "Bild des Autors",
         description: "Optional. Alternativ werden die Initialen des Autors angezeigt.",
-        type: "image",
+        type: "default-image",
         validation: (r) => r,
       }),
     ],

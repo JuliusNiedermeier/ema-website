@@ -140,7 +140,7 @@ export const contactPage: SchemaTypeDef = {
             name: "map",
             title: "Kartenausschnitt",
             description: "Ein Kartenausschnitt, der den Standort der EMA zeigt.",
-            type: "image",
+            type: "default-image",
             validation: (r) => r.required(),
           }),
           defineField({

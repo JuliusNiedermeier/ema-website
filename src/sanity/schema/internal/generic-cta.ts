@@ -31,7 +31,7 @@ export const genericCTAType: SchemaTypeDef = {
       defineField({
         name: "image",
         title: "Bild",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "linkURL",

@@ -25,7 +25,7 @@ export const artPage: SchemaTypeDef = {
       defineField({
         name: "background",
         title: "Hintergrundgrafik",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "preview",
@@ -41,7 +41,7 @@ export const artPage: SchemaTypeDef = {
           defineField({
             name: "image",
             title: "Vorschaubild",
-            type: "image",
+            type: "default-image",
           }),
           defineField({
             name: "readMoreButtonLabel",
@@ -52,11 +52,11 @@ export const artPage: SchemaTypeDef = {
           defineField({
             name: "backgroundImage",
             title: "Hintergrundbild",
-            type: "image",
+            type: "default-image",
             validation: (r) => r.required(),
           }),
-          defineField({ name: "leftImage", title: "Bild links", type: "image", validation: (r) => r.required() }),
-          defineField({ name: "rightImage", title: "Bild rechts", type: "image", validation: (r) => r.required() }),
+          defineField({ name: "leftImage", title: "Bild links", type: "default-image", validation: (r) => r.required() }),
+          defineField({ name: "rightImage", title: "Bild rechts", type: "default-image", validation: (r) => r.required() }),
         ],
       }),
       defineField({
@@ -82,7 +82,7 @@ export const artPage: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Bild",
-                type: "image",
+                type: "default-image",
               }),
               defineField({
                 name: "description",

@@ -18,7 +18,7 @@ export const author: SchemaTypeDef = {
       defineField({
         name: "image",
         title: "Bild",
-        type: "image",
+        type: "default-image",
         options: {
           hotspot: true,
         },

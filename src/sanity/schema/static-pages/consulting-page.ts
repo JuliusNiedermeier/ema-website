@@ -48,7 +48,7 @@ export const consultingPage: SchemaTypeDef = {
           defineField({
             name: "splineGraphic",
             title: "Grafik in der Vorschau",
-            type: "image",
+            type: "default-image",
           }),
         ],
       }),
@@ -70,7 +70,7 @@ export const consultingPage: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Foto",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),

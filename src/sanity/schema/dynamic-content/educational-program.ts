@@ -65,7 +65,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "coverImage",
         title: "Titelbild",
-        type: "image",
+        type: "default-image",
         group: "hero",
       }),
       defineField({
@@ -99,7 +99,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "image",
                 title: "Bild",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),
@@ -296,7 +296,7 @@ export const educationalProgram: SchemaTypeDef = {
                 title: "Bild",
                 description:
                   "Ein bild das entweder direkten Bezug auf den Text hat oder entfernter mit dem Bildungsweg zusammenhängt.",
-                type: "image",
+                type: "default-image",
                 validation: (r) => r.required(),
               }),
             ],

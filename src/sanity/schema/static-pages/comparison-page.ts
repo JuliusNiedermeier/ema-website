@@ -36,9 +36,9 @@ export const comparisonPage: SchemaTypeDef = {
             type: "array",
             of: [
               defineArrayMember({
-                name: "image",
+                name: "image-item",
                 title: "Vorschaubild",
-                type: "image",
+                type: "default-image",
               }),
             ],
           }),
@@ -62,7 +62,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "image",
             title: "Übersichtsbild",
-            type: "image",
+            type: "default-image",
           }),
         ],
       }),

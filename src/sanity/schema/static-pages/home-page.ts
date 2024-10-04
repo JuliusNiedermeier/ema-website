@@ -55,7 +55,7 @@ export const homePage: SchemaTypeDef = {
                 title: "Logo",
                 description:
                   "Für eine gute Darstellung sollte das Logo das Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
-                type: "image",
+                type: "default-image",
                 validation: (r) => r.required(),
               }),
               defineField({

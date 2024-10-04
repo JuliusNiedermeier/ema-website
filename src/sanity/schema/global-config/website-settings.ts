@@ -42,22 +42,22 @@ export const websiteSettingsType: SchemaTypeDef = {
           defineField({
             name: "textLogoDark",
             title: "Text-Logo auf hellem Hintergrund",
-            type: "image",
+            type: "default-image",
           }),
           defineField({
             name: "textLogoLight",
             title: "Text-Logo auf dunklem Hintergrund",
-            type: "image",
+            type: "default-image",
           }),
           defineField({
             name: "logoMarkLight",
             title: "Logo auf hellem Hintergrund",
-            type: "image",
+            type: "default-image",
           }),
           defineField({
             name: "logoMarkDark",
             title: "Logo auf hellem Hintergrund",
-            type: "image",
+            type: "default-image",
           }),
         ],
       }),

@@ -29,17 +29,7 @@ export const post: SchemaTypeDef = {
       defineField({
         name: "mainImage",
         title: "Thumbnail",
-        type: "image",
-        options: {
-          hotspot: true,
-        },
-        fields: [
-          defineField({
-            name: "Bildname",
-            type: "string",
-            title: "Alternative Text",
-          }),
-        ],
+        type: "default-image",
       }),
       defineField({
         name: "category",

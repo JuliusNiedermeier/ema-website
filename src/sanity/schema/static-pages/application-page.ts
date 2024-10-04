@@ -20,7 +20,7 @@ export const applicationPage: SchemaTypeDef = {
       defineField({
         name: "heroImage",
         title: "Titelbild",
-        type: "image",
+        type: "default-image",
       }),
       defineField({
         name: "title",
