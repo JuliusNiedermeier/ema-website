@@ -8,6 +8,7 @@
     "build:local": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "typegen": "sanity schema extract --path generated/sanity/schema.json && sanity typegen generate",
     "email": "email dev --dir src/emails",
