@@ -41,6 +41,7 @@ import { consultingPage } from "./static-pages/consulting-page";
 import { subjectType } from "./dynamic-content/subject";
 import { comparisonPage } from "./static-pages/comparison-page";
 import { infoBannerConfigType } from "./global-components/info-banner";
+import { defaultImage } from "./internal/default-image";
 
 export type SchemaTypeDef = {
   type:
@@ -107,6 +108,7 @@ const typeDefs = [
   genericCTAType,
   timeSelect,
   programFeesType,
+  defaultImage,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {
