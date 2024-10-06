@@ -37,6 +37,11 @@ export const educationalProgram: SchemaTypeDef = {
         group: "hero",
       }),
       defineField({
+        name: "order",
+        title: "Reihenfolge",
+        type: "educational-program-order",
+      }),
+      defineField({
         name: "educationalProgramType",
         title: "Bildungsweg",
         description: "Zu welchem Bildungsweg gehört dieser Bildungsgang?",

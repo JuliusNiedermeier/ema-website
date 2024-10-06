@@ -42,6 +42,8 @@ import { subjectType } from "./dynamic-content/subject";
 import { comparisonPage } from "./static-pages/comparison-page";
 import { infoBannerConfigType } from "./global-components/info-banner";
 import { defaultImage } from "./internal/default-image";
+import { educationalProgramTypeOrder } from "./internal/educational-program-type-order";
+import { educationalProgramOrder } from "./internal/educational-program-order";
 
 export type SchemaTypeDef = {
   type:
@@ -109,6 +111,8 @@ const typeDefs = [
   timeSelect,
   programFeesType,
   defaultImage,
+  educationalProgramTypeOrder,
+  educationalProgramOrder,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {

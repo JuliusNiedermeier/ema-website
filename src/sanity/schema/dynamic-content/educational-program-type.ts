@@ -24,6 +24,11 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "default-slug",
       }),
       defineField({
+        name: "order",
+        title: "Reihenfolge",
+        type: "educational-program-type-order",
+      }),
+      defineField({
         name: "color",
         title: "Farbe",
         description: "Diese Farbe wird für den Bildungsweg und dessen Bildungsgänge verwendet.",
