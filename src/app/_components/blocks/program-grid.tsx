@@ -6,11 +6,11 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { ProgramMenuLink, ProgramTypeMenuLink } from "~/app/_components/compounds/programs-menu-link";
 
-const programGridProgramTypesQuery = groq`*[_type == "educational-program-type"]{
+const programGridProgramTypesQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   ...,
 }`;
 
-const programGridProgramsQuery = groq`*[_type == "educational-program"]{
+const programGridProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   ...,
   educationalProgramType->{ _id }
 }`;

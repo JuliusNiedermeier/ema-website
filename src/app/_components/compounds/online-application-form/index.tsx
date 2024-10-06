@@ -14,11 +14,11 @@ import { FormProgressIndicator } from "./progress-indicator";
 import { SiteLogo } from "../site-logo";
 import { FormLeaveButton } from "./utils/leave-button";
 
-const onlineApplicationFormProgramTypesQuery = groq`*[_type == "educational-program-type"] {
+const onlineApplicationFormProgramTypesQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   _id,
   name,
   color,
-  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] {
+  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     _id,
     name,
   }

@@ -9,7 +9,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { ProgramFlowProgramsQueryResult } from "../../../../generated/sanity/types";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programFlowProgramsQuery = groq`*[_type == "educational-program"] {
+const programFlowProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   _id,
   name,
   educationalProgramType -> {

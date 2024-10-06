@@ -11,12 +11,12 @@ import { InteractionBubble } from "../compounds/interaction-bubble";
 import { LinkCard, LinkCardContent, LinkCardLabel, LinkCardTitle } from "../primitives/link-card";
 import Link from "next/link";
 
-const programLearningFieldsComparisonQuery = groq`*[_type == "educational-program-type"] {
+const programLearningFieldsComparisonQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   _id,
   slug,
   name,
   color,
-  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] {
+  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     _id,
     slug,
     name,

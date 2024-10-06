@@ -16,7 +16,7 @@ const feesPageQuery = groq`*[_type == "fees-page"][0] {
   defaultProgram -> { _id }
 }`;
 
-const feesPageProgramsQuery = groq`*[_type == "educational-program"] {
+const feesPageProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   _id,
   name,
   fees,

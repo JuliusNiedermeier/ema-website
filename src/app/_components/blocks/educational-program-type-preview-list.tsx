@@ -8,11 +8,11 @@ import {
 import { EducationalProgramTypePreviewList as ClientList } from "~/app/_components/compounds/educational-program-type-preview-list";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programTypePreviewListTypesQuery = groq`*[_type == "educational-program-type"]{
+const programTypePreviewListTypesQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   ...,
 }`;
 
-const programTypePreviewListProgramsQuery = groq`*[_type == "educational-program"]{
+const programTypePreviewListProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   ...,
   coverImage { alt, asset -> { url } },
   educationalProgramType->{ _id }

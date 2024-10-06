@@ -54,7 +54,7 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
   },
 }`;
 
-const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug] {
+const programTypePageProgramsQuery = groq`*[_type == "educational-program" && educationalProgramType -> slug.current == $programTypeSlug] | order(order asc) {
   _id,
   slug,
   name,

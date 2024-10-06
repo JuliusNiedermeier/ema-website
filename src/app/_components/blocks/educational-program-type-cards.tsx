@@ -14,7 +14,7 @@ export type EducationalProgramTypeCardsProps = ComponentProps<typeof LinkCardCol
   };
 };
 
-const educationalProgramTypeCardsQuery = groq`*[_type == "educational-program-type" && !(slug.current in $excludeSlugs)]{
+const educationalProgramTypeCardsQuery = groq`*[_type == "educational-program-type" && !(slug.current in $excludeSlugs)] | order(order asc) {
   ...
 }`;
 

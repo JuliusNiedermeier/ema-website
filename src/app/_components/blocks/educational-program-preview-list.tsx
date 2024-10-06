@@ -5,13 +5,13 @@ import { ProgramPreviewListQueryResult } from "../../../../generated/sanity/type
 import { EducationalProgramPreviewList as ClientList } from "~/app/_components/compounds/educational-program-preview-list";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programPreviewListQuery = groq`*[_type == "educational-program-type"]{
+const programPreviewListQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   _id,
   slug,
   name,
   color,
   readMoreLabel,
-  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] {
+  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     slug,
     name,
     promotionalHeadline,

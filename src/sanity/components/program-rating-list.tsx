@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CheckupAnswerEducationalProgramsQueryResult } from "../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const checkupAnswerEducationalProgramsQuery = groq`*[_type == "educational-program"] {
+const checkupAnswerEducationalProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   _id,
   name,
   promotionalHeadline,

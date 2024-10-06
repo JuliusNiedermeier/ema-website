@@ -16,11 +16,11 @@ import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
 import { ResetCookieConsent } from "../compounds/reset-cookie-consent";
 
-const footerEducationalProgramTypesQuery = groq`*[_type == "educational-program-type"]{
+const footerEducationalProgramTypesQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
     ...
 }`;
 
-const footerEducationalProgramsQuery = groq`*[_type == "educational-program"]{
+const footerEducationalProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
     ...
 }`;
 

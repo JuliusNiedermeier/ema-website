@@ -22,7 +22,7 @@ import { ResultCounter } from "~/app/_components/compounds/checkup-form/result-c
 
 const checkupPageQuery = groq`*[_type == "checkup-page"][0]`;
 
-const checkupPageEducationalProgramsQuery = groq`*[_type == "educational-program"]{
+const checkupPageEducationalProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   _id,
   slug,
   name,

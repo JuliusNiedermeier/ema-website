@@ -8,11 +8,11 @@ import { ProgramSubjectMatrixProgramsQueryResult } from "../../../../generated/s
 import { uniqueBy } from "~/app/_utils/uniqe-by";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 
-const programSubjectMatrixProgramsQuery = groq`*[_type == "educational-program-type"] {
+const programSubjectMatrixProgramsQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
   _id,
   name,
   color,
-  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] {
+  "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     _id,
     name,
     "subjects": select(subjects[] -> {
