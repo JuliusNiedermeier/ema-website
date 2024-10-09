@@ -60,18 +60,12 @@ export const educationalProgram: SchemaTypeDef = {
         validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
-        name: "introduction",
+        name: "teaser",
         title: "Einleitende Kurzbeschreibung",
         description: "50-300 Zeichen",
         type: "text",
         group: "hero",
         validation: (r) => r.required().min(50).max(300),
-      }),
-      defineField({
-        name: "coverImage",
-        title: "Titelbild",
-        type: "default-image",
-        group: "hero",
       }),
       defineField({
         name: "highlights",
@@ -155,7 +149,7 @@ export const educationalProgram: SchemaTypeDef = {
         ],
       }),
       defineField({
-        name: "programDescriptionIntroduction",
+        name: "detailsIntroduction",
         title: "Einleitung der Bildungsgang-Beschreibung",
         description:
           "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",

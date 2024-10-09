@@ -15,8 +15,7 @@ const programPreviewListQuery = groq`*[_type == "educational-program-type"] | or
     slug,
     name,
     slogan,
-    introduction,
-    coverImage { alt, asset -> { url } },
+    teaser,
   }
 }`;
 
@@ -33,9 +32,9 @@ export const EducationalProgramPreviewList: FC<EducationalProgramPreviewListProp
         slug: program.slug?.current || "",
         name: program.name || "",
         heading: program.slogan || "",
-        description: program.introduction || "",
-        image: { url: program.coverImage?.asset?.url || "", alt: program.coverImage?.alt || "" },
-        readMoreLabel: "Ansehen", // TODO: Create cms field
+        description: program.teaser || "",
+        image: { url: "placeholder", alt: "placeholder" },
+        readMoreLabel: "Ansehen",
         programType: {
           slug: programType.slug?.current || "",
           name: programType.name || "",

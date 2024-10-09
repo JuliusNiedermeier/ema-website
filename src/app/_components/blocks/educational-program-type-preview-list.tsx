@@ -14,7 +14,6 @@ const programTypePreviewListTypesQuery = groq`*[_type == "educational-program-ty
 
 const programTypePreviewListProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
   ...,
-  coverImage { alt, asset -> { url } },
   educationalProgramType->{ _id }
 }`;
 
@@ -42,8 +41,8 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
           slug: program.slug?.current || "",
           name: program.name || "",
           heading: program.slogan || "",
-          description: program.introduction || "",
-          image: { url: program.coverImage?.asset?.url || "", alt: program.coverImage?.alt || "" },
+          description: program.teaser || "",
+          image: { url: "placeholder", alt: "placeholder" },
         })),
     }),
   );

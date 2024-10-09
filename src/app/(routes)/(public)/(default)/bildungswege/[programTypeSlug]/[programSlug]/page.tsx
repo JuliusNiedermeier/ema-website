@@ -157,7 +157,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
           <Heading tag="h2" className="mt-8">
             {program.slogan}
           </Heading>
-          <Paragraph>{program.introduction}</Paragraph>
+          <Paragraph>{program.teaser}</Paragraph>
         </Container>
       </div>
 
@@ -265,8 +265,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </GradientStrokeIcon>
             <div className="mt-16 text-center">
-              <Heading>{program.programDescriptionIntroduction?.heading}</Heading>
-              <Paragraph>{program.programDescriptionIntroduction?.description}</Paragraph>
+              <Heading>{program.detailsIntroduction?.heading}</Heading>
+              <Paragraph>{program.detailsIntroduction?.description}</Paragraph>
             </div>
           </Container>
           <Container className="mt-24">
