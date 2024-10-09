@@ -21,6 +21,7 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { BasicAccordion } from "~/app/_components/compounds/basic-accordion";
 import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import {
+  ProgramPageComparisonPreviewQueryResult,
   ProgramPageContentQueryResult,
   ProgramPageQueryResult,
   ProgramPageSlugsQueryResult,
@@ -40,9 +41,9 @@ import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke
 import { LinkCardCollection } from "~/app/_components/primitives/link-card-collection";
 import { LinkCard, LinkCardContent, LinkCardLabel, LinkCardTitle } from "~/app/_components/primitives/link-card";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
-import { ComparisonTeaserCard } from "~/app/_components/blocks/comparison-teaser-card";
 import { Chip } from "~/app/_components/primitives/chip";
 import { mapRange } from "~/app/_utils/map-range";
+import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -105,6 +106,13 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   subjects[] ->
 }`;
 
+const programPageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
+  preview {
+    ...,
+    images[] { alt, asset -> { url } }
+  }
+}`;
+
 type Params = { programTypeSlug: string; programSlug: string };
 type Props = { params: Params };
 
@@ -127,6 +135,13 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
   const programPage = await sanityFetch<ProgramPageQueryResult>(programPageQuery, {
     tags: ["educational-program-page"],
   });
+
+  const comparisonPreview = await sanityFetch<ProgramPageComparisonPreviewQueryResult>(
+    programPageComparisonPreviewQuery,
+    {
+      tags: ["comparison-page"],
+    },
+  );
 
   if (!program || !programPage) notFound();
 
@@ -405,7 +420,15 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
           <Link href="/vergleich" className="mt-24 block">
             <Card className="group flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
-              <ComparisonTeaserCard className="min-h-40 flex-1 bg-neutral-400" />
+              <StackedImageCard
+                className="min-h-40 flex-1 bg-neutral-400"
+                images={
+                  comparisonPreview?.preview?.images?.map((image, index) => ({
+                    url: image.asset?.url || "",
+                    alt: `${comparisonPreview.preview?.heading} ${index + 1}`,
+                  })) || []
+                }
+              />
               <div className="flex-1 p-6 text-left">
                 <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
                 <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
