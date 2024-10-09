@@ -86,7 +86,7 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
     ...,
     image { alt, asset -> { url } }
   },
-  externalCTA {
+  highlightLink {
     ...,
     image { alt, asset -> { url } }
   },
@@ -289,8 +289,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                     alt: programPage.programDetails?.startDate?.backgroundGraphic?.alt || "",
                   }}
                 />
-                {program.showExternalCTA && (
-                  <Link href={program.externalCTA?.linkURL || ""}>
+
+                {program.showHighlightLink && (
+                  <Link href={program.highlightLink?.linkURL || ""}>
                     <Card
                       className={cn(
                         "group relative mt-4 flex flex-col items-stretch gap-2 overflow-hidden rounded-3xl border border-neutral-400 bg-neutral-300 p-2 lg:flex-row-reverse",
@@ -298,19 +299,19 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                     >
                       <div className="aspect-video flex-1 lg:aspect-auto lg:h-auto">
                         <Image
-                          src={program.externalCTA?.image?.asset?.url || ""}
-                          alt={program.externalCTA?.image?.alt || ""}
+                          src={program.highlightLink?.image?.asset?.url || ""}
+                          alt={program.highlightLink?.image?.alt || ""}
                           height="500"
                           width="500"
                           className="h-full w-full rounded-2xl object-cover"
                         />
                       </div>
                       <div className="py-10x pb-6x lg:py-10x max-w-[40rem] flex-[2] p-6">
-                        <Label className="text-neutral-400-text">{program.externalCTA?.preHeading}</Label>
-                        <Heading className="mt-2 text-neutral-400-text">{program.externalCTA?.mainHeading}</Heading>
-                        <Paragraph className="mt-6 text-neutral-400-text">{program.externalCTA?.paragraph}</Paragraph>
+                        <Label className="text-neutral-400-text">{program.highlightLink?.preHeading}</Label>
+                        <Heading className="mt-2 text-neutral-400-text">{program.highlightLink?.mainHeading}</Heading>
+                        <Paragraph className="mt-6 text-neutral-400-text">{program.highlightLink?.paragraph}</Paragraph>
                         <div className="mt-8 flex h-12 w-fit items-center gap-4 rounded-full bg-neutral-100 px-2 pr-6">
-                          <InteractionBubble /> <Label>{program.externalCTA?.ctaText}</Label>
+                          <InteractionBubble /> <Label>{program.highlightLink?.ctaText}</Label>
                         </div>
                       </div>
                     </Card>

@@ -169,59 +169,59 @@ export const educationalProgram: SchemaTypeDef = {
         ],
       }),
 
-          defineField({
-            name: "duration",
-            title: "Ausbildungsdauer",
-            description: "5-20 Zeichen. Wie viele Jahre dauert die Ausbildung? Besipiel: '3 Jahre'",
-            type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          }),
+      defineField({
+        name: "duration",
+        title: "Ausbildungsdauer",
+        description: "5-20 Zeichen. Wie viele Jahre dauert die Ausbildung? Besipiel: '3 Jahre'",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
 
-          defineField({
+      defineField({
         name: "trainingType",
-            title: "Ausbildungsart",
-            description: "5-20 Zeichen. Beispiel: 'Ganztagesausbildung'",
-            type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          }),
+        title: "Ausbildungsart",
+        description: "5-20 Zeichen. Beispiel: 'Ganztagesausbildung'",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
 
+      defineField({
+        name: "lessonTimes",
+        title: "Unterrichtszeiten",
+        type: "object",
+        fields: [
           defineField({
-            name: "lessonTimes",
-            title: "Unterrichtszeiten",
-            type: "object",
-            fields: [
-              defineField({
-                name: "start",
-                title: "Unterrichtsbeginn",
-                description: "8-13 Zeichen. Format: '8:00 Uhr'",
-                type: "string",
-                validation: (r) => r.required().min(8).max(13),
-              }),
-              defineField({
-                name: "end",
-                title: "Unterrichtsschluss",
-                description: "8-13 Zeichen. Format: '8:00 Uhr'",
-                type: "string",
-                validation: (r) => r.required().min(8).max(13),
-              }),
-            ],
-          }),
-
-          defineField({
-            name: "holidays",
-            title: "Ferieninformation",
-            description: "10-100 Zeichen",
+            name: "start",
+            title: "Unterrichtsbeginn",
+            description: "8-13 Zeichen. Format: '8:00 Uhr'",
             type: "string",
-            validation: (r) => r.required().min(10).max(100),
+            validation: (r) => r.required().min(8).max(13),
           }),
-
           defineField({
-            name: "startDate",
-            title: "Datum",
-            description: "8-20 Zeichen",
+            name: "end",
+            title: "Unterrichtsschluss",
+            description: "8-13 Zeichen. Format: '8:00 Uhr'",
             type: "string",
-            validation: (r) => r.required().min(8).max(20),
+            validation: (r) => r.required().min(8).max(13),
           }),
+        ],
+      }),
+
+      defineField({
+        name: "holidays",
+        title: "Ferieninformation",
+        description: "10-100 Zeichen",
+        type: "string",
+        validation: (r) => r.required().min(10).max(100),
+      }),
+
+      defineField({
+        name: "startDate",
+        title: "Datum",
+        description: "8-20 Zeichen",
+        type: "string",
+        validation: (r) => r.required().min(8).max(20),
+      }),
 
       defineField({
         name: "subjects",
@@ -241,18 +241,20 @@ export const educationalProgram: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "showExternalCTA",
-        title: "Externen Call-To-Action anzeigen",
+        name: "showHighlightLink",
+        title: "Link zu einer Highlight-Seite anzeigen",
         type: "boolean",
         group: "external-cta",
       }),
+
       defineField({
-        name: "externalCTA",
-        title: "Externer Call-To-Action",
+        name: "highlightLink",
+        title: "Link zu einer Highlight-Seite",
         type: "generic-cta",
         group: "external-cta",
-        hidden: ({ document }) => !document?.showExternalCTA,
+        hidden: ({ document }) => !document?.showHighlightLink,
       }),
+
       defineField({
         name: "furtherInformation",
         title: "Weitere Informationen",
