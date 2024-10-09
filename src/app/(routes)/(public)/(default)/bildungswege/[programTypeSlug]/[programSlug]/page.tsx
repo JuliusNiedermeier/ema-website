@@ -278,14 +278,11 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   holidaysHeading={programPage.programDetails?.holidaysHeading || ""}
                   lessonTimesHeading={programPage.programDetails?.lessonTimesHeading || ""}
                   startDateHeading={programPage.programDetails?.startDate?.heading || ""}
-                  trainingType={program.programDetails?.type || ""}
-                  duration={program.programDetails?.duration || ""}
-                  startEndTime={[
-                    program.programDetails?.lessonTimes?.start || "",
-                    program.programDetails?.lessonTimes?.end || "",
-                  ]}
-                  holidays={program.programDetails?.holidays || ""}
-                  startDate={program.programDetails?.startDate || ""}
+                  trainingType={program.trainingType || ""}
+                  duration={program.duration || ""}
+                  startEndTime={[program.lessonTimes?.start || "", program.lessonTimes?.end || ""]}
+                  holidays={program.holidays || ""}
+                  startDate={program.startDate || ""}
                   applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
                   startDateBackgroundGraphic={{
                     url: programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || "",

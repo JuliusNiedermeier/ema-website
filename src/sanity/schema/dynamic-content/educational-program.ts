@@ -168,13 +168,7 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
-      defineField({
-        name: "programDetails",
-        title: "Eckdaten zum Bildungsgang",
-        description: "Wichtige Daten, und Zeiten.",
-        type: "object",
-        group: "details",
-        fields: [
+
           defineField({
             name: "duration",
             title: "Ausbildungsdauer",
@@ -182,13 +176,15 @@ export const educationalProgram: SchemaTypeDef = {
             type: "string",
             validation: (r) => r.required().min(5).max(20),
           }),
+
           defineField({
-            name: "type",
+        name: "trainingType",
             title: "Ausbildungsart",
             description: "5-20 Zeichen. Beispiel: 'Ganztagesausbildung'",
             type: "string",
             validation: (r) => r.required().min(5).max(20),
           }),
+
           defineField({
             name: "lessonTimes",
             title: "Unterrichtszeiten",
@@ -210,6 +206,7 @@ export const educationalProgram: SchemaTypeDef = {
               }),
             ],
           }),
+
           defineField({
             name: "holidays",
             title: "Ferieninformation",
@@ -217,6 +214,7 @@ export const educationalProgram: SchemaTypeDef = {
             type: "string",
             validation: (r) => r.required().min(10).max(100),
           }),
+
           defineField({
             name: "startDate",
             title: "Datum",
@@ -224,8 +222,7 @@ export const educationalProgram: SchemaTypeDef = {
             type: "string",
             validation: (r) => r.required().min(8).max(20),
           }),
-        ],
-      }),
+
       defineField({
         name: "subjects",
         title: "Fächer",
@@ -242,6 +239,7 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "showExternalCTA",
         title: "Externen Call-To-Action anzeigen",
