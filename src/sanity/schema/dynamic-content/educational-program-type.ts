@@ -37,15 +37,13 @@ export const educationalProgramType: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
-        // TODO: Rename to "slogan"
-        name: "promotionalHeadline",
+        name: "slogan",
         title: "Bildungsweg Slogan",
         description: "Ein aussagekräftiger kurzer Slogan, der den Bildungsweg möglichst effektiv bewirbt.",
         type: "string",
         validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
-        // TODO: Rename to "teaser"
         name: "teaser",
         title: "Teaser",
         description:
@@ -172,7 +170,7 @@ export const educationalProgramType: SchemaTypeDef = {
     preview: {
       select: {
         title: "name",
-        subtitle: "promotionalHeadline",
+        subtitle: "slogan",
       },
     },
   }),

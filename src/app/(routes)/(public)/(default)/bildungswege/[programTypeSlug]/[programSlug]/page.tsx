@@ -95,7 +95,7 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
     programs[] -> {
       slug,
       name,
-      promotionalHeadline,
+      slogan,
       educationalProgramType -> {
         slug,
         name,
@@ -155,7 +155,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             <Label className="mb-0 text-primary-900">{program.name}</Label>
           </div>
           <Heading tag="h2" className="mt-8">
-            {program.promotionalHeadline}
+            {program.slogan}
           </Heading>
           <Paragraph>{program.introduction}</Paragraph>
         </Container>

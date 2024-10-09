@@ -51,7 +51,7 @@ export const educationalProgram: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
-        name: "promotionalHeadline",
+        name: "slogan",
         title: "Bildungsgang Slogan",
         description:
           "10-40 Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",

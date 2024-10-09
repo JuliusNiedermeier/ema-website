@@ -15,7 +15,7 @@ const postContentQuery = groq`*[_type == "post" && slug.current == $slug][0]{
         ...,
         educationalProgramType -> {
           name,
-          promotionalHeadline,
+          slogan,
           color,
           slug,
           readMoreLabel
@@ -25,7 +25,7 @@ const postContentQuery = groq`*[_type == "post" && slug.current == $slug][0]{
         ...,
         educationalProgram -> {
           name,
-          promotionalHeadline,
+          slogan,
           slug,
           readMoreLabel,
           educationalProgramType -> {

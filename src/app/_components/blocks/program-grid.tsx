@@ -41,7 +41,7 @@ export const ProgramGrid: FC<ProgramGridProps> = async ({ className, ...restProp
           <ProgramTypeMenuLink
             href={`/bildungswege/${programType.slug?.current}`}
             heading={programType.name || ""}
-            description={programType.promotionalHeadline || ""}
+            description={programType.slogan || ""}
           />
           <div className="flex flex-1 flex-col gap-2">
             {programType.programs.map((program) => (

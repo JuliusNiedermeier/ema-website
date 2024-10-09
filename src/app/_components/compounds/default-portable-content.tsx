@@ -22,7 +22,7 @@ const defaultPortableContentQuery = groq`*[_type == "post"][0]{
         ...,
         educationalProgramType -> {
           name,
-          promotionalHeadline,
+          slogan,
           color,
           slug,
           readMoreLabel
@@ -32,7 +32,7 @@ const defaultPortableContentQuery = groq`*[_type == "post"][0]{
         ...,
         educationalProgram -> {
           name,
-          promotionalHeadline,
+          slogan,
           slug,
           readMoreLabel,
           educationalProgramType -> {
@@ -114,7 +114,7 @@ export const portableTextComponents: Components = {
                 <Heading size="sm" className="mb-0">
                   {props.value.educationalProgramType?.name}
                 </Heading>
-                <Paragraph>{props.value.educationalProgramType?.promotionalHeadline}</Paragraph>
+                <Paragraph>{props.value.educationalProgramType?.slogan}</Paragraph>
               </div>
               <Button
                 vairant="outline"
@@ -150,7 +150,7 @@ export const portableTextComponents: Components = {
                 <Heading size="sm" className="mb-0 mt-6">
                   {props.value.educationalProgram?.name}
                 </Heading>
-                <Paragraph>{props.value.educationalProgram?.promotionalHeadline}</Paragraph>
+                <Paragraph>{props.value.educationalProgram?.slogan}</Paragraph>
               </div>
               <Button
                 vairant="outline"

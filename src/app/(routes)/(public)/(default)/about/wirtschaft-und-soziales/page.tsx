@@ -22,7 +22,7 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
         ...,
         educationalProgramType -> {
           name,
-          promotionalHeadline,
+          slogan,
           color,
           slug,
           readMoreLabel
@@ -32,7 +32,7 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
         ...,
         educationalProgram -> {
           name,
-          promotionalHeadline,
+          slogan,
           slug,
           readMoreLabel,
           educationalProgramType -> {

@@ -33,7 +33,7 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
       slug: programType.slug?.current || "",
       color: ensureValidHSL(programType.color?.hsl),
       name: programType.name || "",
-      heading: programType.promotionalHeadline || "",
+      heading: programType.slogan || "",
       description: programType.teaser || "",
       readMoreLabel: programType.readMoreLabel || "",
       programs: programs
@@ -41,7 +41,7 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
         .map((program) => ({
           slug: program.slug?.current || "",
           name: program.name || "",
-          heading: program.promotionalHeadline || "",
+          heading: program.slogan || "",
           description: program.introduction || "",
           image: { url: program.coverImage?.asset?.url || "", alt: program.coverImage?.alt || "" },
         })),

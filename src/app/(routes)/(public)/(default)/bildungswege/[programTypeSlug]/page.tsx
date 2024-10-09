@@ -48,7 +48,7 @@ const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.
     programTypes[] -> {
       slug,
       name,
-      promotionalHeadline,
+      slogan,
       color
     }
   },
@@ -58,7 +58,7 @@ const programTypePageProgramsQuery = groq`*[_type == "educational-program" && ed
   _id,
   slug,
   name,
-  promotionalHeadline,
+  slogan,
   highlights[] {
     heading,
     image { alt, asset -> { url } }
@@ -104,7 +104,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             <Label className="mb-0 text-primary-900">{programType.name}</Label>
           </div>
           <Heading tag="h2" className="mt-8">
-            {programType.promotionalHeadline}
+            {programType.slogan}
           </Heading>
           <Paragraph>{programType.teaser}</Paragraph>
         </Container>
@@ -165,7 +165,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                       <InteractionBubble animated={false} />
                       <LinkCardContent>
                         <LinkCardTitle>{followUpProgramType.name}</LinkCardTitle>
-                        <LinkCardSubtitle>{followUpProgramType.promotionalHeadline}</LinkCardSubtitle>
+                        <LinkCardSubtitle>{followUpProgramType.slogan}</LinkCardSubtitle>
                       </LinkCardContent>
                     </LinkCard>
                   </Link>
@@ -210,7 +210,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                       <LinkCardContent className="">
                         <LinkCardLabel>{programType.name}</LinkCardLabel>
                         <LinkCardTitle>{program.name}</LinkCardTitle>
-                        <LinkCardSubtitle>{program.promotionalHeadline}</LinkCardSubtitle>
+                        <LinkCardSubtitle>{program.slogan}</LinkCardSubtitle>
                       </LinkCardContent>
                       <InteractionBubble animated={false} />
                     </div>

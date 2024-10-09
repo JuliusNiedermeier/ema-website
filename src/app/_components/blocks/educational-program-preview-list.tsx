@@ -14,7 +14,7 @@ const programPreviewListQuery = groq`*[_type == "educational-program-type"] | or
   "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     slug,
     name,
-    promotionalHeadline,
+    slogan,
     introduction,
     coverImage { alt, asset -> { url } },
   }
@@ -32,7 +32,7 @@ export const EducationalProgramPreviewList: FC<EducationalProgramPreviewListProp
       programType.programs.map<ComponentProps<typeof ClientList>["programs"][number]>((program) => ({
         slug: program.slug?.current || "",
         name: program.name || "",
-        heading: program.promotionalHeadline || "",
+        heading: program.slogan || "",
         description: program.introduction || "",
         image: { url: program.coverImage?.asset?.url || "", alt: program.coverImage?.alt || "" },
         readMoreLabel: "Ansehen", // TODO: Create cms field
