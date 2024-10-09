@@ -32,7 +32,7 @@ export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> =
             <InteractionBubble animated={false} className="bg-themed-primary text-primary-900" />
             <LinkCardContent>
               <LinkCardTitle>{type.name}</LinkCardTitle>
-              <LinkCardSubtitle>{type.introduction}</LinkCardSubtitle>
+              <LinkCardSubtitle>{type.promotionalHeadline}</LinkCardSubtitle>
             </LinkCardContent>
           </LinkCard>
         </Link>
