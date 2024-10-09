@@ -106,7 +106,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
           <Heading tag="h2" className="mt-8">
             {programType.promotionalHeadline}
           </Heading>
-          <Paragraph>{programType.introduction}</Paragraph>
+          <Paragraph>{programType.teaser}</Paragraph>
         </Container>
       </div>
 

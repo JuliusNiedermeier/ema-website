@@ -37,6 +37,7 @@ export const educationalProgramType: SchemaTypeDef = {
         validation: (r) => r.required(),
       }),
       defineField({
+        // TODO: Rename to "slogan"
         name: "promotionalHeadline",
         title: "Bildungsweg Slogan",
         description: "Ein aussagekräftiger kurzer Slogan, der den Bildungsweg möglichst effektiv bewirbt.",
@@ -44,9 +45,11 @@ export const educationalProgramType: SchemaTypeDef = {
         validation: (r) => r.required().min(10).max(40),
       }),
       defineField({
-        name: "introduction",
-        title: "Einleitende Kurzbeschreibung",
-        description: "100-500 Zeichen",
+        // TODO: Rename to "teaser"
+        name: "teaser",
+        title: "Teaser",
+        description:
+          "100-500 Zeichen. Ein kurzer Text, der Interesse weckt und die wichtigsten Aspeckte des Bildungsweges erwähnt.",
         type: "text",
         validation: (r) => r.required().min(100).max(500),
       }),

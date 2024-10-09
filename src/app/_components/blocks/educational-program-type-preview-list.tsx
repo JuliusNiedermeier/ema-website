@@ -34,7 +34,7 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
       color: ensureValidHSL(programType.color?.hsl),
       name: programType.name || "",
       heading: programType.promotionalHeadline || "",
-      description: programType.introduction || "",
+      description: programType.teaser || "",
       readMoreLabel: programType.readMoreLabel || "",
       programs: programs
         .filter((program) => program.educationalProgramType?._id === programType._id)
