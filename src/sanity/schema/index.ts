@@ -2,7 +2,6 @@ import { type SchemaTypeDefinition } from "sanity";
 
 import { campusPage } from "./static-pages/campus-page";
 import { economySocialPage } from "./static-pages/economy-social";
-import { checkupPage } from "./static-pages/checkup-page";
 import { homePage } from "./static-pages/home-page";
 import { artPage } from "./static-pages/art-page";
 import { contactPage } from "./static-pages/contact-page";
@@ -66,7 +65,6 @@ const typeDefs = [
   blogPage,
   applicationPage,
   comparisonPage,
-  checkupPage,
   contactPage,
   infoEventPage,
   consultingPage,
