@@ -126,9 +126,9 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
               alt={post.author?.image?.alt || ""}
             />
             <div>
-              <AuthorTagName>{`${postPage?.metadata?.authorPrefix} ${post.author?.name}`}</AuthorTagName>
+              <AuthorTagName>{`${postPage?.authorPrefix} ${post.author?.name}`}</AuthorTagName>
               <Label className="block text-neutral-100-text-muted">
-                {`${postPage?.metadata?.datePrefix} ${new Date(post.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}`}
+                {`${postPage?.datePrefix} ${new Date(post.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}`}
               </Label>
             </div>
           </AuthorTag>

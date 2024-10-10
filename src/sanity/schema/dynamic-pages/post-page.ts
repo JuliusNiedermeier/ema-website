@@ -12,24 +12,19 @@ export const postPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
-        name: "metadata",
-        title: "Author & Datum",
-        type: "object",
-        fields: [
-          defineField({
-            name: "authorPrefix",
-            title: "Autor-Präfix",
-            description: "Text vor dem Namen des Autors. Zum Beispiel 'Geschrieben von'",
-            type: "string",
-          }),
-          defineField({
-            name: "datePrefix",
-            title: "Datums-Präfix",
-            description: "Text vor dem Veröffentlichungsdatum des Beitrags. Zum Beispiel 'Am'",
-            type: "string",
-          }),
-        ],
+        name: "authorPrefix",
+        title: "Autor-Präfix",
+        description: "Text vor dem Namen des Autors. Zum Beispiel 'Geschrieben von'",
+        type: "string",
       }),
+
+      defineField({
+        name: "datePrefix",
+        title: "Datums-Präfix",
+        description: "Text vor dem Veröffentlichungsdatum des Beitrags. Zum Beispiel 'Am'",
+        type: "string",
+      }),
+
       defineField({
         name: "relatedPosts",
         title: "Vorschau ähnlicher Blogbeiträge",
