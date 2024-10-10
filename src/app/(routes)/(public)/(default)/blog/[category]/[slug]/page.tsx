@@ -111,7 +111,14 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           </main>
         </Suspense>
 
-        <div className="mt-12 md:mt-24">
+        <div className="mt-24">
+          <Heading>{postPage?.educationalProgramTypes?.heading}</Heading>
+          <Paragraph>{postPage?.educationalProgramTypes?.description}</Paragraph>
+        </div>
+
+        <EducationalProgramTypeCards className="mt-16" />
+
+        <div className="mt-24">
           <AuthorTag>
             <AuthorTagImage
               className="h-12 w-12"
@@ -128,7 +135,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
         </div>
       </Container>
 
-      <Container className="mt-24 md:mt-48">
+      <Container className="mt-32 md:mt-48">
         <LatestPosts
           heading={postPage?.relatedPosts?.heading || ""}
           allPostsLabel={postPage?.relatedPosts?.allPostsLabel || ""}
@@ -143,14 +150,6 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
             },
           }))}
         />
-      </Container>
-
-      <Container width="narrow" className="mt-48 md:mb-24">
-        <div className="text-center">
-          <Heading>{postPage?.educationalProgramTypes?.heading}</Heading>
-          <Paragraph>{postPage?.educationalProgramTypes?.description}</Paragraph>
-        </div>
-        <EducationalProgramTypeCards className="mt-16" />
       </Container>
     </>
   );
