@@ -10,7 +10,6 @@ const programPreviewListQuery = groq`*[_type == "educational-program-type"] | or
   slug,
   name,
   color,
-  readMoreLabel,
   "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     slug,
     name,
@@ -39,7 +38,7 @@ export const EducationalProgramPreviewList: FC<EducationalProgramPreviewListProp
           slug: programType.slug?.current || "",
           name: programType.name || "",
           color: ensureValidHSL(programType.color?.hsl),
-          readMoreLabel: programType.readMoreLabel || "",
+          readMoreLabel: "Ansehen",
         },
       })),
     )

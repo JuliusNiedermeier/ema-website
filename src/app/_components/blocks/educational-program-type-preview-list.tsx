@@ -34,7 +34,7 @@ export const EducationalProgramTypePreviewList: FC<EducationalProgramTypePreview
       name: programType.name || "",
       heading: programType.slogan || "",
       description: programType.teaser || "",
-      readMoreLabel: programType.readMoreLabel || "",
+      readMoreLabel: "Ansehen",
       programs: programs
         .filter((program) => program.educationalProgramType?._id === programType._id)
         .map((program) => ({
