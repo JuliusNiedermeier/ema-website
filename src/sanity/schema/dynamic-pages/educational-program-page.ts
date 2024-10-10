@@ -12,6 +12,15 @@ export const educationalProgramPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "readMoreLabel",
+        title: "Preview-Link-Text",
+        description:
+          "5-20 Zeichen. Link-Text, der von anderen Seiten auf diesen einen Bildungsgang verweist. Zum Beispiel 'Mehr erfahren'.",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
+
+      defineField({
         name: "detailsHeading",
         title: "Überschrift der Bildungsgang-Beschreibung",
         type: "string",
