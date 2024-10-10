@@ -61,6 +61,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "subjects",
         title: "Fächer",
@@ -85,6 +86,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "prerequisites",
         title: "Voraussetzungen",
@@ -131,6 +133,23 @@ export const educationalProgramPage: SchemaTypeDef = {
           }),
         ],
       }),
+
+      defineField({
+        name: "testimonialsHeading",
+        title: "Testimonials-Überschrift",
+        description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
+        type: "string",
+        validation: (r) => r.required().min(3).max(40),
+      }),
+
+      defineField({
+        name: "faqHeading",
+        title: "FAQs-Überschrift",
+        description: "10-40 Zeichen",
+        type: "string",
+        validation: (r) => r.required().min(10).max(40),
+      }),
+
       defineField({
         name: "feesLinkLabel",
         title: "Text für den Link zur Schulbeitragsseite",

@@ -441,15 +441,15 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       <Section className="-mb-2 bg-neutral-100">
         <Container className="pt-24 sm:pt-48">
           <Container width="narrow" className="text-center">
-            <Heading className="mx-auto max-w-80 sm:max-w-none">{program.testimonials?.heading}</Heading>
-            <Paragraph>{program.testimonials?.subheading}</Paragraph>
+            <Heading className="mx-auto max-w-80 sm:max-w-none">{programPage.testimonialsHeading}</Heading>
+            <Paragraph>{program.testimonialsIntroduction}</Paragraph>
           </Container>
           <TestimonialCarousel className="mt-16" />
         </Container>
 
         <Container className="mt-48 sm:mt-64" width="narrow">
-          <Heading className="text-center">{program.FAQs?.heading}</Heading>
-          <Paragraph>{program.FAQs?.subheading}</Paragraph>
+          <Heading className="text-center">{programPage.faqHeading}</Heading>
+          <Paragraph>{program.FAQs?.introduction}</Paragraph>
           <div className="mt-16">
             <BasicAccordion
               items={

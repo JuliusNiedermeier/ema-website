@@ -343,30 +343,16 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
-        name: "testimonials",
-        title: "Testimonials",
-        description: "Positive Aussagen der Schüler zu diesem Bildungsweg",
-        type: "object",
-        group: "closing-section",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
-            type: "string",
-            validation: (r) => r.required().min(3).max(40),
-          }),
-          defineField({
-            name: "subheading",
-            title: "Unterüberschrift",
-            description:
-              '50-200 Zeichen. Beispiel: "Schüler lieben die Fachoberschule Wirtschaft. Das wir davon überzeugt sind ist klar – überzeug\' dich besser selbst und lies was unsere Schüler sagen."',
-            type: "text",
-            validation: (r) => r.required().min(50).max(200),
-          }),
-        ],
+        name: "testimonialsIntroduction",
+        title: "Einleitung zu den Testimonials",
+        description:
+          '50-200 Zeichen. Beispiel: "Schüler lieben die Fachoberschule Wirtschaft. Das wir davon überzeugt sind ist klar – überzeug\' dich besser selbst und lies was unsere Schüler sagen."',
+        type: "text",
+        validation: (r) => r.required().min(50).max(200),
       }),
+
       defineField({
         name: "FAQs",
         title: "FAQ - Frequently Asked Questions",
@@ -375,14 +361,7 @@ export const educationalProgram: SchemaTypeDef = {
         group: "closing-section",
         fields: [
           defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          }),
-          defineField({
-            name: "subheading",
+            name: "introduction",
             title: "Beschreibung",
             description: "10-200 Zeichen",
             type: "text",
