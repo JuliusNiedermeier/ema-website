@@ -256,7 +256,7 @@ export const educationalProgram: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "furtherInformation",
+        name: "informationGallery",
         title: "Weitere Informationen",
         description: "2-10 Einträge",
         type: "array",
@@ -302,6 +302,7 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "prerequisites",
         title: "Voraussetzungen",

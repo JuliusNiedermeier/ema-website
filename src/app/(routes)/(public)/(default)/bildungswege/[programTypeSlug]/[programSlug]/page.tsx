@@ -82,7 +82,7 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
       image { alt, asset -> { url } }
     }
   },
-  furtherInformation[] {
+  informationGallery[] {
     ...,
     image { alt, asset -> { url } }
   },
@@ -375,7 +375,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       <Section className="bg-themed-primary ring-0">
         <Container className="py-4 sm:py-24">
           <div className={cn("flex flex-col gap-8 sm:gap-24")}>
-            {program.furtherInformation?.map((item, index) => (
+            {program.informationGallery?.map((item, index) => (
               <div
                 key={index}
                 className={cn("flex flex-col items-stretch gap-8 sm:flex-row sm:gap-24", {
@@ -397,7 +397,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       {item.preHeading}
                     </Heading>
                     <Heading tag="h3">{item.heading}</Heading>
-                    <Paragraph className="line-clamp-6">{item.content}</Paragraph>
+                    <Paragraph>{item.content}</Paragraph>
                   </div>
                 </div>
               </div>
