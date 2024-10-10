@@ -196,7 +196,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                   href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
                   className="max-w-[30rem]"
                 >
-                  <Card className="group rounded-3xl border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
+                  <Card className="group rounded-3xl h-full border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
                     <StackedImageCard
                       className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-100/20 text-themed-primary"
                       images={
