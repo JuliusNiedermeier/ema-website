@@ -20,12 +20,8 @@ const programLearningFieldsComparisonQuery = groq`*[_type == "educational-progra
     _id,
     slug,
     name,
-    "subjects": select(subjects[] -> {
-      _id,
-      name,
-      isLearningField
-    }) [isLearningField == true]
-  } [count(subjects) > 0]
+    learningFields
+  } [count(learningFields) > 0]
 }`;
 
 export type ProgramLearningFieldsComparisonProps = ComponentProps<"div"> & {};
@@ -70,15 +66,15 @@ export const ProgramLearningFieldsComparison: FC<ProgramLearningFieldsComparison
           </Link>
           <div className="flex-1 rounded-t-3xl bg-themed-secondary p-8">
             <IconList>
-              {program.subjects?.map((subject) => (
+              {program.learningFields?.map((learningField) => (
                 <IconListItem align="top">
                   <IconListItemIcon>
                     <div className="rounded-md border border-neutral-100/10 bg-themed-primary px-2 py-px shadow">
-                      <Label className="text-small">LF 1</Label>
+                      <Label className="text-small">{learningField.short}</Label>
                     </div>
                   </IconListItemIcon>
                   <IconListItemContent>
-                    <Label>{subject.name}</Label>
+                    <Label>{learningField.long}</Label>
                   </IconListItemContent>
                 </IconListItem>
               ))}

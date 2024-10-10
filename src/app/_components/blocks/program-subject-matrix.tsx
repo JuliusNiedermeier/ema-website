@@ -15,11 +15,7 @@ const programSubjectMatrixProgramsQuery = groq`*[_type == "educational-program-t
   "programs": *[_type == "educational-program" && educationalProgramType._ref == ^._id] | order(order asc) {
     _id,
     name,
-    "subjects": select(subjects[] -> {
-      _id,
-      name,
-      isLearningField
-    }) [isLearningField != true]
+    subjects[] ->
   }
 }`;
 

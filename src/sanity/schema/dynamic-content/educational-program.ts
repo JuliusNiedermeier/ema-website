@@ -238,6 +238,37 @@ export const educationalProgram: SchemaTypeDef = {
       }),
 
       defineField({
+        name: "learningFields",
+        title: "Lernfelder",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "learning-field",
+            title: "Lernfeld",
+            type: "object",
+            fields: [
+              defineField({
+                name: "short",
+                title: "Abkürzung",
+                type: "string",
+              }),
+              defineField({
+                name: "long",
+                title: "Bezeichnung",
+                type: "string",
+              }),
+            ],
+            preview: {
+              select: {
+                title: "short",
+                subtitle: "long",
+              },
+            },
+          }),
+        ],
+      }),
+
+      defineField({
         name: "showHighlightLink",
         title: "Link zu einer Highlight-Seite anzeigen",
         type: "boolean",

@@ -15,11 +15,6 @@ export const subjectType: SchemaTypeDef = {
         title: "Name",
         type: "string",
       }),
-      defineField({
-        name: "isLearningField",
-        title: "Ist dies ein Lernfeld?",
-        type: "boolean",
-      }),
     ],
   }),
 };

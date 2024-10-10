@@ -324,18 +324,16 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
                 <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
                   <IconList className="gap-3">
-                    {program.subjects
-                      ?.filter((subject) => !subject.isLearningField)
-                      .map((subject, index) => (
-                        <IconListItem key={index} align="top">
-                          <IconListItemIcon>
-                            <CheckIcon />
-                          </IconListItemIcon>
-                          <IconListItemContent>
-                            <Label className="break-all">{subject.name}</Label>
-                          </IconListItemContent>
-                        </IconListItem>
-                      ))}
+                    {program.subjects?.map((subject, index) => (
+                      <IconListItem key={index} align="top">
+                        <IconListItemIcon>
+                          <CheckIcon />
+                        </IconListItemIcon>
+                        <IconListItemContent>
+                          <Label className="break-all">{subject.name}</Label>
+                        </IconListItemContent>
+                      </IconListItem>
+                    ))}
                   </IconList>
                 </Card>
 
@@ -345,20 +343,18 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                     <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
                   </div>
                   <IconList className="mt-4 gap-3">
-                    {program.subjects
-                      ?.filter((subject) => subject.isLearningField)
-                      .map((subject, index) => (
-                        <IconListItem key={index} align="top">
-                          <IconListItemIcon>
-                            <div className="rounded-md border border-neutral-100/10 bg-themed-secondary px-2 py-px shadow">
-                              <Label className="text-small">LF 1</Label>
-                            </div>
-                          </IconListItemIcon>
-                          <IconListItemContent>
-                            <Label className="break-all">{subject.name}</Label>
-                          </IconListItemContent>
-                        </IconListItem>
-                      ))}
+                    {program.learningFields?.map((learningField, index) => (
+                      <IconListItem key={index} align="top">
+                        <IconListItemIcon>
+                          <div className="rounded-md border border-neutral-100/10 bg-themed-secondary px-2 py-px shadow">
+                            <Label className="text-small">{learningField.short}</Label>
+                          </div>
+                        </IconListItemIcon>
+                        <IconListItemContent>
+                          <Label className="break-all">{learningField.long}</Label>
+                        </IconListItemContent>
+                      </IconListItem>
+                    ))}
                   </IconList>
                 </Card>
               </Card>
