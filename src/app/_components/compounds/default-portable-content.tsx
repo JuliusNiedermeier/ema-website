@@ -102,7 +102,7 @@ export const portableTextComponents: Components = {
       return (
         <Link href={`/bildungswege/${props.value.educationalProgramType?.slug?.current}`} className="group">
           <Card
-            className="my-16 rounded-3xl border border-neutral-400 bg-transparent p-2 transition-colors group-hover:border-neutral-900"
+            className="my-16 rounded-3xl border border-neutral-400 p-2 transition-colors group-hover:border-neutral-900"
             style={createColorThemeStyles(ensureValidHSL(props.value.educationalProgramType?.color?.hsl))}
           >
             <div className="p-6 text-center">
@@ -133,7 +133,7 @@ export const portableTextComponents: Components = {
       return (
         <Link href={`/bildungswege/${props.value.educationalProgram?.slug?.current}`} className="group">
           <Card
-            className="my-16 rounded-3xl border border-neutral-400 bg-transparent p-2 transition-colors group-hover:border-neutral-900"
+            className="my-16 rounded-3xl border border-neutral-400 p-2 transition-colors group-hover:border-neutral-900"
             style={createColorThemeStyles(
               ensureValidHSL(props.value.educationalProgram?.educationalProgramType?.color?.hsl),
             )}
