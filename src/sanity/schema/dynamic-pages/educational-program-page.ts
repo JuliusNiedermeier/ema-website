@@ -27,46 +27,42 @@ export const educationalProgramPage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "programDetails",
-        title: "Details",
+        name: "durationAndTrainingTypeHeading",
+        title: "Dauer und Ausbildungsart - Überschrift",
+        type: "string",
+      }),
+
+      defineField({
+        name: "lessonTimesHeading",
+        title: "Unterrichtszeiten - Überschrift",
+        type: "string",
+      }),
+
+      defineField({
+        name: "holidaysHeading",
+        title: "Ferien - Überschrift",
+        type: "string",
+      }),
+
+      defineField({
+        name: "startDate",
+        title: "Ausbildungsbeginn",
         type: "object",
         fields: [
           defineField({
-            name: "durationAndTypeHeading",
-            title: "Dauer und Ausbildungsart - Überschrift",
+            name: "heading",
+            title: "überschrift",
             type: "string",
           }),
           defineField({
-            name: "lessonTimesHeading",
-            title: "Unterrichtszeiten - Überschrift",
+            name: "applyButtonLabel",
+            title: "Bewerbungbutton Text",
             type: "string",
           }),
           defineField({
-            name: "holidaysHeading",
-            title: "Ferien - Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "startDate",
-            title: "Ausbildungsbeginn",
-            type: "object",
-            fields: [
-              defineField({
-                name: "heading",
-                title: "überschrift",
-                type: "string",
-              }),
-              defineField({
-                name: "applyButtonLabel",
-                title: "Bewerbungbutton Text",
-                type: "string",
-              }),
-              defineField({
-                name: "backgroundGraphic",
-                title: "Hintergrundgrafik",
-                type: "default-image",
-              }),
-            ],
+            name: "backgroundGraphic",
+            title: "Hintergrundgrafik",
+            type: "default-image",
           }),
         ],
       }),
@@ -139,6 +135,29 @@ export const educationalProgramPage: SchemaTypeDef = {
                 type: "default-image",
               }),
             ],
+          }),
+        ],
+      }),
+
+      defineField({
+        name: "comparisonCTA",
+        title: "Call-To-Action für die Vergleichsseite",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
+          }),
+          defineField({
+            name: "linkLabel",
+            title: "Link-text",
+            type: "string",
           }),
         ],
       }),

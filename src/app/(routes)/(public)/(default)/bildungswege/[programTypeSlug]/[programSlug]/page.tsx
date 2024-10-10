@@ -52,12 +52,9 @@ const programPageSlugsQuery = groq`*[_type == "educational-program"]{
 
 const programPageQuery = groq`*[_type == "educational-program-page"][0]{
   ...,
-  programDetails {
+  startDate {
     ...,
-    startDate {
-      ...,
-      backgroundGraphic { alt, asset -> { url } }
-    }
+    backgroundGraphic { alt, asset -> { url } }
   },
   prerequisites {
     ...,
@@ -274,19 +271,19 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <div className="flex flex-col md:flex-[2]">
                 <EducationalProgramDetails
                   className="flex-1"
-                  durationHeading={programPage.programDetails?.durationAndTypeHeading || ""}
-                  holidaysHeading={programPage.programDetails?.holidaysHeading || ""}
-                  lessonTimesHeading={programPage.programDetails?.lessonTimesHeading || ""}
-                  startDateHeading={programPage.programDetails?.startDate?.heading || ""}
+                  durationHeading={programPage.durationAndTrainingTypeHeading || ""}
+                  holidaysHeading={programPage.holidaysHeading || ""}
+                  lessonTimesHeading={programPage.lessonTimesHeading || ""}
+                  startDateHeading={programPage.startDate?.heading || ""}
                   trainingType={program.trainingType || ""}
                   duration={program.duration || ""}
                   startEndTime={[program.lessonTimes?.start || "", program.lessonTimes?.end || ""]}
                   holidays={program.holidays || ""}
                   startDate={program.startDate || ""}
-                  applyButtonLabel={programPage.programDetails?.startDate?.applyButtonLabel || ""}
+                  applyButtonLabel={programPage.startDate?.applyButtonLabel || ""}
                   startDateBackgroundGraphic={{
-                    url: programPage.programDetails?.startDate?.backgroundGraphic?.asset?.url || "",
-                    alt: programPage.programDetails?.startDate?.backgroundGraphic?.alt || "",
+                    url: programPage.startDate?.backgroundGraphic?.asset?.url || "",
+                    alt: programPage.startDate?.backgroundGraphic?.alt || "",
                   }}
                 />
 
@@ -426,10 +423,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 }
               />
               <div className="flex-1 p-6 text-left">
-                <Heading>{programPage.prerequisites?.checkupCTA?.heading}</Heading>
-                <Paragraph>{programPage.prerequisites?.checkupCTA?.description}</Paragraph>
+                <Heading>{programPage.comparisonCTA?.heading}</Heading>
+                <Paragraph>{programPage.comparisonCTA?.description}</Paragraph>
                 <Button size="sm" className="mt-6 gap-4 pr-1">
-                  <Label>{programPage.prerequisites?.checkupCTA?.linkLabel}</Label>
+                  <Label>{programPage.comparisonCTA?.linkLabel}</Label>
                   <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
                 </Button>
               </div>
