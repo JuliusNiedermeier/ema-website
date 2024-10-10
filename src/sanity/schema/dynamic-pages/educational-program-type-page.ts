@@ -21,14 +21,6 @@ export const educationalProgramTypePage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "testimonialsHeading",
-        title: "Testimonials-Überschrift",
-        description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
-        type: "string",
-        validation: (r) => r.required().min(3).max(40),
-      }),
-
-      defineField({
         name: "faqHeading",
         title: "FAQs-Überschrift",
         description: "10-40 Zeichen",
