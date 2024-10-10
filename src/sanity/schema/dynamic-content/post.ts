@@ -11,7 +11,7 @@ export const post: SchemaTypeDef = {
     icon: PenLineIcon,
     fields: [
       defineField({
-        name: "title",
+        name: "name",
         title: "Titel",
         type: "string",
       }),
@@ -57,7 +57,7 @@ export const post: SchemaTypeDef = {
     preview: {
       select: {
         media: "mainImage",
-        title: "title",
+        title: "name",
         author: "author.name",
         publishedAt: "publishedAt",
       },

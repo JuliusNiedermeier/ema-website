@@ -38,7 +38,7 @@ const homePageQuery = groq`*[_type == "home-page"][0]{
 }`;
 
 const featuredPostsQuery = groq`*[_type == "post"][0...3]{
-  title,
+  name,
   mainImage { alt, asset -> { url } },
   slug,
   category ->,
@@ -159,7 +159,7 @@ const HomePage: FC = async () => {
             heading={homePage.featuredPosts?.heading || ""}
             allPostsLabel={homePage.featuredPosts?.allPostsLabel || ""}
             posts={featuredPosts.map((post) => ({
-              title: post.title || "",
+              title: post.name || "",
               image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
               slug: post.slug?.current || "",
               category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },

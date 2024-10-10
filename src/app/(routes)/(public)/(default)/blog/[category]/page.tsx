@@ -31,7 +31,7 @@ const blogPageQuery = groq`*[_type == "blog-page"][0] {
 const postsQuery = groq`*[_type == "post" && (!defined($category) || category->slug.current == $category)] | order(publishedAt desc) {
   _id,
   slug,
-  title,
+  name,
   mainImage{ alt, asset ->{url}},
   publishedAt,
   category->,
@@ -106,7 +106,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
               </PostCardThumbnail>
               <PostCardContent className="md:mt-4">
                 <PostCardTitle size="lg" className="max-w-[40rem]">
-                  {latestPost.title}
+                  {latestPost.name}
                 </PostCardTitle>
                 <PostCardMeta>
                   <AuthorTag>
@@ -140,7 +140,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                 <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </PostCardThumbnail>
               <PostCardContent>
-                <PostCardTitle className="max-w-60">{post.title}</PostCardTitle>
+                <PostCardTitle className="max-w-60">{post.name}</PostCardTitle>
                 <PostCardMeta>
                   <AuthorTag>
                     <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />

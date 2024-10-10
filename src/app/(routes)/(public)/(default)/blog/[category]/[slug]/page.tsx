@@ -31,7 +31,7 @@ const postQuery = groq`*[_type == "post" && category->slug.current == $category 
 }`;
 
 const relatedPostsQuery = groq`*[_type == "post" && category._ref == $currentPostCategoryID && _id != $currentPostID][0...3]{
-  title,
+  name,
   mainImage { 
     alt,
     asset -> { url }
@@ -77,7 +77,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           <Chip>
             <Label>{post.category?.title}</Label>
           </Chip>
-          <Heading className="mt-8 sm:mt-16 sm:text-center">{post.title}</Heading>
+          <Heading className="mt-8 sm:mt-16 sm:text-center">{post.name}</Heading>
           <PostCardMeta>
             <AuthorTag>
               <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
@@ -133,7 +133,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           heading={postPage?.relatedPosts?.heading || ""}
           allPostsLabel={postPage?.relatedPosts?.allPostsLabel || ""}
           posts={relatedPosts.map((post) => ({
-            title: post.title || "",
+            title: post.name || "",
             image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
             slug: post.slug?.current || "",
             category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
