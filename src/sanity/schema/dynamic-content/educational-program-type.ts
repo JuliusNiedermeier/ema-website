@@ -52,14 +52,6 @@ export const educationalProgramType: SchemaTypeDef = {
         validation: (r) => r.required().min(100).max(500),
       }),
       defineField({
-        name: "readMoreLabel",
-        title: "Preview-Link-Text",
-        description:
-          "5-20 Zeichen. Link-Text, der von anderen Seiten auf diesen Bildungsweg verweist. Zum Beispiel 'Mehr erfahren'.",
-        type: "string",
-        validation: (r) => r.required().min(5).max(20),
-      }),
-      defineField({
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
