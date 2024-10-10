@@ -61,6 +61,11 @@ export const post: SchemaTypeDef = {
         author: "author.name",
         publishedAt: "publishedAt",
       },
+      prepare: ({ media, title, author, publishedAt }) => ({
+        media,
+        title,
+        subtitle: `${new Date(publishedAt).toLocaleDateString("de")} - ${author}`,
+      }),
     },
   }),
 };
