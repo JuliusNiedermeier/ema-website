@@ -147,26 +147,11 @@ export const educationalProgramType: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "alternatives",
-        title: "Andere Bildungswege",
-        description: "Hier werden alle anderen möglichen Bildungswege aufgelistet.",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "50-300 Zeichen",
-            type: "text",
-            validation: (r) => r.required().min(50).max(200),
-          }),
-        ],
+        name: "alternativesIntroduction",
+        title: "Einleitung über den alternativen Bildungswegen",
+        description: "50-300 Zeichen",
+        type: "text",
+        validation: (r) => r.required().min(50).max(200),
       }),
     ],
     preview: {

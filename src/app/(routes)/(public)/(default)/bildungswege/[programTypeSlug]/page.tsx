@@ -246,8 +246,8 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </Container>
 
         <Container width="narrow" className="mt-40 text-center">
-          <Heading className="">{programType.alternatives?.heading}</Heading>
-          <Paragraph className="">{programType.alternatives?.description}</Paragraph>
+          <Heading className="">{programTypePage?.alternativesHeading}</Heading>
+          <Paragraph className="">{programType.alternativesIntroduction}</Paragraph>
         </Container>
 
         <Container width="narrow">
