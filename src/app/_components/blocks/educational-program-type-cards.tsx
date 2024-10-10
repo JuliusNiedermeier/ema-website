@@ -28,7 +28,7 @@ export const EducationalProgramTypeCards: FC<EducationalProgramTypeCardsProps> =
     <LinkCardCollection {...restProps}>
       {programTypes.map((type) => (
         <Link key={type._id} href={`/bildungswege/${type.slug?.current}`}>
-          <LinkCard style={createColorThemeStyles(ensureValidHSL(type.color?.hsl))}>
+          <LinkCard style={createColorThemeStyles(ensureValidHSL(type.color?.hsl))} className="h-full">
             <InteractionBubble animated={false} className="bg-themed-primary text-primary-900" />
             <LinkCardContent>
               <LinkCardTitle>{type.name}</LinkCardTitle>
