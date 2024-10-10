@@ -112,8 +112,8 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
         </Suspense>
 
         <div className="mt-24">
-          <Heading>{postPage?.educationalProgramTypes?.heading}</Heading>
-          <Paragraph>{postPage?.educationalProgramTypes?.description}</Paragraph>
+          <Heading>{post.educationalProgramTypes?.heading}</Heading>
+          <Paragraph>{post.educationalProgramTypes?.introduction}</Paragraph>
         </div>
 
         <EducationalProgramTypeCards className="mt-16" />

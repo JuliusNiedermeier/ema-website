@@ -52,28 +52,6 @@ export const postPage: SchemaTypeDef = {
           },
         ],
       }),
-      defineField({
-        name: "educationalProgramTypes",
-        title: "Bildungswege",
-        description: "Liste aller Bildungswege am Ende des Beitrags.",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "3-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(3).max(40),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "50-200 Zeichen",
-            type: "text",
-            validation: (r) => r.required().min(50).max(200),
-          }),
-        ],
-      }),
     ],
     preview: {
       prepare: () => ({ title: "Blogbeitrag" }),
