@@ -109,33 +109,6 @@ export const educationalProgramPage: SchemaTypeDef = {
             title: "Label zwischen Vorraussetzungepaketen",
             type: "string",
           }),
-          defineField({
-            name: "checkupCTA",
-            title: "Checkup CTA",
-            type: "object",
-            fields: [
-              defineField({
-                name: "heading",
-                title: "Überschrift",
-                type: "string",
-              }),
-              defineField({
-                name: "description",
-                title: "Beschreibung",
-                type: "text",
-              }),
-              defineField({
-                name: "linkLabel",
-                title: "Link-text",
-                type: "string",
-              }),
-              defineField({
-                name: "image",
-                title: "Bild",
-                type: "default-image",
-              }),
-            ],
-          }),
         ],
       }),
 
