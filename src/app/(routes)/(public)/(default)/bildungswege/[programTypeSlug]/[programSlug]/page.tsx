@@ -320,14 +320,12 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </div>
 
               <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
-                <GradientStroke className="ml-[50%] flex-1" />
-
-                <Card className="text-center">
+                <Card className="mt-auto py-12">
                   <Heading>{programPage.subjects?.heading}</Heading>
                   <Paragraph>{programPage.subjects?.description}</Paragraph>
                 </Card>
 
-                <Card className="-mb-8 mt-12 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
+                <Card className="-mb-8 border border-themed-secondary/50 bg-themed-secondary/20 pb-16">
                   <IconList className="gap-3">
                     {program.subjects
                       ?.filter((subject) => !subject.isLearningField)
