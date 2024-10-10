@@ -12,6 +12,12 @@ export const educationalProgramPage: SchemaTypeDef = {
     groups: [],
     fields: [
       defineField({
+        name: "detailsHeading",
+        title: "Überschrift der Bildungsgang-Beschreibung",
+        type: "string",
+      }),
+
+      defineField({
         name: "programDetails",
         title: "Details",
         type: "object",

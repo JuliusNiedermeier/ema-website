@@ -265,8 +265,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </GradientStrokeIcon>
             <div className="mt-16 text-center">
-              <Heading>{program.detailsIntroduction?.heading}</Heading>
-              <Paragraph>{program.detailsIntroduction?.description}</Paragraph>
+              <Heading>{programPage.detailsHeading}</Heading>
+              <Paragraph>{program.detailsIntroduction}</Paragraph>
             </div>
           </Container>
           <Container className="mt-24">

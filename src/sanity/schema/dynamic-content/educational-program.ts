@@ -148,25 +148,14 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "detailsIntroduction",
         title: "Einleitung der Bildungsgang-Beschreibung",
         description:
           "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
-        type: "object",
+        type: "text",
         group: "information-gallery",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-        ],
       }),
 
       defineField({
