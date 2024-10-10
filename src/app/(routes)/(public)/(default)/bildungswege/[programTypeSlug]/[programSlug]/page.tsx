@@ -479,8 +479,8 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
         <EndOfPageCTA
           className="mt-12"
-          heading={program.alternatives?.heading || ""}
-          description={program.alternatives?.description || ""}
+          heading={programPage.alternativesHeading || ""}
+          description={program.alternativesIntroduction || ""}
         >
           <Container>
             <ProgramGrid />

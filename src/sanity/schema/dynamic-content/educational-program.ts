@@ -374,29 +374,15 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
-        name: "alternatives",
-        title: "Andere Bildungsgänge",
-        description: "Hier werden alle anderen Bildungsgänge aufgelistet.",
-        type: "object",
-        group: "closing-section",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            description: "50-300 Zeichen",
-            type: "text",
-            validation: (r) => r.required().min(50).max(200),
-          }),
-        ],
+        name: "alternativesIntroduction",
+        title: "Einleitung über den alternativen Bildungsgängen",
+        description: "50-300 Zeichen",
+        type: "text",
+        validation: (r) => r.required().min(50).max(200),
       }),
+
       defineField({
         name: "fees",
         type: "program-fees",

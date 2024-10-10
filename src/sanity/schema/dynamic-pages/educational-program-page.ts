@@ -155,6 +155,14 @@ export const educationalProgramPage: SchemaTypeDef = {
         title: "Text für den Link zur Schulbeitragsseite",
         type: "string",
       }),
+
+      defineField({
+        name: "alternativesHeading",
+        title: "Überschrift zu den alternativen Bildungsgängen",
+        description: "10-40 Zeichen",
+        type: "string",
+        validation: (r) => r.required().min(10).max(40),
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Bildungsgang" }),
