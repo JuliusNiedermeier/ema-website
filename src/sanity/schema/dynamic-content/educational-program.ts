@@ -30,17 +30,20 @@ export const educationalProgram: SchemaTypeDef = {
         group: "hero",
         validation: (r) => r.required().min(5).max(30),
       }),
+
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
         group: "hero",
       }),
+
       defineField({
         name: "order",
         title: "Reihenfolge",
         type: "educational-program-order",
       }),
+
       defineField({
         name: "educationalProgramType",
         title: "Bildungsweg",
@@ -50,6 +53,7 @@ export const educationalProgram: SchemaTypeDef = {
         group: "hero",
         validation: (r) => r.required(),
       }),
+
       defineField({
         name: "slogan",
         title: "Bildungsgang Slogan",
@@ -59,6 +63,7 @@ export const educationalProgram: SchemaTypeDef = {
         group: "hero",
         validation: (r) => r.required().min(10).max(40),
       }),
+
       defineField({
         name: "teaser",
         title: "Einleitende Kurzbeschreibung",
@@ -67,6 +72,7 @@ export const educationalProgram: SchemaTypeDef = {
         group: "hero",
         validation: (r) => r.required().min(50).max(300),
       }),
+
       defineField({
         name: "highlights",
         title: "Highlights des Bildungsgangs",
@@ -104,12 +110,14 @@ export const educationalProgram: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
         group: "details",
       }),
+
       defineField({
         name: "followUpPrograms",
         title: "Welche Bildungsgänge der EMA können im Anschluss absolviert werden?",
@@ -354,7 +362,7 @@ export const educationalProgram: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "FAQs",
+        name: "faq",
         title: "FAQ - Frequently Asked Questions",
         description: "Die häufigsten Fragen zu diesem Bildungsgang können hier beantwortet werden.",
         type: "object",

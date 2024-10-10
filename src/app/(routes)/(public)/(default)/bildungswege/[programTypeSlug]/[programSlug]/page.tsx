@@ -449,11 +449,11 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
         <Container className="mt-48 sm:mt-64" width="narrow">
           <Heading className="text-center">{programPage.faqHeading}</Heading>
-          <Paragraph>{program.FAQs?.introduction}</Paragraph>
+          <Paragraph>{program.faq?.introduction}</Paragraph>
           <div className="mt-16">
             <BasicAccordion
               items={
-                program.FAQs?.faq?.map(({ question, answer }) => ({
+                program.faq?.faq?.map(({ question, answer }) => ({
                   title: question || "",
                   content: answer || "",
                 })) || []
