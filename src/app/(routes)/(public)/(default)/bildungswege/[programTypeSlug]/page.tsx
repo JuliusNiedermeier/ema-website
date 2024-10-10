@@ -5,6 +5,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import {
+  ProgramTypeContentQueryResult,
   ProgramTypePageProgramsQueryResult,
   ProgramTypePageQueryResult,
 } from "../../../../../../../generated/sanity/types";
@@ -34,7 +35,9 @@ import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
-const programTypePageQuery = groq`*[_type == "educational-program-type" && slug.current == $slug][0]{
+const programTypePageQuery = groq`*[_type == "educational-program-type-page"][0]`;
+
+const programTypeContentQuery = groq`*[_type == "educational-program-type" && slug.current == $slug][0]{
   ...,
   certificate {
     ...,
@@ -82,7 +85,12 @@ type Props = { params: Params };
 const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug } }) => {
   const slug = decodeURIComponent(programTypeSlug);
 
-  const programTypePromise = sanityFetch<ProgramTypePageQueryResult>(programTypePageQuery, {
+  const programTypePagePromise = sanityFetch<ProgramTypePageQueryResult>(programTypePageQuery, {
+    params: { slug },
+    tags: ["educational-program-type"],
+  });
+
+  const programTypePromise = sanityFetch<ProgramTypeContentQueryResult>(programTypeContentQuery, {
     params: { slug },
     tags: ["educational-program-type"],
   });
@@ -92,7 +100,11 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
     tags: ["educational-program-type", "educational-program"],
   });
 
-  const [programType, programs] = await Promise.all([programTypePromise, programsPromise]);
+  const [programTypePage, programType, programs] = await Promise.all([
+    programTypePagePromise,
+    programTypePromise,
+    programsPromise,
+  ]);
 
   if (!programType) notFound();
 
@@ -186,7 +198,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
           </GradientStrokeIcon>
           <Container width="narrow" className="mt-16 text-center">
             <Heading>{programType.educationalPrograms?.heading}</Heading>
-            <Paragraph>{programType.educationalPrograms?.description}</Paragraph>
+            <Paragraph>{programType.educationalPrograms?.introduction}</Paragraph>
           </Container>
           <Container className="mt-16">
             <LinkCardCollection className="justify-center">
@@ -196,7 +208,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                   href={`/bildungswege/${programType.slug?.current}/${program.slug?.current}`}
                   className="max-w-[30rem]"
                 >
-                  <Card className="group rounded-3xl h-full border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
+                  <Card className="group h-full rounded-3xl border-none bg-themed-primary p-2 transition-colors hover:bg-themed-secondary">
                     <StackedImageCard
                       className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-100/20 text-themed-primary"
                       images={
@@ -224,7 +236,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
       <Section connect="top" className="bg-neutral-100">
         <Container width="narrow" className="pb-24 pt-64">
-          <Heading className="text-center">{programType.faq?.heading}</Heading>
+          <Heading className="text-center">{programTypePage?.faqHeading}</Heading>
           <BasicAccordion
             className="mt-16"
             items={

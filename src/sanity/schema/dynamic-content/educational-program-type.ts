@@ -18,16 +18,19 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(30),
       }),
+
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
       }),
+
       defineField({
         name: "order",
         title: "Reihenfolge",
         type: "educational-program-type-order",
       }),
+
       defineField({
         name: "color",
         title: "Farbe",
@@ -36,6 +39,7 @@ export const educationalProgramType: SchemaTypeDef = {
         options: { disableAlpha: true },
         validation: (r) => r.required(),
       }),
+
       defineField({
         name: "slogan",
         title: "Bildungsweg Slogan",
@@ -43,6 +47,7 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(10).max(40),
       }),
+
       defineField({
         name: "teaser",
         title: "Teaser",
@@ -51,11 +56,13 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "text",
         validation: (r) => r.required().min(100).max(500),
       }),
+
       defineField({
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
       }),
+
       defineField({
         name: "followUpProgramTypes",
         title: "Welche Bildungswege der EMA können im Anschluss gegangen werden?",
@@ -94,6 +101,7 @@ export const educationalProgramType: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "educationalPrograms",
         title: "Liste der Bildungsgänge",
@@ -108,7 +116,7 @@ export const educationalProgramType: SchemaTypeDef = {
             validation: (r) => r.required().min(10).max(40),
           }),
           defineField({
-            name: "description",
+            name: "introduction",
             title: "Beschreibung",
             description: "20-200 Zeichen. Kurze Beschreibung oder Unterüberschrift zu diesem Bereich.",
             type: "text",
@@ -116,6 +124,7 @@ export const educationalProgramType: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "faq",
         title: "FAQ - Frequently Asked Questions",
@@ -123,11 +132,11 @@ export const educationalProgramType: SchemaTypeDef = {
         type: "object",
         fields: [
           defineField({
-            name: "heading",
-            title: "Überschrift",
-            description: "10-40 Zeichen",
-            type: "string",
-            validation: (r) => r.required().min(10).max(40),
+            name: "introduction",
+            title: "Beschreibung",
+            description: "10-200 Zeichen",
+            type: "text",
+            validation: (r) => r.required().min(10).max(200),
           }),
           defineField({
             name: "items",
@@ -136,6 +145,7 @@ export const educationalProgramType: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "alternatives",
         title: "Andere Bildungswege",
