@@ -18,7 +18,7 @@ const postContentQuery = groq`*[_type == "post" && slug.current == $slug][0]{
           slogan,
           color,
           slug,
-          readMoreLabel
+          "readMoreLabel": *[_type == "educational-program-type-page"][0].readMoreLabel
         }
       },
       _type == "portableEducationalProgramCTA" => {
@@ -27,7 +27,7 @@ const postContentQuery = groq`*[_type == "post" && slug.current == $slug][0]{
           name,
           slogan,
           slug,
-          readMoreLabel,
+          "readMoreLabel": *[_type == "educational-program-page"][0].readMoreLabel,
           educationalProgramType -> {
             name,
             color
