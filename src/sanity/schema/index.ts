@@ -43,6 +43,7 @@ import { infoBannerConfigType } from "./global-components/info-banner";
 import { defaultImage } from "./internal/default-image";
 import { educationalProgramTypeOrder } from "./internal/educational-program-type-order";
 import { educationalProgramOrder } from "./internal/educational-program-order";
+import { educationalProgramTypePage } from "./dynamic-pages/educational-program-type-page";
 
 export type SchemaTypeDef = {
   type:
@@ -76,6 +77,7 @@ const typeDefs = [
   // Dynamic pages
   postPage,
   educationalProgramPage,
+  educationalProgramTypePage,
 
   // Dynmaic content
   educationalProgramType,
