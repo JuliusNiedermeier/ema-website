@@ -393,6 +393,7 @@ export const educationalProgram: SchemaTypeDef = {
       select: {
         title: "name",
         subtitle: "educationalProgramType.name",
+        media: "highlights.0.image",
       },
     },
   }),
