@@ -17,7 +17,8 @@ import { Metadata } from "next";
 const publicLayoutSiteSettingsMetaQuery = groq`*[_type == "website-settings"][0] {
   websiteTitle,
   websiteDescription,
-  preventIndexing
+  preventIndexing,
+  favicon { asset -> { url } }
 }`;
 
 const publicLayoutSiteSettingsQuery = groq`*[_type == "website-settings"][0]{
@@ -33,6 +34,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
     title: siteSettings?.websiteTitle,
     description: siteSettings?.websiteDescription,
     robots: { index: !siteSettings?.preventIndexing },
+    icons: {
+      icon: siteSettings?.favicon?.asset?.url || "",
+    },
   };
 };
 
