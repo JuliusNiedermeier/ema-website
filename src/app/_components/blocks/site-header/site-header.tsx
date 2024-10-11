@@ -21,12 +21,21 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { SiteHeaderQueryResult } from "../../../../../generated/sanity/types";
 
-export const siteHeaderQuery = groq`*[_type == "header-config"][0]`;
+export const siteHeaderQuery = groq`*[_type == "header-config"][0] {
+  educationalProgramsMenuLabel,
+  aboutMenuLabel,
+  CTALabel,
+  "homeLabel": *[_type == "home-page"][0].navigationLabel,
+  "blogLabel": *[_type == "blog-page"][0].navigationLabel,
+  "contactLabel": *[_type == "contact-page"][0].navigationLabel
+}`;
 
 export type SiteHeaderProps = ComponentProps<"header"> & {};
 
 export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps }) => {
-  const headerConfig = await sanityFetch<SiteHeaderQueryResult>(siteHeaderQuery, { tags: ["header-config"] });
+  const headerConfig = await sanityFetch<SiteHeaderQueryResult>(siteHeaderQuery, {
+    tags: ["header-config", "home-page", "blog-page", "contact-page"],
+  });
 
   return (
     <NavigationMenu asChild>
@@ -40,19 +49,19 @@ export const SiteHeader: FC<SiteHeaderProps> = async ({ className, ...restProps 
 
             <NavigationMenuList className="text-sm flex h-full items-stretch font-medium">
               <div className="hidden xl:contents">
-                <NavigationMenuItem label={headerConfig?.navLinks?.home || ""} href="/" exact />
+                <NavigationMenuItem label={headerConfig?.homeLabel || ""} href="/" exact />
                 <NavigationMenuItem
-                  label={headerConfig?.navLinks?.about || ""}
+                  label={headerConfig?.aboutMenuLabel || ""}
                   href="/about"
                   menuContent={<AboutMenu className="max-h-[70vh] overflow-y-auto" />}
                 />
                 <NavigationMenuItem
-                  label={headerConfig?.navLinks?.educationalProgramTypes || ""}
+                  label={headerConfig?.educationalProgramsMenuLabel || ""}
                   href="/bildungswege"
                   menuContent={<OffersMenu className="max-h-[70vh] overflow-y-auto" />}
                 />
-                <NavigationMenuItem label={headerConfig?.navLinks?.blog || ""} href="/blog/alle" />
-                <NavigationMenuItem label={headerConfig?.navLinks?.contact || ""} href="/kontakt" />
+                <NavigationMenuItem label={headerConfig?.blogLabel || ""} href="/blog/alle" />
+                <NavigationMenuItem label={headerConfig?.contactLabel || ""} href="/kontakt" />
 
                 <Button
                   href="/online-bewerbung"
