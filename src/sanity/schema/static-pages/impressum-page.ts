@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { BookUserIcon, ShieldIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const impressumPage: SchemaTypeDef = {
   type: "static-page",
@@ -10,6 +11,7 @@ export const impressumPage: SchemaTypeDef = {
     type: "document",
     icon: BookUserIcon,
     fields: [
+      navigationLabel,
       defineField({
         name: "content",
         title: "Inhalt",

@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { BriefcaseBusinessIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const jobsPage: SchemaTypeDef = {
   type: "static-page",
@@ -11,6 +12,7 @@ export const jobsPage: SchemaTypeDef = {
     icon: BriefcaseBusinessIcon,
     groups: [],
     fields: [
+      navigationLabel,
       defineField({
         name: "heading",
         title: "Überschrift",

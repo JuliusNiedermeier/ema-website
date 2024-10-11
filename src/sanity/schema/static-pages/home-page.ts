@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { HomeIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const homePage: SchemaTypeDef = {
   type: "static-page",
@@ -10,6 +11,7 @@ export const homePage: SchemaTypeDef = {
     type: "document",
     icon: HomeIcon,
     fields: [
+      navigationLabel,
       defineField({
         name: "heading",
         title: "Headline",

@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { TableColumnsSplitIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const comparisonPage: SchemaTypeDef = {
   type: "static-page",
@@ -10,6 +11,7 @@ export const comparisonPage: SchemaTypeDef = {
     type: "document",
     icon: TableColumnsSplitIcon,
     fields: [
+      navigationLabel,
       defineField({
         name: "preview",
         title: "Vorschau",

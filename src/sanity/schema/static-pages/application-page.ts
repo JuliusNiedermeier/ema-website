@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { MailCheckIcon, PartyPopperIcon, TextSelectIcon, UserRoundPlusIcon, XCircleIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const applicationPage: SchemaTypeDef = {
   type: "static-page",
@@ -10,13 +11,14 @@ export const applicationPage: SchemaTypeDef = {
     type: "document",
     icon: UserRoundPlusIcon,
     groups: [
-      { name: "form", title: "Formular", icon: TextSelectIcon },
-      { name: "verification", title: "Verifizierung", icon: MailCheckIcon },
-      { name: "error", title: "Fehler", icon: XCircleIcon },
-      { name: "success", title: "Erfolg", icon: PartyPopperIcon },
-      { name: "already-done", title: "Bereits abgeschlossen", icon: PartyPopperIcon },
+      { name: "form", title: "Formular" },
+      { name: "verification", title: "Verifizierung" },
+      { name: "error", title: "Fehler" },
+      { name: "success", title: "Erfolg" },
+      { name: "already-done", title: "Bereits abgeschlossen" },
     ],
     fields: [
+      navigationLabel,
       defineField({
         name: "heroImage",
         title: "Titelbild",
@@ -262,15 +264,19 @@ export const applicationPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "toHomePageLabel",
         title: "Text auf dem Button zur Startseite",
         type: "string",
+        group: "success",
       }),
+
       defineField({
         name: "applyAgainLabel",
         title: "Text auf dem Button zur erneuten Anmeldung",
         type: "string",
+        group: "success",
       }),
     ],
     preview: {

@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PersonStandingIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const campusPage: SchemaTypeDef = {
   type: "static-page",
@@ -11,11 +12,7 @@ export const campusPage: SchemaTypeDef = {
     icon: PersonStandingIcon,
     groups: [],
     fields: [
-      defineField({
-        name: "navigationLabel",
-        title: "Bezeichnung in der Seitennavigation",
-        type: "string",
-      }),
+      navigationLabel,
       defineField({
         name: "heading",
         title: "Überschrift",

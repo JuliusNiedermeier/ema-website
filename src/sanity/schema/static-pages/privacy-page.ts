@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { ShieldIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const privacyPage: SchemaTypeDef = {
   type: "static-page",
@@ -10,6 +11,7 @@ export const privacyPage: SchemaTypeDef = {
     type: "document",
     icon: ShieldIcon,
     fields: [
+      navigationLabel,
       defineField({
         name: "content",
         title: "Inhalt",

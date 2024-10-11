@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { LayoutListIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const blogPage: SchemaTypeDef = {
   type: "static-page",
@@ -11,6 +12,7 @@ export const blogPage: SchemaTypeDef = {
     icon: LayoutListIcon,
     groups: [],
     fields: [
+      navigationLabel,
       defineField({
         name: "preHeading",
         title: "Über-Überschrift",

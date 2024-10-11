@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PaletteIcon } from "lucide-react";
+import { navigationLabel } from "../partials/navigation-label";
 
 export const artPage: SchemaTypeDef = {
   type: "static-page",
@@ -11,11 +12,7 @@ export const artPage: SchemaTypeDef = {
     icon: PaletteIcon,
     groups: [],
     fields: [
-      defineField({
-        name: "navigationLabel",
-        title: "Bezeichnung in der Seitennavigation",
-        type: "string",
-      }),
+      navigationLabel,
       defineField({
         name: "heading",
         title: "Überschrift",
@@ -55,8 +52,18 @@ export const artPage: SchemaTypeDef = {
             type: "default-image",
             validation: (r) => r.required(),
           }),
-          defineField({ name: "leftImage", title: "Bild links", type: "default-image", validation: (r) => r.required() }),
-          defineField({ name: "rightImage", title: "Bild rechts", type: "default-image", validation: (r) => r.required() }),
+          defineField({
+            name: "leftImage",
+            title: "Bild links",
+            type: "default-image",
+            validation: (r) => r.required(),
+          }),
+          defineField({
+            name: "rightImage",
+            title: "Bild rechts",
+            type: "default-image",
+            validation: (r) => r.required(),
+          }),
         ],
       }),
       defineField({
