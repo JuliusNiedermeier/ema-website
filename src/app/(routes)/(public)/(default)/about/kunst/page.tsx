@@ -11,7 +11,6 @@ import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 
 const artPageQuery = groq`*[_type == "art-page"][0]{
   ...,
-  background { alt, asset -> { url } },
   artSubjects[] {
     ...,
     image { alt, asset -> { url } }
@@ -33,16 +32,16 @@ const ArtPage: FC = async () => {
 
   return (
     <>
-      <div className="bg-neutral-200 pb-40 pt-header">
+      <div className="bg-neutral-200 pt-header">
         <Container width="narrow" className="py-32 text-center">
           <Heading>{data.heading}</Heading>
           <Paragraph>{data.preview?.excerpt}</Paragraph>
         </Container>
       </div>
 
-      <ParalaxGallery items={galleryItems} className="-mt-40" />
+      <ParalaxGallery items={galleryItems} className="" />
 
-      <Container className="mt-48">
+      <Container width="narrow" className="mb-8 mt-24 md:mb-24 md:mt-48">
         <EndOfPageCTA
           heading={data.educationalProgramTypesCTA?.heading || ""}
           description={data.educationalProgramTypesCTA?.description || ""}
