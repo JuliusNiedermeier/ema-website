@@ -25,11 +25,34 @@ const footerEducationalProgramsQuery = groq`*[_type == "educational-program"] | 
 }`;
 
 const siteFooterQuery = groq`*[_type == "footer-config"][0] {
-  ...,
+  ctaHeading,
+  cta,
+  staticPageLinksHeading,
+  educationalProgramLinksHeading,
+  "staticPageLinks": {
+    "home": *[_type == "home-page"][0].navigationLabel,
+    "economySocial": *[_type == "economy-social-page"][0].navigationLabel,
+    "art": *[_type == "art-page"][0].navigationLabel,
+    "campus": *[_type == "campus-page"][0].navigationLabel,
+    "comparison": *[_type == "comparison-page"][0].navigationLabel,
+    "blog": *[_type == "blog-page"][0].navigationLabel,
+    "contact": *[_type == "contact-page"][0].navigationLabel,
+    "infoEvent": *[_type == "info-event-page"][0].navigationLabel,
+    "consulting": *[_type == "consulting-page"][0].navigationLabel,
+    "fees": *[_type == "fees-page"][0].navigationLabel,
+    "jobs": *[_type == "jobs-page"][0].navigationLabel,
+  },
+  "legalLinks": {
+    "privacy": *[_type == "privacy-page"][0].navigationLabel,
+    "impressum": *[_type == "impressum-page"][0].navigationLabel
+  },
   socialLinks[] {
-    ...,
-    logoIcon { alt, asset -> { url } }
-  }
+    platformName,
+    logoIcon { alt, asset -> { url } },
+    url
+  },
+  copyrightNotice,
+  cookieSettingsLabel
 }`;
 
 export type SiteFooterProps = ComponentProps<"div"> & {};
@@ -50,9 +73,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
     programs: programs.filter((program) => program.educationalProgramType?._ref === programType._id),
   }));
 
-  const academyLinkLabelMap = footerConfig?.linkSections?.academy?.links || {};
-
-  const academyLinkURLList: [keyof typeof academyLinkLabelMap, string][] = [
+  const academyLinkURLList: [keyof NonNullable<typeof footerConfig>["staticPageLinks"], string][] = [
     ["home", "/"],
     ["economySocial", "/about/wirtschaft-und-soziales"],
     ["art", "/about/kunst"],
@@ -98,17 +119,17 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
               </div>
               <div className="grid grid-cols-1 gap-16 sm:grid-cols-2">
                 <List>
-                  <ListHeading>{footerConfig?.linkSections?.academy?.heading}</ListHeading>
+                  <ListHeading>{footerConfig?.staticPageLinksHeading}</ListHeading>
                   <ListContent>
                     {academyLinkURLList.map(([key, URL], index) => (
                       <Link key={index} href={URL}>
-                        <ListContentItem>{academyLinkLabelMap[key]}</ListContentItem>
+                        <ListContentItem>{footerConfig?.staticPageLinks[key]}</ListContentItem>
                       </Link>
                     ))}
                   </ListContent>
                 </List>
                 <List>
-                  <ListHeading>{footerConfig?.linkSections?.programs?.heading}</ListHeading>
+                  <ListHeading>{footerConfig?.educationalProgramLinksHeading}</ListHeading>
                   <ListContent>
                     {programTypesWithPrograms.map((programType) => (
                       <Fragment key={programType._id}>
@@ -139,10 +160,10 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
               <div className="flex flex-col-reverse gap-4 sm:flex-row lg:items-center">
                 <div className="flex items-center gap-4 text-neutral-900-text-muted">
                   <Link href="/datenschutz">
-                    <Label>{footerConfig?.legalLinks?.privacy}</Label>
+                    <Label>{footerConfig?.legalLinks.privacy}</Label>
                   </Link>
                   <Link href="/impressum">
-                    <Label>{footerConfig?.legalLinks?.impressum}</Label>
+                    <Label>{footerConfig?.legalLinks.impressum}</Label>
                   </Link>
                 </div>
 

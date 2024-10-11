@@ -15,104 +15,25 @@ export const footerConfigType: SchemaTypeDef = {
         title: "CTA-Überschrift",
         type: "string",
       }),
+
       defineField({
         name: "cta",
         title: "Call-To-Action-Text",
         type: "string",
       }),
+
       defineField({
-        name: "linkSections",
-        title: "Link-Blöcke",
-        type: "object",
-        fields: [
-          defineField({
-            name: "academy",
-            title: "Akademie",
-            type: "object",
-            fields: [
-              defineField({
-                name: "heading",
-                title: "Überschrift",
-                type: "string",
-              }),
-              defineField({
-                name: "links",
-                title: "Links",
-                type: "object",
-                fields: [
-                  defineField({
-                    name: "home",
-                    title: "Home",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "economySocial",
-                    title: "Wirtschaft & Soziales",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "art",
-                    title: "Kunst",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "campus",
-                    title: "Deine Akademie. Unser Team.",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "comparison",
-                    title: "Vergleich",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "blog",
-                    title: "Blog",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "contact",
-                    title: "Kontakt",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "infoEvent",
-                    title: "Infoabend",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "consulting",
-                    title: "Persönliche Beratung",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "fees",
-                    title: "Schulbeitrag",
-                    type: "string",
-                  }),
-                  defineField({
-                    name: "jobs",
-                    title: "Offene Stellen",
-                    type: "string",
-                  }),
-                ],
-              }),
-            ],
-          }),
-          defineField({
-            name: "programs",
-            title: "Bildungswege",
-            type: "object",
-            fields: [
-              defineField({
-                name: "heading",
-                title: "Überschrift",
-                type: "string",
-              }),
-            ],
-          }),
-        ],
+        name: "staticPageLinksHeading",
+        title: "Überschrift über den Links zu statischen Seiten",
+        type: "string",
       }),
+
+      defineField({
+        name: "educationalProgramLinksHeading",
+        title: "Überschrift über den Links zu den Bildungswegen und Bildungsgängen",
+        type: "string",
+      }),
+
       defineField({
         name: "socialLinks",
         title: "Social-Media-Links",
@@ -143,29 +64,14 @@ export const footerConfigType: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "copyrightNotice",
         title: "Copyright-Text",
         description: "Hinweis auf das Copyright. Erscheint am unteren Rand des Footers.",
         type: "string",
       }),
-      defineField({
-        name: "legalLinks",
-        title: "Rechliche Seiten-Links",
-        type: "object",
-        fields: [
-          defineField({
-            name: "privacy",
-            title: "Datenschutzerklärung",
-            type: "string",
-          }),
-          defineField({
-            name: "impressum",
-            title: "Impressum",
-            type: "string",
-          }),
-        ],
-      }),
+
       defineField({
         name: "cookieSettingsLabel",
         title: "Cookie-Einstellungen Text",
