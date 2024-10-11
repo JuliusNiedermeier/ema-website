@@ -18,16 +18,19 @@ export const blogPage: SchemaTypeDef = {
         title: "Über-Überschrift",
         type: "string",
       }),
+
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
       }),
+
       defineField({
         name: "description",
         title: "Beschreibung",
         type: "text",
       }),
+
       defineField({
         name: "latestPostLabel",
         title: "Text über dem neuesten Blogbeitrag",
@@ -35,12 +38,14 @@ export const blogPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(30),
       }),
+
       defineField({
         name: "categoryFilterAllLabel",
         title: "Alle Blogbeiträge Text",
         description: "Bezeichnung der Option im Kategorie-Filter um alle Blogbeiträge anzuzeigen",
         type: "string",
       }),
+      
       defineField({
         name: "placeholder",
         title: "Platzhalter",

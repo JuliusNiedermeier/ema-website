@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { BrainIcon, SparkleIcon } from "lucide-react";
+import { BrainIcon, CalendarClockIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import {
   PostCard,
@@ -23,6 +23,7 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
 import { Chip } from "~/app/_components/primitives/chip";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
+import { Card } from "~/app/_components/primitives/card";
 
 const blogPageQuery = groq`*[_type == "blog-page"][0] {
   ...
@@ -85,46 +86,81 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
 
       <div className="bg-gradient-to-b from-neutral-200 to-transparent pt-12 md:pt-16">
         <Container>
-          <div className="flex items-center gap-4">
-            <SparkleIcon />
-            <Label>{blogPage?.latestPostLabel}</Label>
-          </div>
-          <Link href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`} className="mt-4 block">
-            <PostCard className="bg-neutral-100 transition-colors">
-              <PostCardThumbnail>
-                <PostCardThumbnailImage
-                  width={1920}
-                  height={1080}
-                  src={latestPost.mainImage?.asset?.url || ""}
-                  alt={latestPost.mainImage?.alt || ""}
-                  className="max-h-[50vh]"
-                />
-                <PostCardThumbnailTag>
-                  <Label>{latestPost.category?.title}</Label>
-                </PostCardThumbnailTag>
-                <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-              </PostCardThumbnail>
-              <PostCardContent className="md:mt-4">
-                <PostCardTitle size="lg" className="max-w-[40rem]">
-                  {latestPost.name}
-                </PostCardTitle>
-                <PostCardMeta>
-                  <AuthorTag>
-                    <AuthorTagImage
-                      src={latestPost.author?.image?.asset?.url || ""}
-                      alt={latestPost.author?.image?.alt || ""}
+          {latestPost ? (
+            <>
+              <div className="flex items-center gap-4">
+                <SparkleIcon />
+                <Label>{blogPage?.latestPostLabel}</Label>
+              </div>
+              <Link
+                href={`/blog/${latestPost.category?.slug?.current}/${latestPost.slug?.current}`}
+                className="mt-4 block"
+              >
+                <PostCard className="bg-neutral-100 transition-colors">
+                  <PostCardThumbnail>
+                    <PostCardThumbnailImage
+                      width={1920}
+                      height={1080}
+                      src={latestPost.mainImage?.asset?.url || ""}
+                      alt={latestPost.mainImage?.alt || ""}
+                      className="max-h-[50vh]"
                     />
-                    <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
-                  </AuthorTag>
-                  <PostCardMetaSeparator />
-                  <PostCardMetaDate>
-                    {new Date(latestPost.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
-                  </PostCardMetaDate>
-                </PostCardMeta>
-                <PostCardExcerpt className="max-w-[40rem]">{latestPost.excerpt}</PostCardExcerpt>
-              </PostCardContent>
-            </PostCard>
-          </Link>
+                    <PostCardThumbnailTag>
+                      <Label>{latestPost.category?.title}</Label>
+                    </PostCardThumbnailTag>
+                    <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  </PostCardThumbnail>
+                  <PostCardContent className="md:mt-4">
+                    <PostCardTitle size="lg" className="max-w-[40rem]">
+                      {latestPost.name}
+                    </PostCardTitle>
+                    <PostCardMeta>
+                      <AuthorTag>
+                        <AuthorTagImage
+                          src={latestPost.author?.image?.asset?.url || ""}
+                          alt={latestPost.author?.image?.alt || ""}
+                        />
+                        <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
+                      </AuthorTag>
+                      <PostCardMetaSeparator />
+                      <PostCardMetaDate>
+                        {new Date(latestPost.publishedAt || "").toLocaleDateString("de", { dateStyle: "full" })}
+                      </PostCardMetaDate>
+                    </PostCardMeta>
+                    <PostCardExcerpt className="max-w-[40rem]">{latestPost.excerpt}</PostCardExcerpt>
+                  </PostCardContent>
+                </PostCard>
+              </Link>
+            </>
+          ) : (
+            <div className="flex flex-col gap-4 md:flex-row">
+              <PostCard className="h-auto flex-[2] bg-primary-900 p-8">
+                <div className="flex max-w-[30rem] flex-col">
+                  <IconChip className="bg-neutral-100/10">
+                    <CalendarClockIcon />
+                  </IconChip>
+                  <div className="mt-auto pt-8">
+                    <Heading size="sm" className="text-neutral-900-text">
+                      {blogPage?.placeholder?.heading}
+                    </Heading>
+                    <Paragraph className="text-neutral-900-text-muted">{blogPage?.placeholder?.description}</Paragraph>
+                  </div>
+                </div>
+              </PostCard>
+              <PostCard className="h-auto flex-1 bg-neutral-100">
+                <PostCardThumbnail className="aspect-video rounded-2xl bg-neutral-400">
+                  <PostCardThumbnailTag className="">
+                    <Label>{blogPage?.placeholder?.preHeading}</Label>
+                  </PostCardThumbnailTag>
+                </PostCardThumbnail>
+                <PostCardContent>
+                  <div className="h-8 w-full rounded-xl bg-neutral-400" />
+                  <div className="mt-2 h-4 w-full rounded-xl bg-neutral-300" />
+                  <div className="mt-2 h-4 w-2/3 rounded-xl bg-neutral-300" />
+                </PostCardContent>
+              </PostCard>
+            </div>
+          )}
         </Container>
       </div>
 
