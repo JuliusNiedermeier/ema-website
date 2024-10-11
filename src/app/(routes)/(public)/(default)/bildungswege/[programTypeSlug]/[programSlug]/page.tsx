@@ -104,10 +104,7 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
 }`;
 
 const programPageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
-  preview {
-    ...,
-    images[] { alt, asset -> { url } }
-  }
+  previewImages[] { alt, asset -> { url } }
 }`;
 
 type Params = { programTypeSlug: string; programSlug: string };
@@ -412,9 +409,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <StackedImageCard
                 className="min-h-40 flex-1 bg-neutral-400"
                 images={
-                  comparisonPreview?.preview?.images?.map((image, index) => ({
+                  comparisonPreview?.previewImages?.map((image, index) => ({
                     url: image.asset?.url || "",
-                    alt: `${comparisonPreview.preview?.heading} ${index + 1}`,
+                    alt: image.alt || "",
                   })) || []
                 }
               />

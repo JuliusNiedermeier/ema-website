@@ -12,40 +12,39 @@ export const comparisonPage: SchemaTypeDef = {
     icon: TableColumnsSplitIcon,
     fields: [
       navigationLabel,
+
       defineField({
-        name: "preview",
-        title: "Vorschau",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreLabel",
-            title: "Mehr-Lesen Text",
-            type: "string",
-          }),
-          defineField({
-            name: "images",
-            title: "Bilder",
-            type: "array",
-            of: [
-              defineArrayMember({
-                name: "image-item",
-                title: "Vorschaubild",
-                type: "default-image",
-              }),
-            ],
+        name: "heading",
+        title: "Überschrift",
+        type: "string",
+      }),
+
+      defineField({
+        name: "teaser",
+        title: "Teaser",
+        type: "text",
+        validation: (r) => r.required().min(50).max(300),
+      }),
+
+      defineField({
+        name: "readMoreLabel",
+        title: "Mehr lesen Button Text",
+        type: "string",
+      }),
+
+      defineField({
+        name: "previewImages",
+        title: "Vorschaubilder",
+        type: "array",
+        of: [
+          defineArrayMember({
+            name: "image-item",
+            title: "Vorschaubild",
+            type: "default-image",
           }),
         ],
       }),
+
       defineField({
         name: "pathsSection",
         title: "Wegeabschnitt",
@@ -68,6 +67,7 @@ export const comparisonPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "subjectsSection",
         title: "Fächerabschnitt",
@@ -85,6 +85,7 @@ export const comparisonPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "learningFieldsSection",
         title: "Lernfelderabschnitt",

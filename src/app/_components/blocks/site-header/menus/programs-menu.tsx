@@ -12,10 +12,10 @@ import Link from "next/link";
 import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 
 const programsMenuComparisonQuery = groq`*[_type == "comparison-page"][0]{
-  preview {
-    ...,
-    images[] { alt, asset -> { url } }
-  }
+  heading,
+  teaser,
+  readMoreLabel,
+  previewImages[] { alt, asset -> { url } }
 }`;
 
 export type OffersMenuProps = ComponentProps<"div"> & {};
@@ -35,19 +35,19 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
           <StackedImageCard
             className="flex-[10rem] border border-neutral-100/10 bg-neutral-100/10 xl:flex-1"
             images={
-              comparison?.preview?.images?.map((image, index) => ({
+              comparison?.previewImages?.map((image, index) => ({
                 url: image.asset?.url || "",
-                alt: `${comparison.preview?.heading} ${index + 1}`,
+                alt: image.alt || "",
               })) || []
             }
           />
           <div className="p-6">
             <Heading size="sm" className="mt-8">
-              {comparison?.preview?.heading}
+              {comparison?.heading}
             </Heading>
-            <Paragraph className="flex-1xsd text-neutral-900-text-muted">{comparison?.preview?.description}</Paragraph>
+            <Paragraph className="flex-1xsd text-neutral-900-text-muted">{comparison?.teaser}</Paragraph>
             <Button vairant="outline" size="sm" className="mt-8">
-              <Label>{comparison?.preview?.readMoreLabel}</Label>
+              <Label>{comparison?.readMoreLabel}</Label>
               <InteractionBubble />
             </Button>
           </div>

@@ -8,6 +8,7 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import { ComparisonPageQueryResult } from "../../../../../../generated/sanity/types";
 import { Section } from "~/app/_components/primitives/section";
+import { notFound } from "next/navigation";
 
 const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
   ...,
@@ -22,12 +23,17 @@ const ÜbersichtPage: FC = async () => {
     tags: ["comparison-page"],
   });
 
+  if (!comparisonPageData) notFound();
+
   return (
     <>
       <div className="bg-neutral-200 pb-[4rem] pt-header">
-        <Container width="narrow" className="py-24 text-center">
-          <Heading>{comparisonPageData?.pathsSection?.heading}</Heading>
-          <Paragraph>{comparisonPageData?.pathsSection?.heading}</Paragraph>
+        <Container width="narrow" className="py-32 text-center">
+          <Heading size="sm" className="text-neutral-100-text-muted">
+            {comparisonPageData.heading}
+          </Heading>
+          <Heading className="mt-12">{comparisonPageData.pathsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData.pathsSection?.description}</Paragraph>
         </Container>
       </div>
 
@@ -35,32 +41,32 @@ const ÜbersichtPage: FC = async () => {
         {/* <InteractiveProgramFlow /> */}
         <Container className="py-8">
           <Image
-            src={comparisonPageData?.pathsSection?.image?.asset?.url || ""}
+            src={comparisonPageData.pathsSection?.image?.asset?.url || ""}
             width="2000"
             height="2000"
-            alt={comparisonPageData?.pathsSection?.image?.alt || ""}
+            alt={comparisonPageData.pathsSection?.image?.alt || ""}
           />
         </Container>
       </Section>
 
       <Section className="bg-neutral-400 py-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
-          <Heading>{comparisonPageData?.subjectsSection?.heading}</Heading>
-          <Paragraph>{comparisonPageData?.subjectsSection?.heading}</Paragraph>
+          <Heading>{comparisonPageData.subjectsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData.subjectsSection?.description}</Paragraph>
         </Container>
 
-        <Container className="mt-16 md:mt-24">
+        <Container className="mt-16 md:mt-32">
           <ProgramSubjectMatrix />
         </Container>
       </Section>
 
       <Section connect="top" className="bg-neutral-100 pb-8 pt-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
-          <Heading>{comparisonPageData?.learningFieldsSection?.heading}</Heading>
-          <Paragraph>{comparisonPageData?.learningFieldsSection?.heading}</Paragraph>
+          <Heading>{comparisonPageData.learningFieldsSection?.heading}</Heading>
+          <Paragraph>{comparisonPageData.learningFieldsSection?.description}</Paragraph>
         </Container>
 
-        <Container className="mt-16 md:mt-24">
+        <Container className="mt-16 md:mt-32">
           <ProgramLearningFieldsComparison />
         </Container>
       </Section>

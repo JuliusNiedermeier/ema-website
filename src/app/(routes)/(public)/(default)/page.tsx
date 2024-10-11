@@ -56,10 +56,10 @@ const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
 }`;
 
 const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
-  preview {
-    ...,
-    images[] { alt, asset -> { url } }
-  }
+  heading,
+  teaser,
+  readMoreLabel,
+  previewImages[] { alt, asset -> { url } }
 }`;
 
 const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
@@ -184,19 +184,19 @@ const HomePage: FC = async () => {
       <Section connect="bottom" className="mt-32 bg-primary-900">
         <Container width="narrow" className="flex flex-col items-center py-32 text-center">
           <Heading size="sm" className="text-neutral-900-text">
-            {comparisonPreview?.preview?.heading}
+            {comparisonPreview?.heading}
           </Heading>
-          <Paragraph className="mt-0 text-neutral-900-text-muted">{comparisonPreview?.preview?.description}</Paragraph>
+          <Paragraph className="mt-0 text-neutral-900-text-muted">{comparisonPreview?.teaser}</Paragraph>
           <Button vairant="filled" className="mt-8 bg-primary-100 text-primary-100-text" href="/vergleich">
-            <Label>{comparisonPreview?.preview?.readMoreLabel}</Label>
+            <Label>{comparisonPreview?.readMoreLabel}</Label>
             <ButtonInteractionBubble />
           </Button>
           <StackedImageCard
             className="mt-16 aspect-video w-full bg-neutral-100/10"
             images={
-              comparisonPreview?.preview?.images?.map((image, index) => ({
+              comparisonPreview?.previewImages?.map((image, index) => ({
                 url: image.asset?.url || "",
-                alt: `${comparisonPreview.preview?.heading} ${index + 1}`,
+                alt: image.alt || "",
               })) || []
             }
           />
