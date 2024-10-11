@@ -11,7 +11,9 @@ import { ChevronDownIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 
 const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
-  ...,
+  headingUpper,
+  headingLower,
+  teaser,
   content[] {
     ...,
       _type == "portableImage" => {
@@ -41,7 +43,8 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
           }
         }
       }
-  }
+  },
+  educationalProgramTypesCTA
 }`;
 
 const EconomyXSocialPage: FC = async () => {
@@ -57,7 +60,7 @@ const EconomyXSocialPage: FC = async () => {
         className="pt-header"
         headingUpper={data.headingUpper || ""}
         headingLower={data.headingLower || ""}
-        description={data.previewText || ""}
+        description={data.teaser || ""}
       />
       <Container width="narrow" className="my-32">
         <DefaultPortableContent content={data.content || []} />

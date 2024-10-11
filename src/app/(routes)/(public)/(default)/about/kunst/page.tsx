@@ -10,11 +10,15 @@ import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 
 const artPageQuery = groq`*[_type == "art-page"][0]{
-  ...,
+  heading,
+  teaser,
   artSubjects[] {
-    ...,
+    title,
+    slogan,
+    description,
     image { alt, asset -> { url } }
-  }
+  },
+  educationalProgramTypesCTA
 }`;
 
 const ArtPage: FC = async () => {
@@ -35,7 +39,7 @@ const ArtPage: FC = async () => {
       <div className="bg-neutral-200 pt-header">
         <Container width="narrow" className="py-32 text-center">
           <Heading>{data.heading}</Heading>
-          <Paragraph>{data.preview?.excerpt}</Paragraph>
+          <Paragraph>{data.teaser}</Paragraph>
         </Container>
       </div>
 

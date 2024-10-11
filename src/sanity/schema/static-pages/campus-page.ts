@@ -18,43 +18,20 @@ export const campusPage: SchemaTypeDef = {
         title: "Überschrift",
         type: "string",
       }),
+
       defineField({
-        name: "previewImage",
-        title: "Vorschaubild",
-        type: "default-image",
-      }),
-      defineField({
-        name: "previewText",
+        name: "teaser",
         title: "Auszug",
         type: "text",
+        validation: (r) => r.required().min(50).max(300),
       }),
+
       defineField({
-        name: "previewReadMoreButtonLabel",
+        name: "readMoreLabel",
         title: "Mehr lesen Button Text",
         type: "string",
       }),
-      defineField({
-        name: "contactCTA",
-        title: "Kontakt Call-To-Action",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-        ],
-      }),
-      defineField({
-        name: "heroImage",
-        title: "Hauptbild",
-        type: "default-image",
-      }),
+
       defineField({
         name: "staff",
         title: "Teammitglieder",
@@ -89,6 +66,24 @@ export const campusPage: SchemaTypeDef = {
                 type: "default-image",
               }),
             ],
+          }),
+        ],
+      }),
+
+      defineField({
+        name: "contactCTA",
+        title: "Kontakt Call-To-Action",
+        type: "object",
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            type: "string",
+          }),
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "text",
           }),
         ],
       }),

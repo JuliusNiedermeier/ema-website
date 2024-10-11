@@ -51,8 +51,8 @@ const featuredPostsQuery = groq`*[_type == "post"][0...3]{
 const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
   headingUpper,
   headingLower,
-  previewText,
-  previewReadMoreLabel
+  teaser,
+  readMoreLabel
 }`;
 
 const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
@@ -64,8 +64,9 @@ const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
 
 const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
   heading,
+  teaser,
+  readMoreLabel,
   preview {
-    ...,
     backgroundImage{ alt, asset ->{url}},
     leftImage{ alt, asset ->{url}},
     rightImage{ alt, asset ->{url}}
@@ -176,8 +177,8 @@ const HomePage: FC = async () => {
         className="mt-64"
         headingUpper={economyXSocial?.headingUpper || ""}
         headingLower={economyXSocial?.headingLower || ""}
-        previewText={economyXSocial?.previewText || ""}
-        readMoreButtonLabel={economyXSocial?.previewReadMoreLabel || ""}
+        previewText={economyXSocial?.teaser || ""}
+        readMoreButtonLabel={economyXSocial?.readMoreLabel || ""}
       />
 
       <Section connect="bottom" className="mt-32 bg-primary-900">
@@ -207,8 +208,8 @@ const HomePage: FC = async () => {
           <Link href="/about/kunst">
             <ArtEducation
               title={artPreview?.heading || ""}
-              body={artPreview?.preview?.excerpt || ""}
-              actionLabel={artPreview?.preview?.readMoreButtonLabel || ""}
+              body={artPreview?.teaser || ""}
+              actionLabel={artPreview?.readMoreLabel || ""}
               backgroundImage={{
                 src: artPreview?.preview?.backgroundImage?.asset?.url || "",
                 alt: artPreview?.heading || "",

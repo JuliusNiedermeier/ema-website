@@ -22,27 +22,24 @@ export const artPage: SchemaTypeDef = {
       }),
 
       defineField({
+        name: "teaser",
+        title: "Auszug",
+        type: "text",
+        validation: (r) => r.required().min(50).max(300),
+      }),
+
+      defineField({
+        name: "readMoreLabel",
+        title: "Mehr lesen Text",
+        type: "string",
+        validation: (r) => r.required().min(5).max(20),
+      }),
+
+      defineField({
         name: "preview",
         title: "Vorschau",
         type: "object",
         fields: [
-          defineField({
-            name: "excerpt",
-            title: "Auszug",
-            type: "text",
-            validation: (r) => r.required().min(50).max(300),
-          }),
-          defineField({
-            name: "image",
-            title: "Vorschaubild",
-            type: "default-image",
-          }),
-          defineField({
-            name: "readMoreButtonLabel",
-            title: "Mehr lesen Text",
-            type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          }),
           defineField({
             name: "backgroundImage",
             title: "Hintergrundbild",

@@ -11,22 +11,20 @@ import { AboutMenuItem } from "~/app/_components/compounds/about-menu-item";
 
 const aboutMenuArtQuery = groq`*[_type == "art-page"][0]{
   navigationLabel,
-  preview {
-    excerpt,
-    image { alt, asset -> { url } }
-  }
+  teaser,
+  "image": artSubjects[0].image { alt, asset -> { url } }
 }`;
 
 const aboutMenuCampusQuery = groq`*[_type == "campus-page"][0]{
   navigationLabel,
-  previewText,
-  previewImage { alt, asset -> { url } }
+  teaser,
+  "image": staff[0].image { alt, asset -> { url } }
 }`;
 
 const aboutMenuEconomySocialQuery = groq`*[_type == "economy-social-page"][0]{
   navigationLabel,
-  previewText,
-  previewImage { alt, asset -> { url } }
+  teaser,
+  teaserImage { alt, asset -> { url } }
 }`;
 
 export type AboutMenuProps = ComponentProps<"div"> & {};
@@ -44,20 +42,20 @@ export const AboutMenu: FC<AboutMenuProps> = async ({ className, ...restProps })
     {
       href: "/about/wirtschaft-und-soziales",
       heading: economySocial?.navigationLabel || "",
-      description: economySocial?.previewText || "",
-      image: { url: economySocial?.previewImage?.asset?.url || "", alt: economySocial?.previewImage?.alt || "" },
+      description: economySocial?.teaser || "",
+      image: { url: economySocial?.teaserImage?.asset?.url || "", alt: economySocial?.teaserImage?.alt || "" },
     },
     {
       href: "/about/kunst",
       heading: art?.navigationLabel || "",
-      description: art?.preview?.excerpt || "",
-      image: { url: art?.preview?.image?.asset?.url || "", alt: art?.preview?.image?.alt || "" },
+      description: art?.teaser || "",
+      image: { url: art?.image?.asset?.url || "", alt: art?.image?.alt || "" },
     },
     {
       href: "/about/campus",
       heading: campus?.navigationLabel || "",
-      description: campus?.previewText || "",
-      image: { url: campus?.previewImage?.asset?.url || "", alt: campus?.previewImage?.alt || "" },
+      description: campus?.teaser || "",
+      image: { url: campus?.image?.asset?.url || "", alt: campus?.image?.alt || "" },
     },
   ];
 

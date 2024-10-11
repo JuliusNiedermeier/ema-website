@@ -19,34 +19,40 @@ export const economySocialPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(30),
       }),
+
       defineField({
         name: "headingLower",
         title: "Untere Überschrift",
         type: "string",
         validation: (r) => r.required().min(5).max(30),
       }),
+
       defineField({
-        name: "previewText",
+        name: "teaser",
         title: "Auszug",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
       }),
+
       defineField({
-        name: "previewImage",
+        name: "teaserImage",
         title: "Vorschaubild",
         type: "default-image",
       }),
+
       defineField({
-        name: "previewReadMoreLabel",
+        name: "readMoreLabel",
         title: "Mehr lesen Text",
         type: "string",
         validation: (r) => r.required().min(5).max(20),
       }),
+
       defineField({
         name: "content",
         title: "Inhalt",
         type: "defaultPortableContent",
       }),
+
       defineField({
         name: "educationalProgramTypesCTA",
         title: "Links zu den Bildungswegen",

@@ -11,12 +11,15 @@ import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
 
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
-  ...,
-  heroImage { alt, asset -> { url } },
+  heading,
+  teaser,
   staff[]{
-    ...,
+    name,
+    position,
+    description,
     image { alt, asset -> { url } }
-  }
+  },
+  contactCTA
 }`;
 
 const CampusPage: FC = async () => {
@@ -35,7 +38,7 @@ const CampusPage: FC = async () => {
       <div className="bg-neutral-200 pb-40 pt-header">
         <Container width="narrow" className="py-24 text-center">
           <Heading>{data?.heading}</Heading>
-          <Paragraph>{data?.previewText}</Paragraph>
+          <Paragraph>{data?.teaser}</Paragraph>
         </Container>
       </div>
       <ParalaxGallery items={galleryItems} className="-mt-40" />
