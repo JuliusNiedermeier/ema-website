@@ -13,17 +13,14 @@ export const artPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
-      defineField({
-        name: "background",
-        title: "Hintergrundgrafik",
-        type: "default-image",
-      }),
+
       defineField({
         name: "preview",
         title: "Vorschau",
@@ -66,6 +63,7 @@ export const artPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "artSubjects",
         title: "Kunstfächer",
@@ -87,19 +85,20 @@ export const artPage: SchemaTypeDef = {
                 type: "string",
               }),
               defineField({
-                name: "image",
-                title: "Bild",
-                type: "default-image",
-              }),
-              defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+              }),
+              defineField({
+                name: "image",
+                title: "Bild",
+                type: "default-image",
               }),
             ],
           }),
         ],
       }),
+
       defineField({
         name: "educationalProgramTypesCTA",
         title: "Links zu den Bildungswegen",
