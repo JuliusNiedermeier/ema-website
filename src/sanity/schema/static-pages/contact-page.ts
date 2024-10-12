@@ -13,40 +13,27 @@ export const contactPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
       }),
+
       defineField({
-        name: "description",
+        name: "teaser",
         title: "Beschreibung",
         description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
       }),
+
       defineField({
-        name: "preview",
-        title: "Vorschau",
-        type: "object",
-        fields: [
-          defineField({
-            name: "heading",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "intorduction",
-            title: "Einleitung",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreButtonLabel",
-            title: "Mehr lesen Text",
-            type: "string",
-          }),
-        ],
+        name: "readMoreLabel",
+        title: "Mehr-Lesen-Text",
+        type: "string",
       }),
+
       defineField({
         name: "contactInformation",
         title: "Kontaktinformationen",
@@ -69,6 +56,7 @@ export const contactPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "officeHours",
         title: "Sprechzeiten",
@@ -106,6 +94,7 @@ export const contactPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "location",
         title: "Standort",
@@ -139,7 +128,7 @@ export const contactPage: SchemaTypeDef = {
             ],
           }),
           defineField({
-            name: "map",
+            name: "mapImage",
             title: "Kartenausschnitt",
             description: "Ein Kartenausschnitt, der den Standort der EMA zeigt.",
             type: "default-image",
