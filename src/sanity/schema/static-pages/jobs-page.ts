@@ -23,11 +23,17 @@ export const jobsPage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "description",
+        name: "teaser",
         title: "Beschreibung",
         description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
+      }),
+
+      defineField({
+        name: "readMoreLabel",
+        title: "Mehr lesen Button Text",
+        type: "string",
       }),
 
       defineField({

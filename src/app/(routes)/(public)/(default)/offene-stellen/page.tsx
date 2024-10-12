@@ -20,10 +20,10 @@ const JobsPage: FC = async () => {
   const data = await sanityFetch<JobsPageQueryResult>(jobsPageQuery, { tags: ["jobs-page"] });
 
   return (
-    <Container width="narrow" className="pt-header my-32">
+    <Container width="narrow" className="my-32 pt-header">
       <div className="text-center">
         <Heading>{data?.heading}</Heading>
-        <Paragraph>{data?.description}</Paragraph>
+        <Paragraph>{data?.teaser}</Paragraph>
       </div>
 
       <Accordion className="mt-16">
