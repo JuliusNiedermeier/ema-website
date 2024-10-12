@@ -30,11 +30,8 @@ import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
-  video{ alt, asset ->{url}},
-  partners[]{
-    name,
-    logo{ alt, asset ->{url}}
-  }
+  heroVideo { alt, asset -> { url } },
+  partners[] { alt, asset -> { url } }
 }`;
 
 const featuredPostsQuery = groq`*[_type == "post"][0...3]{
@@ -92,8 +89,8 @@ const HomePage: FC = async () => {
 
   const partners: ComponentProps<typeof PartnersBanner>["partners"] =
     homePage.partners?.map((partner) => ({
-      image: { url: partner.logo?.asset?.url || "", alt: partner.logo?.alt || "" },
-      name: partner.name || "",
+      logoURL: partner.asset?.url || "",
+      name: partner.alt || "",
     })) || [];
 
   const FAQItems: ComponentProps<typeof BasicAccordion>["items"] =
@@ -116,14 +113,14 @@ const HomePage: FC = async () => {
           </Heading>
 
           <Paragraph className="mb-0 max-w-60" asChild>
-            <h2>{homePage.description}</h2>
+            <h2>{homePage.teaser}</h2>
           </Paragraph>
         </Container>
       </div>
 
       <div className="relative bg-gradient-to-b from-neutral-200 to-neutral-100 pt-8">
         <Container width="wide" className="relative">
-          <HeroVideo src={homePage.video?.asset?.url || ""} />
+          <HeroVideo src={homePage.heroVideo?.asset?.url || ""} />
           <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full items-end">
             <Container className="sticky bottom-2 my-2 flex items-stretch justify-between gap-2 sm:bottom-8 sm:my-8">
               <Button
@@ -131,7 +128,7 @@ const HomePage: FC = async () => {
                 className="pointer-events-auto w-full justify-center gap-8 !bg-primary-100 pr-4 !text-primary-100-text md:h-24 md:w-fit md:justify-normal md:pl-12 md:pr-6"
                 size="md"
               >
-                <Label className="flex-1">{homePage.videoCTAButtonLabel}</Label>
+                <Label className="flex-1">{homePage.heroCTALabel}</Label>
                 <InteractionBubble animated={false} />
               </Button>
 
@@ -152,7 +149,7 @@ const HomePage: FC = async () => {
 
         <div className="mx-auto mt-64 max-w-[40rem] text-center">
           <Heading>{homePage.introduction?.heading}</Heading>
-          <Paragraph>{homePage.introduction?.paragraph}</Paragraph>
+          <Paragraph>{homePage.introduction?.description}</Paragraph>
         </div>
 
         <Container width="narrow" className="mt-32 !max-w-[60rem]">
@@ -236,7 +233,7 @@ const HomePage: FC = async () => {
       <Section connect="top" className="-mb-2 bg-neutral-100">
         <Container width="narrow" className="pt-32 text-center">
           <Heading>{homePage.testimonials?.heading}</Heading>
-          <Paragraph>{homePage.testimonials?.subheading}</Paragraph>
+          <Paragraph>{homePage.testimonials?.description}</Paragraph>
         </Container>
         <Container>
           <TestimonialCarousel className="mt-16" />

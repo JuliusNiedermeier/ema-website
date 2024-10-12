@@ -22,7 +22,7 @@ export const homePage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "description",
+        name: "teaser",
         title: "Slogan",
         description: "50-200 Zeichen.",
         type: "text",
@@ -30,7 +30,7 @@ export const homePage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "video",
+        name: "heroVideo",
         title: "Video",
         description: "Wird standardmäßig ohne Ton abgespielt. Ton kann durch Besucher aktiviert werden.",
         type: "file",
@@ -38,7 +38,7 @@ export const homePage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "videoCTAButtonLabel",
+        name: "heroCTALabel",
         title: "Primärer Call-To-Action-Text",
         description:
           "5-15 Zeichen. Text des prominenten Call-To-Action Buttons am Anfang der Seite. Leitet den Besucher auf die Online-Anmeldung.",
@@ -49,30 +49,14 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "partners",
         title: "Partner",
-        description: "Möglichst mehr als drei Partner.",
+        description:
+          "Möglichst mehr als drei Partner. Für eine gute Darstellung sollte das Logo jedes Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
         type: "array",
         of: [
           defineArrayMember({
             name: "partner",
             title: "Partner",
-            type: "object",
-            fields: [
-              defineField({
-                name: "logo",
-                title: "Logo",
-                description:
-                  "Für eine gute Darstellung sollte das Logo das Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
-                type: "default-image",
-                validation: (r) => r.required(),
-              }),
-              defineField({
-                name: "name",
-                title: "Name des Partners",
-                description: "Wird nur angezeigt, falls das Logo nicht geladen werden kann.",
-                type: "string",
-                validation: (r) => r.required(),
-              }),
-            ],
+            type: "default-image",
           }),
         ],
       }),
@@ -91,7 +75,7 @@ export const homePage: SchemaTypeDef = {
             validation: (r) => r.required().min(10).max(40),
           },
           {
-            name: "paragraph",
+            name: "description",
             title: "Kurzer Text",
             description: "100-300 Zeichen.",
             type: "text",
@@ -137,7 +121,7 @@ export const homePage: SchemaTypeDef = {
             validation: (r) => r.required().min(3).max(40),
           }),
           defineField({
-            name: "subheading",
+            name: "description",
             title: "Unterüberschrift",
             description:
               '50-200 Zeichen. Beispiel: "Schüler lieben die Emil Molt Akademie. Das wir davon überzeugt sind ist klar – überzeug \' dich besser selbst und lies was unsere Schüler über uns sagen."',
