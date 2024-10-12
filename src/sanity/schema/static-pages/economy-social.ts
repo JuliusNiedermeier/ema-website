@@ -13,6 +13,7 @@ export const economySocialPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "headingUpper",
         title: "Obere Überschrift",
