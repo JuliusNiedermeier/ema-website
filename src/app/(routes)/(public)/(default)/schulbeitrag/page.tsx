@@ -62,18 +62,18 @@ const FeesPage: FC = async () => {
             feeCoverageRateIndex !== undefined
               ? [
                   {
-                    title: pageData.feeGroups?.belowCoverage?.title || "",
-                    description: pageData.feeGroups?.belowCoverage?.description,
+                    title: pageData.belowCoverageInfo?.heading || "",
+                    description: pageData.belowCoverageInfo?.description,
                     fees: fees.slice(0, feeCoverageRateIndex),
                   },
                   {
-                    title: pageData.feeGroups?.coverage || "",
+                    title: pageData.coverageLabel || "",
                     fees: [fees[feeCoverageRateIndex]],
                     highlight: true,
                   },
                   {
-                    title: pageData.feeGroups?.aboveCoverage?.title || "",
-                    description: pageData.feeGroups?.aboveCoverage?.description,
+                    title: pageData.aboveCoverageInfo?.heading || "",
+                    description: pageData.aboveCoverageInfo?.description,
                     fees: fees.slice(feeCoverageRateIndex + 1),
                   },
                 ]
@@ -83,11 +83,11 @@ const FeesPage: FC = async () => {
 
   return (
     <>
-      <div className="pt-header bg-neutral-200">
+      <div className="bg-neutral-200 pt-header">
         <Container className="pb-4 pt-32">
           <Container width="narrow" className="text-center">
             <Heading>{pageData.heading}</Heading>
-            <Paragraph>{pageData.introduction}</Paragraph>
+            <Paragraph>{pageData.teaser}</Paragraph>
           </Container>
           <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-2 sm:gap-4">
             {pageData.highlights?.map((highlight, index) => (
@@ -95,7 +95,7 @@ const FeesPage: FC = async () => {
                 <IconChip className="bg-primary-100 text-primary-100-text">
                   <PlusIcon />
                 </IconChip>
-                <Paragraph className="mt-4">{highlight.description}</Paragraph>
+                <Paragraph className="mt-4">{highlight}</Paragraph>
               </Card>
             ))}
           </div>
