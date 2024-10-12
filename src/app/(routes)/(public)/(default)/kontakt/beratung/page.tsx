@@ -7,7 +7,8 @@ import { sanityFetch } from "~/sanity/lib/client";
 import { notFound } from "next/navigation";
 import {
   ConsultingPageQueryResult,
-  ConsultingPageFooterLinksQueryResult,
+  ConsultingPagePrivacyPageQueryResult,
+  ConsultingPageInfoEventPageQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { CalendarCheckIcon, CheckIcon, type LucideIcon, MoveRightIcon, SendHorizonalIcon } from "lucide-react";
@@ -20,15 +21,21 @@ import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 
 const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
-  ...,
-  consultants[] { 
-    ...,
-    image { alt, asset -> { url } }
-  }
+  heading,
+  teaser,
+  steps,
+  form,
+  benefits,
+  alternativeCTA,
+  consultants[] { alt, asset -> { url } }
 }`;
 
-const consultingPageFooterLinksQuery = groq`*[_type == "footer-config"][0] {
-  legalLinks { privacy }
+const consultingPagePrivacyPageQuery = groq`*[_type == "privacy-page"][0] {
+  navigationLabel
+}`;
+
+const consultingPageInfoEventPageQuery = groq`*[_type == "info-event-page"][0] {
+  readMoreLabel
 }`;
 
 const ContactPage: FC = async () => {
@@ -38,9 +45,16 @@ const ContactPage: FC = async () => {
 
   if (!consultingPageData) notFound();
 
-  const footerLinkData = await sanityFetch<ConsultingPageFooterLinksQueryResult>(consultingPageFooterLinksQuery, {
-    tags: ["footer-config"],
+  const privacyPageData = await sanityFetch<ConsultingPagePrivacyPageQueryResult>(consultingPagePrivacyPageQuery, {
+    tags: ["privacy-page"],
   });
+
+  const infoEventPageData = await sanityFetch<ConsultingPageInfoEventPageQueryResult>(
+    consultingPageInfoEventPageQuery,
+    {
+      tags: ["info-event-page"],
+    },
+  );
 
   return (
     <>
@@ -49,15 +63,15 @@ const ContactPage: FC = async () => {
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto max-w-[35rem] text-center">
             <Heading>{consultingPageData.heading}</Heading>
-            <Paragraph>{consultingPageData.description}</Paragraph>
+            <Paragraph>{consultingPageData.teaser}</Paragraph>
           </div>
 
           <div className="flex items-center justify-center">
             {consultingPageData.consultants?.map((consultant, index) => (
               <AuthorTagImage
                 key={index}
-                src={consultant.image?.asset?.url || ""}
-                alt={consultant.image?.alt || ""}
+                src={consultant.asset?.url || ""}
+                alt={consultant.alt || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}
@@ -75,16 +89,16 @@ const ContactPage: FC = async () => {
             submitButtonLabel={consultingPageData.form?.submitLabel || ""}
             successLabel={consultingPageData.form?.successLabel || ""}
             successText={consultingPageData.form?.successText || ""}
-            privacyLinkLabel={footerLinkData?.legalLinks?.privacy || ""}
+            privacyLinkLabel={privacyPageData?.navigationLabel || ""}
           />
           <div className="mt-4 flex justify-center">
             <div className="flex w-fit flex-wrap gap-4">
-              {consultingPageData.benefits?.map(({ label, _key }) => (
-                <IconListItem key={_key} className="w-fit">
+              {consultingPageData.benefits?.map((benefit, index) => (
+                <IconListItem key={index} className="w-fit">
                   <IconListItemIcon>
                     <CheckIcon />
                   </IconListItemIcon>
-                  <Label>{label}</Label>
+                  <Label>{benefit}</Label>
                 </IconListItem>
               ))}
             </div>
@@ -102,7 +116,7 @@ const ContactPage: FC = async () => {
         >
           <Container className="-mt-12">
             <Button href="/kontakt/info-abend" className="mx-auto gap-4 pr-4">
-              <Label>{consultingPageData.alternativeCTA?.buttonLabel}</Label>
+              <Label>{infoEventPageData?.readMoreLabel}</Label>
               <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
             </Button>
           </Container>

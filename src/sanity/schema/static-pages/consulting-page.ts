@@ -13,6 +13,7 @@ export const consultingPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
@@ -20,40 +21,27 @@ export const consultingPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
+
       defineField({
-        name: "description",
-        title: "Beschreibung",
+        name: "teaser",
+        title: "Teaser",
         description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
       }),
+
       defineField({
-        name: "preview",
-        title: "Vorschau",
-        type: "object",
-        fields: [
-          defineField({
-            name: "title",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreLabel",
-            title: "Mehr-Lesen-Text",
-            type: "string",
-          }),
-          defineField({
-            name: "splineGraphic",
-            title: "Grafik in der Vorschau",
-            type: "default-image",
-          }),
-        ],
+        name: "readMoreLabel",
+        title: "Mehr-Lesen-Text",
+        type: "string",
       }),
+
+      defineField({
+        name: "splineGraphic",
+        title: "Grafik in der Vorschau",
+        type: "default-image",
+      }),
+
       defineField({
         name: "consultants",
         title: "Gesprächspartner",
@@ -62,22 +50,11 @@ export const consultingPage: SchemaTypeDef = {
           defineArrayMember({
             name: "consultant",
             title: "Gesprächspartner",
-            type: "object",
-            fields: [
-              defineField({
-                name: "name",
-                title: "Name",
-                type: "string",
-              }),
-              defineField({
-                name: "image",
-                title: "Foto",
-                type: "default-image",
-              }),
-            ],
+            type: "default-image",
           }),
         ],
       }),
+
       defineField({
         name: "steps",
         title: "Schritte",
@@ -95,6 +72,7 @@ export const consultingPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "form",
         title: "Formular",
@@ -122,6 +100,7 @@ export const consultingPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "benefits",
         title: "Liste der Vorteile",
@@ -130,16 +109,11 @@ export const consultingPage: SchemaTypeDef = {
           defineArrayMember({
             name: "benefit",
             title: "Vorteil",
-            type: "object",
-            fields: [
-              defineField({
-                name: "label",
-                type: "string",
-              }),
-            ],
+            type: "string",
           }),
         ],
       }),
+
       defineField({
         name: "alternativeCTA",
         title: "Alternative: Infoabend",
@@ -154,12 +128,6 @@ export const consultingPage: SchemaTypeDef = {
             name: "description",
             title: "Beschreibung",
             type: "text",
-          }),
-          defineField({
-            name: "buttonLabel",
-            title: "Button-Text",
-            description: "Text auf dem Button, der zum Infoabend verlinkt.",
-            type: "string",
           }),
         ],
       }),
