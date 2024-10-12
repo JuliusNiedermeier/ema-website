@@ -13,6 +13,7 @@ export const jobsPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
@@ -20,6 +21,7 @@ export const jobsPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
+
       defineField({
         name: "description",
         title: "Beschreibung",
@@ -27,6 +29,7 @@ export const jobsPage: SchemaTypeDef = {
         type: "text",
         validation: (r) => r.required().min(100).max(300),
       }),
+
       defineField({
         name: "teachingJobLabel",
         title: "Lehrerstelle label",
@@ -34,6 +37,7 @@ export const jobsPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
+
       defineField({
         name: "CTALabel",
         title: "Call-To-Action Text",
@@ -41,6 +45,7 @@ export const jobsPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
+
       defineField({
         name: "jobs",
         title: "Stellen",

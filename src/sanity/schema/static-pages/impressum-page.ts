@@ -12,6 +12,7 @@ export const impressumPage: SchemaTypeDef = {
     icon: BookUserIcon,
     fields: [
       navigationLabel,
+
       defineField({
         name: "content",
         title: "Inhalt",

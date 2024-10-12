@@ -12,6 +12,7 @@ export const homePage: SchemaTypeDef = {
     icon: HomeIcon,
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Headline",
@@ -19,6 +20,7 @@ export const homePage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(20).max(60),
       }),
+
       defineField({
         name: "description",
         title: "Slogan",
@@ -26,6 +28,7 @@ export const homePage: SchemaTypeDef = {
         type: "text",
         validation: (r) => r.required().min(50).max(200),
       }),
+
       defineField({
         name: "video",
         title: "Video",
@@ -33,6 +36,7 @@ export const homePage: SchemaTypeDef = {
         type: "file",
         validation: (r) => r.required(),
       }),
+
       defineField({
         name: "videoCTAButtonLabel",
         title: "Primärer Call-To-Action-Text",
@@ -41,6 +45,7 @@ export const homePage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(15),
       }),
+
       defineField({
         name: "partners",
         title: "Partner",
@@ -71,6 +76,7 @@ export const homePage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "introduction",
         title: "Einleitung",
@@ -93,6 +99,7 @@ export const homePage: SchemaTypeDef = {
           },
         ],
       }),
+
       defineField({
         name: "featuredPosts",
         title: "Vorschau der neuesten Blogbeiträge",
@@ -115,6 +122,7 @@ export const homePage: SchemaTypeDef = {
           },
         ],
       }),
+
       defineField({
         name: "testimonials",
         title: "Testimonials",
@@ -138,6 +146,7 @@ export const homePage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "faq",
         title: "FAQ - Frequently Asked Questions",

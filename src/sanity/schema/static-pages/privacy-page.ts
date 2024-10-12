@@ -12,6 +12,7 @@ export const privacyPage: SchemaTypeDef = {
     icon: ShieldIcon,
     fields: [
       navigationLabel,
+
       defineField({
         name: "content",
         title: "Inhalt",
