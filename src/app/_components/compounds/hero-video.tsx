@@ -49,7 +49,10 @@ export const HeroVideo: FC<HeroVideoProps> = ({ className, src, ...restProps }) 
             loop={!isOpen}
             controlsList="nodownload noremoteplayback"
             src={src}
-            className="absolute left-0 top-0 h-full w-full rounded-2xl object-cover"
+            className={cn(
+              "absolute left-0 top-0 h-full w-full rounded-3xl rounded-b-[2.2rem] object-cover sm:rounded-b-3xl",
+              { "rounded-b-3xl": isOpen },
+            )}
             onClick={(e) => {
               if (isOpen) return;
               e.preventDefault();
