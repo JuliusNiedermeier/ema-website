@@ -18,26 +18,26 @@ export const MobileMenu: FC<MobileMenuProps> = async ({ className, ...restProps 
       <div className="mt-16 text-center">
         <Link href="/">
           <Heading size="lg" tag="h3">
-            {siteHeader?.navLinks?.home}
+            {siteHeader?.homeLabel}
           </Heading>
         </Link>
         <Link href="/blog/alle">
           <Heading size="lg" tag="h3">
-            {siteHeader?.navLinks?.blog}
+            {siteHeader?.blogLabel}
           </Heading>
         </Link>
         <Link href="/kontakt">
           <Heading size="lg" tag="h3">
-            {siteHeader?.navLinks?.contact}
+            {siteHeader?.contactLabel}
           </Heading>
         </Link>
       </div>
 
-      <Seperator label={siteHeader?.navLinks?.about || ""} className="mt-16" />
+      <Seperator label={siteHeader?.aboutMenuLabel || ""} className="mt-16" />
 
       <AboutMenu />
 
-      <Seperator label={siteHeader?.navLinks?.educationalProgramTypes || ""} className="mt-16" />
+      <Seperator label={siteHeader?.educationalProgramsMenuLabel || ""} className="mt-16" />
 
       <OffersMenu />
     </div>
