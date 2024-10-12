@@ -9,7 +9,9 @@ import { InteractionBubble } from "../compounds/interaction-bubble";
 import { EventDateList } from "../compounds/event-date-list";
 
 const infoEventCTACardQuery = groq`*[_type == "info-event-page"][0] {
-  preview,
+  heading,
+  teaser,
+  readMoreLabel,
   nextDates,
   timeSuffix
 }`;
@@ -32,18 +34,15 @@ export const InfoEventCTACard: FC<InfoEventCTACardProps> = async ({ className, s
     >
       <div className="flex-1 p-4">
         <Heading size="lg" tag="h3" className="mt-3">
-          {data?.preview?.title}
+          {data?.heading}
         </Heading>
-        <Paragraph className="mt-8">{data?.preview?.description}</Paragraph>
+        <Paragraph className="mt-8">{data?.teaser}</Paragraph>
         <div className="mt-12 flex h-8 items-center gap-0 transition-all group-hover:gap-4">
           <InteractionBubble />
-          <Label>{data?.preview?.readMoreLabel}</Label>
+          <Label>{data?.readMoreLabel}</Label>
         </div>
       </div>
-      <EventDateList
-        timeSuffix={data?.timeSuffix || ""}
-        dates={data?.nextDates?.map((date) => new Date(date.eventDate || "")) || []}
-      />
+      <EventDateList timeSuffix={data?.timeSuffix || ""} dates={data?.nextDates?.map((date) => new Date(date)) || []} />
     </Card>
   );
 };

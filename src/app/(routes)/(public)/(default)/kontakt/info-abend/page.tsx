@@ -4,7 +4,10 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { InfoEventPageQueryResult } from "../../../../../../../generated/sanity/types";
+import {
+  InfoEventPageQueryResult,
+  InfoEventPageConsultingPageQueryResult,
+} from "../../../../../../../generated/sanity/types";
 import { EventDateList } from "~/app/_components/compounds/event-date-list";
 import { Button } from "~/app/_components/primitives/button";
 import { CornerUpRightIcon } from "lucide-react";
@@ -17,21 +20,35 @@ import Image from "next/image";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 
 const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
-  ...,
-  speaker[] {
-    ...,
-    image { alt, asset -> { url } }
-  },
+  heading,
+  teaser,
+  directionsCTA,
+  alternativeCTA,
+  nextDates,
+  timeSuffix,
+  speaker[] { alt, asset -> { url } },
   benefits[] {
-    ...,
+    title,
+    description,
     image { alt, asset -> { url } }
   }
+}`;
+
+const infoEventPageConsultingPageQuery = groq`*[_type == "consulting-page"][0] {
+  readMoreLabel
 }`;
 
 const ContactPage: FC = async () => {
   const infoEventPageData = await sanityFetch<InfoEventPageQueryResult>(infoEventPageQuery, {
     tags: ["info-event-page"],
   });
+
+  const consultingPageData = await sanityFetch<InfoEventPageConsultingPageQueryResult>(
+    infoEventPageConsultingPageQuery,
+    {
+      tags: ["consulting-page"],
+    },
+  );
 
   if (!infoEventPageData) notFound();
 
@@ -42,15 +59,15 @@ const ContactPage: FC = async () => {
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto text-center">
             <Heading>{infoEventPageData.heading}</Heading>
-            <Paragraph>{infoEventPageData.description}</Paragraph>
+            <Paragraph>{infoEventPageData.teaser}</Paragraph>
           </div>
 
           <div className="mt-16 flex items-center justify-center">
             {infoEventPageData.speaker?.map((speaker, index) => (
               <AuthorTagImage
                 key={index}
-                src={speaker.image?.asset?.url || ""}
-                alt={speaker.image?.alt || ""}
+                src={speaker.asset?.url || ""}
+                alt={speaker.alt || ""}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}
@@ -66,7 +83,7 @@ const ContactPage: FC = async () => {
 
           <EventDateList
             className="mt-12"
-            dates={infoEventPageData.nextDates?.map((date) => new Date(date.eventDate || "")) || []}
+            dates={infoEventPageData.nextDates?.map((date) => new Date(date)) || []}
             timeSuffix={infoEventPageData.timeSuffix || ""}
           />
         </Container>
@@ -100,7 +117,7 @@ const ContactPage: FC = async () => {
         >
           <Container className="-mt-12">
             <Button href="/kontakt/beratung" className="mx-auto gap-4 pr-4">
-              <Label>{infoEventPageData.alternativeCTA?.buttonLabel}</Label>
+              <Label>{consultingPageData?.readMoreLabel}</Label>
               <InteractionBubble animated={false} className="bg-primary-100 text-primary-100-text" />
             </Button>
           </Container>

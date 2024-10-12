@@ -13,6 +13,7 @@ export const infoEventPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
@@ -20,35 +21,21 @@ export const infoEventPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(5).max(40),
       }),
+
       defineField({
-        name: "description",
-        title: "Beschreibung",
+        name: "teaser",
+        title: "Teaser",
         description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
         type: "text",
         validation: (r) => r.required().min(100).max(300),
       }),
+
       defineField({
-        name: "preview",
-        title: "Vorschau",
-        type: "object",
-        fields: [
-          defineField({
-            name: "title",
-            title: "Überschrift",
-            type: "string",
-          }),
-          defineField({
-            name: "description",
-            title: "Beschreibung",
-            type: "text",
-          }),
-          defineField({
-            name: "readMoreLabel",
-            title: "Mehr-Lesen-Text",
-            type: "string",
-          }),
-        ],
+        name: "readMoreLabel",
+        title: "Mehr-Lesen-Text",
+        type: "string",
       }),
+
       defineField({
         name: "speaker",
         title: "Teammitglieder, die beim Infoabend sind",
@@ -57,22 +44,11 @@ export const infoEventPage: SchemaTypeDef = {
           defineArrayMember({
             name: "speaker",
             title: "Team-Mitglied",
-            type: "object",
-            fields: [
-              defineField({
-                name: "name",
-                title: "Name",
-                type: "string",
-              }),
-              defineField({
-                name: "image",
-                title: "Foto",
-                type: "default-image",
-              }),
-            ],
+            type: "default-image",
           }),
         ],
       }),
+
       defineField({
         name: "directionsCTA",
         title: "Wegbeschreibungs-Button",
@@ -90,6 +66,7 @@ export const infoEventPage: SchemaTypeDef = {
           }),
         ],
       }),
+
       defineField({
         name: "nextDates",
         title: "Nächste Veranstaltungen",
@@ -98,21 +75,12 @@ export const infoEventPage: SchemaTypeDef = {
         of: [
           defineArrayMember({
             name: "event",
-            title: "Veranstaltung",
-            description: "Daten zu einer Infoveranstaltung",
-            type: "object",
-            fields: [
-              defineField({
-                name: "eventDate",
-                title: "Beginn der Veranstaltung",
-                description: "An welchem Datum und um wie viel Uhr beginnt diese Veranstltung?",
-                type: "datetime",
-                validation: (r) => r.required(),
-              }),
-            ],
+            title: "Beginn der Infoveranstaltung",
+            type: "datetime",
           }),
         ],
       }),
+
       defineField({
         name: "timeSuffix",
         title: "Uhrzeit-Suffix",
@@ -120,6 +88,7 @@ export const infoEventPage: SchemaTypeDef = {
         type: "string",
         validation: (r) => r.required().min(1).max(10),
       }),
+
       defineField({
         name: "benefits",
         title: "Event Highlights/Vorteile",
@@ -146,9 +115,17 @@ export const infoEventPage: SchemaTypeDef = {
                 type: "default-image",
               }),
             ],
+            preview: {
+              select: {
+                title: "title",
+                subtitle: "description",
+                media: "image",
+              },
+            },
           }),
         ],
       }),
+
       defineField({
         name: "alternativeCTA",
         title: "Alternative: Persönliche Beratung",
@@ -163,12 +140,6 @@ export const infoEventPage: SchemaTypeDef = {
             name: "description",
             title: "Beschreibung",
             type: "text",
-          }),
-          defineField({
-            name: "buttonLabel",
-            title: "Button-Text",
-            description: "Text auf dem Button, der zur persönlichen Beratung verlinkt.",
-            type: "string",
           }),
         ],
       }),
