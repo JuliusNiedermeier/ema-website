@@ -25,16 +25,18 @@ const bentoCTAQuery = groq`*[_type == "bento-cta-config"][0]{
 }`;
 
 const bentoCTAInfoEventQuery = groq`*[_type == "info-event-page"][0] {
-  preview,
+  heading,
+  teaser,
+  readMoreLabel,
   nextDates,
   timeSuffix
 }`;
 
 const bentoCTAConsultingQuery = groq`*[_type == "consulting-page"][0] {
-  preview {
-    ...,
-    splineGraphic { alt, asset -> { url } }
-  }
+  heading,
+  teaser,
+  readMoreLabel,
+  splineGraphic { alt, asset -> { url } }
 }`;
 
 export type BentoCTAProps = ComponentProps<"div"> & {};
@@ -84,15 +86,11 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
         <div className="flex flex-col gap-4 sm:flex-row">
           <Link className="flex-[1]" href="/kontakt/info-abend">
             <InfoEventCTACard
-              heading={infoEvent?.preview?.title || ""}
-              description={infoEvent?.preview?.description || ""}
-              readMoreLabel={infoEvent?.preview?.readMoreLabel || ""}
+              heading={infoEvent?.heading || ""}
+              description={infoEvent?.teaser || ""}
+              readMoreLabel={infoEvent?.readMoreLabel || ""}
               timeSuffix={infoEvent?.timeSuffix || ""}
-              dates={
-                infoEvent?.nextDates
-                  ?.filter(({ eventDate }) => !!eventDate)
-                  .map(({ eventDate }) => new Date(eventDate!)) || []
-              }
+              dates={infoEvent?.nextDates?.map((date) => new Date(date)) || []}
             />
           </Link>
         </div>
@@ -103,16 +101,16 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
       >
         <Link href="/kontakt/beratung">
           <div className="p-8">
-            <Heading tag="h3">{consulting?.preview?.title}</Heading>
-            <Paragraph className="mt-8">{consulting?.preview?.description}</Paragraph>
+            <Heading tag="h3">{consulting?.heading}</Heading>
+            <Paragraph className="mt-8">{consulting?.teaser}</Paragraph>
             <Button vairant="filled" className="mt-12 !rounded-full bg-[hsl(var(--themed-primary,var(--primary-900)))]">
-              <Label>{consulting?.preview?.readMoreLabel}</Label>
+              <Label>{consulting?.readMoreLabel}</Label>
               <ButtonInteractionBubble className="bg-primary-100 text-primary-100-text" />
             </Button>
           </div>
           <Image
-            src={consulting?.preview?.splineGraphic?.asset?.url || ""}
-            alt={consulting?.preview?.splineGraphic?.alt || ""}
+            src={consulting?.splineGraphic?.asset?.url || ""}
+            alt={consulting?.splineGraphic?.alt || ""}
             width="500"
             height="500"
             className="w-full"
