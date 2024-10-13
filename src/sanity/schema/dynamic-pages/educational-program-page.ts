@@ -93,7 +93,7 @@ export const educationalProgramPage: SchemaTypeDef = {
             name: "description",
             title: "Beschreibung",
             type: "string",
-            validation: createStringValidation("description"),
+            validation: createStringValidation("short-description"),
           }),
 
           defineField({
@@ -144,7 +144,7 @@ export const educationalProgramPage: SchemaTypeDef = {
             name: "description",
             title: "Beschreibung",
             type: "text",
-            validation: createStringValidation("description"),
+            validation: createStringValidation("short-description"),
           }),
 
           defineField({
