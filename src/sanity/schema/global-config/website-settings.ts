@@ -68,15 +68,15 @@ export const websiteSettingsType: SchemaTypeDef = {
           }),
 
           defineField({
-            name: "logoMarkLight",
-            title: "Logo auf hellem Hintergrund",
+            name: "logoMarkDark",
+            title: "Form-Logo auf hellem Hintergrund",
             type: "default-image",
             validation: (r) => r.required(),
           }),
 
           defineField({
-            name: "logoMarkDark",
-            title: "Logo auf hellem Hintergrund",
+            name: "logoMarkLight",
+            title: "FOrm-Logo auf dunklem Hintergrund",
             type: "default-image",
             validation: (r) => r.required(),
           }),
