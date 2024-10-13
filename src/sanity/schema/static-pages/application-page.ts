@@ -93,7 +93,7 @@ export const applicationPage: SchemaTypeDef = {
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
-                validation: createStringValidation("description"),
+                validation: createStringValidation("short-description"),
               }),
 
               defineField({
@@ -121,7 +121,7 @@ export const applicationPage: SchemaTypeDef = {
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
-                validation: createStringValidation("description"),
+                validation: createStringValidation("short-description"),
               }),
 
               defineField({
@@ -149,7 +149,7 @@ export const applicationPage: SchemaTypeDef = {
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
-                validation: createStringValidation("description"),
+                validation: createStringValidation("short-description"),
               }),
 
               defineField({

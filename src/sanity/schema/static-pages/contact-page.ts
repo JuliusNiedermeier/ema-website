@@ -60,7 +60,7 @@ export const contactPage: SchemaTypeDef = {
             name: "instagram",
             title: "Instagram",
             type: "string",
-            validation: createStringValidation([5, 20]),
+            validation: createStringValidation([5, 30]),
           }),
         ],
       }),

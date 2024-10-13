@@ -25,7 +25,7 @@ export const comparisonPage: SchemaTypeDef = {
         name: "teaser",
         title: "Teaser",
         type: "text",
-        validation: createStringValidation("description"),
+        validation: createStringValidation("short-description"),
       }),
 
       defineField({
