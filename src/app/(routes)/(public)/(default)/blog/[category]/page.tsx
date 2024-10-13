@@ -106,7 +106,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                       className="max-h-[50vh]"
                     />
                     <PostCardThumbnailTag>
-                      <Label>{latestPost.category?.title}</Label>
+                      <Label>{latestPost.category?.name}</Label>
                     </PostCardThumbnailTag>
                     <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </PostCardThumbnail>
@@ -171,7 +171,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
               <PostCardThumbnail>
                 <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.mainImage?.alt || ""} />
                 <PostCardThumbnailTag>
-                  <Label>{post.category?.title}</Label>
+                  <Label>{post.category?.name}</Label>
                 </PostCardThumbnailTag>
                 <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </PostCardThumbnail>

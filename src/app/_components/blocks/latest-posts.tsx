@@ -25,7 +25,7 @@ export type LatestPostsProps = ComponentProps<"div"> & {
     image: { url: string; alt: string };
     title: string;
     slug: string;
-    category: { title: string; slug: string };
+    category: { name: string; slug: string };
     author: { name: string; image: { url: string; alt: string } };
   }[];
 };
@@ -51,7 +51,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                       <PostCardThumbnailImage src={post.image.url} alt={post.image.alt} />
                       <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                       <PostCardThumbnailTag>
-                        <Label>{post.category.title}</Label>
+                        <Label>{post.category.name}</Label>
                       </PostCardThumbnailTag>
                     </PostCardThumbnail>
                     <PostCardContent>

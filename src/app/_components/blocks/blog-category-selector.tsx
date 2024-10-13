@@ -8,7 +8,7 @@ import { groq } from "next-sanity";
 import { BlogCategoriesQueryResult, BlogCategorySelectorBlogPageQueryResult } from "../../../../generated/sanity/types";
 
 const blogCategoriesQuery = groq`*[_type == "category"] {
-    title,
+    name,
     "slug": slug.current
   }`;
 
@@ -32,10 +32,10 @@ export const BlogCategorySelector: FC<BlogCategorySelectorProps> = async ({
 
   return (
     <TabList className={cn("w-fit", className)} {...restProps}>
-      {[{ title: blogPage?.categoryFilterAllLabel, slug: "alle" }, ...categories].map((category, index) => (
+      {[{ name: blogPage?.categoryFilterAllLabel, slug: "alle" }, ...categories].map((category, index) => (
         <Link key={index} href={`/blog/${category.slug}`}>
           <Tab interactive active={currentCategorySlug === category.slug}>
-            <Label>{category.title}</Label>
+            <Label>{category.name}</Label>
           </Tab>
         </Link>
       ))}

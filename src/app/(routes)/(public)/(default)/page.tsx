@@ -160,7 +160,7 @@ const HomePage: FC = async () => {
               title: post.name || "",
               image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
               slug: post.slug?.current || "",
-              category: { title: post.category?.title || "", slug: post.category?.slug?.current || "" },
+              category: { name: post.category?.name || "", slug: post.category?.slug?.current || "" },
               author: {
                 name: post.author?.name || "",
                 image: { url: post.author?.image?.asset?.url || "", alt: post.author?.image?.alt || "" },
@@ -240,7 +240,10 @@ const HomePage: FC = async () => {
         </Container>
 
         <Container width="narrow" className="mt-64">
-          <Heading className="text-center">{homePage.faq?.heading}</Heading>
+          <div className="text-center">
+            <Heading>{homePage.faq?.heading}</Heading>
+            <Paragraph>{homePage.faq?.description}</Paragraph>
+          </div>
           <BasicAccordion className="mt-16" items={FAQItems} />
         </Container>
 
