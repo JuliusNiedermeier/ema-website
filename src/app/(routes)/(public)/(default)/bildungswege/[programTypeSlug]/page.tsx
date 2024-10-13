@@ -87,7 +87,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
   const programTypePagePromise = sanityFetch<ProgramTypePageQueryResult>(programTypePageQuery, {
     params: { slug },
-    tags: ["educational-program-type"],
+    tags: ["educational-program-type-page"],
   });
 
   const programTypePromise = sanityFetch<ProgramTypeContentQueryResult>(programTypeContentQuery, {

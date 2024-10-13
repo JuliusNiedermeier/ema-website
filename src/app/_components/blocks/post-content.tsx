@@ -42,7 +42,13 @@ export type PostContentProps = { slug: string };
 export const PostContent: FC<PostContentProps> = async ({ slug }) => {
   const post = await sanityFetch<PostContentQueryResult>(postContentQuery, {
     params: { slug },
-    tags: ["post", "educational-program-type", "educational-program"],
+    tags: [
+      "post",
+      "educational-program-type",
+      "educational-program-type-page",
+      "educational-program",
+      "educational-program-page",
+    ],
   });
 
   if (!post) return null;

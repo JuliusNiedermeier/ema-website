@@ -33,7 +33,7 @@ export const ProgramLearningFieldsComparison: FC<ProgramLearningFieldsComparison
   const programTypes = await sanityFetch<ProgramLearningFieldsComparisonQueryResult>(
     programLearningFieldsComparisonQuery,
     {
-      tags: ["educational-program-type", "educational-program", "subject"],
+      tags: ["educational-program-type", "educational-program"],
     },
   );
 

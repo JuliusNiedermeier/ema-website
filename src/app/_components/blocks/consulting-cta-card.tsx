@@ -18,7 +18,7 @@ const consultingCTACardQuery = groq`*[_type == "consulting-page"][0] {
 export type ConsultingCTACardProps = ComponentProps<typeof Card> & {};
 
 export const ConsultingCTACard: FC<ConsultingCTACardProps> = async ({ className, ...restProps }) => {
-  const data = await sanityFetch<ConsultingCTACardQueryResult>(consultingCTACardQuery, { tags: ["info-event-page"] });
+  const data = await sanityFetch<ConsultingCTACardQueryResult>(consultingCTACardQuery, { tags: ["consulting-page"] });
 
   return (
     <Card

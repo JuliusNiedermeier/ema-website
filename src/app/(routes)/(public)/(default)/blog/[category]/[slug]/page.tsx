@@ -65,7 +65,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
       currentPostCategoryID: post.category?._id,
       currentPostID: post._id,
     },
-    tags: ["post", "category"],
+    tags: ["post", "category", "author"],
   });
 
   const postPage = await sanityFetch<PostPageQueryResult>(postPageQuery, { tags: ["post-page"] });

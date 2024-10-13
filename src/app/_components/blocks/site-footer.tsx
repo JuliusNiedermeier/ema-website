@@ -57,7 +57,24 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
 export type SiteFooterProps = ComponentProps<"div"> & {};
 
 export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps }) => {
-  const footerConfig = await sanityFetch<SiteFooterQueryResult>(siteFooterQuery, { tags: ["footer-config"] });
+  const footerConfig = await sanityFetch<SiteFooterQueryResult>(siteFooterQuery, {
+    tags: [
+      "footer-config",
+      "home-page",
+      "economy-social-page",
+      "art-page",
+      "campus-page",
+      "comparison-page",
+      "blog-page",
+      "contact-page",
+      "info-event-page",
+      "consulting-page",
+      "fees-page",
+      "jobs-page",
+      "privacy-page",
+      "impressum-page",
+    ],
+  });
 
   const programTypes = await sanityFetch<FooterEducationalProgramTypesQueryResult>(footerEducationalProgramTypesQuery, {
     tags: ["educational-program-type"],

@@ -7,8 +7,7 @@ import { SiteHeaderContainer } from "~/app/_components/compounds/site-header-con
 import { sanityFetch } from "~/sanity/lib/client";
 import { PublicDefaultLayoutInfoBannerQueryResult } from "../../../../../generated/sanity/types";
 
-const publicDefaultLayoutInfoBannerQuery = groq`*[_type == "info-banner-component"][0
-]`;
+const publicDefaultLayoutInfoBannerQuery = groq`*[_type == "info-banner-component"][0]`;
 
 const PublicDefaultLayout: FC<PropsWithChildren> = async ({ children }) => {
   const infoBanner = await sanityFetch<PublicDefaultLayoutInfoBannerQueryResult>(publicDefaultLayoutInfoBannerQuery, {

@@ -28,7 +28,9 @@ const feesPageProgramsQuery = groq`*[_type == "educational-program"] | order(ord
 }`;
 
 const FeesPage: FC = async () => {
-  const pageData = await sanityFetch<FeesPageQueryResult>(feesPageQuery, { tags: ["fees-page"] });
+  const pageData = await sanityFetch<FeesPageQueryResult>(feesPageQuery, {
+    tags: ["fees-page", "educational-program"],
+  });
 
   if (!pageData) notFound();
 

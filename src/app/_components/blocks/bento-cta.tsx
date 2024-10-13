@@ -42,7 +42,7 @@ const bentoCTAConsultingQuery = groq`*[_type == "consulting-page"][0] {
 export type BentoCTAProps = ComponentProps<"div"> & {};
 
 export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) => {
-  const data = await sanityFetch<BentoCTAQueryResult>(bentoCTAQuery, { tags: ["bento-cta-config"] });
+  const data = await sanityFetch<BentoCTAQueryResult>(bentoCTAQuery, { tags: ["bento-cta-config", "testimonial"] });
 
   const infoEvent = await sanityFetch<BentoCTAInfoEventQueryResult>(bentoCTAInfoEventQuery, {
     tags: ["info-event-page"],

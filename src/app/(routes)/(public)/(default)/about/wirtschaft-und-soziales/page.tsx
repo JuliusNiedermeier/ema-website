@@ -49,7 +49,7 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
 
 const EconomyXSocialPage: FC = async () => {
   const data = await sanityFetch<EconomySocialPageQueryResult>(economySocialPageQuery, {
-    tags: ["economy-social-page"],
+    tags: ["economy-social-page", "educational-program-type", "educational-program"],
   });
 
   if (!data) notFound();

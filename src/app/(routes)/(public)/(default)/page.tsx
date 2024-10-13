@@ -75,7 +75,9 @@ const HomePage: FC = async () => {
 
   if (!homePage) notFound();
 
-  const featuredPosts = await sanityFetch<FeaturedPostsQueryResult>(featuredPostsQuery, { tags: ["post"] });
+  const featuredPosts = await sanityFetch<FeaturedPostsQueryResult>(featuredPostsQuery, {
+    tags: ["post", "category", "author"],
+  });
 
   const economyXSocial = await sanityFetch<EconomyXSocialPreviewQueryResult>(economyXSocialPreviewQuery, {
     tags: ["economy-social-page"],

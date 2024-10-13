@@ -27,7 +27,7 @@ type InteractiveProgramFlowProps = Omit<ComponentProps<typeof Flow>, "items">;
 
 export const InteractiveProgramFlow: FC<InteractiveProgramFlowProps> = async (props) => {
   const programs = await sanityFetch<ProgramFlowProgramsQueryResult>(programFlowProgramsQuery, {
-    tags: ["educational-program"],
+    tags: ["educational-program", "educational-program-type"],
   });
 
   const programItems = programs.map<ComponentProps<typeof Flow>["items"][number]>((program) => ({
