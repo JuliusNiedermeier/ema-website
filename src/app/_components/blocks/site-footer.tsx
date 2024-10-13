@@ -47,7 +47,6 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
     "impressum": *[_type == "impressum-page"][0].navigationLabel
   },
   socialLinks[] {
-    platformName,
     logoIcon { alt, asset -> { url } },
     url
   },

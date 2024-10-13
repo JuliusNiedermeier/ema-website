@@ -45,11 +45,6 @@ export const footerConfigType: SchemaTypeDef = {
             type: "object",
             fields: [
               defineField({
-                name: "platformName",
-                title: "Name der Plattform",
-                type: "string",
-              }),
-              defineField({
                 name: "logoIcon",
                 title: "Logo",
                 type: "default-image",
