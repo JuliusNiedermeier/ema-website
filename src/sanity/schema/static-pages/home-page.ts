@@ -2,6 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { HomeIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const homePage: SchemaTypeDef = {
   type: "static-page",
@@ -16,17 +17,16 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Headline",
-        description: "20-60 Zeichen. Füge \n ein um einen Zeilenumbruch hinzuzufügen.",
+        description: "Füge \n ein um einen Zeilenumbruch hinzuzufügen.",
         type: "string",
-        validation: (r) => r.required().min(20).max(60),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "teaser",
         title: "Slogan",
-        description: "50-200 Zeichen.",
         type: "text",
-        validation: (r) => r.required().min(50).max(200),
+        validation: createStringValidation([20, 100]),
       }),
 
       defineField({
@@ -43,7 +43,7 @@ export const homePage: SchemaTypeDef = {
         description:
           "5-15 Zeichen. Text des prominenten Call-To-Action Buttons am Anfang der Seite. Leitet den Besucher auf die Online-Anmeldung.",
         type: "string",
-        validation: (r) => r.required().min(5).max(15),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -52,11 +52,13 @@ export const homePage: SchemaTypeDef = {
         description:
           "Möglichst mehr als drei Partner. Für eine gute Darstellung sollte das Logo jedes Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
         type: "array",
+        validation: createArrayValidation([3, 20]),
         of: [
           defineArrayMember({
             name: "partner",
             title: "Partner",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
         ],
       }),
@@ -67,20 +69,21 @@ export const homePage: SchemaTypeDef = {
         description: "",
         type: "object",
         fields: [
-          {
+          defineField({
             name: "heading",
             title: "Überschrift",
-            description: "10-40 Zeichen.",
+            description: "",
             type: "string",
-            validation: (r) => r.required().min(10).max(40),
-          },
-          {
+            validation: createStringValidation("heading"),
+          }),
+
+          defineField({
             name: "description",
             title: "Kurzer Text",
-            description: "100-300 Zeichen.",
+            description: "",
             type: "text",
-            validation: (r) => r.required().min(100).max(300),
-          },
+            validation: createStringValidation("description"),
+          }),
         ],
       }),
 
@@ -90,20 +93,21 @@ export const homePage: SchemaTypeDef = {
         description: "Bereich mit einer Vorschau der drei neuesten Blogbeiträge.",
         type: "object",
         fields: [
-          {
+          defineField({
             name: "heading",
             title: "Überschrift",
             description: "5-20 Zeichen. Überschrift des Bereichs.",
             type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          },
-          {
+            validation: createStringValidation("label"),
+          }),
+
+          defineField({
             name: "allPostsLabel",
             title: "Text des Links auf alle Blogbeiträge",
             description: "5-20 Zeichen.",
             type: "string",
-            validation: (r) => r.required().min(5).max(20),
-          },
+            validation: createStringValidation("label"),
+          }),
         ],
       }),
 
@@ -118,15 +122,16 @@ export const homePage: SchemaTypeDef = {
             title: "Überschrift",
             description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
             type: "string",
-            validation: (r) => r.required().min(3).max(40),
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Unterüberschrift",
             description:
               '50-200 Zeichen. Beispiel: "Schüler lieben die Emil Molt Akademie. Das wir davon überzeugt sind ist klar – überzeug \' dich besser selbst und lies was unsere Schüler über uns sagen."',
             type: "text",
-            validation: (r) => r.required().min(50).max(200),
+            validation: createStringValidation("description"),
           }),
         ],
       }),
@@ -142,12 +147,21 @@ export const homePage: SchemaTypeDef = {
             title: "Überschrift",
             description: "10-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(10).max(40),
+            validation: createStringValidation("heading"),
           }),
+
+          defineField({
+            name: "description",
+            title: "Beschreibung",
+            type: "string",
+            validation: createStringValidation("description"),
+          }),
+
           defineField({
             name: "items",
             title: "Fragen",
             type: "faq-items",
+            validation: (r) => r.required(),
           }),
         ],
       }),

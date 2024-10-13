@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const subjectType: SchemaTypeDef = {
   type: "dynamic-content",
@@ -14,6 +15,7 @@ export const subjectType: SchemaTypeDef = {
         name: "name",
         title: "Name",
         type: "string",
+        validation: createStringValidation("label"),
       }),
     ],
   }),

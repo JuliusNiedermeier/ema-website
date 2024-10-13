@@ -2,6 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { LayoutListIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const blogPage: SchemaTypeDef = {
   type: "static-page",
@@ -13,22 +14,26 @@ export const blogPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "preHeading",
         title: "Über-Überschrift",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "description",
         title: "Beschreibung",
         type: "text",
+        validation: createStringValidation("description"),
       }),
 
       defineField({
@@ -36,7 +41,7 @@ export const blogPage: SchemaTypeDef = {
         title: "Text über dem neuesten Blogbeitrag",
         description: "5-30 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(5).max(30),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -44,8 +49,9 @@ export const blogPage: SchemaTypeDef = {
         title: "Alle Blogbeiträge Text",
         description: "Bezeichnung der Option im Kategorie-Filter um alle Blogbeiträge anzuzeigen",
         type: "string",
+        validation: createStringValidation("label"),
       }),
-      
+
       defineField({
         name: "placeholder",
         title: "Platzhalter",
@@ -56,16 +62,21 @@ export const blogPage: SchemaTypeDef = {
             name: "preHeading",
             title: "Kurzer Text über der Überschrift",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),

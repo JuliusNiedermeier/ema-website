@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PenLineIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const post: SchemaTypeDef = {
   type: "dynamic-content",
@@ -14,12 +15,14 @@ export const post: SchemaTypeDef = {
         name: "name",
         title: "Titel",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -27,12 +30,14 @@ export const post: SchemaTypeDef = {
         title: "Autor",
         type: "reference",
         to: { type: "author" },
+        validation: (r) => r.required(),
       }),
 
       defineField({
         name: "mainImage",
         title: "Thumbnail",
         type: "default-image",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -40,24 +45,28 @@ export const post: SchemaTypeDef = {
         title: "Kategorie",
         type: "reference",
         to: { type: "category" },
+        validation: (r) => r.required(),
       }),
 
       defineField({
         name: "publishedAt",
         title: "Veröffentlichungsdatum",
         type: "datetime",
+        validation: (r) => r.required(),
       }),
 
       defineField({
         name: "excerpt",
         title: "Auszug",
         type: "text",
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "body",
         title: "Inhalt",
         type: "defaultPortableContent",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -71,14 +80,15 @@ export const post: SchemaTypeDef = {
             title: "Überschrift",
             description: "3-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(3).max(40),
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "introduction",
             title: "Beschreibung",
             description: "50-200 Zeichen",
             type: "text",
-            validation: (r) => r.required().min(50).max(200),
+            validation: createStringValidation("description"),
           }),
         ],
       }),

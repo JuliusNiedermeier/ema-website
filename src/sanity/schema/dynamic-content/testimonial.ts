@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { MessageSquareMoreIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const testimonial: SchemaTypeDef = {
   type: "dynamic-content",
@@ -18,26 +19,29 @@ export const testimonial: SchemaTypeDef = {
         options: { list: [3, 4, 5], layout: "radio" },
         validation: (r) => r.required(),
       }),
+
       defineField({
         name: "testimonial",
         title: "Text",
         description: "100-500 Zeichen",
         type: "text",
-        validation: (r) => r.required().min(100).max(500),
+        validation: createStringValidation("description"),
       }),
+
       defineField({
         name: "authorName",
         title: "Name des Autors",
         description: "3-30 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(3).max(30),
+        validation: createStringValidation("name"),
       }),
+
       defineField({
         name: "authorImage",
         title: "Bild des Autors",
         description: "Optional. Alternativ werden die Initialen des Autors angezeigt.",
         type: "default-image",
-        validation: (r) => r,
+        validation: (r) => r.required(),
       }),
     ],
     preview: {

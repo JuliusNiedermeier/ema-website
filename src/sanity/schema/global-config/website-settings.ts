@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { SettingsIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const websiteSettingsType: SchemaTypeDef = {
   type: "global-config",
@@ -15,6 +16,7 @@ export const websiteSettingsType: SchemaTypeDef = {
         title: "Titel der Website",
         description: "",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -22,6 +24,7 @@ export const websiteSettingsType: SchemaTypeDef = {
         title: "Beschreibung der Website",
         description: "",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -42,6 +45,7 @@ export const websiteSettingsType: SchemaTypeDef = {
         name: "favicon",
         title: "Favicon",
         type: "image",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -53,21 +57,28 @@ export const websiteSettingsType: SchemaTypeDef = {
             name: "textLogoDark",
             title: "Text-Logo auf hellem Hintergrund",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
+
           defineField({
             name: "textLogoLight",
             title: "Text-Logo auf dunklem Hintergrund",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
+
           defineField({
             name: "logoMarkLight",
             title: "Logo auf hellem Hintergrund",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
+
           defineField({
             name: "logoMarkDark",
             title: "Logo auf hellem Hintergrund",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
         ],
       }),

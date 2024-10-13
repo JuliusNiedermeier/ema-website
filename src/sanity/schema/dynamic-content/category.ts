@@ -21,6 +21,7 @@ export const category: SchemaTypeDef = {
         name: "slug",
         title: "Slug",
         type: "default-slug",
+        validation: (r) => r.required(),
       }),
     ],
   }),

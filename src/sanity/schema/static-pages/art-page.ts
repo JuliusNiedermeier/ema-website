@@ -2,6 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PaletteIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const artPage: SchemaTypeDef = {
   type: "static-page",
@@ -18,21 +19,21 @@ export const artPage: SchemaTypeDef = {
         name: "heading",
         title: "Überschrift",
         type: "string",
-        validation: (r) => r.required().min(5).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "teaser",
         title: "Auszug",
         type: "text",
-        validation: (r) => r.required().min(50).max(300),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Text",
         type: "string",
-        validation: (r) => r.required().min(5).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -65,6 +66,7 @@ export const artPage: SchemaTypeDef = {
         name: "artSubjects",
         title: "Kunstfächer",
         type: "array",
+        validation: createArrayValidation([2, 10]),
         of: [
           defineField({
             name: "art-subject",
@@ -75,21 +77,28 @@ export const artPage: SchemaTypeDef = {
                 name: "title",
                 title: "Name des Kunstfaches",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "slogan",
                 title: "Slogan",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "image",
                 title: "Bild",
                 type: "default-image",
+                validation: (r) => r.required(),
               }),
             ],
           }),
@@ -105,11 +114,14 @@ export const artPage: SchemaTypeDef = {
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),

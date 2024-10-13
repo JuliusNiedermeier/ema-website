@@ -2,6 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PersonStandingIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const campusPage: SchemaTypeDef = {
   type: "static-page",
@@ -13,29 +14,33 @@ export const campusPage: SchemaTypeDef = {
     groups: [],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "teaser",
         title: "Auszug",
         type: "text",
-        validation: (r) => r.required().min(50).max(300),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Button Text",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
         name: "staff",
         title: "Teammitglieder",
         type: "array",
+        validation: createArrayValidation([2, 20]),
         of: [
           defineArrayMember({
             name: "teamMember",
@@ -46,24 +51,31 @@ export const campusPage: SchemaTypeDef = {
                 name: "name",
                 title: "Name",
                 type: "string",
+                validation: createStringValidation("name"),
               }),
+
               defineField({
                 name: "position",
                 title: "Funktion",
                 description: "Was unterrichtet oder erledigt diese Person bei der EMA?",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "image",
                 title: "Bild",
                 description:
                   "Ein Foto, das die Person in Ihrem Schulalltag zeigt. Dieses Bild dient dem Kennenlernen der Person und den Räumlichkeiten oder dem Gelände.",
                 type: "default-image",
+                validation: (r) => r.required(),
               }),
             ],
           }),
@@ -79,11 +91,14 @@ export const campusPage: SchemaTypeDef = {
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),

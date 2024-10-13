@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const certificateType: SchemaTypeDef = {
   type: "internal",
@@ -12,26 +13,29 @@ export const certificateType: SchemaTypeDef = {
         name: "heading",
         title: "Überschrift",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
+
       defineField({
         name: "description",
         title: "Beschreibung",
         type: "text",
-        // validation: (r) => r.required().min(50).max(300),
+        validation: createStringValidation("description"),
       }),
+
       defineField({
         name: "qualifications",
         title: "Qualifizierungen",
         type: "array",
+        validation: createArrayValidation([1, 20]),
         of: [
-          {
+          defineField({
             name: "qualification",
             title: "Qualifizierung",
             type: "string",
-            // validation: (r) => r.required().min(5).max(30),
-          },
+            validation: createStringValidation("label"),
+          }),
         ],
-        // validation: (r) => r.length(1),
       }),
     ],
   }),

@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const educationalProgram: SchemaTypeDef = {
   type: "dynamic-content",
@@ -28,7 +29,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "5-30 Zeichen",
         type: "string",
         group: "hero",
-        validation: (r) => r.required().min(5).max(30),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -36,6 +37,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "URL freundlicher Text",
         type: "default-slug",
         group: "hero",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -61,7 +63,7 @@ export const educationalProgram: SchemaTypeDef = {
           "10-40 Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",
         type: "string",
         group: "hero",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -70,7 +72,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "50-300 Zeichen",
         type: "text",
         group: "hero",
-        validation: (r) => r.required().min(50).max(300),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
@@ -92,19 +94,22 @@ export const educationalProgram: SchemaTypeDef = {
                 title: "Highlight Bezeichnung",
                 description: "5-20 Zeichen. Eine kurze und möglichst eingängige Bezeichnung.",
                 type: "string",
-                validation: (r) => r.required().min(5).max(20),
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "content",
                 title: "Beschreibung",
                 description: "20-150 Zeichen. Beschreibung des Highlights.",
                 type: "text",
-                validation: (r) => r.required().min(20).max(150),
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "image",
                 title: "Bild",
                 type: "default-image",
+                validation: (r) => r.required(),
               }),
             ],
           }),
@@ -116,6 +121,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Abschluss",
         type: "program-certificate",
         group: "details",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -131,19 +137,24 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Überschrift",
             description: "10-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(10).max(40),
+            validation: createStringValidation("heading"),
+            hidden: ({ document }) => !(document?.followUpPrograms as any)?.programs?.length,
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             description: "Was sind die Vorteile diese Bildungsgänge zu verbinden?",
             type: "text",
-            validation: (r) => r.required().min(50).max(300),
+            validation: createStringValidation("description"),
+            hidden: ({ document }) => !(document?.followUpPrograms as any)?.programs?.length,
           }),
+
           defineField({
             name: "programs",
             title: "Bildungsgänge",
             type: "array",
+            validation: (r) => r.max(10),
             of: [
               defineArrayMember({
                 name: "educationalProgram",
@@ -164,6 +175,7 @@ export const educationalProgram: SchemaTypeDef = {
           "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
         type: "text",
         group: "information-gallery",
+        validation: createStringValidation("description"),
       }),
 
       defineField({
@@ -171,7 +183,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Ausbildungsdauer",
         description: "5-20 Zeichen. Wie viele Jahre dauert die Ausbildung? Besipiel: '3 Jahre'",
         type: "string",
-        validation: (r) => r.required().min(5).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -179,7 +191,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Ausbildungsart",
         description: "5-20 Zeichen. Beispiel: 'Ganztagesausbildung'",
         type: "string",
-        validation: (r) => r.required().min(5).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -192,14 +204,15 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Unterrichtsbeginn",
             description: "8-13 Zeichen. Format: '8:00 Uhr'",
             type: "string",
-            validation: (r) => r.required().min(8).max(13),
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "end",
             title: "Unterrichtsschluss",
             description: "8-13 Zeichen. Format: '8:00 Uhr'",
             type: "string",
-            validation: (r) => r.required().min(8).max(13),
+            validation: createStringValidation("label"),
           }),
         ],
       }),
@@ -209,7 +222,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Ferieninformation",
         description: "10-100 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(10).max(100),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -217,7 +230,7 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Datum",
         description: "8-20 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(8).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -226,13 +239,14 @@ export const educationalProgram: SchemaTypeDef = {
         description: "Mindestens 3 Fächer erforderlich",
         type: "array",
         group: "subjects",
-        validation: (r) => r.min(3),
+        validation: createArrayValidation([1, 20]),
         of: [
           defineArrayMember({
             name: "subject",
             title: "Fach",
             type: "reference",
             to: { type: "subject" },
+            validation: (r) => r.required(),
           }),
         ],
       }),
@@ -241,6 +255,7 @@ export const educationalProgram: SchemaTypeDef = {
         name: "learningFields",
         title: "Lernfelder",
         type: "array",
+        validation: (r) => r.max(20),
         of: [
           defineArrayMember({
             name: "learning-field",
@@ -251,11 +266,14 @@ export const educationalProgram: SchemaTypeDef = {
                 name: "short",
                 title: "Abkürzung",
                 type: "string",
+                validation: createStringValidation([1, 5]),
               }),
+
               defineField({
                 name: "long",
                 title: "Bezeichnung",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
             ],
             preview: {
@@ -289,7 +307,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "2-10 Einträge",
         type: "array",
         group: "information-gallery",
-        validation: (r) => r.min(2).max(10),
+        validation: createArrayValidation([2, 10]),
         of: [
           defineArrayMember({
             name: "item",
@@ -302,22 +320,25 @@ export const educationalProgram: SchemaTypeDef = {
                 title: "Über-Überschrift",
                 description: "<20 Zeichen",
                 type: "string",
-                validation: (r) => r.required().max(20),
+                validation: createStringValidation("label"),
               }),
+
               defineField({
                 name: "heading",
                 title: "Überschrift",
                 description: "5-40 Zeichen",
                 type: "string",
-                validation: (r) => r.required().min(5).max(40),
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "content",
                 title: "Inhalt",
                 description: "200-500 Zeichen",
                 type: "text",
-                validation: (r) => r.required().min(200).max(500),
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "image",
                 title: "Bild",
@@ -343,15 +364,16 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Schriftliche Beschreibung der Grundvoraussetzungen",
             description: "50-300 Zeichen. Was für Interessen oder Fähigkeiten sollten Bewerber mitbringen?",
             type: "text",
-            validation: (r) => r.required().min(50).max(300),
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "requirementGroups",
             title: "Voraussetzungskombinationen",
             description:
               "1-5 Kombinationen. Sammlung von Kombinationen von Voraussetzungen, die für die Teilnahme an einem Bildungsweg erforderlich sind.",
             type: "array",
-            validation: (r) => r.min(1).max(5),
+            validation: createArrayValidation([1, 5]),
             of: [
               defineArrayMember({
                 name: "requirementGroup",
@@ -365,14 +387,14 @@ export const educationalProgram: SchemaTypeDef = {
                     description:
                       "1-5 Voraussetzungen. Liste der einzelnen Voraussetzungen, die Teil eines Pakets sind.",
                     type: "array",
-                    validation: (r) => r.min(1).max(5),
+                    validation: createArrayValidation([1, 5]),
                     of: [
                       defineArrayMember({
                         name: "requirement",
                         title: "Voraussetzung",
                         description: "3-50 Zeichen. Eine einzelne Voraussetzung innerhalb eines Pakets.",
                         type: "string",
-                        validation: (r) => r.required().min(3).max(50),
+                        validation: createStringValidation("label"),
                       }),
                     ],
                   }),
@@ -389,7 +411,7 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           '50-200 Zeichen. Beispiel: "Schüler lieben die Fachoberschule Wirtschaft. Das wir davon überzeugt sind ist klar – überzeug\' dich besser selbst und lies was unsere Schüler sagen."',
         type: "text",
-        validation: (r) => r.required().min(50).max(200),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
@@ -404,12 +426,14 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Beschreibung",
             description: "10-200 Zeichen",
             type: "text",
-            validation: (r) => r.required().min(10).max(200),
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "faq",
             title: "Einträge",
             type: "faq-items",
+            validation: (r) => r.required(),
           }),
         ],
       }),
@@ -419,13 +443,14 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Einleitung über den alternativen Bildungsgängen",
         description: "50-300 Zeichen",
         type: "text",
-        validation: (r) => r.required().min(50).max(200),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "fees",
         type: "program-fees",
         group: "fees",
+        validation: (r) => r.required(),
       }),
     ],
     preview: {

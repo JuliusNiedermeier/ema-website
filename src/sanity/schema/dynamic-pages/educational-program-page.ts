@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const educationalProgramPage: SchemaTypeDef = {
   type: "dynamic-page",
@@ -17,31 +18,35 @@ export const educationalProgramPage: SchemaTypeDef = {
         description:
           "5-20 Zeichen. Link-Text, der von anderen Seiten auf diesen einen Bildungsgang verweist. Zum Beispiel 'Mehr erfahren'.",
         type: "string",
-        validation: (r) => r.required().min(5).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
         name: "detailsHeading",
         title: "Überschrift der Bildungsgang-Beschreibung",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "durationAndTrainingTypeHeading",
         title: "Dauer und Ausbildungsart - Überschrift",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
         name: "lessonTimesHeading",
         title: "Unterrichtszeiten - Überschrift",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
         name: "holidaysHeading",
         title: "Ferien - Überschrift",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -53,16 +58,21 @@ export const educationalProgramPage: SchemaTypeDef = {
             name: "heading",
             title: "überschrift",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "applyButtonLabel",
             title: "Bewerbungbutton Text",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "backgroundGraphic",
             title: "Hintergrundgrafik",
             type: "default-image",
+            validation: (r) => r.required(),
           }),
         ],
       }),
@@ -76,18 +86,22 @@ export const educationalProgramPage: SchemaTypeDef = {
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "string",
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "learningFieldsHeading",
             title: "Überschrift der Lernfelder",
             description: "5-20 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(5).max(20),
+            validation: createStringValidation("heading"),
           }),
         ],
       }),
@@ -102,12 +116,14 @@ export const educationalProgramPage: SchemaTypeDef = {
             title: "Überschrift",
             description: "5-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(5).max(40),
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "orLabel",
             title: "Label zwischen Vorraussetzungepaketen",
             type: "string",
+            validation: createStringValidation("label"),
           }),
         ],
       }),
@@ -121,16 +137,21 @@ export const educationalProgramPage: SchemaTypeDef = {
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "text",
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "linkLabel",
             title: "Link-text",
             type: "string",
+            validation: createStringValidation("label"),
           }),
         ],
       }),
@@ -140,7 +161,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         title: "Testimonials-Überschrift",
         description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
         type: "string",
-        validation: (r) => r.required().min(3).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -148,13 +169,14 @@ export const educationalProgramPage: SchemaTypeDef = {
         title: "FAQs-Überschrift",
         description: "10-40 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "feesLinkLabel",
         title: "Text für den Link zur Schulbeitragsseite",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -162,7 +184,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         title: "Überschrift zu den alternativen Bildungsgängen",
         description: "10-40 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
     ],
     preview: {

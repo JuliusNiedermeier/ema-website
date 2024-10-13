@@ -1,7 +1,8 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { MailCheckIcon, PartyPopperIcon, TextSelectIcon, UserRoundPlusIcon, XCircleIcon } from "lucide-react";
+import { UserRoundPlusIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const applicationPage: SchemaTypeDef = {
   type: "static-page",
@@ -19,18 +20,22 @@ export const applicationPage: SchemaTypeDef = {
     ],
     fields: [
       navigationLabel,
+
       defineField({
         name: "heroImage",
         title: "Titelbild",
         type: "default-image",
+        validation: (r) => r.required(),
       }),
+
       defineField({
         name: "title",
         title: "Seitenname",
         type: "string",
         group: "form",
-        validation: (r) => r.required(),
+        validation: createStringValidation("label"),
       }),
+
       defineField({
         name: "steps",
         title: "Formular-Schritte",
@@ -46,14 +51,18 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
             ],
           }),
+
           defineField({
             name: "program",
             title: "Auswahl des Bildungsgangs",
@@ -63,9 +72,11 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
             ],
           }),
+
           defineField({
             name: "name",
             title: "Name",
@@ -75,19 +86,25 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
             ],
           }),
+
           defineField({
             name: "age",
             title: "Alter",
@@ -97,19 +114,25 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
             ],
           }),
+
           defineField({
             name: "email",
             title: "Email",
@@ -119,21 +142,27 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
+
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
             ],
           }),
         ],
       }),
+
       defineField({
         name: "navigation",
         title: "Navigation",
@@ -144,24 +173,32 @@ export const applicationPage: SchemaTypeDef = {
             name: "startLabel",
             title: "Text auf dem Start-Button",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "backLabel",
             title: "Text auf dem Zurück-Button",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "nextLabel",
             title: "Text auf dem Weiter-Button",
             type: "string",
+            validation: createStringValidation("label"),
           }),
+
           defineField({
             name: "submitLabel",
             title: "Text auf dem Abschließen-Button im letzten schritt",
             type: "string",
+            validation: createStringValidation("label"),
           }),
         ],
       }),
+
       defineField({
         name: "verification",
         title: "Verifizierung",
@@ -173,15 +210,19 @@ export const applicationPage: SchemaTypeDef = {
             title: "Überschrift",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),
+
       defineField({
         name: "error",
         title: "Fehler",
@@ -197,14 +238,18 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
             ],
           }),
+
           defineField({
             name: "internal",
             title: "Serverfehler",
@@ -214,16 +259,20 @@ export const applicationPage: SchemaTypeDef = {
                 name: "heading",
                 title: "Überschrift",
                 type: "string",
+                validation: createStringValidation("heading"),
               }),
+
               defineField({
                 name: "description",
                 title: "Beschreibung",
                 type: "text",
+                validation: createStringValidation("description"),
               }),
             ],
           }),
         ],
       }),
+
       defineField({
         name: "success",
         title: "Erfolg",
@@ -235,15 +284,19 @@ export const applicationPage: SchemaTypeDef = {
             title: "Überschrift",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),
+
       defineField({
         name: "alreadyDone",
         title: "Bereits abgeschlossen",
@@ -255,12 +308,15 @@ export const applicationPage: SchemaTypeDef = {
             title: "Überschrift",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
             type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),
@@ -270,6 +326,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Text auf dem Button zur Startseite",
         type: "string",
         group: "success",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -277,6 +334,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Text auf dem Button zur erneuten Anmeldung",
         type: "string",
         group: "success",
+        validation: createStringValidation("label"),
       }),
     ],
     preview: {

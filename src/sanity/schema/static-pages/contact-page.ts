@@ -2,6 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { MapPinIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 
 export const contactPage: SchemaTypeDef = {
   type: "static-page",
@@ -18,6 +19,7 @@ export const contactPage: SchemaTypeDef = {
         name: "heading",
         title: "Überschrift",
         type: "string",
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -25,13 +27,14 @@ export const contactPage: SchemaTypeDef = {
         title: "Beschreibung",
         description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
         type: "text",
-        validation: (r) => r.required().min(100).max(300),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "readMoreLabel",
         title: "Mehr-Lesen-Text",
         type: "string",
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -43,16 +46,21 @@ export const contactPage: SchemaTypeDef = {
             name: "phone",
             title: "Telefon",
             type: "string",
+            validation: createStringValidation([8, 20]),
           }),
+
           defineField({
             name: "email",
             title: "Email",
             type: "string",
+            validation: createStringValidation([5, 50]),
           }),
+
           defineField({
             name: "instagram",
             title: "Instagram",
             type: "string",
+            validation: createStringValidation([5, 20]),
           }),
         ],
       }),
@@ -61,6 +69,7 @@ export const contactPage: SchemaTypeDef = {
         name: "officeHours",
         title: "Sprechzeiten",
         type: "array",
+        validation: createArrayValidation([1, 7]),
         of: [
           defineArrayMember({
             name: "day",
@@ -72,16 +81,21 @@ export const contactPage: SchemaTypeDef = {
                 name: "day",
                 title: "Tag",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
+
               defineField({
                 name: "from",
                 title: "Von",
                 type: "time-select",
+                validation: (r) => r.required(),
               }),
+
               defineField({
                 name: "to",
                 title: "Bis",
                 type: "time-select",
+                validation: (r) => r.required(),
               }),
             ],
             preview: {
@@ -104,12 +118,16 @@ export const contactPage: SchemaTypeDef = {
             name: "heading",
             title: "Überschrift",
             type: "string",
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             type: "text",
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "address",
             title: "Adresse",
@@ -119,14 +137,18 @@ export const contactPage: SchemaTypeDef = {
                 name: "street",
                 title: "Straße & Hausnummer",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
+
               defineField({
                 name: "zipAndCity",
                 title: "PLZ und Stadt",
                 type: "string",
+                validation: createStringValidation("label"),
               }),
             ],
           }),
+
           defineField({
             name: "mapImage",
             title: "Kartenausschnitt",
@@ -134,12 +156,13 @@ export const contactPage: SchemaTypeDef = {
             type: "default-image",
             validation: (r) => r.required(),
           }),
+
           defineField({
             name: "mapsLink",
             title: "Standort-Link",
             description: "Ein Link zur Adresse der EMA auf Google Maps",
-            type: "string",
-            validation: (r) => r.required().min(10),
+            type: "url",
+            validation: (r) => r.required(),
           }),
         ],
       }),

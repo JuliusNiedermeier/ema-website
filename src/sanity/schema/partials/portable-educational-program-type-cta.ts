@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField } from "sanity";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const portableEducationalProgramTypeCTAType = defineArrayMember({
   name: "portableEducationalProgramTypeCTA",
@@ -9,17 +10,22 @@ export const portableEducationalProgramTypeCTAType = defineArrayMember({
       name: "heading",
       title: "Überschrift",
       type: "string",
+      validation: createStringValidation("heading"),
     }),
+
     defineField({
       name: "description",
       title: "beschreibung",
       type: "text",
+      validation: createStringValidation("description"),
     }),
+
     defineField({
       name: "educationalProgramType",
       title: "Bildungsweg",
       type: "reference",
       to: { type: "educational-program-type" },
+      validation: (r) => r.required(),
     }),
   ],
 });

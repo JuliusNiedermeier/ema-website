@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const educationalProgramTypePage: SchemaTypeDef = {
   type: "dynamic-page",
@@ -17,7 +18,7 @@ export const educationalProgramTypePage: SchemaTypeDef = {
         description:
           "5-20 Zeichen. Link-Text, der von anderen Seiten auf diesen einen Bildungsweg verweist. Zum Beispiel 'Mehr erfahren'.",
         type: "string",
-        validation: (r) => r.required().min(5).max(20),
+        validation: createStringValidation("label"),
       }),
 
       defineField({
@@ -25,7 +26,7 @@ export const educationalProgramTypePage: SchemaTypeDef = {
         title: "FAQs-Überschrift",
         description: "10-40 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -33,7 +34,7 @@ export const educationalProgramTypePage: SchemaTypeDef = {
         title: "Überschrift zu den alternativen Bildungswegen",
         description: "10-40 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
     ],
     preview: {

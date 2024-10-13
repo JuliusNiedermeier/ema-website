@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const educationalProgramType: SchemaTypeDef = {
   type: "dynamic-content",
@@ -16,13 +17,14 @@ export const educationalProgramType: SchemaTypeDef = {
         title: "Bezeichnung des Bildungswegs",
         description: "5-30 Zeichen",
         type: "string",
-        validation: (r) => r.required().min(5).max(30),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -45,7 +47,7 @@ export const educationalProgramType: SchemaTypeDef = {
         title: "Bildungsweg Slogan",
         description: "Ein aussagekräftiger kurzer Slogan, der den Bildungsweg möglichst effektiv bewirbt.",
         type: "string",
-        validation: (r) => r.required().min(10).max(40),
+        validation: createStringValidation("heading"),
       }),
 
       defineField({
@@ -54,13 +56,14 @@ export const educationalProgramType: SchemaTypeDef = {
         description:
           "100-500 Zeichen. Ein kurzer Text, der Interesse weckt und die wichtigsten Aspeckte des Bildungsweges erwähnt.",
         type: "text",
-        validation: (r) => r.required().min(100).max(500),
+        validation: createStringValidation("description"),
       }),
 
       defineField({
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
+        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -76,19 +79,24 @@ export const educationalProgramType: SchemaTypeDef = {
             title: "Überschrift",
             description: "10-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(10).max(40),
+            validation: createStringValidation("heading"),
+            hidden: ({ document }) => !(document?.followUpProgramTypes as any)?.programTypes?.length,
           }),
+
           defineField({
             name: "description",
             title: "Beschreibung",
             description: "Was sind die Vorteile diese Bildungswege zu verbinden?",
             type: "text",
-            validation: (r) => r.required().min(50).max(300),
+            validation: createStringValidation("description"),
+            hidden: ({ document }) => !(document?.followUpProgramTypes as any)?.programTypes?.length,
           }),
+
           defineField({
             name: "programTypes",
             title: "Bildungswege",
             type: "array",
+            validation: (r) => r.max(10),
             of: [
               defineArrayMember({
                 name: "educationalProgramType",
@@ -113,14 +121,15 @@ export const educationalProgramType: SchemaTypeDef = {
             title: "Überschrift",
             description: "10-40 Zeichen",
             type: "string",
-            validation: (r) => r.required().min(10).max(40),
+            validation: createStringValidation("heading"),
           }),
+
           defineField({
             name: "introduction",
             title: "Beschreibung",
             description: "20-200 Zeichen. Kurze Beschreibung oder Unterüberschrift zu diesem Bereich.",
             type: "text",
-            validation: (r) => r.required().min(20).max(200),
+            validation: createStringValidation("description"),
           }),
         ],
       }),
@@ -136,12 +145,14 @@ export const educationalProgramType: SchemaTypeDef = {
             title: "Beschreibung",
             description: "10-200 Zeichen",
             type: "text",
-            validation: (r) => r.required().min(10).max(200),
+            validation: createStringValidation("description"),
           }),
+
           defineField({
             name: "items",
             title: "Fragen",
             type: "faq-items",
+            validation: (r) => r.required(),
           }),
         ],
       }),
@@ -151,7 +162,7 @@ export const educationalProgramType: SchemaTypeDef = {
         title: "Einleitung über den alternativen Bildungswegen",
         description: "50-300 Zeichen",
         type: "text",
-        validation: (r) => r.required().min(50).max(200),
+        validation: createStringValidation("description"),
       }),
     ],
     preview: {
