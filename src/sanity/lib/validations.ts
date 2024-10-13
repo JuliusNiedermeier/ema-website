@@ -1,4 +1,6 @@
-import { StringRule } from "sanity";
+import { ArrayRule, StringRule } from "sanity";
+
+// String validation
 
 type StringSizeBounds = [number, number];
 type NamedStringSizeBounds = keyof typeof stringSizeBoundsMap;
@@ -13,4 +15,12 @@ const stringSizeBoundsMap = {
 export const createStringValidation = (size: NamedStringSizeBounds | StringSizeBounds) => {
   const [min, max] = Array.isArray(size) ? size : stringSizeBoundsMap[size];
   return (r: StringRule) => r.required().min(min).max(max);
+};
+
+// Array validation
+
+type ArraySizeBounds = StringSizeBounds;
+
+export const createArrayValidation = <V>([min, max]: ArraySizeBounds) => {
+  return (r: ArrayRule<V>) => r.min(min).max(max);
 };
