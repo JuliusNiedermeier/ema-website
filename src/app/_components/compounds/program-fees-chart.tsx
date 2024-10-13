@@ -34,6 +34,7 @@ export type ProgramFeesChartProps = ComponentProps<"div"> & {
   programSelectPlaceholder: string;
   incomeLabel: string;
   feeLabel: string;
+  feeCurrency: string;
   defaultProgramID: string | null;
   programFees: {
     program: { ID: string; title: string; type: { ID: string; title: string }; color: HSLValue };
@@ -52,6 +53,7 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({
   programSelectPlaceholder,
   incomeLabel,
   feeLabel,
+  feeCurrency,
   defaultProgramID,
   programFees,
   ...restProps
@@ -169,7 +171,9 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({
                   <Chip className="rounded-xl">
                     <Label>{fee.incomeRangeLabel}</Label>
                   </Chip>
-                  <Label className="mr-4 text-neutral-900-text">{fee.fee} €</Label>
+                  <Label className="mr-4 text-neutral-900-text">
+                    {fee.fee} {feeCurrency}
+                  </Label>
                 </div>
               ))}
             </div>

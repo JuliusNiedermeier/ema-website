@@ -108,6 +108,7 @@ const FeesPage: FC = async () => {
           programSelectPlaceholder={pageData.programSelectPlaceholder || ""}
           incomeLabel={pageData.incomeLabel || ""}
           feeLabel={pageData.feeLabel || ""}
+          feeCurrency={pageData.feeCurrency || ""}
           defaultProgramID={pageData.defaultProgram?._id || null}
           programFees={programFees}
         />

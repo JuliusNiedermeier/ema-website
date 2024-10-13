@@ -71,6 +71,11 @@ export const feesPage: SchemaTypeDef = {
         title: "Text über dem Schulbeitrag",
         type: "string",
       }),
+      defineField({
+        name: "feeCurrency",
+        title: "Währungssymbol hinter dem Betrag des Schulbeitrag",
+        type: "string",
+      }),
 
       defineField({
         name: "coverageLabel",
