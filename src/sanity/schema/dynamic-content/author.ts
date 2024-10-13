@@ -19,9 +19,6 @@ export const author: SchemaTypeDef = {
         name: "image",
         title: "Bild",
         type: "default-image",
-        options: {
-          hotspot: true,
-        },
       }),
     ],
   }),
