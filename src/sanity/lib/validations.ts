@@ -13,9 +13,19 @@ const stringSizeBoundsMap = {
   name: [3, 30],
 } satisfies Record<string, StringSizeBounds>;
 
+const getSize = (size: NamedStringSizeBounds | StringSizeBounds) => {
+  return Array.isArray(size) ? size : stringSizeBoundsMap[size];
+};
+
 export const createStringValidation = (size: NamedStringSizeBounds | StringSizeBounds) => {
-  const [min, max] = Array.isArray(size) ? size : stringSizeBoundsMap[size];
+  const [min, max] = getSize(size);
   return (r: StringRule) => r.required().min(min).max(max);
+};
+
+export const validateString = (value: string | undefined, size: NamedStringSizeBounds | StringSizeBounds) => {
+  if (!value) return false;
+  const [min, max] = getSize(size);
+  return value.length >= min && value.length <= max;
 };
 
 // Array validation

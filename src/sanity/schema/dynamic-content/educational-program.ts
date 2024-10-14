@@ -1,7 +1,8 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, validateString } from "~/sanity/lib/validations";
+import { EducationalProgram } from "../../../../generated/sanity/types";
 
 export const educationalProgram: SchemaTypeDef = {
   type: "dynamic-content",
@@ -131,6 +132,14 @@ export const educationalProgram: SchemaTypeDef = {
           "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, der ihm nach dieser Ausbildung offen steht.",
         type: "object",
         group: "follow-up-program",
+        validation: (r) =>
+          r.custom((followUpProgramTypes: EducationalProgram["followUpPrograms"]) => {
+            return !followUpProgramTypes?.programs?.length ||
+              (validateString(followUpProgramTypes.heading, "heading") &&
+                validateString(followUpProgramTypes.description, "description"))
+              ? true
+              : "Es sind nicht alle erforderlichen Felder ausgefüllt.";
+          }),
         fields: [
           defineField({
             name: "heading",
