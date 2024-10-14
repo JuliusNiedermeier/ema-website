@@ -470,12 +470,6 @@ export const educationalProgram: SchemaTypeDef = {
         validation: createStringValidation("description"),
       }),
 
-      // defineField({
-      //   name: "fees",
-      //   type: "program-fees",
-      //   group: "fees",
-      // }),
-
       defineField({
         name: "fees",
         title: "Schulbeiträge",
