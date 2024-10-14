@@ -54,13 +54,13 @@ export const economySocialPage: SchemaTypeDef = {
         name: "content",
         title: "Inhalt",
         type: "defaultPortableContent",
-        validation: (r) => r.required(),
       }),
 
       defineField({
         name: "educationalProgramTypesCTA",
         title: "Links zu den Bildungswegen",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

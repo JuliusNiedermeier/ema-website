@@ -10,6 +10,5 @@ export const timeSelect: SchemaTypeDef = {
     components: {
       input: TimeSelectInput,
     },
-    validation: (r) => r.required(),
   }),
 };

@@ -68,6 +68,7 @@ export const homePage: SchemaTypeDef = {
         title: "Einleitung",
         description: "",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -92,6 +93,7 @@ export const homePage: SchemaTypeDef = {
         title: "Vorschau der neuesten Blogbeiträge",
         description: "Bereich mit einer Vorschau der drei neuesten Blogbeiträge.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -116,6 +118,7 @@ export const homePage: SchemaTypeDef = {
         title: "Testimonials",
         description: "Positive Aussagen der Schüler zur Emil Molt Akademie.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -141,6 +144,7 @@ export const homePage: SchemaTypeDef = {
         title: "FAQ - Frequently Asked Questions",
         description: "Die häufigsten allgemeinen Fragen zur Emil Molt Akademie können hier beantwortet werden.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -161,7 +165,7 @@ export const homePage: SchemaTypeDef = {
             name: "items",
             title: "Fragen",
             type: "faq-items",
-            validation: (r) => r.required(),
+            validation: (r) => r.required().min(3).max(10),
           }),
         ],
       }),

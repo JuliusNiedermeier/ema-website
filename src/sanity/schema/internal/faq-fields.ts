@@ -1,20 +1,18 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation } from "~/sanity/lib/validations";
 
 export const faqType: SchemaTypeDef = {
   type: "internal",
   definition: defineType({
     name: "faq-items",
-    title: "FAQ Einträge",
-    description: "3-10 Einträge",
     type: "array",
-    validation: createArrayValidation([3, 10]),
     of: [
       defineArrayMember({
         name: "item",
         title: "FAQ Eintrag",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "question",

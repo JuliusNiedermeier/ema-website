@@ -54,6 +54,7 @@ export const comparisonPage: SchemaTypeDef = {
         name: "pathsSection",
         title: "Wegeabschnitt",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -82,6 +83,7 @@ export const comparisonPage: SchemaTypeDef = {
         name: "subjectsSection",
         title: "Fächerabschnitt",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -103,6 +105,7 @@ export const comparisonPage: SchemaTypeDef = {
         name: "learningFieldsSection",
         title: "Lernfelderabschnitt",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

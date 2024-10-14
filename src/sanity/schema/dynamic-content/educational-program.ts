@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
-import { createArrayValidation, createStringValidation, validateString } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 import { EducationalProgram } from "../../../../generated/sanity/types";
 
 export const educationalProgram: SchemaTypeDef = {
@@ -11,6 +11,7 @@ export const educationalProgram: SchemaTypeDef = {
     title: "Bildungsgang",
     type: "document",
     icon: GraduationCapIcon,
+
     groups: [
       { name: "hero", title: "Hero", default: true },
       { name: "highlights", title: "Highlights" },
@@ -23,6 +24,14 @@ export const educationalProgram: SchemaTypeDef = {
       { name: "closing-section", title: "Abschluss-Bereich" },
       { name: "fees", title: "Beiträge" },
     ],
+
+    validation: (r) =>
+      r.custom((program: EducationalProgram | undefined) => {
+        return !program?.showHighlightLink || program.highlightLink
+          ? true
+          : "Es sind nicht alle erforderlichen Felder ausgefüllt.";
+      }),
+
     fields: [
       defineField({
         name: "name",
@@ -83,12 +92,13 @@ export const educationalProgram: SchemaTypeDef = {
           "2-4 Highlights. Welche Aspekte des Bildungsgangs kommen bei Schülern besonders gut an? Welche Vorteile sollen hervorgehoben werden?",
         type: "array",
         group: "highlights",
-        validation: (r) => r.required().min(2).max(4),
+        validation: createArrayValidation([2, 4]),
         of: [
           defineArrayMember({
             name: "highlight",
             title: "Highlight",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -135,8 +145,7 @@ export const educationalProgram: SchemaTypeDef = {
         validation: (r) =>
           r.custom((followUpProgramTypes: EducationalProgram["followUpPrograms"]) => {
             return !followUpProgramTypes?.programs?.length ||
-              (validateString(followUpProgramTypes.heading, "heading") &&
-                validateString(followUpProgramTypes.description, "description"))
+              (followUpProgramTypes.heading && followUpProgramTypes.description)
               ? true
               : "Es sind nicht alle erforderlichen Felder ausgefüllt.";
           }),
@@ -207,6 +216,7 @@ export const educationalProgram: SchemaTypeDef = {
         name: "lessonTimes",
         title: "Unterrichtszeiten",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "start",
@@ -270,6 +280,7 @@ export const educationalProgram: SchemaTypeDef = {
             name: "learning-field",
             title: "Lernfeld",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "short",
@@ -282,7 +293,7 @@ export const educationalProgram: SchemaTypeDef = {
                 name: "long",
                 title: "Bezeichnung",
                 type: "string",
-                validation: createStringValidation("label"),
+                validation: createStringValidation([10, 100]),
               }),
             ],
             preview: {
@@ -323,6 +334,7 @@ export const educationalProgram: SchemaTypeDef = {
             title: "Eintrag",
             description: "Eintrag bestehend aus einem Bild, einer Überschrift und einem kurzen Text.",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "preHeading",
@@ -367,6 +379,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "Welche Voraussetzungen müssen Bewerber für diesen Bildungsgang erfüllen?",
         type: "object",
         group: "prerequisites",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "description",
@@ -389,6 +402,7 @@ export const educationalProgram: SchemaTypeDef = {
                 title: "Voraussetzungspaket",
                 description: "Ein Paket von Voraussetzungen, die zusammen eine Teilnahmebedingung bilden.",
                 type: "object",
+                validation: (r) => r.required(),
                 fields: [
                   defineField({
                     name: "requirements",
@@ -429,6 +443,7 @@ export const educationalProgram: SchemaTypeDef = {
         description: "Die häufigsten Fragen zu diesem Bildungsgang können hier beantwortet werden.",
         type: "object",
         group: "closing-section",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "introduction",
@@ -442,7 +457,7 @@ export const educationalProgram: SchemaTypeDef = {
             name: "faq",
             title: "Einträge",
             type: "faq-items",
-            validation: (r) => r.required(),
+            validation: (r) => r.required().min(3).max(10),
           }),
         ],
       }),
@@ -455,11 +470,47 @@ export const educationalProgram: SchemaTypeDef = {
         validation: createStringValidation("description"),
       }),
 
+      // defineField({
+      //   name: "fees",
+      //   type: "program-fees",
+      //   group: "fees",
+      // }),
+
       defineField({
         name: "fees",
-        type: "program-fees",
+        title: "Schulbeiträge",
+        type: "array",
+        validation: createArrayValidation([1, 30]),
         group: "fees",
-        validation: (r) => r.required(),
+        of: [
+          defineArrayMember({
+            name: "fee",
+            title: "Beitrag",
+            type: "object",
+            validation: (r) => r.required(),
+            fields: [
+              defineField({
+                name: "income",
+                title: "Einkommen",
+                type: "string",
+                validation: createStringValidation("label"),
+              }),
+
+              defineField({
+                name: "fee",
+                title: "Beitrag",
+                type: "number",
+                validation: (r) => r.required(),
+              }),
+
+              defineField({
+                name: "isCoverageRate",
+                title: "Ist dies der Kostendeckungssatz?",
+                type: "boolean",
+              }),
+            ],
+          }),
+        ],
       }),
     ],
     preview: {

@@ -57,6 +57,7 @@ export const infoEventPage: SchemaTypeDef = {
         name: "directionsCTA",
         title: "Wegbeschreibungs-Button",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "label",
@@ -108,6 +109,7 @@ export const infoEventPage: SchemaTypeDef = {
             name: "benefit",
             title: "Highlight/Vorteil",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "title",
@@ -146,6 +148,7 @@ export const infoEventPage: SchemaTypeDef = {
         name: "alternativeCTA",
         title: "Alternative: Persönliche Beratung",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

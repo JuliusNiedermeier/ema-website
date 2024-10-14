@@ -100,6 +100,7 @@ export const feesPage: SchemaTypeDef = {
         name: "belowCoverageInfo",
         title: "Info für Beiträge unter dem Kostendeckungssatz",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -121,6 +122,7 @@ export const feesPage: SchemaTypeDef = {
         name: "aboveCoverageInfo",
         title: "Info für Beiträge über dem Kostendeckungssatz",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

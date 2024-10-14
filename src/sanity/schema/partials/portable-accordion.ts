@@ -9,7 +9,7 @@ export const portableAccordionType = defineArrayMember({
       name: "items",
       title: "Einträge",
       type: "faq-items",
-      validation: (r) => r.required(),
+      validation: (r) => r.required().min(3).max(10),
     }),
   ],
 });

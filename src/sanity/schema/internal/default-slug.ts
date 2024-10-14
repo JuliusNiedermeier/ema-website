@@ -12,6 +12,5 @@ export const defaultSlug: SchemaTypeDef = {
       source: "name",
       maxLength: 30,
     },
-    validation: (r) => r.required(),
   }),
 };

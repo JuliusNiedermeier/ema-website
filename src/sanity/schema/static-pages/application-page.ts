@@ -41,11 +41,13 @@ export const applicationPage: SchemaTypeDef = {
         title: "Formular-Schritte",
         type: "object",
         group: "form",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "introduction",
             title: "Einleitung",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -67,6 +69,7 @@ export const applicationPage: SchemaTypeDef = {
             name: "program",
             title: "Auswahl des Bildungsgangs",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -81,6 +84,7 @@ export const applicationPage: SchemaTypeDef = {
             name: "name",
             title: "Name",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -109,6 +113,7 @@ export const applicationPage: SchemaTypeDef = {
             name: "age",
             title: "Alter",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -137,6 +142,7 @@ export const applicationPage: SchemaTypeDef = {
             name: "email",
             title: "Email",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -168,6 +174,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Navigation",
         type: "object",
         group: "form",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "startLabel",
@@ -204,6 +211,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Verifizierung",
         type: "object",
         group: "verification",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -228,11 +236,13 @@ export const applicationPage: SchemaTypeDef = {
         title: "Fehler",
         type: "object",
         group: "error",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "link",
             title: "Ungültiger Link",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -254,6 +264,7 @@ export const applicationPage: SchemaTypeDef = {
             name: "internal",
             title: "Serverfehler",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "heading",
@@ -278,6 +289,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Erfolg",
         type: "object",
         group: "success",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -302,6 +314,7 @@ export const applicationPage: SchemaTypeDef = {
         title: "Bereits abgeschlossen",
         type: "object",
         group: "success",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

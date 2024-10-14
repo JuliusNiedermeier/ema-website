@@ -40,6 +40,7 @@ export const artPage: SchemaTypeDef = {
         name: "preview",
         title: "Vorschau",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "backgroundImage",
@@ -72,6 +73,7 @@ export const artPage: SchemaTypeDef = {
             name: "art-subject",
             title: "Kunstfach",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "title",
@@ -109,6 +111,7 @@ export const artPage: SchemaTypeDef = {
         name: "educationalProgramTypesCTA",
         title: "Links zu den Bildungswegen",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

@@ -33,6 +33,7 @@ export const postPage: SchemaTypeDef = {
         title: "Vorschau ähnlicher Blogbeiträge",
         description: "Bereich am Ende des Beitrags mit einer Vorschau drei ähnlicher Blogbeiträge.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

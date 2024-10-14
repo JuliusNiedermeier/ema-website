@@ -49,6 +49,7 @@ export const footerConfigType: SchemaTypeDef = {
             name: "link",
             title: "Social-Media-Link",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "logoIcon",

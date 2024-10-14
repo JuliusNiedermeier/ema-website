@@ -66,7 +66,6 @@ export const post: SchemaTypeDef = {
         name: "body",
         title: "Inhalt",
         type: "defaultPortableContent",
-        validation: (r) => r.required(),
       }),
 
       defineField({
@@ -74,6 +73,7 @@ export const post: SchemaTypeDef = {
         title: "Bildungswege Call-To-Action",
         description: "Verweis auf die Bildungswege am Ende des Beitrags.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

@@ -53,6 +53,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         name: "startDate",
         title: "Ausbildungsbeginn",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -81,6 +82,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         name: "subjects",
         title: "Fächer",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -110,6 +112,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         name: "prerequisites",
         title: "Voraussetzungen",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -132,6 +135,7 @@ export const educationalProgramPage: SchemaTypeDef = {
         name: "comparisonCTA",
         title: "Call-To-Action für die Vergleichsseite",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

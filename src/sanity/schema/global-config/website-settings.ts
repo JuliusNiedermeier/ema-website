@@ -52,6 +52,7 @@ export const websiteSettingsType: SchemaTypeDef = {
         name: "logo",
         title: "Logo",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "textLogoDark",

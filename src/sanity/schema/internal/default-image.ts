@@ -15,6 +15,5 @@ export const defaultImage: SchemaTypeDef = {
         validation: createStringValidation("heading"),
       }),
     ],
-    validation: (r) => r.required(),
   }),
 };

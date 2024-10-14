@@ -33,5 +33,5 @@ export const validateString = (value: string | undefined, size: NamedStringSizeB
 type ArraySizeBounds = StringSizeBounds;
 
 export const createArrayValidation = <V>([min, max]: ArraySizeBounds) => {
-  return (r: ArrayRule<V>) => r.min(min).max(max);
+  return (r: ArrayRule<V>) => r.required().min(min).max(max);
 };

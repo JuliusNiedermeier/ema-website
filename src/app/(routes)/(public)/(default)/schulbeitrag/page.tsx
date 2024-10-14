@@ -44,10 +44,10 @@ const FeesPage: FC = async () => {
     programs
       ?.filter((program) => program.educationalProgramType)
       .map((program) => {
-        const feeCoverageRateIndex = program.fees?.fees?.findIndex((fee) => fee.isCoverageRate);
+        const feeCoverageRateIndex = program.fees?.findIndex((fee) => fee.isCoverageRate);
 
         const fees: FeeGroups[0]["fees"] =
-          program.fees?.fees?.map((fee) => ({
+          program.fees?.map((fee) => ({
             incomeRangeLabel: fee.income || "-",
             fee: fee.fee || 0,
             isCoverageRate: fee.isCoverageRate || false,

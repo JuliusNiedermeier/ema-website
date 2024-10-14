@@ -15,7 +15,7 @@ export const subjectType: SchemaTypeDef = {
         name: "name",
         title: "Name",
         type: "string",
-        validation: createStringValidation("label"),
+        validation: createStringValidation("heading"),
       }),
     ],
   }),

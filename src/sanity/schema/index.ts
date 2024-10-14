@@ -34,7 +34,6 @@ import { applicationPage } from "./static-pages/application-page";
 import { educationalProgramPage } from "./dynamic-pages/educational-program-page";
 import { feesPage } from "./static-pages/fees-page";
 import { blogPage } from "./static-pages/blog-page";
-import { programFeesType } from "./internal/program-fees";
 import { infoEventPage } from "./static-pages/info-event-page";
 import { consultingPage } from "./static-pages/consulting-page";
 import { subjectType } from "./dynamic-content/subject";
@@ -109,7 +108,6 @@ const typeDefs = [
   defaultSlug,
   genericCTAType,
   timeSelect,
-  programFeesType,
   defaultImage,
   educationalProgramTypeOrder,
   educationalProgramOrder,

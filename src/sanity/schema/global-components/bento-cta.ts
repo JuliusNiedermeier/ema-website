@@ -15,6 +15,7 @@ export const bentoCTAConfigType: SchemaTypeDef = {
         name: "primarySection",
         title: "Haupt-CTA-Bereich",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

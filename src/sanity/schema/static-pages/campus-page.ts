@@ -46,6 +46,7 @@ export const campusPage: SchemaTypeDef = {
             name: "teamMember",
             title: "Teammitglied",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "name",
@@ -86,6 +87,7 @@ export const campusPage: SchemaTypeDef = {
         name: "contactCTA",
         title: "Kontakt Call-To-Action",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

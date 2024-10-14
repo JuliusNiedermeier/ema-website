@@ -64,6 +64,7 @@ export const consultingPage: SchemaTypeDef = {
         name: "steps",
         title: "Schritte",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "sendEmailLabel",
@@ -85,6 +86,7 @@ export const consultingPage: SchemaTypeDef = {
         name: "form",
         title: "Formular",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "emailInputPlaceholder",
@@ -135,6 +137,7 @@ export const consultingPage: SchemaTypeDef = {
         name: "alternativeCTA",
         title: "Alternative: Infoabend",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",

@@ -12,5 +12,4 @@ export const portableImageType = defineArrayMember({
       validation: createStringValidation("heading"),
     }),
   ],
-  validation: (r) => r.required(),
 });

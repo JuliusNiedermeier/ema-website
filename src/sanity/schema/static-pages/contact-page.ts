@@ -41,6 +41,7 @@ export const contactPage: SchemaTypeDef = {
         name: "contactInformation",
         title: "Kontaktinformationen",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "phone",
@@ -75,6 +76,7 @@ export const contactPage: SchemaTypeDef = {
             name: "day",
             title: "Tag",
             type: "object",
+            validation: (r) => r.required(),
             options: { columns: 3 },
             fields: [
               defineField({
@@ -113,6 +115,7 @@ export const contactPage: SchemaTypeDef = {
         name: "location",
         title: "Standort",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -132,6 +135,7 @@ export const contactPage: SchemaTypeDef = {
             name: "address",
             title: "Adresse",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "street",

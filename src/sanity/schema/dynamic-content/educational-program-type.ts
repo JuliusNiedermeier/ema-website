@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
-import { createStringValidation, validateString } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
 import { EducationalProgramType } from "../../../../generated/sanity/types";
 
 export const educationalProgramType: SchemaTypeDef = {
@@ -77,8 +77,7 @@ export const educationalProgramType: SchemaTypeDef = {
         validation: (r) =>
           r.custom((followUpProgramTypes: EducationalProgramType["followUpProgramTypes"]) => {
             return !followUpProgramTypes?.programTypes?.length ||
-              (validateString(followUpProgramTypes.heading, "heading") &&
-                validateString(followUpProgramTypes.description, "description"))
+              (followUpProgramTypes.heading && followUpProgramTypes.description)
               ? true
               : "Es sind nicht alle erforderlichen Felder ausgefüllt.";
           }),
@@ -124,6 +123,7 @@ export const educationalProgramType: SchemaTypeDef = {
         title: "Liste der Bildungsgänge",
         description: "Hier werden alle Bildungsgänge dieses Bildungsweges aufgelistet.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "heading",
@@ -148,6 +148,7 @@ export const educationalProgramType: SchemaTypeDef = {
         title: "FAQ - Frequently Asked Questions",
         description: "Hier können häufig gestellte Fragen beantwortet werden.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "introduction",
@@ -161,7 +162,7 @@ export const educationalProgramType: SchemaTypeDef = {
             name: "items",
             title: "Fragen",
             type: "faq-items",
-            validation: (r) => r.required(),
+            validation: (r) => r.required().min(3).max(10),
           }),
         ],
       }),

@@ -66,6 +66,7 @@ export const jobsPage: SchemaTypeDef = {
             title: "Stelle",
             description: "Ein Stelleneintrag",
             type: "object",
+            validation: (r) => r.required(),
             fields: [
               defineField({
                 name: "title",

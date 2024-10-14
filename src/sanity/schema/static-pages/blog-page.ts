@@ -57,6 +57,7 @@ export const blogPage: SchemaTypeDef = {
         title: "Platzhalter",
         description: "Inhalte die angezeigt werden, wenn keine veröffentlichte Blogbeiträge vorhanden sind.",
         type: "object",
+        validation: (r) => r.required(),
         fields: [
           defineField({
             name: "preHeading",
