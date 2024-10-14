@@ -11,7 +11,6 @@ export const educationalProgramType: SchemaTypeDef = {
     title: "Bildungsweg",
     type: "document",
     icon: RouteIcon,
-    groups: [{ name: "follow-up-program-types", title: "Anschlussbildungswege" }],
     fields: [
       defineField({
         name: "name",
@@ -73,7 +72,6 @@ export const educationalProgramType: SchemaTypeDef = {
         description:
           "Dem Besucher wird hier ein weiterer Bildungsweg empfohlen, der ihm nach diesem Bildungsweg offen steht.",
         type: "object",
-        group: "follow-up-program-types",
         validation: (r) =>
           r.custom((followUpProgramTypes: EducationalProgramType["followUpProgramTypes"]) => {
             return !followUpProgramTypes?.programTypes?.length ||

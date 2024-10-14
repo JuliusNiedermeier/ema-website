@@ -12,19 +12,6 @@ export const educationalProgram: SchemaTypeDef = {
     type: "document",
     icon: GraduationCapIcon,
 
-    groups: [
-      { name: "hero", title: "Hero", default: true },
-      { name: "highlights", title: "Highlights" },
-      { name: "details", title: "Eckdaten" },
-      { name: "subjects", title: "Fächer" },
-      { name: "external-cta", title: "Externer CTA" },
-      { name: "follow-up-program", title: "Folgeausbildung" },
-      { name: "information-gallery", title: "Informations-Gallerie" },
-      { name: "prerequisites", title: "Voraussetungen" },
-      { name: "closing-section", title: "Abschluss-Bereich" },
-      { name: "fees", title: "Beiträge" },
-    ],
-
     validation: (r) =>
       r.custom((program: EducationalProgram | undefined) => {
         return !program?.showHighlightLink || program.highlightLink
@@ -38,7 +25,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Bezeichnung des Bildungsgangs",
         description: "5-30 Zeichen",
         type: "string",
-        group: "hero",
         validation: createStringValidation("heading"),
       }),
 
@@ -46,7 +32,6 @@ export const educationalProgram: SchemaTypeDef = {
         name: "slug",
         title: "URL freundlicher Text",
         type: "default-slug",
-        group: "hero",
         validation: (r) => r.required(),
       }),
 
@@ -62,7 +47,6 @@ export const educationalProgram: SchemaTypeDef = {
         description: "Zu welchem Bildungsweg gehört dieser Bildungsgang?",
         type: "reference",
         to: { type: "educational-program-type" },
-        group: "hero",
         validation: (r) => r.required(),
       }),
 
@@ -72,7 +56,6 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "10-40 Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",
         type: "string",
-        group: "hero",
         validation: createStringValidation("heading"),
       }),
 
@@ -81,7 +64,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Einleitende Kurzbeschreibung",
         description: "50-300 Zeichen",
         type: "text",
-        group: "hero",
         validation: createStringValidation("description"),
       }),
 
@@ -91,7 +73,6 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "2-4 Highlights. Welche Aspekte des Bildungsgangs kommen bei Schülern besonders gut an? Welche Vorteile sollen hervorgehoben werden?",
         type: "array",
-        group: "highlights",
         validation: createArrayValidation([2, 4]),
         of: [
           defineArrayMember({
@@ -131,7 +112,6 @@ export const educationalProgram: SchemaTypeDef = {
         name: "certificate",
         title: "Abschluss",
         type: "program-certificate",
-        group: "details",
         validation: (r) => r.required(),
       }),
 
@@ -141,7 +121,6 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "Dem Besucher wird hier ein weiterer Bildungsgang empfohlen, der ihm nach dieser Ausbildung offen steht.",
         type: "object",
-        group: "follow-up-program",
         validation: (r) =>
           r.custom((followUpProgramTypes: EducationalProgram["followUpPrograms"]) => {
             return !followUpProgramTypes?.programs?.length ||
@@ -192,7 +171,6 @@ export const educationalProgram: SchemaTypeDef = {
         description:
           "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
         type: "text",
-        group: "information-gallery",
         validation: createStringValidation("description"),
       }),
 
@@ -257,7 +235,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Fächer",
         description: "Mindestens 3 Fächer erforderlich",
         type: "array",
-        group: "subjects",
         validation: createArrayValidation([1, 20]),
         of: [
           defineArrayMember({
@@ -310,14 +287,12 @@ export const educationalProgram: SchemaTypeDef = {
         name: "showHighlightLink",
         title: "Link zu einer Highlight-Seite anzeigen",
         type: "boolean",
-        group: "external-cta",
       }),
 
       defineField({
         name: "highlightLink",
         title: "Link zu einer Highlight-Seite",
         type: "generic-cta",
-        group: "external-cta",
         hidden: ({ document }) => !document?.showHighlightLink,
       }),
 
@@ -326,7 +301,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Weitere Informationen",
         description: "2-10 Einträge",
         type: "array",
-        group: "information-gallery",
         validation: createArrayValidation([2, 10]),
         of: [
           defineArrayMember({
@@ -378,7 +352,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Voraussetzungen",
         description: "Welche Voraussetzungen müssen Bewerber für diesen Bildungsgang erfüllen?",
         type: "object",
-        group: "prerequisites",
         validation: (r) => r.required(),
         fields: [
           defineField({
@@ -442,7 +415,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "FAQ - Frequently Asked Questions",
         description: "Die häufigsten Fragen zu diesem Bildungsgang können hier beantwortet werden.",
         type: "object",
-        group: "closing-section",
         validation: (r) => r.required(),
         fields: [
           defineField({
@@ -475,7 +447,6 @@ export const educationalProgram: SchemaTypeDef = {
         title: "Schulbeiträge",
         type: "array",
         validation: createArrayValidation([1, 30]),
-        group: "fees",
         of: [
           defineArrayMember({
             name: "fee",
