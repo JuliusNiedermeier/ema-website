@@ -10,6 +10,7 @@ import {
   FeaturedPostsQueryResult,
   HomePageArtPreviewQueryResult,
   HomePageComparisonPreviewQueryResult,
+  HomePageMetaQueryResult,
   HomePageQueryResult,
 } from "../../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
@@ -27,6 +28,7 @@ import { HeroVideo } from "~/app/_components/compounds/hero-video";
 import { Section } from "~/app/_components/primitives/section";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -69,6 +71,15 @@ const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
     rightImage{ alt, asset ->{url}}
   }
 }`;
+
+const homePageMetaQuery = groq`*[_type == "home-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<HomePageMetaQueryResult>(homePageMetaQuery, {
+  tags: ["home-page"],
+});
 
 const HomePage: FC = async () => {
   const homePage = await sanityFetch<HomePageQueryResult>(homePageQuery, { tags: ["home-page"] });

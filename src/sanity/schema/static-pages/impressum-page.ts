@@ -14,6 +14,12 @@ export const impressumPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "content",
         title: "Inhalt",
         type: "textPortableContent",

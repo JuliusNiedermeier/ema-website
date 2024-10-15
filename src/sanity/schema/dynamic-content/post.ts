@@ -12,6 +12,12 @@ export const post: SchemaTypeDef = {
     icon: PenLineIcon,
     fields: [
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "name",
         title: "Titel",
         type: "string",

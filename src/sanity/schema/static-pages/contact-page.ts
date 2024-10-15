@@ -16,6 +16,12 @@ export const contactPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "heading",
         title: "Überschrift",
         type: "string",

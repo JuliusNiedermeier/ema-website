@@ -6,9 +6,10 @@ import { ProgramSubjectMatrix } from "~/app/_components/blocks/program-subject-m
 import { ProgramLearningFieldsComparison } from "~/app/_components/blocks/program-learning-fields-comparison";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import { ComparisonPageQueryResult } from "../../../../../../generated/sanity/types";
+import { ComparisonPageQueryResult, ComparisonPageMetaQueryResult } from "../../../../../../generated/sanity/types";
 import { Section } from "~/app/_components/primitives/section";
 import { notFound } from "next/navigation";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
   ...,
@@ -17,6 +18,15 @@ const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
     image { alt, asset -> { url } }
   }
 }`;
+
+const comparisonPageMetaQuery = groq`*[_type == "comparison-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<ComparisonPageMetaQueryResult>(comparisonPageMetaQuery, {
+  tags: ["comparison-page"],
+});
 
 const ÜbersichtPage: FC = async () => {
   const comparisonPageData = await sanityFetch<ComparisonPageQueryResult>(comparisonPageQuery, {

@@ -4,12 +4,17 @@ import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { FeesPageProgramsQueryResult, FeesPageQueryResult } from "../../../../../../generated/sanity/types";
+import {
+  FeesPageProgramsQueryResult,
+  FeesPageQueryResult,
+  FeesPageMetaQueryResult,
+} from "../../../../../../generated/sanity/types";
 import { ProgramFeesChart } from "~/app/_components/compounds/program-fees-chart";
 import { ensureValidHSL } from "~/app/_utils/color-swatch";
 import { Card } from "~/app/_components/primitives/card";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { PlusIcon } from "lucide-react";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const feesPageQuery = groq`*[_type == "fees-page"][0] {
   ...,
@@ -26,6 +31,15 @@ const feesPageProgramsQuery = groq`*[_type == "educational-program"] | order(ord
     color
   }
 }`;
+
+const feesPageMetaQuery = groq`*[_type == "fees-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<FeesPageMetaQueryResult>(feesPageMetaQuery, {
+  tags: ["fees-page"],
+});
 
 const FeesPage: FC = async () => {
   const pageData = await sanityFetch<FeesPageQueryResult>(feesPageQuery, {

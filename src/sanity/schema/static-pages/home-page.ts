@@ -15,6 +15,12 @@ export const homePage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "heading",
         title: "Headline",
         description: "Füge \n ein um einen Zeilenumbruch hinzuzufügen.",

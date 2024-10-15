@@ -9,6 +9,7 @@ import {
   ConsultingPageQueryResult,
   ConsultingPagePrivacyPageQueryResult,
   ConsultingPageInfoEventPageQueryResult,
+  ConsultingPageMetaQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { CalendarCheckIcon, CheckIcon, type LucideIcon, MoveRightIcon, SendHorizonalIcon } from "lucide-react";
@@ -19,6 +20,7 @@ import { cn } from "~/app/_utils/cn";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { Button } from "~/app/_components/primitives/button";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   heading,
@@ -37,6 +39,15 @@ const consultingPagePrivacyPageQuery = groq`*[_type == "privacy-page"][0] {
 const consultingPageInfoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   readMoreLabel
 }`;
+
+const consultingPageMetaQuery = groq`*[_type == "consulting-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<ConsultingPageMetaQueryResult>(consultingPageMetaQuery, {
+  tags: ["consulting-page"],
+});
 
 const ContactPage: FC = async () => {
   const consultingPageData = await sanityFetch<ConsultingPageQueryResult>(consultingPageQuery, {

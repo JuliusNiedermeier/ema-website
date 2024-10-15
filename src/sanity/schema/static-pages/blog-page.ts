@@ -16,6 +16,12 @@ export const blogPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "preHeading",
         title: "Über-Überschrift",
         type: "string",

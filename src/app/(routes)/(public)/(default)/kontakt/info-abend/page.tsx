@@ -7,6 +7,7 @@ import { sanityFetch } from "~/sanity/lib/client";
 import {
   InfoEventPageQueryResult,
   InfoEventPageConsultingPageQueryResult,
+  InfoEventPageMetaQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { EventDateList } from "~/app/_components/compounds/event-date-list";
 import { Button } from "~/app/_components/primitives/button";
@@ -18,6 +19,7 @@ import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carous
 import { Card } from "~/app/_components/primitives/card";
 import Image from "next/image";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   heading,
@@ -37,6 +39,15 @@ const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
 const infoEventPageConsultingPageQuery = groq`*[_type == "consulting-page"][0] {
   readMoreLabel
 }`;
+
+const infoEventPageMetaQuery = groq`*[_type == "info-event-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<InfoEventPageMetaQueryResult>(infoEventPageMetaQuery, {
+  tags: ["info-event-page"],
+});
 
 const ContactPage: FC = async () => {
   const infoEventPageData = await sanityFetch<InfoEventPageQueryResult>(infoEventPageQuery, {

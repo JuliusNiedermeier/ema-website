@@ -16,6 +16,12 @@ export const economySocialPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "headingUpper",
         title: "Obere Überschrift",
         type: "string",

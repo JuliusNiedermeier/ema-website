@@ -22,6 +22,12 @@ export const applicationPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "heroImage",
         title: "Titelbild",
         type: "default-image",

@@ -23,6 +23,7 @@ import { RequirementList } from "~/app/_components/compounds/requirement-list";
 import {
   ProgramPageComparisonPreviewQueryResult,
   ProgramPageContentQueryResult,
+  ProgramPageMetaQueryResult,
   ProgramPageQueryResult,
   ProgramPageSlugsQueryResult,
 } from "../../../../../../../../generated/sanity/types";
@@ -44,6 +45,7 @@ import { ProgramGrid } from "~/app/_components/blocks/program-grid";
 import { Chip } from "~/app/_components/primitives/chip";
 import { mapRange } from "~/app/_utils/map-range";
 import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
+import { Metadata } from "next";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -103,6 +105,11 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   subjects[] ->
 }`;
 
+const programPageMetaQuery = groq`*[_type == "educational-program" && slug.current == $slug][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
 const programPageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
   previewImages[] { alt, asset -> { url } }
 }`;
@@ -118,6 +125,14 @@ export const generateStaticParams = async () => {
       programSlug: program.slug?.current || null,
     }))
     .filter(({ programTypeSlug, programSlug }) => programTypeSlug && programSlug) as Params[];
+};
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const data = await sanityFetch<ProgramPageMetaQueryResult>(programPageMetaQuery, {
+    params: { slug: params.programTypeSlug },
+    tags: ["educational-program-type"],
+  });
+  return { title: data?.title, description: data?.description };
 };
 
 const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) => {

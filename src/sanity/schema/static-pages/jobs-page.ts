@@ -16,6 +16,12 @@ export const jobsPage: SchemaTypeDef = {
       navigationLabel,
 
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "heading",
         title: "Überschrift",
         description: "5-40 Zeichen",

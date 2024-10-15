@@ -13,6 +13,12 @@ export const educationalProgramType: SchemaTypeDef = {
     icon: RouteIcon,
     fields: [
       defineField({
+        name: "seo",
+        type: "seo-fields",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
         name: "name",
         title: "Bezeichnung des Bildungswegs",
         description: "5-30 Zeichen",

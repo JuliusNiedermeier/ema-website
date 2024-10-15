@@ -7,12 +7,13 @@ import { Card } from "~/app/_components/primitives/card";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { ContactPageQueryResult } from "../../../../../../generated/sanity/types";
+import { ContactPageQueryResult, ContactPageMetaQueryResult } from "../../../../../../generated/sanity/types";
 import { InfoEventCTACard } from "~/app/_components/blocks/info-event-cta-card";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { InstagramIcon } from "~/app/_components/compounds/icons/instagram";
 import { notFound } from "next/navigation";
 import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const contactPageQuery = groq`*[_type == "contact-page"][0] {
   heading,
@@ -24,6 +25,15 @@ const contactPageQuery = groq`*[_type == "contact-page"][0] {
     mapImage { alt, asset -> { url } }
   }
 }`;
+
+const contactPageMetaQuery = groq`*[_type == "contact-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<ContactPageMetaQueryResult>(contactPageMetaQuery, {
+  tags: ["contact-page"],
+});
 
 const ContactPage: FC = async () => {
   const contactPageData = await sanityFetch<ContactPageQueryResult>(contactPageQuery, { tags: ["contact-page"] });

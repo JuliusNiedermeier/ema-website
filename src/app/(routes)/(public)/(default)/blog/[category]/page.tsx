@@ -17,13 +17,18 @@ import {
   PostCardThumbnailTag,
   PostCardTitle,
 } from "~/app/_components/primitives/post-card";
-import { BlogPageQueryResult, PostsQueryResult } from "../../../../../../../generated/sanity/types";
+import {
+  BlogPageMetaQueryResult,
+  BlogPageQueryResult,
+  PostsQueryResult,
+} from "../../../../../../../generated/sanity/types";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
 import { Chip } from "~/app/_components/primitives/chip";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
 import { Card } from "~/app/_components/primitives/card";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const blogPageQuery = groq`*[_type == "blog-page"][0] {
   ...
@@ -39,6 +44,15 @@ const postsQuery = groq`*[_type == "post" && (!defined($category) || category->s
   author->{name, image{ alt, asset ->{url}}},
   excerpt
 }`;
+
+const blogPageMetaQuery = groq`*[_type == "blog-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<BlogPageMetaQueryResult>(blogPageMetaQuery, {
+  tags: ["blog-page"],
+});
 
 const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
   const categorySlug = params.category === "alle" ? null : params.category;

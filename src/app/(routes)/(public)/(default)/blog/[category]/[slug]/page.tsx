@@ -7,6 +7,7 @@ import {
   PostPageQueryResult,
   PostQueryResult,
   PostSlugsQueryResult,
+  PostMetaQueryResult,
   RelatedPostsQueryResult,
 } from "../../../../../../../../generated/sanity/types";
 import { Chip } from "~/app/_components/primitives/chip";
@@ -17,6 +18,7 @@ import Image from "next/image";
 import { PostContent } from "~/app/_components/blocks/post-content";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { LatestPosts } from "~/app/_components/blocks/latest-posts";
+import { Metadata } from "next";
 
 const postSlugsQuery = groq`*[_type == "post"]{ slug, category -> { slug } }`;
 
@@ -41,6 +43,11 @@ const relatedPostsQuery = groq`*[_type == "post" && category._ref == $currentPos
   author->{name, image{ alt, asset ->{url}}},
 }`;
 
+const postMetaQuery = groq`*[_type == "post" && slug.current == $slug][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
 const postPageQuery = groq`*[_type == "post-page"][0]`;
 
 type Params = { category: string; slug: string };
@@ -50,6 +57,14 @@ export const generateStaticParams = async (): Promise<Partial<Params>[]> => {
   const posts = await sanityFetch<PostSlugsQueryResult>(postSlugsQuery, { draftMode: false });
 
   return posts.map((post) => ({ category: post.category?.slug?.current, slug: post.slug?.current }));
+};
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const data = await sanityFetch<PostMetaQueryResult>(postMetaQuery, {
+    params: { slug: params.slug },
+    tags: ["post"],
+  });
+  return { title: data?.title, description: data?.description };
 };
 
 const PostPage: FC<Props> = async ({ params: { category, slug } }) => {

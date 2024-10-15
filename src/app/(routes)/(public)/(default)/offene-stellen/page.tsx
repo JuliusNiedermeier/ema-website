@@ -10,11 +10,21 @@ import {
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { JobsPageQueryResult } from "../../../../../../generated/sanity/types";
+import { JobsPageQueryResult, JobsPageMetaQueryResult } from "../../../../../../generated/sanity/types";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
 import { Chip } from "~/app/_components/primitives/chip";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const jobsPageQuery = groq`*[_type == "jobs-page"][0]`;
+
+const jobsPageMetaQuery = groq`*[_type == "jobs-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<JobsPageMetaQueryResult>(jobsPageMetaQuery, {
+  tags: ["jobs-page"],
+});
 
 const JobsPage: FC = async () => {
   const data = await sanityFetch<JobsPageQueryResult>(jobsPageQuery, { tags: ["jobs-page"] });

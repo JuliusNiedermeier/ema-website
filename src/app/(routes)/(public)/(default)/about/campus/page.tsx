@@ -3,12 +3,14 @@ import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { CampusPageQueryResult } from "../../../../../../../generated/sanity/types";
+import { CampusPageMetaQueryResult, CampusPageQueryResult } from "../../../../../../../generated/sanity/types";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { InfoEventCTACard } from "~/app/_components/blocks/info-event-cta-card";
 import Link from "next/link";
 import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
+import { Metadata } from "next";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
   heading,
@@ -21,6 +23,15 @@ const campusPageQuery = groq`*[_type == "campus-page"][0]{
   },
   contactCTA
 }`;
+
+const campusPageMetaQuery = groq`*[_type == "campus-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<CampusPageMetaQueryResult>(campusPageMetaQuery, {
+  tags: ["campus-page"],
+});
 
 const CampusPage: FC = async () => {
   const data = await sanityFetch<CampusPageQueryResult>(campusPageQuery, { tags: ["campus-page"] });

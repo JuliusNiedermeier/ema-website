@@ -43,6 +43,7 @@ import { defaultImage } from "./internal/default-image";
 import { educationalProgramTypeOrder } from "./internal/educational-program-type-order";
 import { educationalProgramOrder } from "./internal/educational-program-order";
 import { educationalProgramTypePage } from "./dynamic-pages/educational-program-type-page";
+import { seoFieldsType } from "./internal/seo-fields";
 
 export type SchemaTypeDef = {
   type:
@@ -111,6 +112,7 @@ const typeDefs = [
   defaultImage,
   educationalProgramTypeOrder,
   educationalProgramOrder,
+  seoFieldsType,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {

@@ -3,11 +3,12 @@ import { ComponentProps, FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { ArtPageQueryResult } from "../../../../../../../generated/sanity/types";
+import { ArtPageQueryResult, ArtPageMetaQueryResult } from "../../../../../../../generated/sanity/types";
 import { notFound } from "next/navigation";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const artPageQuery = groq`*[_type == "art-page"][0]{
   heading,
@@ -20,6 +21,15 @@ const artPageQuery = groq`*[_type == "art-page"][0]{
   },
   educationalProgramTypesCTA
 }`;
+
+const artPageMetaQuery = groq`*[_type == "art-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<ArtPageMetaQueryResult>(artPageMetaQuery, {
+  tags: ["art-page"],
+});
 
 const ArtPage: FC = async () => {
   const data = await sanityFetch<ArtPageQueryResult>(artPageQuery, { tags: ["art-page"] });

@@ -2,13 +2,17 @@ import { groq } from "next-sanity";
 import { FC } from "react";
 import { EconomyXSocialHero } from "~/app/_components/compounds/economy-x-social-hero";
 import { sanityFetch } from "~/sanity/lib/client";
-import { EconomySocialPageQueryResult } from "../../../../../../../generated/sanity/types";
+import {
+  EconomySocialPageQueryResult,
+  EconomySocialPageMetaQueryResult,
+} from "../../../../../../../generated/sanity/types";
 import { Container } from "~/app/_components/primitives/container";
 import { DefaultPortableContent } from "~/app/_components/compounds/default-portable-content";
 import { Heading, Paragraph } from "~/app/_components/primitives/typography";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { ChevronDownIcon } from "lucide-react";
 import { notFound } from "next/navigation";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
   headingUpper,
@@ -46,6 +50,15 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
   },
   educationalProgramTypesCTA
 }`;
+
+const economySocialPageMetaQuery = groq`*[_type == "economy-social-page"][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
+export const generateMetadata = createGenerateMetadata<EconomySocialPageMetaQueryResult>(economySocialPageMetaQuery, {
+  tags: ["economy-social-page"],
+});
 
 const EconomyXSocialPage: FC = async () => {
   const data = await sanityFetch<EconomySocialPageQueryResult>(economySocialPageQuery, {

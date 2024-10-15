@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import {
   ProgramTypeContentQueryResult,
+  ProgramTypePageMetaQueryResult,
   ProgramTypePageProgramsQueryResult,
   ProgramTypePageQueryResult,
 } from "../../../../../../../generated/sanity/types";
@@ -32,6 +33,8 @@ import { Card } from "~/app/_components/primitives/card";
 import { GradientStrokeIcon } from "~/app/_components/primitives/gradient-stroke-icon";
 import { GradientStroke } from "~/app/_components/primitives/gradient-stroke";
 import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
+import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
+import { Metadata } from "next";
 
 // const programTypePageSlugsQuery = groq`*[_type == "educational-program-type"]{ slug }`;
 
@@ -68,6 +71,11 @@ const programTypePageProgramsQuery = groq`*[_type == "educational-program" && ed
   }
 }`;
 
+const programTypePageMetaQuery = groq`*[_type == "educational-program-type" && slug.current == $slug][0]{
+  "title": coalesce(seo.title, ""),
+  "description": coalesce(seo.description, ""),
+}`;
+
 type Params = { programTypeSlug: string };
 type Props = { params: Params };
 
@@ -81,6 +89,14 @@ type Props = { params: Params };
 //   programTypes.forEach((type) => type.slug?.current && slugs.add(type.slug.current));
 //   return Array.from(slugs).map((slug) => ({ programTypeSlug: slug }));
 // };
+
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const data = await sanityFetch<ProgramTypePageMetaQueryResult>(programTypePageMetaQuery, {
+    params: { slug: params.programTypeSlug },
+    tags: ["educational-program-type"],
+  });
+  return { title: data?.title, description: data?.description };
+};
 
 const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug } }) => {
   const slug = decodeURIComponent(programTypeSlug);
