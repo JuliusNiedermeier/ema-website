@@ -45,11 +45,11 @@ export const testimonial: SchemaTypeDef = {
       }),
     ],
     preview: {
-      select: { title: "testimonial", subtitle: "authorName" },
-      prepare: ({ title, subtitle }) => ({
-        title: `${(title satisfies string).slice(0, 30)}...`,
-        subtitle,
-      }),
+      select: {
+        title: "testimonial",
+        subtitle: "authorName",
+        media: "authorImage",
+      },
     },
   }),
 };

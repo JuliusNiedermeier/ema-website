@@ -113,6 +113,12 @@ export const jobsPage: SchemaTypeDef = {
                 validation: (r) => r.required().email(),
               }),
             ],
+            preview: {
+              select: {
+                title: "title",
+                subtitle: "shortDescription",
+              },
+            },
           }),
         ],
       }),

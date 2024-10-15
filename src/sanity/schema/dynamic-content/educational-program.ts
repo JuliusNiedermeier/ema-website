@@ -110,6 +110,13 @@ export const educationalProgram: SchemaTypeDef = {
                 validation: (r) => r.required(),
               }),
             ],
+            preview: {
+              select: {
+                title: "heading",
+                subtitle: "content",
+                media: "image",
+              },
+            },
           }),
         ],
       }),
@@ -349,6 +356,13 @@ export const educationalProgram: SchemaTypeDef = {
                 validation: (r) => r.required(),
               }),
             ],
+            preview: {
+              select: {
+                title: "heading",
+                subtitle: "content",
+                media: "image",
+              },
+            },
           }),
         ],
       }),
@@ -401,6 +415,10 @@ export const educationalProgram: SchemaTypeDef = {
                     ],
                   }),
                 ],
+                preview: {
+                  select: { requirements: "requirements" },
+                  prepare: ({ requirements }) => ({ title: (requirements as string[]).join(", ") }),
+                },
               }),
             ],
           }),
@@ -480,6 +498,17 @@ export const educationalProgram: SchemaTypeDef = {
                 type: "boolean",
               }),
             ],
+            preview: {
+              select: {
+                income: "income",
+                fee: "fee",
+                isCoverageRate: "isCoverageRate",
+              },
+              prepare: ({ income, fee, isCoverageRate }) => ({
+                title: `Einkommen: ${income} | Beitrag: ${fee}`,
+                subtitle: isCoverageRate && "Kostendeckungssatz",
+              }),
+            },
           }),
         ],
       }),

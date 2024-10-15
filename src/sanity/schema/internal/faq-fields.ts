@@ -30,6 +30,9 @@ export const faqType: SchemaTypeDef = {
             validation: createStringValidation("description"),
           }),
         ],
+        preview: {
+          select: { title: "question", subtitle: "answer" },
+        },
       }),
     ],
   }),

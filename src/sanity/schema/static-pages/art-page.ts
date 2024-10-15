@@ -109,6 +109,13 @@ export const artPage: SchemaTypeDef = {
                 validation: (r) => r.required(),
               }),
             ],
+            preview: {
+              select: {
+                title: "title",
+                subtitle: "slogan",
+                media: "image",
+              },
+            },
           }),
         ],
       }),

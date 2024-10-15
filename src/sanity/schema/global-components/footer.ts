@@ -65,7 +65,7 @@ export const footerConfigType: SchemaTypeDef = {
                 validation: (r) => r.required(),
               }),
             ],
-            preview: { select: { title: "logoIcon.alt" } },
+            preview: { select: { title: "logoIcon.alt", media: "logoIcon" } },
           }),
         ],
       }),

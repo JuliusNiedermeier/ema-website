@@ -85,6 +85,13 @@ export const campusPage: SchemaTypeDef = {
                 validation: (r) => r.required(),
               }),
             ],
+            preview: {
+              select: {
+                title: "name",
+                subtitle: "position",
+                media: "image",
+              },
+            },
           }),
         ],
       }),
