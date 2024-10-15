@@ -9,6 +9,7 @@ import { presentationTool } from "sanity/presentation";
 import { env } from "~/env";
 import { apiVersion } from "~/sanity/config";
 import { colorInput } from "@sanity/color-input";
+import { media } from "sanity-plugin-media";
 
 import {
   schema,
@@ -145,6 +146,7 @@ export default defineConfig({
     }),
     visionTool({ defaultApiVersion: apiVersion }),
     colorInput(),
+    media(),
     presentationTool({
       previewUrl: {
         previewMode: {
