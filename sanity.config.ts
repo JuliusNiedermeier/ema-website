@@ -23,14 +23,16 @@ import {
 import { CircleHelpIcon, MailIcon, SquareMousePointerIcon } from "lucide-react";
 import { HelpArticle } from "~/sanity/components/help-article";
 import { StringInput } from "~/sanity/components/string-input";
+import { StudioIcon } from "~/sanity/components/studio-icon";
 
 export default defineConfig({
   basePath: "/studio",
   name: "ema-content-studio",
-  title: "EMA Content Studio",
+  title: "Content Studio",
   projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   schema,
+  icon: StudioIcon,
   form: {
     components: {
       input: StringInput,
