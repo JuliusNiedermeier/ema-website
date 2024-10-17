@@ -20,14 +20,7 @@ import {
   globalConfigTypeNames,
   emailTypeNames,
 } from "~/sanity/schema";
-import {
-  CircleHelpIcon,
-  GlobeIcon,
-  LayoutGridIcon,
-  MailIcon,
-  SquareMousePointerIcon,
-  SquareStackIcon,
-} from "lucide-react";
+import { CircleHelpIcon, MailIcon, SquareMousePointerIcon } from "lucide-react";
 import { HelpArticle } from "~/sanity/components/help-article";
 
 export default defineConfig({
@@ -104,7 +97,7 @@ export default defineConfig({
         );
 
         // Get list of global-component types
-        const globaleComponentTypes = modifiedSingletonTypes.filter((type) =>
+        const globalComponentTypes = modifiedSingletonTypes.filter((type) =>
           globalComponentTypeNames.has((type.getSchemaType() as SchemaType).name),
         );
 
@@ -122,22 +115,27 @@ export default defineConfig({
           .id("content")
           .title("Content")
           .items([
-            S.listItem({ id: "static-pages", title: "Statische Seiten", icon: SquareMousePointerIcon }).child(
-              S.list({ id: "static-pages", title: "Statische Seiten", items: staticPageTypes }),
+            S.listItem({ id: "pages", title: "Seiten", icon: SquareMousePointerIcon }).child(
+              S.list({
+                id: "pages",
+                title: "Seiten",
+                items: [...dynamicPageTypes, S.divider(), ...staticPageTypes],
+              }),
             ),
-            S.listItem({ id: "dynamic-pages", title: "Dynamische Seiten", icon: SquareStackIcon }).child(
-              S.list({ id: "dynamic-pages", title: "Dynamische Seiten", items: dynamicPageTypes }),
-            ),
-            S.listItem({ id: "dynamic-content", title: "Dynamische Inhalte", icon: LayoutGridIcon }).child(
-              S.list({ id: "dynamic-content", title: "Dynamische Inhalte", items: dynamicContentTypes }),
-            ),
-            S.listItem({ id: "global-components", title: "Globale Komponenten", icon: GlobeIcon }).child(
-              S.list({ id: "global-components", title: "Globale Komponenten", items: globaleComponentTypes }),
-            ),
+
+            S.divider(),
+            ...dynamicContentTypes,
+
+            S.divider(),
+            ...globalComponentTypes,
+
+            S.divider(),
             S.listItem({ id: "email", title: "Emails", icon: MailIcon }).child(
               S.list({ id: "email", title: "Emails", items: emailTypes }),
             ),
             ...globaleConfigTypes,
+
+            S.divider(),
             S.listItem({ id: "help", title: "Hilfe", icon: CircleHelpIcon }).child(
               S.component({ id: "help", component: HelpArticle }),
             ),
