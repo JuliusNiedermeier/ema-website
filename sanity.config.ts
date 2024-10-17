@@ -22,6 +22,7 @@ import {
 } from "~/sanity/schema";
 import { CircleHelpIcon, MailIcon, SquareMousePointerIcon } from "lucide-react";
 import { HelpArticle } from "~/sanity/components/help-article";
+import { StringInput } from "~/sanity/components/string-input";
 
 export default defineConfig({
   basePath: "/studio",
@@ -30,6 +31,11 @@ export default defineConfig({
   projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   schema,
+  form: {
+    components: {
+      input: StringInput,
+    },
+  },
   document: {
     newDocumentOptions: (items, { creationContext }) => {
       if (creationContext.type === "global") {
