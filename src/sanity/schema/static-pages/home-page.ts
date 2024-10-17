@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { HomeIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const homePage: SchemaTypeDef = {
   type: "static-page",
@@ -23,7 +23,7 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Headline",
-        description: "Füge \n ein um einen Zeilenumbruch hinzuzufügen.",
+        description: getSizeString("heading", "Zeichen. Füge \n ein um einen Zeilenumbruch hinzuzufügen."),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -31,6 +31,7 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Slogan",
+        description: getSizeString([20, 100], "Zeichen"),
         type: "text",
         validation: createStringValidation([20, 100]),
       }),
@@ -46,8 +47,10 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "heroCTALabel",
         title: "Primärer Call-To-Action-Text",
-        description:
-          "5-15 Zeichen. Text des prominenten Call-To-Action Buttons am Anfang der Seite. Leitet den Besucher auf die Online-Anmeldung.",
+        description: getSizeString(
+          "label",
+          "Zeichen. Text des prominenten Call-To-Action Buttons am Anfang der Seite. Leitet den Besucher auf die Online-Anmeldung.",
+        ),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -55,8 +58,10 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "partners",
         title: "Partner",
-        description:
-          "Möglichst mehr als drei Partner. Für eine gute Darstellung sollte das Logo jedes Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
+        description: getSizeString(
+          [3, 20],
+          "Partner. Für eine gute Darstellung sollte das Logo jedes Bild an allen Seiten ausfüllen. Außerdem sollte das Logo auf hellem Hintergrund gut erkennbar sein und der Hintergrund transparent oder weiß sein.",
+        ),
         type: "array",
         validation: createArrayValidation([3, 20]),
         of: [
@@ -79,7 +84,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -87,7 +92,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Kurzer Text",
-            description: "",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -104,7 +109,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "5-20 Zeichen. Überschrift des Bereichs.",
+            description: getSizeString("heading", "Zeichen. Überschrift des Bereichs."),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -112,7 +117,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "allPostsLabel",
             title: "Text des Links auf alle Blogbeiträge",
-            description: "5-20 Zeichen.",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -129,7 +134,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
+            description: getSizeString("heading", "Zeichen. SOllte die Zufriedenheit der Schüler unterstreichen."),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -137,8 +142,10 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Unterüberschrift",
-            description:
-              '50-200 Zeichen. Beispiel: "Schüler lieben die Emil Molt Akademie. Das wir davon überzeugt sind ist klar – überzeug \' dich besser selbst und lies was unsere Schüler über uns sagen."',
+            description: getSizeString(
+              "description",
+              `Zeichen. Beispiel: "Schüler lieben die Emil Molt Akademie. Das wir davon überzeugt sind ist klar - überzeug' dich besser selbst und lies was unsere Schüler über uns sagen."`,
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -155,7 +162,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "10-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -163,6 +170,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "string",
             validation: createStringValidation("description"),
           }),
@@ -171,6 +179,7 @@ export const homePage: SchemaTypeDef = {
             name: "items",
             title: "Fragen",
             type: "faq-items",
+            description: getSizeString([3, 10], "Fragen"),
             validation: (r) => r.required().min(3).max(10),
           }),
         ],

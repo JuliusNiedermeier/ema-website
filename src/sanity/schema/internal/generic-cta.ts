@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const genericCTAType: SchemaTypeDef = {
   type: "internal",
@@ -12,6 +12,7 @@ export const genericCTAType: SchemaTypeDef = {
       defineField({
         name: "preHeading",
         title: "Vor-Überschrift",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -19,6 +20,7 @@ export const genericCTAType: SchemaTypeDef = {
       defineField({
         name: "mainHeading",
         title: "Haup-Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -26,6 +28,7 @@ export const genericCTAType: SchemaTypeDef = {
       defineField({
         name: "paragraph",
         title: "Text",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -33,6 +36,7 @@ export const genericCTAType: SchemaTypeDef = {
       defineField({
         name: "ctaText",
         title: "Text auf dem CTA-Button",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),

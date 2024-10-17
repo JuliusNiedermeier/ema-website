@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField } from "sanity";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const portableEducationalProgramCTAType = defineArrayMember({
   name: "portableEducationalProgramCTA",
@@ -9,6 +9,7 @@ export const portableEducationalProgramCTAType = defineArrayMember({
     defineField({
       name: "heading",
       title: "Überschrift",
+      description: getSizeString("heading", "Zeichen"),
       type: "string",
       validation: createStringValidation("heading"),
     }),
@@ -16,6 +17,7 @@ export const portableEducationalProgramCTAType = defineArrayMember({
     defineField({
       name: "description",
       title: "beschreibung",
+      description: getSizeString("description", "Zeichen"),
       type: "text",
       validation: createStringValidation("description"),
     }),

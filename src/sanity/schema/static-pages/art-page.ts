@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PaletteIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const artPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,6 +24,7 @@ export const artPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -31,6 +32,7 @@ export const artPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Auszug",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -38,6 +40,7 @@ export const artPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -84,6 +87,7 @@ export const artPage: SchemaTypeDef = {
               defineField({
                 name: "title",
                 title: "Name des Kunstfaches",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -91,6 +95,7 @@ export const artPage: SchemaTypeDef = {
               defineField({
                 name: "slogan",
                 title: "Slogan",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -98,6 +103,7 @@ export const artPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -129,6 +135,7 @@ export const artPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -136,6 +143,7 @@ export const artPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

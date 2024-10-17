@@ -5,8 +5,9 @@ export const defaultSlug: SchemaTypeDef = {
   type: "internal",
   definition: defineType({
     name: "default-slug",
-    title: "URL freundlicher Text",
-    description: "Kann durch klicken auf 'Generate' automatisch erzeugt werden.",
+    title: "Bezeichnung im URL-Format",
+    description:
+      "Maximal 30 Zeichen. Unter dieser Bezeichnung wird der Inhalt in der URL angezeigt. Kann durch klicken auf 'Generate' automatisch erzeugt werden.",
     type: "slug",
     options: {
       source: "name",

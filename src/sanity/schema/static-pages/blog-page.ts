@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { LayoutListIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const blogPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,6 +24,7 @@ export const blogPage: SchemaTypeDef = {
       defineField({
         name: "preHeading",
         title: "Über-Überschrift",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -31,6 +32,7 @@ export const blogPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -38,6 +40,7 @@ export const blogPage: SchemaTypeDef = {
       defineField({
         name: "description",
         title: "Beschreibung",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -45,7 +48,7 @@ export const blogPage: SchemaTypeDef = {
       defineField({
         name: "latestPostLabel",
         title: "Text über dem neuesten Blogbeitrag",
-        description: "5-30 Zeichen",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -53,7 +56,10 @@ export const blogPage: SchemaTypeDef = {
       defineField({
         name: "categoryFilterAllLabel",
         title: "Alle Blogbeiträge Text",
-        description: "Bezeichnung der Option im Kategorie-Filter um alle Blogbeiträge anzuzeigen",
+        description: getSizeString(
+          "label",
+          "Zeichen. Bezeichnung der Option im Kategorie-Filter um alle Blogbeiträge anzuzeigen.",
+        ),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -68,6 +74,7 @@ export const blogPage: SchemaTypeDef = {
           defineField({
             name: "preHeading",
             title: "Kurzer Text über der Überschrift",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -75,6 +82,7 @@ export const blogPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -82,6 +90,7 @@ export const blogPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

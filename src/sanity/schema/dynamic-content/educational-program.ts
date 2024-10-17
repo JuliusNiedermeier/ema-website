@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 import { EducationalProgram } from "../../../../generated/sanity/types";
 
 export const educationalProgram: SchemaTypeDef = {
@@ -29,7 +29,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "name",
         title: "Bezeichnung des Bildungsgangs",
-        description: "5-30 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -59,8 +59,10 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "slogan",
         title: "Bildungsgang Slogan",
-        description:
-          "10-40 Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",
+        description: getSizeString(
+          "heading",
+          "Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsgang möglichst effektiv bewirbt.",
+        ),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -68,7 +70,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Einleitende Kurzbeschreibung",
-        description: "50-300 Zeichen",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -76,8 +78,10 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "highlights",
         title: "Highlights des Bildungsgangs",
-        description:
-          "2-4 Highlights. Welche Aspekte des Bildungsgangs kommen bei Schülern besonders gut an? Welche Vorteile sollen hervorgehoben werden?",
+        description: getSizeString(
+          [2, 4],
+          "Highlights. Welche Aspekte des Bildungsgangs kommen bei Schülern besonders gut an? Welche Vorteile sollen hervorgehoben werden?",
+        ),
         type: "array",
         validation: createArrayValidation([2, 4]),
         of: [
@@ -90,7 +94,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Highlight Bezeichnung",
-                description: "5-20 Zeichen. Eine kurze und möglichst eingängige Bezeichnung.",
+                description: getSizeString("heading", "Zeichen. Eine kurze und möglichst eingängige Bezeichnung."),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -98,7 +102,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "content",
                 title: "Beschreibung",
-                description: "20-150 Zeichen. Beschreibung des Highlights.",
+                description: getSizeString("description", "Zeichen. Beschreibung des Highlights."),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -145,7 +149,7 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "10-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
             hidden: ({ document }) => !(document?.followUpPrograms as any)?.programs?.length,
@@ -154,7 +158,10 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Was sind die Vorteile diese Bildungsgänge zu verbinden?",
+            description: getSizeString(
+              "description",
+              "Zeichen. Was sind die Vorteile diese Bildungsgänge zu verbinden?",
+            ),
             type: "text",
             validation: createStringValidation("description"),
             hidden: ({ document }) => !(document?.followUpPrograms as any)?.programs?.length,
@@ -163,6 +170,7 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "programs",
             title: "Bildungsgänge",
+            description: "Maximal 10 Bildungsgänge",
             type: "array",
             validation: (r) => r.max(10),
             of: [
@@ -181,8 +189,10 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "detailsIntroduction",
         title: "Einleitung der Bildungsgang-Beschreibung",
-        description:
-          "Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
+        description: getSizeString(
+          "description",
+          "Zeichen. Dies ist der Anfang des Abschnitts, in dem die Einzelheiten des Bildungsganges beschrieben werden.",
+        ),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -190,7 +200,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "duration",
         title: "Ausbildungsdauer",
-        description: "5-20 Zeichen. Wie viele Jahre dauert die Ausbildung? Besipiel: '3 Jahre'",
+        description: getSizeString("label", "Zeichen. Wie viele Jahre dauert die Ausbildung? Besipiel: '3 Jahre'"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -198,7 +208,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "trainingType",
         title: "Ausbildungsart",
-        description: "5-20 Zeichen. Beispiel: 'Ganztagesausbildung'",
+        description: getSizeString("label", "Zeichen. Beispiel: 'Ganztagesausbildung'"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -212,7 +222,7 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "start",
             title: "Unterrichtsbeginn",
-            description: "8-13 Zeichen. Format: '8:00 Uhr'",
+            description: getSizeString("label", "Zeichen. Format: '8:00 Uhr'"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -220,7 +230,7 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "end",
             title: "Unterrichtsschluss",
-            description: "8-13 Zeichen. Format: '8:00 Uhr'",
+            description: getSizeString("label", "Zeichen. Format: '8:00 Uhr'"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -230,7 +240,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "holidays",
         title: "Ferieninformation",
-        description: "10-100 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -238,7 +248,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "startDate",
         title: "Datum",
-        description: "8-20 Zeichen",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -246,7 +256,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "subjects",
         title: "Fächer",
-        description: "Mindestens 3 Fächer erforderlich",
+        description: getSizeString([1, 20], "Fächer"),
         type: "array",
         validation: createArrayValidation([1, 20]),
         of: [
@@ -275,6 +285,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "short",
                 title: "Abkürzung",
+                description: getSizeString([1, 5], "Zeichen"),
                 type: "string",
                 validation: createStringValidation([1, 5]),
               }),
@@ -282,6 +293,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "long",
                 title: "Bezeichnung",
+                description: getSizeString([10, 100], "Zeichen"),
                 type: "string",
                 validation: createStringValidation([10, 100]),
               }),
@@ -312,7 +324,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "informationGallery",
         title: "Weitere Informationen",
-        description: "2-10 Einträge",
+        description: getSizeString([2, 10], "Einträge"),
         type: "array",
         validation: createArrayValidation([2, 10]),
         of: [
@@ -326,7 +338,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "preHeading",
                 title: "Über-Überschrift",
-                description: "<20 Zeichen",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -334,7 +346,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
-                description: "5-40 Zeichen",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -342,7 +354,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "content",
                 title: "Inhalt",
-                description: "200-500 Zeichen",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -377,7 +389,10 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Schriftliche Beschreibung der Grundvoraussetzungen",
-            description: "50-300 Zeichen. Was für Interessen oder Fähigkeiten sollten Bewerber mitbringen?",
+            description: getSizeString(
+              "description",
+              "Zeichen. Was für Interessen oder Fähigkeiten sollten Bewerber mitbringen?",
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -385,8 +400,10 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "requirementGroups",
             title: "Voraussetzungskombinationen",
-            description:
-              "1-5 Kombinationen. Sammlung von Kombinationen von Voraussetzungen, die für die Teilnahme an einem Bildungsweg erforderlich sind.",
+            description: getSizeString(
+              [1, 5],
+              "Kombinationen. Sammlung von Kombinationen von Voraussetzungen, die für die Teilnahme an einem Bildungsweg erforderlich sind.",
+            ),
             type: "array",
             validation: createArrayValidation([1, 5]),
             of: [
@@ -400,15 +417,20 @@ export const educationalProgram: SchemaTypeDef = {
                   defineField({
                     name: "requirements",
                     title: "Voraussetzungen",
-                    description:
-                      "1-5 Voraussetzungen. Liste der einzelnen Voraussetzungen, die Teil eines Pakets sind.",
+                    description: getSizeString(
+                      [1, 5],
+                      "Voraussetzungen. Liste der einzelnen Voraussetzungen, die Teil eines Pakets sind.",
+                    ),
                     type: "array",
                     validation: createArrayValidation([1, 5]),
                     of: [
                       defineArrayMember({
                         name: "requirement",
                         title: "Voraussetzung",
-                        description: "3-50 Zeichen. Eine einzelne Voraussetzung innerhalb eines Pakets.",
+                        description: getSizeString(
+                          "label",
+                          "Zeichen. Eine einzelne Voraussetzung innerhalb eines Pakets.",
+                        ),
                         type: "string",
                         validation: createStringValidation("label"),
                       }),
@@ -428,8 +450,10 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "testimonialsIntroduction",
         title: "Einleitung zu den Testimonials",
-        description:
-          '50-200 Zeichen. Beispiel: "Schüler lieben die Fachoberschule Wirtschaft. Das wir davon überzeugt sind ist klar – überzeug\' dich besser selbst und lies was unsere Schüler sagen."',
+        description: getSizeString(
+          "description",
+          `Zeichen. Beispiel: "Schüler lieben die Fachoberschule Wirtschaft. Das wir davon überzeugt sind ist klar - überzeug' dich besser selbst und lies was unsere Schüler sagen."`,
+        ),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -444,7 +468,7 @@ export const educationalProgram: SchemaTypeDef = {
           defineField({
             name: "introduction",
             title: "Beschreibung",
-            description: "10-200 Zeichen",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -453,6 +477,7 @@ export const educationalProgram: SchemaTypeDef = {
             name: "faq",
             title: "Einträge",
             type: "faq-items",
+            description: getSizeString([3, 10], "Fragen"),
             validation: (r) => r.required().min(3).max(10),
           }),
         ],
@@ -461,7 +486,7 @@ export const educationalProgram: SchemaTypeDef = {
       defineField({
         name: "alternativesIntroduction",
         title: "Einleitung über den alternativen Bildungsgängen",
-        description: "50-300 Zeichen",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -481,6 +506,7 @@ export const educationalProgram: SchemaTypeDef = {
               defineField({
                 name: "income",
                 title: "Einkommen",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),

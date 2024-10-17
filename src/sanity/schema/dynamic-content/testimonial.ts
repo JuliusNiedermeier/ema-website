@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { MessageSquareMoreIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const testimonial: SchemaTypeDef = {
   type: "dynamic-content",
@@ -23,7 +23,7 @@ export const testimonial: SchemaTypeDef = {
       defineField({
         name: "testimonial",
         title: "Text",
-        description: "100-500 Zeichen",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -31,7 +31,7 @@ export const testimonial: SchemaTypeDef = {
       defineField({
         name: "authorName",
         title: "Name des Autors",
-        description: "3-30 Zeichen",
+        description: getSizeString("name", "Zeichen"),
         type: "string",
         validation: createStringValidation("name"),
       }),

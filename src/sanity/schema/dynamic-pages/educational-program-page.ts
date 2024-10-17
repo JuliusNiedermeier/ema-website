@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { GraduationCapIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const educationalProgramPage: SchemaTypeDef = {
   type: "dynamic-page",
@@ -15,8 +15,10 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Preview-Link-Text",
-        description:
-          "5-20 Zeichen. Link-Text, der von anderen Seiten auf diesen einen Bildungsgang verweist. Zum Beispiel 'Mehr erfahren'.",
+        description: getSizeString(
+          "label",
+          "Zeichen. Link-Text, der von anderen Seiten auf diesen einen Bildungsgang verweist. Zum Beispiel 'Mehr erfahren'.",
+        ),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -24,6 +26,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "detailsHeading",
         title: "Überschrift der Bildungsgang-Beschreibung",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -31,6 +34,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "durationAndTrainingTypeHeading",
         title: "Dauer und Ausbildungsart - Überschrift",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -38,6 +42,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "lessonTimesHeading",
         title: "Unterrichtszeiten - Überschrift",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -45,6 +50,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "holidaysHeading",
         title: "Ferien - Überschrift",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -58,6 +64,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "überschrift",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -65,6 +72,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "applyButtonLabel",
             title: "Bewerbungbutton Text",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -87,6 +95,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -94,6 +103,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("short-description", "Zeichen"),
             type: "string",
             validation: createStringValidation("short-description"),
           }),
@@ -101,7 +111,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "learningFieldsHeading",
             title: "Überschrift der Lernfelder",
-            description: "5-20 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -117,7 +127,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "5-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -125,6 +135,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "orLabel",
             title: "Label zwischen Vorraussetzungepaketen",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -140,6 +151,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -147,6 +159,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("short-description", "Zeichen"),
             type: "text",
             validation: createStringValidation("short-description"),
           }),
@@ -154,6 +167,7 @@ export const educationalProgramPage: SchemaTypeDef = {
           defineField({
             name: "linkLabel",
             title: "Link-text",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -163,7 +177,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "testimonialsHeading",
         title: "Testimonials-Überschrift",
-        description: "5-40 Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen.",
+        description: getSizeString("heading", "Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen."),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -171,7 +185,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "faqHeading",
         title: "FAQs-Überschrift",
-        description: "10-40 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -179,6 +193,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "feesLinkLabel",
         title: "Text für den Link zur Schulbeitragsseite",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -186,7 +201,7 @@ export const educationalProgramPage: SchemaTypeDef = {
       defineField({
         name: "alternativesHeading",
         title: "Überschrift zu den alternativen Bildungsgängen",
-        description: "10-40 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),

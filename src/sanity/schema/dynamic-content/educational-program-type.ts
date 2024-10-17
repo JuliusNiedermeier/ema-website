@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { RouteIcon } from "lucide-react";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 import { EducationalProgramType } from "../../../../generated/sanity/types";
 
 export const educationalProgramType: SchemaTypeDef = {
@@ -21,7 +21,7 @@ export const educationalProgramType: SchemaTypeDef = {
       defineField({
         name: "name",
         title: "Bezeichnung des Bildungswegs",
-        description: "5-30 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -51,7 +51,10 @@ export const educationalProgramType: SchemaTypeDef = {
       defineField({
         name: "slogan",
         title: "Bildungsweg Slogan",
-        description: "Ein aussagekräftiger kurzer Slogan, der den Bildungsweg möglichst effektiv bewirbt.",
+        description: getSizeString(
+          "heading",
+          "Zeichen. Ein aussagekräftiger kurzer Slogan, der den Bildungsweg möglichst effektiv bewirbt.",
+        ),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -59,8 +62,10 @@ export const educationalProgramType: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Teaser",
-        description:
-          "100-500 Zeichen. Ein kurzer Text, der Interesse weckt und die wichtigsten Aspeckte des Bildungsweges erwähnt.",
+        description: getSizeString(
+          "description",
+          "Zeichen. Ein kurzer Text, der Interesse weckt und die wichtigsten Aspeckte des Bildungsweges erwähnt.",
+        ),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -89,7 +94,7 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "10-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
             hidden: ({ document }) => !(document?.followUpProgramTypes as any)?.programTypes?.length,
@@ -98,7 +103,10 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Was sind die Vorteile diese Bildungswege zu verbinden?",
+            description: getSizeString(
+              "description",
+              "Zeichen. Was sind die Vorteile diese Bildungswege zu verbinden?",
+            ),
             type: "text",
             validation: createStringValidation("description"),
             hidden: ({ document }) => !(document?.followUpProgramTypes as any)?.programTypes?.length,
@@ -107,6 +115,7 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "programTypes",
             title: "Bildungswege",
+            description: "Maximal 10 Bildungswege",
             type: "array",
             validation: (r) => r.max(10),
             of: [
@@ -132,7 +141,7 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "10-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -140,7 +149,10 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "introduction",
             title: "Beschreibung",
-            description: "20-200 Zeichen. Kurze Beschreibung oder Unterüberschrift zu diesem Bereich.",
+            description: getSizeString(
+              "description",
+              "Zeichen. Kurze Beschreibung oder Unterüberschrift zu diesem Bereich.",
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -157,7 +169,7 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "introduction",
             title: "Beschreibung",
-            description: "10-200 Zeichen",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -165,6 +177,7 @@ export const educationalProgramType: SchemaTypeDef = {
           defineField({
             name: "items",
             title: "Fragen",
+            description: getSizeString([3, 10], "Fragen"),
             type: "faq-items",
             validation: (r) => r.required().min(3).max(10),
           }),
@@ -174,7 +187,7 @@ export const educationalProgramType: SchemaTypeDef = {
       defineField({
         name: "alternativesIntroduction",
         title: "Einleitung über den alternativen Bildungswegen",
-        description: "50-300 Zeichen",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),

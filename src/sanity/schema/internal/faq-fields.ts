@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const faqType: SchemaTypeDef = {
   type: "internal",
@@ -17,7 +17,7 @@ export const faqType: SchemaTypeDef = {
           defineField({
             name: "question",
             title: "Frage",
-            description: "10-100 Zeichen",
+            description: getSizeString([10, 100], "Zeichen"),
             type: "string",
             validation: createStringValidation([10, 100]),
           }),
@@ -25,7 +25,7 @@ export const faqType: SchemaTypeDef = {
           defineField({
             name: "answer",
             title: "Antwort",
-            description: "50-1000 Zeichen",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

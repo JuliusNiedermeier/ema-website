@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { InfoIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const infoEventPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,7 +24,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
-        description: "5-40 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -32,7 +32,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Teaser",
-        description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
+        description: getSizeString("description", "Zeichen. Worum geht es auf dieser Seite?"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -40,6 +40,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr-Lesen-Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -47,6 +48,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "speaker",
         title: "Teammitglieder, die beim Infoabend sind",
+        description: getSizeString([1, 10], "Mitglieder"),
         type: "array",
         validation: createArrayValidation([1, 10]),
         of: [
@@ -68,6 +70,7 @@ export const infoEventPage: SchemaTypeDef = {
           defineField({
             name: "label",
             title: "Button-Text",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -84,7 +87,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "nextDates",
         title: "Nächste Veranstaltungen",
-        description: "Daten der nächsten drei Infoveranstaltungen",
+        description: getSizeString([1, 4], "Veranstaltungen. Daten der nächsten Veranstaltungen."),
         type: "array",
         validation: createArrayValidation([1, 4]),
         of: [
@@ -100,7 +103,10 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "timeSuffix",
         title: "Uhrzeit-Suffix",
-        description: 'Der Text hinter der Uhrzeit einer Veranstaltung (meistens "Uhr").',
+        description: getSizeString(
+          "label",
+          `Zeichen. Der Text hinter der Uhrzeit einer Veranstaltung (meistens "Uhr").`,
+        ),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -108,6 +114,7 @@ export const infoEventPage: SchemaTypeDef = {
       defineField({
         name: "benefits",
         title: "Event Highlights/Vorteile",
+        description: getSizeString([3, 6], "Einträge"),
         type: "array",
         validation: createArrayValidation([3, 6]),
         of: [
@@ -120,6 +127,7 @@ export const infoEventPage: SchemaTypeDef = {
               defineField({
                 name: "title",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -127,6 +135,7 @@ export const infoEventPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("short-description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("short-description"),
               }),
@@ -159,6 +168,7 @@ export const infoEventPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -166,6 +176,7 @@ export const infoEventPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

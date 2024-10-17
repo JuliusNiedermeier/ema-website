@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { UserRoundPlusIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const applicationPage: SchemaTypeDef = {
   type: "static-page",
@@ -38,6 +38,7 @@ export const applicationPage: SchemaTypeDef = {
         name: "title",
         title: "Seitenname",
         type: "string",
+        description: getSizeString("label", "Zeichen"),
         group: "form",
         validation: createStringValidation("label"),
       }),
@@ -58,6 +59,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -65,6 +67,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -80,6 +83,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -95,6 +99,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -102,6 +107,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("short-description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("short-description"),
               }),
@@ -109,6 +115,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -124,6 +131,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -131,6 +139,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("short-description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("short-description"),
               }),
@@ -138,6 +147,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -153,6 +163,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -160,6 +171,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("short-description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("short-description"),
               }),
@@ -167,6 +179,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "placeholder",
                 title: "Platzhaltertext",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -185,6 +198,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "startLabel",
             title: "Text auf dem Start-Button",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -192,6 +206,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "backLabel",
             title: "Text auf dem Zurück-Button",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -199,6 +214,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "nextLabel",
             title: "Text auf dem Weiter-Button",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -206,6 +222,7 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "submitLabel",
             title: "Text auf dem Abschließen-Button im letzten schritt",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -222,7 +239,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "heading",
+              "Zeichen. Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -230,7 +250,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "description",
+              "Zeichen. Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -253,6 +276,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -260,6 +284,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -275,6 +300,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "heading",
                 title: "Überschrift",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -282,6 +308,7 @@ export const applicationPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -300,7 +327,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "heading",
+              "Zeichen, Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -308,7 +338,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "description",
+              "Zeichen. Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -325,7 +358,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "heading",
+              "Zeichen. Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -333,7 +369,10 @@ export const applicationPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
-            description: "Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            description: getSizeString(
+              "description",
+              "Zeichen. Füge {Name}, {Email}, {Datum} oder {Bildungsgang} ein, um den Text zu personalisieren.",
+            ),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -343,6 +382,7 @@ export const applicationPage: SchemaTypeDef = {
       defineField({
         name: "toHomePageLabel",
         title: "Text auf dem Button zur Startseite",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         group: "success",
         validation: createStringValidation("label"),
@@ -351,6 +391,7 @@ export const applicationPage: SchemaTypeDef = {
       defineField({
         name: "applyAgainLabel",
         title: "Text auf dem Button zur erneuten Anmeldung",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         group: "success",
         validation: createStringValidation("label"),

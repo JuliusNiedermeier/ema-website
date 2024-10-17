@@ -1,7 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PanelBottomIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const footerConfigType: SchemaTypeDef = {
   type: "global-component",
@@ -14,6 +14,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "ctaHeading",
         title: "CTA-Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -21,6 +22,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "cta",
         title: "Call-To-Action-Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -28,6 +30,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "staticPageLinksHeading",
         title: "Überschrift über den Links zu statischen Seiten",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -35,6 +38,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "educationalProgramLinksHeading",
         title: "Überschrift über den Links zu den Bildungswegen und Bildungsgängen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -42,6 +46,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "socialLinks",
         title: "Social-Media-Links",
+        description: "Maximal 6 Links",
         type: "array",
         validation: (r) => r.max(6),
         of: [
@@ -73,7 +78,10 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "copyrightNotice",
         title: "Copyright-Text",
-        description: "Hinweis auf das Copyright. Erscheint am unteren Rand des Footers.",
+        description: getSizeString(
+          [10, 80],
+          "Zeichen. Hinweis auf das Copyright. Erscheint am unteren Rand des Footers.",
+        ),
         type: "string",
         validation: createStringValidation([10, 80]),
       }),
@@ -81,6 +89,7 @@ export const footerConfigType: SchemaTypeDef = {
       defineField({
         name: "cookieSettingsLabel",
         title: "Cookie-Einstellungen Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),

@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { CookieIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const cookieNoticeConfigType: SchemaTypeDef = {
   type: "global-component",
@@ -14,7 +14,7 @@ export const cookieNoticeConfigType: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
-        description: "Hinweis, dass diese Seite Cookies nutzt.",
+        description: getSizeString("heading", "Zeichen. Hinweis, dass diese Seite Cookies nutzt."),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -22,6 +22,7 @@ export const cookieNoticeConfigType: SchemaTypeDef = {
       defineField({
         name: "description",
         title: "Beschreibung",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -29,6 +30,7 @@ export const cookieNoticeConfigType: SchemaTypeDef = {
       defineField({
         name: "acceptLabel",
         title: "Text auf dem 'Akzeptieren'-Button",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -36,6 +38,7 @@ export const cookieNoticeConfigType: SchemaTypeDef = {
       defineField({
         name: "rejectLabel",
         title: "Text auf dem 'Ablehnen'-Button",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),

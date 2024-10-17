@@ -13,6 +13,10 @@ const stringSizeBoundsMap = {
   name: [3, 30],
 } satisfies Record<string, StringSizeBounds>;
 
+export const getSizeString = (size: NamedStringSizeBounds | StringSizeBounds, suffix?: string) => {
+  return [getSize(size).join("-"), suffix].join(" ");
+};
+
 const getSize = (size: NamedStringSizeBounds | StringSizeBounds) => {
   return Array.isArray(size) ? size : stringSizeBoundsMap[size];
 };

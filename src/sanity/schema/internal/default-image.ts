@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const defaultImage: SchemaTypeDef = {
   type: "internal",
@@ -12,6 +12,7 @@ export const defaultImage: SchemaTypeDef = {
         name: "alt",
         type: "string",
         title: "Alternativtext",
+        description: getSizeString("heading", "Zeichen"),
         validation: createStringValidation("heading"),
       }),
     ],

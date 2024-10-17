@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { TagIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const category: SchemaTypeDef = {
   type: "dynamic-content",
@@ -13,7 +13,8 @@ export const category: SchemaTypeDef = {
     fields: [
       defineField({
         name: "name",
-        title: "Name",
+        title: "Bezeichnung",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),

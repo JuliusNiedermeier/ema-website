@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { TableColumnsSplitIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const comparisonPage: SchemaTypeDef = {
   type: "static-page",
@@ -23,6 +23,7 @@ export const comparisonPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -30,6 +31,7 @@ export const comparisonPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Teaser",
+        description: getSizeString("short-description", "Zeichen"),
         type: "text",
         validation: createStringValidation("short-description"),
       }),
@@ -37,6 +39,7 @@ export const comparisonPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Button Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -44,6 +47,7 @@ export const comparisonPage: SchemaTypeDef = {
       defineField({
         name: "previewImages",
         title: "Vorschaubilder",
+        description: "3 Bilder",
         type: "array",
         validation: createArrayValidation([3, 3]),
         of: [
@@ -65,6 +69,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -72,6 +77,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -94,6 +100,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -101,6 +108,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -116,6 +124,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -123,6 +132,7 @@ export const comparisonPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

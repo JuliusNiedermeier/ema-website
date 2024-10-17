@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { MapPinIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const contactPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,6 +24,7 @@ export const contactPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -31,7 +32,7 @@ export const contactPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Beschreibung",
-        description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
+        description: getSizeString("description", "Zeichen. Worum geht es auf dieser Seite?"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -39,6 +40,7 @@ export const contactPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr-Lesen-Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -52,6 +54,7 @@ export const contactPage: SchemaTypeDef = {
           defineField({
             name: "phone",
             title: "Telefon",
+            description: getSizeString([8, 20], "Ziffern"),
             type: "string",
             validation: createStringValidation([8, 20]),
           }),
@@ -59,6 +62,7 @@ export const contactPage: SchemaTypeDef = {
           defineField({
             name: "email",
             title: "Email",
+            description: getSizeString([5, 50], "Zeichen"),
             type: "string",
             validation: createStringValidation([5, 50]),
           }),
@@ -66,6 +70,7 @@ export const contactPage: SchemaTypeDef = {
           defineField({
             name: "instagram",
             title: "Instagram",
+            description: getSizeString([5, 30], "Zeichen"),
             type: "string",
             validation: createStringValidation([5, 30]),
           }),
@@ -76,6 +81,7 @@ export const contactPage: SchemaTypeDef = {
         name: "officeHours",
         title: "Sprechzeiten",
         type: "array",
+        description: getSizeString([1, 7], "Einträge"),
         validation: createArrayValidation([1, 7]),
         of: [
           defineArrayMember({
@@ -88,6 +94,7 @@ export const contactPage: SchemaTypeDef = {
               defineField({
                 name: "day",
                 title: "Tag",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -126,6 +133,7 @@ export const contactPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -133,6 +141,7 @@ export const contactPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -146,6 +155,7 @@ export const contactPage: SchemaTypeDef = {
               defineField({
                 name: "street",
                 title: "Straße & Hausnummer",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -153,6 +163,7 @@ export const contactPage: SchemaTypeDef = {
               defineField({
                 name: "zipAndCity",
                 title: "PLZ und Stadt",
+                description: getSizeString("label", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("label"),
               }),

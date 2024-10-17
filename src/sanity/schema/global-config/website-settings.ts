@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { SettingsIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const websiteSettingsType: SchemaTypeDef = {
   type: "global-config",
@@ -14,7 +14,7 @@ export const websiteSettingsType: SchemaTypeDef = {
       defineField({
         name: "websiteTitle",
         title: "Titel der Website",
-        description: "",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -22,7 +22,7 @@ export const websiteSettingsType: SchemaTypeDef = {
       defineField({
         name: "websiteDescription",
         title: "Beschreibung der Website",
-        description: "",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),

@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PenLineIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const post: SchemaTypeDef = {
   type: "dynamic-content",
@@ -20,6 +20,7 @@ export const post: SchemaTypeDef = {
       defineField({
         name: "name",
         title: "Titel",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -64,6 +65,7 @@ export const post: SchemaTypeDef = {
       defineField({
         name: "excerpt",
         title: "Auszug",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -84,7 +86,7 @@ export const post: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "3-40 Zeichen",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -92,7 +94,7 @@ export const post: SchemaTypeDef = {
           defineField({
             name: "introduction",
             title: "Beschreibung",
-            description: "50-200 Zeichen",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),

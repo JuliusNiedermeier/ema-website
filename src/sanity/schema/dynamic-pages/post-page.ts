@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PenLineIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const postPage: SchemaTypeDef = {
   type: "dynamic-page",
@@ -15,7 +15,7 @@ export const postPage: SchemaTypeDef = {
       defineField({
         name: "authorPrefix",
         title: "Autor-Präfix",
-        description: "Text vor dem Namen des Autors. Zum Beispiel 'Geschrieben von'",
+        description: getSizeString("label", "Zeichen. Text vor dem Namen des Autors. Zum Beispiel 'Geschrieben von'"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -23,7 +23,10 @@ export const postPage: SchemaTypeDef = {
       defineField({
         name: "datePrefix",
         title: "Datums-Präfix",
-        description: "Text vor dem Veröffentlichungsdatum des Beitrags. Zum Beispiel 'Am'",
+        description: getSizeString(
+          "label",
+          "Zeichen. Text vor dem Veröffentlichungsdatum des Beitrags. Zum Beispiel 'Am'",
+        ),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -38,7 +41,7 @@ export const postPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: "5-20 Zeichen. Überschrift des Bereichs.",
+            description: getSizeString("label", "Zeichen. Überschrift des Bereichs."),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -46,7 +49,7 @@ export const postPage: SchemaTypeDef = {
           defineField({
             name: "allPostsLabel",
             title: "Text des Links auf alle Blogbeiträge",
-            description: "5-20 Zeichen.",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),

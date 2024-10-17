@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { BriefcaseBusinessIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const jobsPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,7 +24,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
-        description: "5-40 Zeichen",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -32,7 +32,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Beschreibung",
-        description: "100-300 Zeichen. Worum geht es auf dieser Seite?",
+        description: getSizeString("description", "Zeichen. Worum geht es auf dieser Siete?"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -40,6 +40,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Button Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -47,7 +48,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "teachingJobLabel",
         title: "Lehrerstelle label",
-        description: "5-40 Zeichen",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -55,7 +56,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "CTALabel",
         title: "Call-To-Action Text",
-        description: "5-40 Zeichen",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -63,7 +64,7 @@ export const jobsPage: SchemaTypeDef = {
       defineField({
         name: "jobs",
         title: "Stellen",
-        description: "Liste der offenen Stellen.",
+        description: "Maximal 30 Stellen. Liste der offenen Stellen.",
         type: "array",
         validation: (r) => r.max(30),
         of: [
@@ -77,7 +78,7 @@ export const jobsPage: SchemaTypeDef = {
               defineField({
                 name: "title",
                 title: "Stellenbezeichnung",
-                description: "5-40 Zeichen",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -85,7 +86,7 @@ export const jobsPage: SchemaTypeDef = {
               defineField({
                 name: "shortDescription",
                 title: "Kurzbeschreibung",
-                description: "10-80 Zeichen",
+                description: getSizeString("heading", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("heading"),
               }),
@@ -100,7 +101,7 @@ export const jobsPage: SchemaTypeDef = {
               defineField({
                 name: "fullDescription",
                 title: "Beschreibung",
-                description: "50-300 Zeichen",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),

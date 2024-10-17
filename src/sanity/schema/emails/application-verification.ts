@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { BadgeCheckIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const applicationVerificationEmail: SchemaTypeDef = {
   type: "email",
@@ -14,7 +14,10 @@ export const applicationVerificationEmail: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
-        description: "Füge {name} in den Text ein, um dort den Namen des Bewerbers anzuzeigen.",
+        description: getSizeString(
+          "heading",
+          "Zeichen. Füge {name} in den Text ein, um dort den Namen des Bewerbers anzuzeigen.",
+        ),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -22,7 +25,10 @@ export const applicationVerificationEmail: SchemaTypeDef = {
       defineField({
         name: "body",
         title: "Textinhalt",
-        description: "Füge {name} in den Text ein, um dort den Namen des Bewerbers anzuzeigen.",
+        description: getSizeString(
+          "description",
+          "Zeichen. Füge {name} in den Text ein, um dort den Namen des Bewerbers anzuzeigen.",
+        ),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -30,6 +36,7 @@ export const applicationVerificationEmail: SchemaTypeDef = {
       defineField({
         name: "verifyButtonLabel",
         title: "Text auf dem Bestätigungsbutton",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -37,6 +44,7 @@ export const applicationVerificationEmail: SchemaTypeDef = {
       defineField({
         name: "regards",
         title: "Grußfloskel",
+        description: getSizeString([10, 100], "Zeichen"),
         type: "string",
         validation: createStringValidation([10, 100]),
       }),
@@ -44,6 +52,7 @@ export const applicationVerificationEmail: SchemaTypeDef = {
       defineField({
         name: "senderName",
         title: "Name des Teams",
+        description: getSizeString("name", "Zeichen"),
         type: "string",
         validation: createStringValidation("name"),
       }),

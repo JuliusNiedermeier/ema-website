@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PanelTopIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const headerConfigType: SchemaTypeDef = {
   type: "global-component",
@@ -14,6 +14,7 @@ export const headerConfigType: SchemaTypeDef = {
       defineField({
         name: "educationalProgramsMenuLabel",
         title: "Bildungswege",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -21,6 +22,7 @@ export const headerConfigType: SchemaTypeDef = {
       defineField({
         name: "aboutMenuLabel",
         title: "Über uns",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -28,7 +30,7 @@ export const headerConfigType: SchemaTypeDef = {
       defineField({
         name: "CTALabel",
         title: "Call-To-Action Text",
-        description: "Text des Buttons am rechten Rand des Headers.",
+        description: getSizeString("label", "Zeichen. Text des Buttons am rechten Rand des Headers."),
         type: "string",
         validation: createStringValidation("label"),
       }),

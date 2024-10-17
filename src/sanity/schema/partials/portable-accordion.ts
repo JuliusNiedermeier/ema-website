@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField } from "sanity";
+import { getSizeString } from "~/sanity/lib/validations";
 
 export const portableAccordionType = defineArrayMember({
   name: "portableAccordion",
@@ -8,6 +9,7 @@ export const portableAccordionType = defineArrayMember({
     defineField({
       name: "items",
       title: "Einträge",
+      description: getSizeString([3, 10], "Fragen"),
       type: "faq-items",
       validation: (r) => r.required().min(3).max(10),
     }),

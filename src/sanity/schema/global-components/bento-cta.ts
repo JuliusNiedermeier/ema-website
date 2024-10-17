@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { Grid2x2CheckIcon } from "lucide-react";
-import { createStringValidation } from "~/sanity/lib/validations";
+import { createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const bentoCTAConfigType: SchemaTypeDef = {
   type: "global-component",
@@ -20,6 +20,7 @@ export const bentoCTAConfigType: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -27,6 +28,7 @@ export const bentoCTAConfigType: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -34,6 +36,7 @@ export const bentoCTAConfigType: SchemaTypeDef = {
           defineField({
             name: "buttonLabel",
             title: "Button-text",
+            description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
           }),

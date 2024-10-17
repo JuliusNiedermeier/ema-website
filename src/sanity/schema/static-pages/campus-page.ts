@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { SchemaTypeDef } from "..";
 import { PersonStandingIcon } from "lucide-react";
 import { navigationLabel } from "../partials/navigation-label";
-import { createArrayValidation, createStringValidation } from "~/sanity/lib/validations";
+import { createArrayValidation, createStringValidation, getSizeString } from "~/sanity/lib/validations";
 
 export const campusPage: SchemaTypeDef = {
   type: "static-page",
@@ -24,6 +24,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Überschrift",
+        description: getSizeString("heading", "Zeichen"),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -31,6 +32,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "teaser",
         title: "Auszug",
+        description: getSizeString("description", "Zeichen"),
         type: "text",
         validation: createStringValidation("description"),
       }),
@@ -38,6 +40,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "readMoreLabel",
         title: "Mehr lesen Button Text",
+        description: getSizeString("label", "Zeichen"),
         type: "string",
         validation: createStringValidation("label"),
       }),
@@ -45,6 +48,7 @@ export const campusPage: SchemaTypeDef = {
       defineField({
         name: "staff",
         title: "Teammitglieder",
+        description: getSizeString([2, 10], "Teammitglieder"),
         type: "array",
         validation: createArrayValidation([2, 20]),
         of: [
@@ -57,6 +61,7 @@ export const campusPage: SchemaTypeDef = {
               defineField({
                 name: "name",
                 title: "Name",
+                description: getSizeString("name", "Zeichen"),
                 type: "string",
                 validation: createStringValidation("name"),
               }),
@@ -64,7 +69,10 @@ export const campusPage: SchemaTypeDef = {
               defineField({
                 name: "position",
                 title: "Funktion",
-                description: "Was unterrichtet oder erledigt diese Person bei der EMA?",
+                description: getSizeString(
+                  "label",
+                  "Zeichen. Was unterrichtet oder erledigt diese Person bei der EMA?",
+                ),
                 type: "string",
                 validation: createStringValidation("label"),
               }),
@@ -72,6 +80,7 @@ export const campusPage: SchemaTypeDef = {
               defineField({
                 name: "description",
                 title: "Beschreibung",
+                description: getSizeString("description", "Zeichen"),
                 type: "text",
                 validation: createStringValidation("description"),
               }),
@@ -105,6 +114,7 @@ export const campusPage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
+            description: getSizeString("heading", "Zeichen"),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -112,6 +122,7 @@ export const campusPage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Beschreibung",
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
