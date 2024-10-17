@@ -54,7 +54,7 @@ export const applicationVerificationEmail: SchemaTypeDef = {
         title: "Name des Teams",
         description: getSizeString("name", "Zeichen"),
         type: "string",
-        validation: createStringValidation("name"),
+        validation: createStringValidation("heading"),
       }),
     ],
     preview: {

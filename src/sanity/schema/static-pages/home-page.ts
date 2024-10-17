@@ -23,7 +23,7 @@ export const homePage: SchemaTypeDef = {
       defineField({
         name: "heading",
         title: "Headline",
-        description: getSizeString("heading", "Zeichen. Füge \n ein um einen Zeilenumbruch hinzuzufügen."),
+        description: getSizeString("heading", "Zeichen. Füge \\n ein um einen Zeilenumbruch hinzuzufügen."),
         type: "string",
         validation: createStringValidation("heading"),
       }),
@@ -134,7 +134,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: getSizeString("heading", "Zeichen. SOllte die Zufriedenheit der Schüler unterstreichen."),
+            description: getSizeString("heading", "Zeichen. Sollte die Zufriedenheit der Schüler unterstreichen."),
             type: "string",
             validation: createStringValidation("heading"),
           }),
@@ -142,10 +142,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "description",
             title: "Unterüberschrift",
-            description: getSizeString(
-              "description",
-              `Zeichen. Beispiel: "Schüler lieben die Emil Molt Akademie. Das wir davon überzeugt sind ist klar - überzeug' dich besser selbst und lies was unsere Schüler über uns sagen."`,
-            ),
+            description: getSizeString("description", "Zeichen"),
             type: "text",
             validation: createStringValidation("description"),
           }),
@@ -171,7 +168,7 @@ export const homePage: SchemaTypeDef = {
             name: "description",
             title: "Beschreibung",
             description: getSizeString("description", "Zeichen"),
-            type: "string",
+            type: "text",
             validation: createStringValidation("description"),
           }),
 
