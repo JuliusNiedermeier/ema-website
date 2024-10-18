@@ -90,7 +90,7 @@ export const structure = structureTool({
           S.list({
             id: "pages",
             title: "Seiten",
-            items: [...dynamicPageTypes, S.divider(), ...staticPageTypes],
+            items: [...staticPageTypes, S.divider(), ...dynamicPageTypes],
           }),
         ),
         S.listItem({ id: "email", title: "Emails", icon: MailIcon }).child(
