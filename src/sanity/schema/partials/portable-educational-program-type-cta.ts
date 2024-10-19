@@ -30,4 +30,10 @@ export const portableEducationalProgramTypeCTAType = defineArrayMember({
       validation: (r) => r.required(),
     }),
   ],
+  preview: {
+    select: {
+      title: "educationalProgramType.name",
+      description: "educationalProgramType.slogan",
+    },
+  },
 });

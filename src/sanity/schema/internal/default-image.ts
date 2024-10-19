@@ -12,7 +12,10 @@ export const defaultImage: SchemaTypeDef = {
         name: "alt",
         type: "string",
         title: "Alternativtext",
-        description: getSizeString("heading", "Zeichen"),
+        description: getSizeString(
+          "heading",
+          "Zeichen. Falls das Bild nicht geladen werden kann, wird dieser Text als Platzhalter angezeigt.",
+        ),
         validation: createStringValidation("heading"),
       }),
     ],
