@@ -5,7 +5,6 @@
 import { defineConfig, isDev } from "sanity";
 import { env } from "~/env";
 import { colorInput } from "@sanity/color-input";
-import { media } from "sanity-plugin-media";
 
 import {
   schema,
@@ -46,7 +45,5 @@ export default defineConfig({
       return items;
     },
   },
-  plugins: isDev
-    ? [structure, vision, colorInput(), media(), presentation]
-    : [structure, colorInput(), media(), presentation],
+  plugins: isDev ? [structure, vision, colorInput(), presentation] : [structure, colorInput(), presentation],
 });
