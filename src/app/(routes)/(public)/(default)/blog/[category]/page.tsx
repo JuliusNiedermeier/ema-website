@@ -64,31 +64,15 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
     tags: ["post", "author", "category"],
   });
 
-  if (!latestPost)
-    return (
-      <div className="rounded-b-3xl bg-neutral-200 pt-header">
-        <Container width="narrow" className="flex flex-col items-center py-32 text-center">
-          <IconChip>
-            <BrainIcon size="24" />
-          </IconChip>
-          <Chip className="mt-4">
-            <Label>{blogPage?.placeholder?.preHeading}</Label>
-          </Chip>
-          <Heading className="mt-8">{blogPage?.placeholder?.heading}</Heading>
-          <Paragraph>{blogPage?.placeholder?.description}</Paragraph>
-        </Container>
-      </div>
-    );
-
   return (
     <>
       <div className="bg-neutral-200 pt-header">
         <Container className="mt-12 md:mt-32">
           <div className="max-w-[40rem]">
-            <Heading size="sm" className="text-neutral-100-text-muted">
+            <Heading tag="h2" size="sm" className="text-neutral-100-text-muted">
               {blogPage?.preHeading}
             </Heading>
-            <Heading>{blogPage?.heading}</Heading>
+            <Heading tag="h1">{blogPage?.heading}</Heading>
             <Paragraph>{blogPage?.description}</Paragraph>
           </div>
           <BlogCategorySelector
@@ -154,7 +138,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                     <CalendarClockIcon />
                   </IconChip>
                   <div className="mt-auto pt-8">
-                    <Heading size="sm" className="text-neutral-900-text">
+                    <Heading tag="h3" size="sm" className="text-neutral-900-text">
                       {blogPage?.placeholder?.heading}
                     </Heading>
                     <Paragraph className="text-neutral-900-text-muted">{blogPage?.placeholder?.description}</Paragraph>

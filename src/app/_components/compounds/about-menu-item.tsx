@@ -37,7 +37,9 @@ export const AboutMenuItem: FC<AboutMenuItemProps> = ({
       {...restProps}
     >
       <div className="flex-1 p-6">
-        <Heading size="sm">{heading}</Heading>
+        <Heading tag="h3" size="sm">
+          {heading}
+        </Heading>
         <Paragraph className={cn("line-clamp-2", { "text-neutral-900-text-muted": active })}>{description}</Paragraph>
       </div>
       <div className="relative mt-2 aspect-video overflow-hidden rounded-2xl">

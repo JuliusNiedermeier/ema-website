@@ -32,8 +32,8 @@ export const EconomyXSocialHero: FC<EconomyXSocialHeroProps> = ({
   return (
     <div className={cn("rounded-b-2xl bg-neutral-200 pb-16", className)} {...restProps} ref={containerRef}>
       <Container width="narrow" className="pt-32 text-center">
-        <Heading>{headingUpper}</Heading>
-        <Heading>{headingLower}</Heading>
+        <Heading tag="h2">{headingUpper}</Heading>
+        <Heading tag="h2">{headingLower}</Heading>
         <Paragraph>{description}</Paragraph>
       </Container>
       <MergingPaths progress={reversedProgress} className="mt-16" />

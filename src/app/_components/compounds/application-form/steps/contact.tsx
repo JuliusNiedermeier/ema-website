@@ -21,7 +21,7 @@ export const ContactStep: FormStepComponent<ContactStepProps> = ({ heading, desc
 
   return (
     <div>
-      <Heading>{heading}</Heading>
+      <Heading tag="h2">{heading}</Heading>
       <Paragraph>{description}</Paragraph>
       <div className="mt-16 flex flex-col gap-8">
         <div>

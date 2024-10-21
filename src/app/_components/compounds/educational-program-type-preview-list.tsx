@@ -92,7 +92,7 @@ const Section: FC<{ programType: EducationalProgramTypePreviewListProps["program
             <Label className="inline-block rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
               {programType.name}
             </Label>
-            <Heading size="lg" className="mt-6">
+            <Heading tag="h3" size="lg" className="mt-6">
               {programType.heading}
             </Heading>
             <Paragraph className="line-clamp-3">{programType.description}</Paragraph>
@@ -151,7 +151,7 @@ const ProgramCard: FC<{
         <Label className="inline-block rounded-full border border-neutral-100/10 bg-themed-secondary px-4 py-2 shadow brightness-105">
           {program.name}
         </Label>
-        <Heading size="sm" className="mt-6">
+        <Heading tag="h3" size="sm" className="mt-6">
           {program.heading}
         </Heading>
         <Paragraph className="line-clamp-3">{program.description}</Paragraph>

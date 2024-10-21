@@ -18,7 +18,7 @@ export const ApplicantStep: FormStepComponent<ApplicantStepProps> = ({ heading, 
 
   return (
     <div>
-      <Heading>{heading}</Heading>
+      <Heading tag="h2">{heading}</Heading>
       <Paragraph>{description}</Paragraph>
       <div className="mt-16 flex flex-col gap-8">
         <div>
@@ -43,7 +43,9 @@ export const ApplicantStep: FormStepComponent<ApplicantStepProps> = ({ heading, 
           />
         </div>
         <div>
-          <Heading size="sm">{inputs.motivation.label}</Heading>
+          <Heading tag="h3" size="sm">
+            {inputs.motivation.label}
+          </Heading>
           <Paragraph>{inputs.motivation.description}</Paragraph>
           <textarea
             placeholder={inputs.motivation.placeholder}

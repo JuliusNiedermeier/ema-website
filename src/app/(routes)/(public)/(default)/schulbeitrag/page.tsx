@@ -102,7 +102,7 @@ const FeesPage: FC = async () => {
       <div className="bg-neutral-200 pt-header">
         <Container className="pb-4 pt-32">
           <Container width="narrow" className="text-center">
-            <Heading>{pageData.heading}</Heading>
+            <Heading tag="h1">{pageData.heading}</Heading>
             <Paragraph>{pageData.teaser}</Paragraph>
           </Container>
           <div className="mt-16 grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-2 sm:gap-4">

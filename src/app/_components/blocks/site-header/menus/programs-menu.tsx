@@ -42,7 +42,7 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
             }
           />
           <div className="p-6">
-            <Heading size="sm" className="mt-8">
+            <Heading tag="h3" size="sm" className="mt-8">
               {comparison?.heading}
             </Heading>
             <Paragraph className="flex-1xsd text-neutral-900-text-muted">{comparison?.teaser}</Paragraph>

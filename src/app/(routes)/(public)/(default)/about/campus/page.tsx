@@ -48,7 +48,7 @@ const CampusPage: FC = async () => {
     <div className="rounded-b-3xl">
       <div className="bg-neutral-200 pb-40 pt-header">
         <Container width="narrow" className="py-24 text-center">
-          <Heading>{data?.heading}</Heading>
+          <Heading tag="h1">{data?.heading}</Heading>
           <Paragraph>{data?.teaser}</Paragraph>
         </Container>
       </div>

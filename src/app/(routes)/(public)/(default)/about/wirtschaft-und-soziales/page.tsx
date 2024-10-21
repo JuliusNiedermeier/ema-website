@@ -86,7 +86,7 @@ const EconomyXSocialPage: FC = async () => {
           </div>
         </div>
         <Container width="narrow" className="mt-24 text-center">
-          <Heading>{data.educationalProgramTypesCTA?.heading}</Heading>
+          <Heading tag="h3">{data.educationalProgramTypesCTA?.heading}</Heading>
           <Paragraph>{data.educationalProgramTypesCTA?.description}</Paragraph>
         </Container>
         <EducationalProgramTypeCards className="mt-24" />

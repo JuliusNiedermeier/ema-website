@@ -29,7 +29,7 @@ export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps 
       {...restProps}
     >
       <Card className="relative z-10 block max-w-[40rem] border border-neutral-400 bg-neutral-300 transition-colors">
-        <Heading>{data?.heading}</Heading>
+        <Heading tag="h2">{data?.heading}</Heading>
         <Paragraph>{data?.teaser}</Paragraph>
         <div className="mt-8 flex items-center gap-4">
           <InteractionBubble animated={false} />

@@ -16,7 +16,7 @@ export const EventDateList: FC<EventDateListProps> = ({ className, dates, timeSu
           className={cn("flex items-center justify-between gap-8 p-4", { "bg-primary-100": index === 0 })}
         >
           <div>
-            <Heading size="sm" className="mb-0">
+            <Heading tag="h3" size="sm" className="mb-0">
               {date.toLocaleDateString("de", { weekday: "long", day: "numeric", month: "long" })}
             </Heading>
             <Label className="text-neutral-100-text-muted">{date.toLocaleDateString("de", { year: "numeric" })}</Label>

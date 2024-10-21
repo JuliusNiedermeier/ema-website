@@ -181,7 +181,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <div className="w-min rounded-full bg-primary-900 p-4">
                   <PlusIcon className="text-primary-900-text" />
                 </div>
-                <Heading size="sm" tag="h3">
+                <Heading tag="h3" size="sm">
                   {highlight.heading}
                 </Heading>
                 <Paragraph>{highlight.content}</Paragraph>
@@ -207,7 +207,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               <BadgeIcon />
             </IconChip>
             <div className="mt-16 max-w-[40rem]">
-              <Heading className="text-neutral-900-text">{program.certificate?.heading}</Heading>
+              <Heading tag="h2" className="text-neutral-900-text">
+                {program.certificate?.heading}
+              </Heading>
               <Paragraph className="text-neutral-900-text-muted">{program.certificate?.description}</Paragraph>
             </div>
             <div className="relative mt-12 flex flex-wrap gap-4">
@@ -234,7 +236,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <IconChip className="bg-themed-primary text-primary-100-text">
                   <ArrowRightIcon />
                 </IconChip>
-                <Heading size="sm" className="mt-16 text-neutral-900-text">
+                <Heading tag="h3" size="sm" className="mt-16 text-neutral-900-text">
                   {program.followUpPrograms?.heading}
                 </Heading>
                 <Paragraph className="text-neutral-900-text-muted">{program.followUpPrograms?.description}</Paragraph>
@@ -274,7 +276,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
               </IconChip>
             </GradientStrokeIcon>
             <div className="mt-16 text-center">
-              <Heading>{programPage.detailsHeading}</Heading>
+              <Heading tag="h2">{programPage.detailsHeading}</Heading>
               <Paragraph>{program.detailsIntroduction}</Paragraph>
             </div>
           </Container>
@@ -317,7 +319,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       </div>
                       <div className="py-10x pb-6x lg:py-10x max-w-[40rem] flex-[2] p-6">
                         <Label className="text-neutral-400-text">{program.highlightLink?.preHeading}</Label>
-                        <Heading className="mt-2 text-neutral-400-text">{program.highlightLink?.mainHeading}</Heading>
+                        <Heading tag="h2" className="mt-2 text-neutral-400-text">
+                          {program.highlightLink?.mainHeading}
+                        </Heading>
                         <Paragraph className="mt-6 text-neutral-400-text">{program.highlightLink?.paragraph}</Paragraph>
                         <div className="mt-8 flex h-12 w-fit items-center gap-4 rounded-full bg-neutral-100 px-2 pr-6">
                           <InteractionBubble /> <Label>{program.highlightLink?.ctaText}</Label>
@@ -330,7 +334,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
 
               <Card className="flex flex-col overflow-hidden border border-neutral-400 p-0 md:flex-1">
                 <Card className="mt-auto py-12">
-                  <Heading>{programPage.subjects?.heading}</Heading>
+                  <Heading tag="h3">{programPage.subjects?.heading}</Heading>
                   <Paragraph>{programPage.subjects?.description}</Paragraph>
                 </Card>
 
@@ -352,7 +356,9 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <Card className="rounded-2xl rounded-b-none bg-themed-primary">
                   <div className="flex items-center gap-4">
                     <SparkleIcon />
-                    <Heading size="sm">{programPage.subjects?.learningFieldsHeading}</Heading>
+                    <Heading tag="h3" size="sm">
+                      {programPage.subjects?.learningFieldsHeading}
+                    </Heading>
                   </div>
                   <IconList className="mt-4 gap-3">
                     {program.learningFields?.map((learningField, index) => (
@@ -396,10 +402,10 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 </div>
                 <div className="flex-1 self-center">
                   <div className="max-w-96 pb-16 sm:py-16">
-                    <Heading size="sm" className="text-neutral-100-text-muted">
+                    <Heading tag="h3" size="sm" className="text-neutral-100-text-muted">
                       {item.preHeading}
                     </Heading>
-                    <Heading tag="h3">{item.heading}</Heading>
+                    <Heading tag="h2">{item.heading}</Heading>
                     <Paragraph>{item.content}</Paragraph>
                   </div>
                 </div>
@@ -431,7 +437,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 }
               />
               <div className="flex-1 p-6 text-left">
-                <Heading>{programPage.comparisonCTA?.heading}</Heading>
+                <Heading tag="h3">{programPage.comparisonCTA?.heading}</Heading>
                 <Paragraph>{programPage.comparisonCTA?.description}</Paragraph>
                 <Button size="sm" className="mt-6 gap-4 pr-1">
                   <Label>{programPage.comparisonCTA?.linkLabel}</Label>
@@ -446,14 +452,18 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
       <Section className="-mb-2 bg-neutral-100">
         <Container className="pt-24 sm:pt-48">
           <Container width="narrow" className="text-center">
-            <Heading className="mx-auto max-w-80 sm:max-w-none">{programPage.testimonialsHeading}</Heading>
+            <Heading tag="h2" className="mx-auto max-w-80 sm:max-w-none">
+              {programPage.testimonialsHeading}
+            </Heading>
             <Paragraph>{program.testimonialsIntroduction}</Paragraph>
           </Container>
           <TestimonialCarousel className="mt-16" />
         </Container>
 
         <Container className="mt-48 sm:mt-64" width="narrow">
-          <Heading className="text-center">{programPage.faqHeading}</Heading>
+          <Heading tag="h2" className="text-center">
+            {programPage.faqHeading}
+          </Heading>
           <Paragraph>{program.faq?.introduction}</Paragraph>
           <div className="mt-16">
             <BasicAccordion

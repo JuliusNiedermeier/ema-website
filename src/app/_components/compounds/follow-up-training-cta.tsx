@@ -19,7 +19,7 @@ export const FollowUpTrainingCTA: FC<FollowUpTrainingCTAProps> = ({
   return (
     <div className={cn("", className)} {...restProps}>
       <Container width="narrow" className="text-center">
-        <Heading>{heading}</Heading>
+        <Heading tag="h3">{heading}</Heading>
         <Paragraph>{description}</Paragraph>
       </Container>
 

@@ -73,7 +73,7 @@ const ContactPage: FC = async () => {
         <div className="absolute left-0 top-0 -z-10 h-screen w-full" />
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto max-w-[35rem] text-center">
-            <Heading>{consultingPageData.heading}</Heading>
+            <Heading tag="h1">{consultingPageData.heading}</Heading>
             <Paragraph>{consultingPageData.teaser}</Paragraph>
           </div>
 

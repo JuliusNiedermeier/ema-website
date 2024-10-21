@@ -63,9 +63,13 @@ interface Components extends PortableTextComponents {
 
 export const portableTextComponents: Components = {
   block: {
-    h1: ({ children }) => <Heading className="mb-8 mt-16">{children}</Heading>,
+    h1: ({ children }) => (
+      <Heading tag="h1" className="mb-8 mt-16">
+        {children}
+      </Heading>
+    ),
     h2: ({ children }) => (
-      <Heading size="sm" className="mb-8 mt-16">
+      <Heading tag="h2" size="sm" className="mb-8 mt-16">
         {children}
       </Heading>
     ),
@@ -106,12 +110,14 @@ export const portableTextComponents: Components = {
             style={createColorThemeStyles(ensureValidHSL(props.value.educationalProgramType?.color?.hsl))}
           >
             <div className="p-6 text-center">
-              <Heading className="mb-0">{props.value.heading}</Heading>
+              <Heading tag="h2" className="mb-0">
+                {props.value.heading}
+              </Heading>
               <Paragraph>{props.value.description}</Paragraph>
             </div>
             <Card className="flex flex-col gap-8 bg-themed-primary transition-colors group-hover:bg-themed-secondary md:flex-row md:items-center">
               <div className="flex-1">
-                <Heading size="sm" className="mb-0">
+                <Heading tag="h3" size="sm" className="mb-0">
                   {props.value.educationalProgramType?.name}
                 </Heading>
                 <Paragraph>{props.value.educationalProgramType?.slogan}</Paragraph>
@@ -139,7 +145,9 @@ export const portableTextComponents: Components = {
             )}
           >
             <div className="p-6 text-center">
-              <Heading className="mb-0">{props.value.heading}</Heading>
+              <Heading tag="h2" className="mb-0">
+                {props.value.heading}
+              </Heading>
               <Paragraph>{props.value.description}</Paragraph>
             </div>
             <Card className="flex flex-col gap-8 bg-themed-primary transition-colors group-hover:bg-themed-secondary md:flex-row md:items-center">
@@ -147,7 +155,7 @@ export const portableTextComponents: Components = {
                 <Chip className="border border-neutral-900/20 bg-themed-secondary">
                   <Label>{props.value.educationalProgram?.educationalProgramType?.name}</Label>
                 </Chip>
-                <Heading size="sm" className="mb-0 mt-6">
+                <Heading tag="h3" size="sm" className="mb-0 mt-6">
                   {props.value.educationalProgram?.name}
                 </Heading>
                 <Paragraph>{props.value.educationalProgram?.slogan}</Paragraph>

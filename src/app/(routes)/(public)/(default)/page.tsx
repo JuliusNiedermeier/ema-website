@@ -116,7 +116,7 @@ const HomePage: FC = async () => {
     <>
       <div className="bg-neutral-200 pt-[var(--header-height)]">
         <Container className="items-end justify-between gap-16 pt-16 sm:flex sm:pt-24">
-          <Heading size="lg" className="mb-0 text-primary-900">
+          <Heading tag="h1" size="lg" className="mb-0 text-primary-900">
             {homePage.heading?.split("\\n").map((line, index, lines) => (
               <>
                 {line}
@@ -161,7 +161,7 @@ const HomePage: FC = async () => {
         <ProgramGrid className="mt-32" />
 
         <div className="mx-auto mt-64 max-w-[40rem] text-center">
-          <Heading>{homePage.introduction?.heading}</Heading>
+          <Heading tag="h2">{homePage.introduction?.heading}</Heading>
           <Paragraph>{homePage.introduction?.description}</Paragraph>
         </div>
 
@@ -193,7 +193,7 @@ const HomePage: FC = async () => {
 
       <Section connect="bottom" className="mt-32 bg-primary-900">
         <Container width="narrow" className="flex flex-col items-center py-32 text-center">
-          <Heading size="sm" className="text-neutral-900-text">
+          <Heading tag="h2" size="sm" className="text-neutral-900-text">
             {comparisonPreview?.heading}
           </Heading>
           <Paragraph className="mt-0 text-neutral-900-text-muted">{comparisonPreview?.teaser}</Paragraph>
@@ -238,14 +238,12 @@ const HomePage: FC = async () => {
           <Link href="/about/campus" className="mt-16 block">
             <CampusCard />
           </Link>
-
-          {/* <ContactPreviewCard className="mt-16" /> */}
         </Container>
       </Section>
 
       <Section connect="top" className="-mb-2 bg-neutral-100">
         <Container width="narrow" className="pt-32 text-center">
-          <Heading>{homePage.testimonials?.heading}</Heading>
+          <Heading tag="h2">{homePage.testimonials?.heading}</Heading>
           <Paragraph>{homePage.testimonials?.description}</Paragraph>
         </Container>
         <Container>
@@ -254,7 +252,7 @@ const HomePage: FC = async () => {
 
         <Container width="narrow" className="mt-64">
           <div className="text-center">
-            <Heading>{homePage.faq?.heading}</Heading>
+            <Heading tag="h2">{homePage.faq?.heading}</Heading>
             <Paragraph>{homePage.faq?.description}</Paragraph>
           </div>
           <BasicAccordion className="mt-16" items={FAQItems} />

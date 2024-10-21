@@ -26,9 +26,13 @@ interface Components extends PortableTextComponents {
 
 export const portableTextComponents: Components = {
   block: {
-    h1: ({ children }) => <Heading className="mb-8 mt-16">{children}</Heading>,
+    h1: ({ children }) => (
+      <Heading tag="h1" className="mb-8 mt-16">
+        {children}
+      </Heading>
+    ),
     h2: ({ children }) => (
-      <Heading size="sm" className="mb-8 mt-16">
+      <Heading tag="h2" size="sm" className="mb-8 mt-16">
         {children}
       </Heading>
     ),

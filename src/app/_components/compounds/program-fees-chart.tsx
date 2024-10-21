@@ -156,7 +156,7 @@ export const ProgramFeesChart: FC<ProgramFeesChartProps> = ({
             )}
           >
             <div className="min-w-60 flex-1 px-2 md:px-0">
-              <Heading size="sm" className="mb-0">
+              <Heading tag="h3" size="sm" className="mb-0">
                 {group.title}
               </Heading>
               <Paragraph className="mt-1">{group.description}</Paragraph>

@@ -17,7 +17,9 @@ export const EducationalProgramTypeCard: FC<EducationalProgramTypeCardProps> = (
 }) => {
   return (
     <Card className={cn("group flex flex-col bg-themed-primary", className)} {...restProps}>
-      <Heading size="sm">{name}</Heading>
+      <Heading tag="h3" size="sm">
+        {name}
+      </Heading>
       <Paragraph className="mt-0 flex-1">{description}</Paragraph>
       <InteractionBubble animated={false} className="mt-4" />
     </Card>

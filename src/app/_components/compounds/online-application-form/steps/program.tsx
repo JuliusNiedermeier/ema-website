@@ -32,7 +32,7 @@ export const ProgramStep: FormStepComponent<ProgramStepProps> = ({ heading, prog
           >
             <div className="flex-1">
               <Label>{program.type}</Label>
-              <Heading size="sm" className="mb-0 mt-0">
+              <Heading tag="h2" size="sm" className="mb-0 mt-0">
                 {program.name}
               </Heading>
             </div>

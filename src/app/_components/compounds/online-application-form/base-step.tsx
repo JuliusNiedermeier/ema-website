@@ -11,7 +11,9 @@ export const BaseStep: FC<BaseStepProps> = ({ className, heading, description, c
   return (
     <div className={cn("", className)} {...restProps}>
       <div className="text-pretty">
-        <Heading className="text-primary-900-text">{heading}</Heading>
+        <Heading tag="h2" className="text-primary-900-text">
+          {heading}
+        </Heading>
         {description && <Paragraph className="text-neutral-900-text-muted">{description}</Paragraph>}
       </div>
       <div className="mt-8">{children}</div>

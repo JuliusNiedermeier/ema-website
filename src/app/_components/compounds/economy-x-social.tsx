@@ -33,11 +33,11 @@ export const EconomyXSocial: FC<EconomyXSocialProps> = ({
   return (
     <div className={cn("", className)} {...restProps}>
       <Container width="narrow" className="text-center">
-        <Heading>{headingUpper}</Heading>
+        <Heading tag="h2">{headingUpper}</Heading>
       </Container>
       <MergingPaths ref={containerRef} progress={scrollYProgress} className="-my-[10vw]" />
       <Container width="narrow" className="flex flex-col items-center text-center">
-        <Heading>{headingLower}</Heading>
+        <Heading tag="h2">{headingLower}</Heading>
         <Paragraph>{previewText}</Paragraph>
         <Button href="/about/wirtschaft-und-soziales" className="mt-8">
           <Label>{readMoreButtonLabel}</Label>

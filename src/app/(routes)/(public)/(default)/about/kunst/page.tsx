@@ -48,7 +48,7 @@ const ArtPage: FC = async () => {
     <>
       <div className="bg-neutral-200 pt-header">
         <Container width="narrow" className="py-32 text-center">
-          <Heading>{data.heading}</Heading>
+          <Heading tag="h1">{data.heading}</Heading>
           <Paragraph>{data.teaser}</Paragraph>
         </Container>
       </div>

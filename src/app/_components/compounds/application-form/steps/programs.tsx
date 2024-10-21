@@ -26,7 +26,7 @@ export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ heading, pr
 
   return (
     <div>
-      <Heading>{heading}</Heading>
+      <Heading tag="h2">{heading}</Heading>
       <div className="mt-16 flex flex-col gap-4">
         {programs.map((program, index) => (
           <button key={index} onClick={() => setProgram(selectedProgram === program.ID ? null : program.ID)}>
@@ -37,7 +37,7 @@ export const ProgramsStep: FormStepComponent<ProgramsStepProps> = ({ heading, pr
             >
               <div className="flex-1">
                 <Label>{program.programType.name}</Label>
-                <Heading size="sm" className="mb-0 mt-0">
+                <Heading tag="h3" size="sm" className="mb-0 mt-0">
                   {program.name}
                 </Heading>
                 {program.variant && <Label>{program.variant}</Label>}

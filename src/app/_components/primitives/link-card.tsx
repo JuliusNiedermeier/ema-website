@@ -34,6 +34,7 @@ export type LinkCardTitleProps = ComponentProps<typeof Heading> & {};
 export const LinkCardTitle: FC<LinkCardTitleProps> = ({ className, ...restProps }) => {
   return (
     <Heading
+      tag="h3"
       size="sm"
       className={cn("my-0 mt-1 overflow-hidden truncate text-ellipsis whitespace-nowrap", className)}
       {...restProps}

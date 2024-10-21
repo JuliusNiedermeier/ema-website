@@ -145,7 +145,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
               <BadgeIcon />
             </IconChip>
             <div className="mt-16 max-w-[40rem]">
-              <Heading className="text-neutral-900-text">{programType.certificate?.heading}</Heading>
+              <Heading tag="h2" className="text-neutral-900-text">{programType.certificate?.heading}</Heading>
               <Paragraph className="text-neutral-900-text-muted">{programType.certificate?.description}</Paragraph>
             </div>
             <div className="relative mt-12 flex flex-wrap gap-4">
@@ -172,7 +172,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
                 <IconChip className="bg-themed-primary text-primary-100-text">
                   <ArrowRightIcon />
                 </IconChip>
-                <Heading size="sm" className="mt-16 text-neutral-900-text">
+                <Heading tag="h3" size="sm" className="mt-16 text-neutral-900-text">
                   {programType.followUpProgramTypes?.heading}
                 </Heading>
                 <Paragraph className="text-neutral-900-text-muted">
@@ -213,7 +213,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
             </IconChip>
           </GradientStrokeIcon>
           <Container width="narrow" className="mt-16 text-center">
-            <Heading>{programType.educationalPrograms?.heading}</Heading>
+            <Heading  tag="h2">{programType.educationalPrograms?.heading}</Heading>
             <Paragraph>{programType.educationalPrograms?.introduction}</Paragraph>
           </Container>
           <Container className="mt-16">
@@ -252,7 +252,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
 
       <Section connect="top" className="bg-neutral-100">
         <Container width="narrow" className="pb-24 pt-64">
-          <Heading className="text-center">{programTypePage?.faqHeading}</Heading>
+          <Heading  tag="h2" className="text-center">{programTypePage?.faqHeading}</Heading>
           <BasicAccordion
             className="mt-16"
             items={
@@ -262,7 +262,7 @@ const EducationalProgramTypePage: FC<Props> = async ({ params: { programTypeSlug
         </Container>
 
         <Container width="narrow" className="mt-40 text-center">
-          <Heading className="">{programTypePage?.alternativesHeading}</Heading>
+          <Heading  tag="h3" className="">{programTypePage?.alternativesHeading}</Heading>
           <Paragraph className="">{programType.alternativesIntroduction}</Paragraph>
         </Container>
 

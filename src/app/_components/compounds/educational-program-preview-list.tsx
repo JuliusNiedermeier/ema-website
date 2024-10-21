@@ -100,7 +100,7 @@ const Card: FC<CardProps> = ({ program, globalProgress, relativePlacement, style
             <Label className="inline-block rounded-full border border-neutral-400/20 bg-themed-secondary px-4 py-2 shadow">
               {program.programType.name}
             </Label>
-            <Heading size="lg" className="line-clamp-2 break-words">
+            <Heading tag="h3" size="lg" className="line-clamp-2 break-words">
               {program.name}
             </Heading>
             <Paragraph className="line-clamp-3">{program.description}</Paragraph>

@@ -69,7 +69,7 @@ const ContactPage: FC = async () => {
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10 pt-20" width="narrow">
           <div className="mx-auto text-center">
-            <Heading>{infoEventPageData.heading}</Heading>
+            <Heading tag="h1">{infoEventPageData.heading}</Heading>
             <Paragraph>{infoEventPageData.teaser}</Paragraph>
           </div>
 
@@ -103,7 +103,7 @@ const ContactPage: FC = async () => {
             {infoEventPageData.benefits?.map((benefit, index) => (
               <Card key={index} className="flex flex-grow basis-80 flex-col bg-primary-900 p-2">
                 <div className="p-6">
-                  <Heading size="sm" className="text-neutral-900-text">
+                  <Heading tag="h3" size="sm" className="text-neutral-900-text">
                     {benefit.title}
                   </Heading>
                   <Paragraph className="text-neutral-900-text-muted">{benefit.description}</Paragraph>

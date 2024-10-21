@@ -34,9 +34,13 @@ export const GenericCTA: FC<GenericCTAProps> = ({
       <div className="max-w-[40rem] flex-[2] p-6 md:p-0">
         <div className="flex items-center gap-4 text-neutral-900-text">
           <div className="h-px w-8 bg-neutral-900-text" />
-          <Heading size="sm">{preHeading}</Heading>
+          <Heading tag="h3" size="sm">
+            {preHeading}
+          </Heading>
         </div>
-        <Heading className="mt-8 text-primary-900-text">{mainheading}</Heading>
+        <Heading tag="h2" className="mt-8 text-primary-900-text">
+          {mainheading}
+        </Heading>
         <Paragraph className="text-neutral-900-text">{paragraph}</Paragraph>
         <Button vairant="filled" className="mt-12 gap-6 bg-primary-100 pr-4 text-primary-100-text">
           <Label>{ctaText}</Label>

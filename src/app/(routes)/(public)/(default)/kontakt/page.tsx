@@ -46,7 +46,7 @@ const ContactPage: FC = async () => {
         <div className="absolute left-0 top-0 -z-10 h-screen w-full bg-gradient-to-b from-neutral-200 to-neutral-100" />
         <Container className="z-10">
           <div className="mx-auto max-w-[35rem] py-28 text-center">
-            <Heading>{contactPageData.heading}</Heading>
+            <Heading tag="h1">{contactPageData.heading}</Heading>
             <Paragraph>{contactPageData.teaser}</Paragraph>
           </div>
           <div className="flex flex-col gap-8 lg:flex-row">
@@ -91,7 +91,9 @@ const ContactPage: FC = async () => {
             <Card className="flex flex-[2] flex-wrap gap-2 border border-neutral-400 bg-neutral-300 p-2">
               {contactPageData.officeHours?.map((day, index) => (
                 <div key={index} className="flex flex-1 flex-col justify-end rounded-2xl bg-primary-100 p-6">
-                  <Heading size="lg">{day.day}</Heading>
+                  <Heading tag="h3" size="lg">
+                    {day.day}
+                  </Heading>
                   <div className="relative">
                     <Label className="block">{day.from}</Label>
                     <Label className="block">{day.to}</Label>
@@ -114,14 +116,16 @@ const ContactPage: FC = async () => {
                 <Card className="mt-8 rounded-3xl border border-neutral-400 bg-primary-900 p-4">
                   <div className="flex flex-col justify-between gap-8 p-4 text-neutral-900-text xl:flex-row xl:items-end">
                     <div className="max-w-96">
-                      <Heading size="sm">{contactPageData.location?.heading}</Heading>
+                      <Heading tag="h2" size="sm">
+                        {contactPageData.location?.heading}
+                      </Heading>
                       <Paragraph className="text-neutral-900-text-muted">
                         {contactPageData.location?.description}
                       </Paragraph>
                     </div>
                     <div>
                       <MapPinIcon className="transition-transform group-hover:translate-y-2" />
-                      <Heading size="sm" className="mb-0">
+                      <Heading tag="h3" size="sm" className="mb-0">
                         {contactPageData.location?.address?.street}
                       </Heading>
                       <Label className="text-neutral-900-text-muted">

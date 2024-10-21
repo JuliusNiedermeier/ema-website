@@ -217,7 +217,7 @@ const List: FC<ListProps> = ({ className, ...restProps }) => {
 type ListHeadingProps = ComponentProps<typeof Heading> & {};
 
 const ListHeading: FC<ListHeadingProps> = ({ className, size = "sm", ...restProps }) => {
-  return <Heading className={cn("text-neutral-900-text", className)} {...restProps} size={size} />;
+  return <Heading tag="h3" className={cn("text-neutral-900-text", className)} {...restProps} size={size} />;
 };
 
 type ListContentProps = ComponentProps<"ul"> & {};

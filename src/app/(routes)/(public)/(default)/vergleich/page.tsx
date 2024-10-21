@@ -39,10 +39,12 @@ const ÜbersichtPage: FC = async () => {
     <>
       <div className="bg-neutral-200 pb-[4rem] pt-header">
         <Container width="narrow" className="py-32 text-center">
-          <Heading size="sm" className="text-neutral-100-text-muted">
+          <Heading tag="h1" size="sm" className="text-neutral-100-text-muted">
             {comparisonPageData.heading}
           </Heading>
-          <Heading className="mt-12">{comparisonPageData.pathsSection?.heading}</Heading>
+          <Heading tag="h2" className="mt-12">
+            {comparisonPageData.pathsSection?.heading}
+          </Heading>
           <Paragraph>{comparisonPageData.pathsSection?.description}</Paragraph>
         </Container>
       </div>
@@ -61,7 +63,7 @@ const ÜbersichtPage: FC = async () => {
 
       <Section className="bg-neutral-400 py-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
-          <Heading>{comparisonPageData.subjectsSection?.heading}</Heading>
+          <Heading tag="h2">{comparisonPageData.subjectsSection?.heading}</Heading>
           <Paragraph>{comparisonPageData.subjectsSection?.description}</Paragraph>
         </Container>
 
@@ -72,7 +74,7 @@ const ÜbersichtPage: FC = async () => {
 
       <Section connect="top" className="bg-neutral-100 pb-8 pt-24 sm:pt-36 lg:pt-64">
         <Container width="narrow" className="text-center">
-          <Heading>{comparisonPageData.learningFieldsSection?.heading}</Heading>
+          <Heading tag="h2">{comparisonPageData.learningFieldsSection?.heading}</Heading>
           <Paragraph>{comparisonPageData.learningFieldsSection?.description}</Paragraph>
         </Container>
 

@@ -19,7 +19,7 @@ export const EndOfPageCTA: FC<EndOfPageCTAProps> = ({ className, children, headi
         </div>
       </div>
       <Container width="narrow" className="mt-24 text-center">
-        <Heading>{heading}</Heading>
+        <Heading tag="h2">{heading}</Heading>
         <Paragraph>{description}</Paragraph>
       </Container>
       <div className="mt-24">{children}</div>

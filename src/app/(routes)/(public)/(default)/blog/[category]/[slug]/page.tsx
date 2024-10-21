@@ -92,7 +92,9 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           <Chip>
             <Label>{post.category?.name}</Label>
           </Chip>
-          <Heading className="mt-8 sm:mt-16 sm:text-center">{post.name}</Heading>
+          <Heading tag="h1" className="mt-8 sm:mt-16 sm:text-center">
+            {post.name}
+          </Heading>
           <PostCardMeta>
             <AuthorTag>
               <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
@@ -127,7 +129,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
         </Suspense>
 
         <div className="mt-24">
-          <Heading>{post.educationalProgramTypes?.heading}</Heading>
+          <Heading tag="h2">{post.educationalProgramTypes?.heading}</Heading>
           <Paragraph>{post.educationalProgramTypes?.introduction}</Paragraph>
         </div>
 

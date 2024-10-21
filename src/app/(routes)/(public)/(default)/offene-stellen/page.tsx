@@ -32,7 +32,7 @@ const JobsPage: FC = async () => {
   return (
     <Container width="narrow" className="my-32 pt-header">
       <div className="text-center">
-        <Heading>{data?.heading}</Heading>
+        <Heading tag="h1">{data?.heading}</Heading>
         <Paragraph>{data?.teaser}</Paragraph>
       </div>
 
@@ -42,7 +42,7 @@ const JobsPage: FC = async () => {
             <AccordionItemTrigger>
               <div className="w-full py-2">
                 <div className="mt-2 flex items-center gap-4">
-                  <Heading size="sm" className="my-0">
+                  <Heading tag="h3" size="sm" className="my-0">
                     {job.title}
                   </Heading>
                   <AccordionItemTriggerIndicator className="ml-auto" />

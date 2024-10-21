@@ -28,7 +28,7 @@ export const ArtEducation: FC<ArtEducationProps> = ({
   return (
     <div className={cn("group relative block w-full overflow-hidden rounded-2xl", className)} {...restProps}>
       <div className="relative z-10 bg-neutral-900/10 p-4 sm:p-8">
-        <Heading size="sm" className="mt-8 sm:text-heading-lg">
+        <Heading tag="h2" size="sm" className="mt-8 sm:text-heading-lg">
           {title}
         </Heading>
         <Paragraph className="max-w-96">{body}</Paragraph>

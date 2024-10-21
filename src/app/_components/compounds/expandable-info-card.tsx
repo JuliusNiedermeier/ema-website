@@ -112,7 +112,7 @@ export const ExpandableInfoCard: FC<ExpandableInfoCardProps> = ({
     >
       <div className="flex items-start justify-between gap-4 p-4 pl-6">
         <div className={cn("transition-[padding-top]", { "pt-4": active })}>
-          <Heading size="sm" className="m-0 mt-1">
+          <Heading tag="h3" size="sm" className="m-0 mt-1">
             {title}
           </Heading>
           <Label className="text-neutral-100-text-muted">{subtitle}</Label>

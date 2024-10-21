@@ -61,8 +61,10 @@ const DurationCard: FC<{ heading: string; duration: string; trainingType: string
     <Card className="flex flex-1 flex-col gap-4 bg-themed-primary">
       <HourglassIcon />
       <Label>{heading}</Label>
-      <Heading className="m-0 mt-auto">{duration}</Heading>
-      <Heading size="sm" className="mt-0">
+      <Heading tag="h3" className="m-0 mt-auto">
+        {duration}
+      </Heading>
+      <Heading tag="h3" size="sm" className="mt-0">
         {trainingType}
       </Heading>
     </Card>
@@ -78,11 +80,15 @@ const StartEndTimeCard: FC<{ heading: string; start: string; end: string }> = ({
         <div className="absolute bottom-6 left-[2.5px] top-6 w-px bg-neutral-900" />
         <div className="flex items-center gap-4">
           <div className="h-[6px] w-[6px] rounded-full bg-neutral-900" />
-          <Heading size="sm">{start}</Heading>
+          <Heading tag="h3" size="sm">
+            {start}
+          </Heading>
         </div>
         <div className="flex items-center gap-4">
           <div className="h-[6px] w-[6px] rounded-full bg-neutral-900" />
-          <Heading size="sm">{end}</Heading>
+          <Heading tag="h3" size="sm">
+            {end}
+          </Heading>
         </div>
       </div>
     </Card>
@@ -110,7 +116,7 @@ const StartDateCard: FC<{
       <Card className="group relative flex h-full flex-col gap-4 bg-primary-900 text-primary-900-text lg:flex-row lg:items-end">
         <div>
           <CalendarCheck2Icon />
-          <Heading>{heading}</Heading>
+          <Heading tag="h3">{heading}</Heading>
           <Heading size="sm" className="mt-auto">
             {startDate}
           </Heading>

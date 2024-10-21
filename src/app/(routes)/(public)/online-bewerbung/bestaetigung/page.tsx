@@ -59,7 +59,9 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
           <IconChip>
             <ShieldAlertIcon size={32} />
           </IconChip>
-          <Heading className="text-primary-900-text">{data.error?.link?.heading}</Heading>
+          <Heading tag="h1" className="text-primary-900-text">
+            {data.error?.link?.heading}
+          </Heading>
           <Paragraph className="text-neutral-900-text-muted">{data.error?.link?.description}</Paragraph>
         </div>
       );
@@ -74,7 +76,9 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
             <IconChip>
               <HistoryIcon size={32} />
             </IconChip>
-            <Heading className="text-primary-900-text">{data.error?.internal?.heading}</Heading>
+            <Heading tag="h1" className="text-primary-900-text">
+              {data.error?.internal?.heading}
+            </Heading>
             <Paragraph className="text-neutral-900-text-muted">{data.error?.internal?.description}</Paragraph>
           </div>
         );
@@ -138,7 +142,9 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
     return (
       <div>
         <IconChip>{icon}</IconChip>
-        <Heading className="text-primary-900-text">{heading}</Heading>
+        <Heading tag="h1" className="text-primary-900-text">
+          {heading}
+        </Heading>
         <Paragraph className="text-neutral-900-text-muted">{message}</Paragraph>
 
         <Button className="mt-8 bg-primary-100 text-primary-100-text" href="/">
@@ -158,7 +164,9 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
         <IconChip>
           <MailCheckIcon size={32} />
         </IconChip>
-        <Heading className="text-primary-900-text">{interpolate(data.verification?.heading || "")}</Heading>
+        <Heading tag="h1" className="text-primary-900-text">
+          {interpolate(data.verification?.heading || "")}
+        </Heading>
         <Paragraph className="text-neutral-900-text-muted">
           {interpolate(data.verification?.description || "")}
         </Paragraph>

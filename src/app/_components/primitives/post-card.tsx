@@ -51,7 +51,7 @@ export const PostCardThumbnailTag: FC<PostCardThumbnailTagProps> = ({ className,
 export type PostCardTitleProps = ComponentProps<typeof Heading> & {};
 
 export const PostCardTitle: FC<PostCardTitleProps> = ({ className, size = "sm", ...restProps }) => {
-  return <Heading size={size} className={cn("", className)} {...restProps} />;
+  return <Heading tag="h3" size={size} className={cn("", className)} {...restProps} />;
 };
 
 export type PostCardMetaProps = ComponentProps<"div"> & {};

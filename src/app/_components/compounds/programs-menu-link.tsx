@@ -39,7 +39,7 @@ export const ProgramTypeMenuLink: FC<ProgramTypeMenuLinkProps> = ({
         className={cn("bg-neutral-400 text-primary-900", { "bg-primary-100 text-primary-100-text": active })}
       />
       <div className="flex-1 overflow-hidden">
-        <Heading size="sm" className="mb-0 overflow-hidden text-ellipsis whitespace-nowrap">
+        <Heading tag="h3" size="sm" className="mb-0 overflow-hidden text-ellipsis whitespace-nowrap">
           {heading}
         </Heading>
         <Paragraph
