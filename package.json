@@ -27,6 +27,7 @@
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@react-email/components": "0.0.19",
+    "@sanity/asset-utils": "^2.0.6",
     "@sanity/client": "^6.21.3",
     "@sanity/color-input": "^3.1.2",
     "@sanity/image-url": "^1.0.2",
