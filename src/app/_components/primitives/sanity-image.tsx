@@ -19,7 +19,5 @@ export const SanityImage: FC<SanityImageProps> = ({ image, className, ...restPro
 
   const baseImage = imageBuilder.image(image.asset._ref).auto("format").fit("crop").quality(80);
 
-  return (
-    <Image src={baseImage.url() || ""} alt={image.alt || ""} className={cn("object-cover", className)} {...restProps} />
-  );
+  return <Image src={baseImage.url()} alt={image.alt || ""} className={cn("object-cover", className)} {...restProps} />;
 };
