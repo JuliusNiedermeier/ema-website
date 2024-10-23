@@ -10,14 +10,24 @@ const imageBuilder = createImageUrlBuilder({
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
 });
 
+export type SanityImageData = Omit<DefaultImage, "_type">;
+
 type SanityImageProps = Omit<ImageProps, "src" | "alt"> & {
-  image?: Omit<DefaultImage, "_type"> | null;
+  image?: SanityImageData | null;
 };
 
 export const SanityImage: FC<SanityImageProps> = ({ image, className, ...restProps }) => {
   if (!image?.asset) return null;
 
-  const baseImage = imageBuilder.image(image.asset._ref).auto("format").fit("crop").quality(80);
+  let baseImage = imageBuilder.image(image.asset._ref).auto("format").fit("crop").quality(80);
+
+  if (restProps.height) {
+    baseImage.height(typeof restProps.height === "string" ? parseInt(restProps.height) : restProps.height);
+  }
+
+  if (restProps.width) {
+    baseImage.height(typeof restProps.width === "string" ? parseInt(restProps.width) : restProps.width);
+  }
 
   return <Image src={baseImage.url()} alt={image.alt || ""} className={cn("object-cover", className)} {...restProps} />;
 };
