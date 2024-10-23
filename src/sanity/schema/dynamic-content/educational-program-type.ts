@@ -28,7 +28,6 @@ export const educationalProgramType: SchemaTypeDef = {
 
       defineField({
         name: "slug",
-        title: "URL freundlicher Text",
         type: "default-slug",
         validation: (r) => r.required(),
       }),
