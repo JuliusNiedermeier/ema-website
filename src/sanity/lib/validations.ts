@@ -7,7 +7,7 @@ type NamedStringSizeBounds = keyof typeof stringSizeBoundsMap;
 
 const stringSizeBoundsMap = {
   label: [2, 30],
-  heading: [5, 60],
+  heading: [5, 80],
   "short-description": [20, 100],
   description: [100, 300],
   name: [3, 30],
