@@ -6,13 +6,13 @@ import { groq } from "next-sanity";
 import { CampusCardQueryResult } from "../../../../generated/sanity/types";
 import { Card } from "../primitives/card";
 import { InteractionBubble } from "../compounds/interaction-bubble";
-import Image from "next/image";
+import { SanityImage } from "../primitives/sanity-image";
 
 const campusCardQuery = groq`*[_type == "campus-page"][0] {
     heading,
     teaser,
     readMoreLabel,
-    "image": staff[0].image { alt, asset -> { url } },
+    "image": staff[0].image,
 }`;
 
 export type CampusCardProps = ComponentProps<"div"> & {};
@@ -37,13 +37,7 @@ export const CampusCard: FC<CampusCardProps> = async ({ className, ...restProps 
         </div>
       </Card>
 
-      <Image
-        src={data?.image?.asset?.url || ""}
-        height={1000}
-        width={1000}
-        alt={data?.image?.alt || ""}
-        className="absolute left-0 top-0 h-full w-full object-cover"
-      />
+      <SanityImage image={data?.image} fill />
     </div>
   );
 };

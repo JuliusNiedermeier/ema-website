@@ -7,10 +7,6 @@ import { DefaultPortableContent } from "../compounds/default-portable-content";
 const postContentQuery = groq`*[_type == "post" && slug.current == $slug][0]{
   body[] {
     ...,
-      _type == "portableImage" => {
-        ...,
-        asset -> { url }
-      },
       _type == "portableEducationalProgramTypeCTA" => {
         ...,
         educationalProgramType -> {

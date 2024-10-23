@@ -6,7 +6,7 @@ import { Heading, Label, Paragraph } from "../primitives/typography";
 import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 import { motion, MotionValue, useScroll, useTransform, transform, useSpring } from "framer-motion";
 import { Container } from "../primitives/container";
-import Image from "next/image";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type EducationalProgramPreviewListProps = ComponentProps<"div"> & {
   programs: {
@@ -15,7 +15,7 @@ export type EducationalProgramPreviewListProps = ComponentProps<"div"> & {
     heading: string;
     description: string;
     readMoreLabel: string;
-    image: { url: string; alt: string };
+    image?: SanityImageData | null;
     programType: { slug: string; name: string; color: HSLValue; readMoreLabel: string };
   }[];
 };
@@ -107,12 +107,7 @@ const Card: FC<CardProps> = ({ program, globalProgress, relativePlacement, style
           </div>
 
           <div className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-themed-secondary">
-            <Image
-              src={program.image.url}
-              alt={program.image.alt}
-              fill
-              className="absolute left-0 top-0 h-full w-full object-cover"
-            />
+            <SanityImage image={program.image} fill />
           </div>
         </div>
       </motion.div>

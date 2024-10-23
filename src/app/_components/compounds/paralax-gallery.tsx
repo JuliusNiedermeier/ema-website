@@ -4,11 +4,11 @@ import { ExpandableInfoCard, ExpandableInfoCardListProvider } from "./expandable
 import { Container } from "../primitives/container";
 import { ParalaxContainer } from "./paralax-image";
 import { Paragraph } from "../primitives/typography";
-import Image from "next/image";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type ParalaxGalleryProps = ComponentProps<"div"> & {
   items: {
-    image: { url: string; alt: string };
+    image?: SanityImageData | null;
     heading: string;
     subheading: string;
     description: string;
@@ -24,9 +24,8 @@ export const ParalaxGallery: FC<ParalaxGalleryProps> = ({ className, items, ...r
             <div className="absolute left-0 top-0 h-full w-full">
               <Container width="wide" className="h-full overflow-hidden rounded-3xl">
                 <ParalaxContainer className="h-full w-full">
-                  <Image
-                    src={item.image.url}
-                    alt={item.image.alt}
+                  <SanityImage
+                    image={item.image}
                     width="1920"
                     height="1080"
                     className="h-full w-full overflow-hidden object-cover"

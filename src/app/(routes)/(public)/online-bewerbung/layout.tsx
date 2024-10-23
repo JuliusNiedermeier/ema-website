@@ -3,10 +3,11 @@ import Image from "next/image";
 import { FC, PropsWithChildren } from "react";
 import { sanityFetch } from "~/sanity/lib/client";
 import { OnlineApplicationLayoutQueryResult } from "../../../../../generated/sanity/types";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
 const onlineApplicationLayoutQuery = groq`*[_type == "application-page"][0] {
   title,
-  heroImage { alt, asset -> { url } }
+  heroImage
 }`;
 
 const OnlineApplicationLayout: FC<PropsWithChildren> = async ({ children }) => {
@@ -18,13 +19,7 @@ const OnlineApplicationLayout: FC<PropsWithChildren> = async ({ children }) => {
     <div className="min-h-[100svh] flex-col md:flex md:flex-row">
       <div className="sticky top-0 hidden h-screen flex-1 bg-primary-900 p-4 md:block">
         <div className="relative h-full overflow-hidden md:rounded-xl">
-          <Image
-            src={data?.heroImage?.asset?.url || ""}
-            alt={data?.heroImage?.alt || ""}
-            height="1000"
-            width="1000"
-            className="absolute left-0 top-0 h-full w-full object-cover"
-          />
+          <SanityImage image={data?.heroImage} fill />
         </div>
       </div>
       <div className="relative min-h-[100svh] flex-1 bg-primary-900">

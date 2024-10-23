@@ -20,6 +20,7 @@ import { Card } from "~/app/_components/primitives/card";
 import Image from "next/image";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
 const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   heading,
@@ -28,11 +29,11 @@ const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   alternativeCTA,
   nextDates,
   timeSuffix,
-  speaker[] { alt, asset -> { url } },
+  speaker,
   benefits[] {
     title,
     description,
-    image { alt, asset -> { url } }
+    image
   }
 }`;
 
@@ -77,8 +78,7 @@ const ContactPage: FC = async () => {
             {infoEventPageData.speaker?.map((speaker, index) => (
               <AuthorTagImage
                 key={index}
-                src={speaker.asset?.url || ""}
-                alt={speaker.alt || ""}
+                image={speaker}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}
@@ -108,11 +108,10 @@ const ContactPage: FC = async () => {
                   </Heading>
                   <Paragraph className="text-neutral-900-text-muted">{benefit.description}</Paragraph>
                 </div>
-                <Image
-                  src={benefit.image?.asset?.url || ""}
+                <SanityImage
+                  image={benefit.image}
                   width="500"
                   height="500"
-                  alt={benefit.image?.alt || ""}
                   className="mt-auto aspect-video w-full rounded-xl object-cover"
                 />
               </Card>

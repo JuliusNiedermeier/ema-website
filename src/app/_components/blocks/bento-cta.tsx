@@ -12,16 +12,13 @@ import {
   BentoCTAInfoEventQueryResult,
   BentoCTAQueryResult,
 } from "../../../../generated/sanity/types";
-import Image from "next/image";
 import { InfoEventCTACard } from "../compounds/info-event-cta-card";
 import Link from "next/link";
+import { SanityImage } from "../primitives/sanity-image";
 
 const bentoCTAQuery = groq`*[_type == "bento-cta-config"][0]{
   ...,
-  testimonial -> {
-    ...,
-    authorImage { alt, asset -> { url } }
-  }
+  testimonial ->
 }`;
 
 const bentoCTAInfoEventQuery = groq`*[_type == "info-event-page"][0] {
@@ -36,7 +33,7 @@ const bentoCTAConsultingQuery = groq`*[_type == "consulting-page"][0] {
   heading,
   teaser,
   readMoreLabel,
-  splineGraphic { alt, asset -> { url } }
+  splineGraphic
 }`;
 
 export type BentoCTAProps = ComponentProps<"div"> & {};
@@ -76,10 +73,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
             className="flex-1 rounded-3xl bg-primary-100"
             rating={data?.testimonial?.stars || 5}
             authorName={data?.testimonial?.authorName || ""}
-            authorImage={{
-              url: data?.testimonial?.authorImage?.asset?.url || "",
-              alt: data?.testimonial?.authorImage?.alt || "",
-            }}
+            authorImage={data?.testimonial?.authorImage}
             body={data?.testimonial?.testimonial || ""}
           />
         </div>
@@ -108,13 +102,7 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
               <ButtonInteractionBubble className="bg-primary-100 text-primary-100-text" />
             </Button>
           </div>
-          <Image
-            src={consulting?.splineGraphic?.asset?.url || ""}
-            alt={consulting?.splineGraphic?.alt || ""}
-            width="500"
-            height="500"
-            className="w-full"
-          />
+          <SanityImage image={consulting?.splineGraphic} width="500" height="500" className="w-full" />
         </Link>
       </Card>
     </div>

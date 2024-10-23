@@ -20,10 +20,6 @@ const economySocialPageQuery = groq`*[_type == "economy-social-page"][0] {
   teaser,
   content[] {
     ...,
-      _type == "portableImage" => {
-        ...,
-        asset -> { url }
-      },
       _type == "portableEducationalProgramTypeCTA" => {
         ...,
         educationalProgramType -> {

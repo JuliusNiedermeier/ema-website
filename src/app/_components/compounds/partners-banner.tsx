@@ -1,9 +1,9 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import Image from "next/image";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type PartnersBannerProps = ComponentProps<"div"> & {
-  partners: { logoURL: string; name: string }[];
+  partners: SanityImageData[];
 };
 
 export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, ...restProps }) => {
@@ -15,13 +15,12 @@ export const PartnersBanner: FC<PartnersBannerProps> = ({ className, partners, .
     >
       {Array.from(new Array(2)).map((_, index) => (
         <div key={index} className="flex min-w-full shrink-0 animate-marqueeScroll justify-around gap-[var(--gap)]">
-          {partners.map((partner) => (
-            <Image
-              key={partner.name}
+          {partners.map((partner, index) => (
+            <SanityImage
+              key={index}
+              image={partner}
               height={500}
               width={500}
-              src={partner.logoURL}
-              alt={partner.name}
               className="h-8 w-auto mix-blend-multiply"
             />
           ))}

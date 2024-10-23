@@ -32,18 +32,18 @@ import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
-  heroVideo { alt, asset -> { url } },
-  partners[] { alt, asset -> { url } }
+  heroVideo { asset -> { url } },
+  partners[]
 }`;
 
 const featuredPostsQuery = groq`*[_type == "post"][0...3]{
   name,
-  mainImage { alt, asset -> { url } },
+  mainImage,
   slug,
   category ->,
   author -> {
     name,
-    image { alt, asset -> { url } }
+    image
   }
 }`;
 
@@ -58,7 +58,7 @@ const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
   heading,
   teaser,
   readMoreLabel,
-  previewImages[] { alt, asset -> { url } }
+  previewImages
 }`;
 
 const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
@@ -66,9 +66,9 @@ const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
   teaser,
   readMoreLabel,
   preview {
-    backgroundImage{ alt, asset ->{url}},
-    leftImage{ alt, asset ->{url}},
-    rightImage{ alt, asset ->{url}}
+    backgroundImage,
+    leftImage,
+    rightImage
   }
 }`;
 
@@ -99,12 +99,6 @@ const HomePage: FC = async () => {
   });
 
   const artPreview = await sanityFetch<HomePageArtPreviewQueryResult>(homePageArtPreviewQuery, { tags: ["art-page"] });
-
-  const partners: ComponentProps<typeof PartnersBanner>["partners"] =
-    homePage.partners?.map((partner) => ({
-      logoURL: partner.asset?.url || "",
-      name: partner.alt || "",
-    })) || [];
 
   const FAQItems: ComponentProps<typeof BasicAccordion>["items"] =
     homePage.faq?.items?.map((item) => ({
@@ -154,7 +148,7 @@ const HomePage: FC = async () => {
       </div>
 
       <div className="mt-16 flex justify-center">
-        <PartnersBanner partners={partners} />
+        <PartnersBanner partners={homePage.partners || []} />
       </div>
 
       <Container>
@@ -171,12 +165,12 @@ const HomePage: FC = async () => {
             allPostsLabel={homePage.featuredPosts?.allPostsLabel || ""}
             posts={featuredPosts.map((post) => ({
               title: post.name || "",
-              image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
+              image: post.mainImage,
               slug: post.slug?.current || "",
               category: { name: post.category?.name || "", slug: post.category?.slug?.current || "" },
               author: {
                 name: post.author?.name || "",
-                image: { url: post.author?.image?.asset?.url || "", alt: post.author?.image?.alt || "" },
+                image: post.author?.image,
               },
             }))}
           />
@@ -203,12 +197,7 @@ const HomePage: FC = async () => {
           </Button>
           <StackedImageCard
             className="mt-16 aspect-video w-full bg-neutral-100/10"
-            images={
-              comparisonPreview?.previewImages?.map((image, index) => ({
-                url: image.asset?.url || "",
-                alt: image.alt || "",
-              })) || []
-            }
+            images={comparisonPreview?.previewImages || []}
           />
         </Container>
       </Section>
@@ -220,18 +209,9 @@ const HomePage: FC = async () => {
               title={artPreview?.heading || ""}
               body={artPreview?.teaser || ""}
               actionLabel={artPreview?.readMoreLabel || ""}
-              backgroundImage={{
-                src: artPreview?.preview?.backgroundImage?.asset?.url || "",
-                alt: artPreview?.heading || "",
-              }}
-              leftImage={{
-                src: artPreview?.preview?.leftImage?.asset?.url || "",
-                alt: artPreview?.heading || "",
-              }}
-              rightImage={{
-                src: artPreview?.preview?.rightImage?.asset?.url || "",
-                alt: artPreview?.heading || "",
-              }}
+              backgroundImage={artPreview?.preview?.backgroundImage}
+              leftImage={artPreview?.preview?.leftImage}
+              rightImage={artPreview?.preview?.rightImage}
             />
           </Link>
 

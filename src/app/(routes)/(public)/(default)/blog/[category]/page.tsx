@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Container } from "~/app/_components/primitives/container";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { sanityFetch } from "~/sanity/lib/client";
-import { BrainIcon, CalendarClockIcon, SparkleIcon } from "lucide-react";
+import { CalendarClockIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import {
   PostCard,
@@ -25,9 +25,7 @@ import {
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "~/app/_components/primitives/author-tag";
 import { InteractionBubble } from "~/app/_components/compounds/interaction-bubble";
 import { BlogCategorySelector } from "~/app/_components/blocks/blog-category-selector";
-import { Chip } from "~/app/_components/primitives/chip";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
-import { Card } from "~/app/_components/primitives/card";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const blogPageQuery = groq`*[_type == "blog-page"][0] {
@@ -38,10 +36,10 @@ const postsQuery = groq`*[_type == "post" && (!defined($category) || category->s
   _id,
   slug,
   name,
-  mainImage{ alt, asset ->{url}},
+  mainImage,
   publishedAt,
   category->,
-  author->{name, image{ alt, asset ->{url}}},
+  author -> { name, image },
   excerpt
 }`;
 
@@ -99,8 +97,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                     <PostCardThumbnailImage
                       width={1920}
                       height={1080}
-                      src={latestPost.mainImage?.asset?.url || ""}
-                      alt={latestPost.mainImage?.alt || ""}
+                      image={latestPost.mainImage}
                       className="max-h-[50vh]"
                     />
                     <PostCardThumbnailTag>
@@ -114,10 +111,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                     </PostCardTitle>
                     <PostCardMeta>
                       <AuthorTag>
-                        <AuthorTagImage
-                          src={latestPost.author?.image?.asset?.url || ""}
-                          alt={latestPost.author?.image?.alt || ""}
-                        />
+                        <AuthorTagImage image={latestPost.author?.image} />
                         <AuthorTagName>{latestPost.author?.name}</AuthorTagName>
                       </AuthorTag>
                       <PostCardMetaSeparator />
@@ -167,7 +161,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
           <Link key={post._id} href={`/blog/${post.category?.slug?.current}/${post.slug?.current}`}>
             <PostCard className="h-full border border-neutral-400">
               <PostCardThumbnail>
-                <PostCardThumbnailImage src={post.mainImage?.asset?.url || ""} alt={post.mainImage?.alt || ""} />
+                <PostCardThumbnailImage image={post.mainImage} />
                 <PostCardThumbnailTag>
                   <Label>{post.category?.name}</Label>
                 </PostCardThumbnailTag>
@@ -177,7 +171,7 @@ const BlogPage: FC<{ params: { category: string } }> = async ({ params }) => {
                 <PostCardTitle className="max-w-60">{post.name}</PostCardTitle>
                 <PostCardMeta>
                   <AuthorTag>
-                    <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
+                    <AuthorTagImage image={post.author?.image} />
                     <AuthorTagName>{post.author?.name}</AuthorTagName>
                   </AuthorTag>
                   <PostCardMetaSeparator />

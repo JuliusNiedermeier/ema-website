@@ -1,10 +1,10 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import Image from "next/image";
 import { mapRange } from "~/app/_utils/map-range";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type StackedImageCardProps = Omit<ComponentProps<"div">, "children"> & {
-  images: { url: string; alt: string }[];
+  images: SanityImageData[];
 };
 
 export const StackedImageCard: FC<StackedImageCardProps> = ({ className, images, ...restProps }) => {
@@ -24,7 +24,7 @@ export const StackedImageCard: FC<StackedImageCardProps> = ({ className, images,
               "--size": `${sizePercentage * 100}%`,
             }}
           >
-            <Image src={image.url} alt={image.alt} fill className="h-full w-full object-cover" />
+            <SanityImage image={image} fill className="h-full w-full object-cover" />
           </div>
         );
       })}

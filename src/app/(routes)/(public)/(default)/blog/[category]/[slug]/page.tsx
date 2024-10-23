@@ -19,28 +19,23 @@ import { PostContent } from "~/app/_components/blocks/post-content";
 import { EducationalProgramTypeCards } from "~/app/_components/blocks/educational-program-type-cards";
 import { LatestPosts } from "~/app/_components/blocks/latest-posts";
 import { Metadata } from "next";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
 const postSlugsQuery = groq`*[_type == "post"]{ slug, category -> { slug } }`;
 
 const postQuery = groq`*[_type == "post" && category->slug.current == $category && slug.current == $slug][0]{
   ...,
-  mainImage {
-    alt,
-    asset->{url}
-  },
-  author->{name, image{ alt, asset ->{url}}},
-  category->,
+  mainImage,
+  author -> { name, image },
+  category->
 }`;
 
 const relatedPostsQuery = groq`*[_type == "post" && category._ref == $currentPostCategoryID && _id != $currentPostID][0...3]{
   name,
-  mainImage { 
-    alt,
-    asset -> { url }
-  },
+  mainImage,
   slug,
   category->,
-  author->{name, image{ alt, asset ->{url}}},
+  author -> { name, image },
 }`;
 
 const postMetaQuery = groq`*[_type == "post" && slug.current == $slug][0]{
@@ -97,7 +92,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           </Heading>
           <PostCardMeta>
             <AuthorTag>
-              <AuthorTagImage src={post.author?.image?.asset?.url || ""} alt={post.author?.image?.alt || ""} />
+              <AuthorTagImage image={post.author?.image} />
               <AuthorTagName>{post.author?.name}</AuthorTagName>
             </AuthorTag>
             <PostCardMetaSeparator />
@@ -110,14 +105,8 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
 
       <div className="relative pt-8">
         <div className="absolute left-0 top-0 -z-10 h-1/2 w-full bg-neutral-200"></div>
-        <Container>
-          <Image
-            width={1920}
-            height={1080}
-            src={post.mainImage?.asset?.url || ""}
-            alt={post.mainImage?.alt || ""}
-            className="aspect-video rounded-2xl object-cover"
-          />
+        <Container className="relative aspect-video overflow-hidden rounded-2xl">
+          <SanityImage image={post.mainImage} fill />
         </Container>
       </div>
 
@@ -137,11 +126,7 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
 
         <div className="mt-24">
           <AuthorTag>
-            <AuthorTagImage
-              className="h-12 w-12"
-              src={post.author?.image?.asset?.url || ""}
-              alt={post.author?.image?.alt || ""}
-            />
+            <AuthorTagImage image={post.author?.image} className="h-12 w-12" />
             <div>
               <AuthorTagName>{`${postPage?.authorPrefix} ${post.author?.name}`}</AuthorTagName>
               <Label className="block text-neutral-100-text-muted">
@@ -158,12 +143,12 @@ const PostPage: FC<Props> = async ({ params: { category, slug } }) => {
           allPostsLabel={postPage?.relatedPosts?.allPostsLabel || ""}
           posts={relatedPosts.map((post) => ({
             title: post.name || "",
-            image: { url: post.mainImage?.asset?.url || "", alt: post.mainImage?.alt || "" },
+            image: post.mainImage,
             slug: post.slug?.current || "",
             category: { name: post.category?.name || "", slug: post.category?.slug?.current || "" },
             author: {
               name: post.author?.name || "",
-              image: { url: post.author?.image?.asset?.url || "", alt: post.author?.image?.alt || "" },
+              image: post.author?.image,
             },
           }))}
         />

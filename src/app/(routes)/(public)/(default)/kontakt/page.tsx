@@ -14,6 +14,7 @@ import { InstagramIcon } from "~/app/_components/compounds/icons/instagram";
 import { notFound } from "next/navigation";
 import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
 const contactPageQuery = groq`*[_type == "contact-page"][0] {
   heading,
@@ -22,7 +23,7 @@ const contactPageQuery = groq`*[_type == "contact-page"][0] {
   officeHours,
   location {
     ...,
-    mapImage { alt, asset -> { url } }
+    mapImage
   }
 }`;
 
@@ -137,12 +138,10 @@ const ContactPage: FC = async () => {
                     <IconChip className="z-10">
                       <SquareArrowOutUpRight />
                     </IconChip>
-                    <Image
-                      src={contactPageData.location?.mapImage?.asset?.url || ""}
-                      width="1000"
-                      height="1000"
-                      alt={contactPageData.location?.mapImage?.alt || ""}
-                      className="absolute left-0 top-0 h-full w-full object-cover saturate-50 transition-transform duration-500 group-hover:scale-105"
+                    <SanityImage
+                      className="saturate-50 transition-transform duration-500 group-hover:scale-105"
+                      image={contactPageData.location?.mapImage}
+                      fill
                     />
                   </div>
                 </Card>

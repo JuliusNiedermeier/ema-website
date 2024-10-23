@@ -4,15 +4,15 @@ import { Card } from "../primitives/card";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import Image from "next/image";
 import { Button, ButtonInteractionBubble } from "../primitives/button";
 import { ConsultingCTACardQueryResult } from "../../../../generated/sanity/types";
+import { SanityImage } from "../primitives/sanity-image";
 
 const consultingCTACardQuery = groq`*[_type == "consulting-page"][0] {
   heading,
   teaser,
   readMoreLabel,
-  splineGraphic { alt, asset -> { url } }
+  splineGraphic
 }`;
 
 export type ConsultingCTACardProps = ComponentProps<typeof Card> & {};
@@ -33,13 +33,7 @@ export const ConsultingCTACard: FC<ConsultingCTACardProps> = async ({ className,
           <ButtonInteractionBubble className="bg-primary-100 text-primary-100-text" />
         </Button>
       </div>
-      <Image
-        src={data?.splineGraphic?.asset?.url || ""}
-        alt={data?.splineGraphic?.alt || ""}
-        width="500"
-        height="500"
-        className="mt-auto w-full"
-      />
+      <SanityImage image={data?.splineGraphic} width="500" height="500" className="mt-auto w-full" />
     </Card>
   );
 };

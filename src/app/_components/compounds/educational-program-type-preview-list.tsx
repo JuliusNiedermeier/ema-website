@@ -7,9 +7,9 @@ import { InteractionBubble } from "./interaction-bubble";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { createColorThemeStyles, HSLValue } from "~/app/_utils/color-swatch";
 import { Button } from "../primitives/button";
-import Image from "next/image";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import Link from "next/link";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type EducationalProgramTypePreviewListProps = ComponentProps<"div"> & {
   programTypes: {
@@ -24,7 +24,7 @@ export type EducationalProgramTypePreviewListProps = ComponentProps<"div"> & {
       name: string;
       heading: string;
       description: string;
-      image: { url: string; alt: string };
+      image: SanityImageData;
     }[];
   }[];
 };
@@ -158,13 +158,7 @@ const ProgramCard: FC<{
       </div>
       {program.image && (
         <div className="relative aspect-video max-h-[40vh] flex-1">
-          <Image
-            src={program.image.url}
-            alt={program.image.alt}
-            height="500"
-            width="500"
-            className="h-full w-full rounded-2xl object-cover"
-          />
+          <SanityImage image={program.image} height="500" width="500" className="h-full w-full rounded-2xl" />
           <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
         </div>
       )}

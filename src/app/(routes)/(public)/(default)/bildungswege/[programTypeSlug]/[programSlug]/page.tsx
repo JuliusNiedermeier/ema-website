@@ -28,7 +28,6 @@ import {
   ProgramPageSlugsQueryResult,
 } from "../../../../../../../../generated/sanity/types";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
-import Image from "next/image";
 import { IconList, IconListItem, IconListItemContent, IconListItemIcon } from "~/app/_components/primitives/icon-list";
 import { EducationalProgramDetails } from "~/app/_components/compounds/educational-program-details";
 import { Button } from "~/app/_components/primitives/button";
@@ -46,6 +45,7 @@ import { Chip } from "~/app/_components/primitives/chip";
 import { mapRange } from "~/app/_utils/map-range";
 import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 import { Metadata } from "next";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
 const programPageSlugsQuery = groq`*[_type == "educational-program"]{
   slug,
@@ -56,13 +56,13 @@ const programPageQuery = groq`*[_type == "educational-program-page"][0]{
   ...,
   startDate {
     ...,
-    backgroundGraphic { alt, asset -> { url } }
+    backgroundGraphic
   },
   prerequisites {
     ...,
     checkupCTA {
       ...,
-      image { alt, asset -> { url } }
+      image
     }
   }
 }`;
@@ -72,22 +72,22 @@ const programPageContentQuery = groq`*[_type == "educational-program" && slug.cu
   educationalProgramType->,
   highlights[] {
     ...,
-    image { alt, asset -> { url } }
+    image
   },
   certificate {
     ...,
     jobs[] {
       ...,
-      image { alt, asset -> { url } }
+      image
     }
   },
   informationGallery[] {
     ...,
-    image { alt, asset -> { url } }
+    image
   },
   highlightLink {
     ...,
-    image { alt, asset -> { url } }
+    image
   },
   followUpPrograms {
     ...,
@@ -111,7 +111,7 @@ const programPageMetaQuery = groq`*[_type == "educational-program" && slug.curre
 }`;
 
 const programPageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
-  previewImages[] { alt, asset -> { url } }
+  previewImages
 }`;
 
 type Params = { programTypeSlug: string; programSlug: string };
@@ -187,13 +187,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 <Paragraph>{highlight.content}</Paragraph>
               </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl shadow sm:aspect-video">
-                <Image
-                  src={highlight.image?.asset?.url || ""}
-                  height="500"
-                  width="500"
-                  alt={highlight.image?.alt || ""}
-                  className="absolute left-0 top-0 h-full w-full object-cover"
-                />
+                <SanityImage image={highlight.image} fill />
               </div>
             </Card>
           ))}
@@ -295,10 +289,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                   holidays={program.holidays || ""}
                   startDate={program.startDate || ""}
                   applyButtonLabel={programPage.startDate?.applyButtonLabel || ""}
-                  startDateBackgroundGraphic={{
-                    url: programPage.startDate?.backgroundGraphic?.asset?.url || "",
-                    alt: programPage.startDate?.backgroundGraphic?.alt || "",
-                  }}
+                  startDateBackgroundGraphic={programPage.startDate?.backgroundGraphic}
                 />
 
                 {program.showHighlightLink && (
@@ -309,13 +300,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                       )}
                     >
                       <div className="aspect-video flex-1 lg:aspect-auto lg:h-auto">
-                        <Image
-                          src={program.highlightLink?.image?.asset?.url || ""}
-                          alt={program.highlightLink?.image?.alt || ""}
-                          height="500"
-                          width="500"
-                          className="h-full w-full rounded-2xl object-cover"
-                        />
+                        <SanityImage image={program.highlightLink?.image} className="rounded-2xl" fill />
                       </div>
                       <div className="py-10x pb-6x lg:py-10x max-w-[40rem] flex-[2] p-6">
                         <Label className="text-neutral-400-text">{program.highlightLink?.preHeading}</Label>
@@ -392,13 +377,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
                 })}
               >
                 <div className="relative aspect-square w-full sm:flex-1">
-                  <Image
-                    className="absolute left-0 top-0 h-full w-full rounded-3xl object-cover"
-                    src={item.image?.asset?.url || ""}
-                    alt={item.image?.alt || ""}
-                    width="500"
-                    height="500"
-                  />
+                  <SanityImage className="rounded-3xl" image={item.image} fill />
                 </div>
                 <div className="flex-1 self-center">
                   <div className="max-w-96 pb-16 sm:py-16">
@@ -429,12 +408,7 @@ const EducationalProgramPage: FC<Props> = async ({ params: { programSlug } }) =>
             <Card className="group flex flex-col items-stretch gap-2 rounded-3xl border bg-neutral-100 p-2 md:flex-row">
               <StackedImageCard
                 className="min-h-40 flex-1 bg-neutral-400"
-                images={
-                  comparisonPreview?.previewImages?.map((image, index) => ({
-                    url: image.asset?.url || "",
-                    alt: image.alt || "",
-                  })) || []
-                }
+                images={comparisonPreview?.previewImages || []}
               />
               <div className="flex-1 p-6 text-left">
                 <Heading tag="h3">{programPage.comparisonCTA?.heading}</Heading>

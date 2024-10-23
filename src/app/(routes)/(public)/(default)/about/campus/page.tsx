@@ -9,7 +9,6 @@ import { InfoEventCTACard } from "~/app/_components/blocks/info-event-cta-card";
 import Link from "next/link";
 import { ParalaxGallery } from "~/app/_components/compounds/paralax-gallery";
 import { ConsultingCTACard } from "~/app/_components/blocks/consulting-cta-card";
-import { Metadata } from "next";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const campusPageQuery = groq`*[_type == "campus-page"][0]{
@@ -19,7 +18,7 @@ const campusPageQuery = groq`*[_type == "campus-page"][0]{
     name,
     position,
     description,
-    image { alt, asset -> { url } }
+    image
   },
   contactCTA
 }`;
@@ -38,7 +37,7 @@ const CampusPage: FC = async () => {
 
   const galleryItems: ComponentProps<typeof ParalaxGallery>["items"] =
     data?.staff?.map((member) => ({
-      image: { url: member.image?.asset?.url || "", alt: member.image?.alt || "" },
+      image: member.image,
       heading: member.name || "",
       subheading: member.position || "",
       description: member.description || "",

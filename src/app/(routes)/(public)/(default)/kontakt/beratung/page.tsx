@@ -29,7 +29,7 @@ const consultingPageQuery = groq`*[_type == "consulting-page"][0] {
   form,
   benefits,
   alternativeCTA,
-  consultants[] { alt, asset -> { url } }
+  consultants
 }`;
 
 const consultingPagePrivacyPageQuery = groq`*[_type == "privacy-page"][0] {
@@ -81,8 +81,7 @@ const ContactPage: FC = async () => {
             {consultingPageData.consultants?.map((consultant, index) => (
               <AuthorTagImage
                 key={index}
-                src={consultant.asset?.url || ""}
-                alt={consultant.alt || ""}
+                image={consultant}
                 className={cn("h-12 w-12 border-4 border-neutral-200", { "-ml-4": index > 0 })}
               />
             ))}

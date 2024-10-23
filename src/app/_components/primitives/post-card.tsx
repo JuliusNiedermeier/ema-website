@@ -4,6 +4,7 @@ import { Card } from "./card";
 import Image from "next/image";
 import { Chip } from "./chip";
 import { Heading, Label, Paragraph } from "./typography";
+import { SanityImage } from "./sanity-image";
 
 export type PostCardProps = ComponentProps<typeof Card> & {};
 
@@ -22,21 +23,19 @@ export const PostCardThumbnail: FC<PostCardThumbnailProps> = ({ className, ...re
   return <div className={cn("relative", className)} {...restProps} />;
 };
 
-export type PostCardThumbnailImageProps = ComponentProps<typeof Image> & {};
+export type PostCardThumbnailImageProps = ComponentProps<typeof SanityImage> & {};
 
 export const PostCardThumbnailImage: FC<PostCardThumbnailImageProps> = ({
   className,
   width = 500,
   height = 500,
-  alt,
   ...restProps
 }) => {
   return (
-    <Image
-      className={cn("aspect-video w-full rounded-2xl object-cover", className)}
+    <SanityImage
+      className={cn("aspect-video w-full rounded-2xl", className)}
       width={width}
       height={height}
-      alt={alt} // Cannot be included in restProps and must be passed explicitly to prevent ESLint missing alt tag warning
       {...restProps}
     />
   );

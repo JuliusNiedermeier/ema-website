@@ -15,6 +15,7 @@ import { Button } from "../primitives/button";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import Image from "next/image";
 import { ResetCookieConsent } from "../compounds/reset-cookie-consent";
+import { SanityImage } from "../primitives/sanity-image";
 
 const footerEducationalProgramTypesQuery = groq`*[_type == "educational-program-type"] | order(order asc) {
     ...
@@ -47,7 +48,7 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
     "impressum": *[_type == "impressum-page"][0].navigationLabel
   },
   socialLinks[] {
-    logoIcon { alt, asset -> { url } },
+    logoIcon,
     url
   },
   copyrightNotice,
@@ -188,12 +189,11 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                 <div className="mb-8 flex items-center gap-4 sm:mb-0 sm:ml-auto lg:ml-0">
                   {footerConfig?.socialLinks?.map((link, index) => (
                     <Link key={index} href={link.url || ""} className="h-6 w-6">
-                      <Image
+                      <SanityImage
                         key={index}
-                        src={link.logoIcon?.asset?.url || ""}
+                        image={link.logoIcon}
                         width={100}
                         height={100}
-                        alt={link.logoIcon?.alt || ""}
                         className="h-full w-full object-contain"
                       />
                     </Link>

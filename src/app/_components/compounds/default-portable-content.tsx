@@ -1,7 +1,6 @@
 import { groq, PortableText, PortableTextComponents, PortableTextTypeComponent } from "next-sanity";
 import { createColorThemeStyles, ensureValidHSL } from "~/app/_utils/color-swatch";
 import { Heading, Label, Paragraph } from "../primitives/typography";
-import Image from "next/image";
 import { BasicAccordion } from "./basic-accordion";
 import Link from "next/link";
 import { Card } from "../primitives/card";
@@ -10,14 +9,11 @@ import { InteractionBubble } from "./interaction-bubble";
 import { Chip } from "../primitives/chip";
 import { DefaultPortableContentQueryResult } from "../../../../generated/sanity/types";
 import { FC } from "react";
+import { SanityImage } from "../primitives/sanity-image";
 
 const defaultPortableContentQuery = groq`*[_type == "post"][0]{
     body[] {
       ...,
-      _type == "portableImage" => {
-        ...,
-        asset -> { url }
-      },
       _type == "portableEducationalProgramTypeCTA" => {
         ...,
         educationalProgramType -> {
@@ -79,13 +75,7 @@ export const portableTextComponents: Components = {
     portableImage: (props) => {
       return (
         <div className="my-16">
-          <Image
-            src={props.value.asset?.url || ""}
-            alt={props.value.alt || ""}
-            width="800"
-            height="500"
-            className="rounded-2xl"
-          />
+          <SanityImage image={props.value} width="800" height="500" className="rounded-2xl" />
           {props.value.alt && (
             <Label className="mx-16 mt-4 block text-center font-light text-neutral-100-text-muted">
               {props.value.alt}

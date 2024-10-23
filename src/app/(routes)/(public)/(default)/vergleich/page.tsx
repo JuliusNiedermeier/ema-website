@@ -10,14 +10,9 @@ import { ComparisonPageQueryResult, ComparisonPageMetaQueryResult } from "../../
 import { Section } from "~/app/_components/primitives/section";
 import { notFound } from "next/navigation";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
+import { SanityImage } from "~/app/_components/primitives/sanity-image";
 
-const comparisonPageQuery = groq`*[_type == "comparison-page"][0] {
-  ...,
-  pathsSection {
-    ...,
-    image { alt, asset -> { url } }
-  }
-}`;
+const comparisonPageQuery = groq`*[_type == "comparison-page"][0]`;
 
 const comparisonPageMetaQuery = groq`*[_type == "comparison-page"][0]{
   "title": coalesce(seo.title, ""),
@@ -52,12 +47,7 @@ const ÜbersichtPage: FC = async () => {
       <Section className="overflow-hidden bg-primary-900">
         {/* <InteractiveProgramFlow /> */}
         <Container className="py-8">
-          <Image
-            src={comparisonPageData.pathsSection?.image?.asset?.url || ""}
-            width="2000"
-            height="2000"
-            alt={comparisonPageData.pathsSection?.image?.alt || ""}
-          />
+          <SanityImage image={comparisonPageData.pathsSection?.image} width="2000" height="2000" />
         </Container>
       </Section>
 

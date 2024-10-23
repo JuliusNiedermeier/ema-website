@@ -5,8 +5,8 @@ import { CalendarCheck2Icon, HourglassIcon, SunriseIcon, TreePalmIcon } from "lu
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
-import Image from "next/image";
 import Link from "next/link";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   durationHeading: string;
@@ -19,7 +19,7 @@ export type EducationalProgramDetailsProps = ComponentProps<"div"> & {
   holidays: string;
   startDate: string;
   applyButtonLabel: string;
-  startDateBackgroundGraphic: { url: string; alt: string };
+  startDateBackgroundGraphic?: SanityImageData | null;
 };
 
 export const EducationalProgramDetails: FC<EducationalProgramDetailsProps> = ({
@@ -109,7 +109,7 @@ const StartDateCard: FC<{
   heading: string;
   startDate: string;
   applyButtonLabel: string;
-  backgroundGraphic: { url: string; alt: string };
+  backgroundGraphic?: SanityImageData | null;
 }> = ({ heading, startDate, applyButtonLabel, backgroundGraphic }) => {
   return (
     <Link href="/online-bewerbung" className="min-h-64 flex-1">
@@ -122,9 +122,8 @@ const StartDateCard: FC<{
           </Heading>
         </div>
 
-        <Image
-          src={backgroundGraphic.url}
-          alt={backgroundGraphic.alt}
+        <SanityImage
+          image={backgroundGraphic}
           height={500}
           width={500}
           className="absolute bottom-0 right-0 h-1/2 rotate-180 object-contain object-right-top text-neutral-100 opacity-50 lg:h-full lg:rotate-0"

@@ -4,14 +4,14 @@ import { Card } from "../primitives/card";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "./interaction-bubble";
-import Image from "next/image";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type GenericCTAProps = ComponentProps<typeof Card> & {
   preHeading: string;
   mainheading: string;
   paragraph: string;
   ctaText: string;
-  image: { url: string; alt: string };
+  image: SanityImageData;
 };
 
 export const GenericCTA: FC<GenericCTAProps> = ({
@@ -48,13 +48,7 @@ export const GenericCTA: FC<GenericCTAProps> = ({
         </Button>
       </div>
       <div className="aspect-square h-36 flex-1 md:aspect-auto md:h-auto">
-        <Image
-          src={image.url}
-          alt={image.alt}
-          height="500"
-          width="500"
-          className="h-full w-full rounded-2xl object-cover"
-        />
+        <SanityImage image={image} height="500" width="500" className="h-full w-full rounded-2xl object-cover" />
       </div>
     </Card>
   );

@@ -1,15 +1,13 @@
 import { ComponentProps, FC } from "react";
 import { cn } from "~/app/_utils/cn";
-import Image from "next/image";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import { Heading, Label, Paragraph } from "../primitives/typography";
-
-type ImageProps = { src: string; alt: string };
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type ArtEducationProps = ComponentProps<"div"> & {
-  leftImage: ImageProps;
-  rightImage: ImageProps;
-  backgroundImage: ImageProps;
+  leftImage?: SanityImageData | null;
+  rightImage?: SanityImageData | null;
+  backgroundImage?: SanityImageData | null;
   title: string;
   body: string;
   actionLabel: string;
@@ -36,25 +34,22 @@ export const ArtEducation: FC<ArtEducationProps> = ({
           <InteractionBubble /> <Label>{actionLabel}</Label>
         </div>
       </div>
-      <Image
+      <SanityImage
         width={1920}
         height={1080}
-        src={backgroundImage.src}
-        alt={backgroundImage.alt}
+        image={backgroundImage}
         className="absolute left-0 top-0 h-full w-full origin-left object-cover transition-all group-hover:scale-[1.1]"
       />
-      <Image
+      <SanityImage
         width={500}
         height={500}
-        src={rightImage.src}
-        alt={rightImage.alt}
+        image={rightImage}
         className="absolute -right-8 bottom-0 h-[65vw] max-h-80 w-min object-cover transition-all group-hover:translate-x-10 group-hover:scale-[1.5]"
       />
-      <Image
+      <SanityImage
         width={500}
         height={500}
-        src={leftImage.src}
-        alt={leftImage.alt}
+        image={leftImage}
         className="absolute bottom-0 right-[10vw] h-[80vw] max-h-96 w-min object-cover transition-all group-hover:-translate-x-10 group-hover:scale-[1.1]"
       />
     </div>

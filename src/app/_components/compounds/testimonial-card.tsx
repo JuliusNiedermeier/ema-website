@@ -4,11 +4,12 @@ import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-t
 import { StarRating } from "./star-rating";
 import { Paragraph } from "../primitives/typography";
 import { cn } from "~/app/_utils/cn";
+import { SanityImageData } from "../primitives/sanity-image";
 
 export type TestimonialCardCoreProps = {
   rating: number;
   authorName: string;
-  authorImage: { url: string; alt: string };
+  authorImage?: SanityImageData | null;
   body: string;
 };
 
@@ -33,7 +34,7 @@ export const TestimonialCard: FC<TestimonialCardProps> = ({
       <StarRating rating={[rating, 5]} className="opacity-80" />
       <Paragraph className="mt-8">{body}</Paragraph>
       <AuthorTag className="mt-8">
-        <AuthorTagImage src={authorImage.url} alt={authorImage.alt} />
+        <AuthorTagImage image={authorImage} />
         <AuthorTagName>{authorName}</AuthorTagName>
       </AuthorTag>
     </Card>

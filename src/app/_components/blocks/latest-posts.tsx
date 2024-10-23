@@ -17,16 +17,17 @@ import {
   PostCardThumbnailTag,
 } from "../primitives/post-card";
 import { AuthorTag, AuthorTagImage, AuthorTagName } from "../primitives/author-tag";
+import { SanityImageData } from "../primitives/sanity-image";
 
 export type LatestPostsProps = ComponentProps<"div"> & {
   heading: string;
   allPostsLabel: string;
   posts: {
-    image: { url: string; alt: string };
+    image?: SanityImageData | null;
     title: string;
     slug: string;
     category: { name: string; slug: string };
-    author: { name: string; image: { url: string; alt: string } };
+    author: { name: string; image?: SanityImageData | null };
   }[];
 };
 
@@ -48,7 +49,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                 <Link href={`/blog/${post.category.slug}/${post.slug}`} className="flex-1">
                   <PostCard className="h-full">
                     <PostCardThumbnail className="">
-                      <PostCardThumbnailImage src={post.image.url} alt={post.image.alt} />
+                      <PostCardThumbnailImage image={post.image} />
                       <InteractionBubble className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
                       <PostCardThumbnailTag>
                         <Label>{post.category.name}</Label>
@@ -58,7 +59,7 @@ export const LatestPosts: FC<LatestPostsProps> = async ({ className, heading, al
                       <Label className="leading-tight">{post.title}</Label>
                       <PostCardMeta className="mt-4">
                         <AuthorTag>
-                          <AuthorTagImage src={post.author.image.url} alt={post.author.image.alt} />
+                          <AuthorTagImage image={post.author.image} />
                           <AuthorTagName>{post.author.name}</AuthorTagName>
                         </AuthorTag>
                       </PostCardMeta>

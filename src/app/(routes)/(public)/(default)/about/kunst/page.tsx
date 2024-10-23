@@ -17,7 +17,7 @@ const artPageQuery = groq`*[_type == "art-page"][0]{
     title,
     slogan,
     description,
-    image { alt, asset -> { url } }
+    image
   },
   educationalProgramTypesCTA
 }`;
@@ -38,7 +38,7 @@ const ArtPage: FC = async () => {
 
   const galleryItems: ComponentProps<typeof ParalaxGallery>["items"] =
     data?.artSubjects?.map((subject) => ({
-      image: { url: subject.image?.asset?.url || "", alt: subject.image?.alt || "" },
+      image: subject.image,
       heading: subject.title || "",
       subheading: subject.slogan || "",
       description: subject.description || "",
