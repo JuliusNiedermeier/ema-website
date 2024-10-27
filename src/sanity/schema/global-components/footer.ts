@@ -93,6 +93,24 @@ export const footerConfigType: SchemaTypeDef = {
         type: "string",
         validation: createStringValidation("label"),
       }),
+
+      defineField({
+        name: "fundingNotice",
+        title: "Hinweis auf Förderungen",
+        type: "string",
+      }),
+
+      defineField({
+        name: "fundingPartners",
+        title: "Förderungspartner",
+        type: "array",
+        of: [
+          defineArrayMember({
+            title: "Förderungspartner",
+            type: "default-image",
+          }),
+        ],
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Footer" }),

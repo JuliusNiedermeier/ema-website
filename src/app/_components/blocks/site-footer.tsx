@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import { Button } from "../primitives/button";
 import { InteractionBubble } from "../compounds/interaction-bubble";
-import Image from "next/image";
 import { ResetCookieConsent } from "../compounds/reset-cookie-consent";
 import { SanityImage } from "../primitives/sanity-image";
 
@@ -52,7 +51,9 @@ const siteFooterQuery = groq`*[_type == "footer-config"][0] {
     url
   },
   copyrightNotice,
-  cookieSettingsLabel
+  cookieSettingsLabel,
+  fundingNotice,
+  fundingPartners
 }`;
 
 export type SiteFooterProps = ComponentProps<"div"> & {};
@@ -170,7 +171,9 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                 </List>
               </div>
             </div>
-            <div className="mt-16 h-px bg-neutral-900-text-muted" />
+
+            <div className="mt-16 h-px bg-neutral-900-text/10" />
+
             <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
               <Label className="text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.copyrightNotice}</Label>
 
@@ -199,6 +202,23 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
                     </Link>
                   ))}
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-x h-px bg-neutral-900-text/10" />
+
+            <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
+              <div>
+                <Label className="text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.fundingNotice}</Label>
+                <div className="flex items-center gap-4">
+                  {footerConfig?.fundingPartners?.map((partner) => (
+                    <SanityImage image={partner} width="200" height="200" className="" />
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col-reverse gap-4 sm:flex-row lg:items-center">
+                <Label>Website Konzept & Umsetzung von Julius Niedermeier</Label>
               </div>
             </div>
           </footer>
