@@ -6,12 +6,12 @@ import { cn } from "~/app/_utils/cn";
 import { Heading, Paragraph } from "../primitives/typography";
 import { InteractionBubble } from "./interaction-bubble";
 import { usePathname } from "next/navigation";
-import { SanityImage } from "../primitives/sanity-image";
+import { SanityImage, SanityImageData } from "../primitives/sanity-image";
 
 export type AboutMenuItemProps = ComponentProps<typeof Link> & {
   heading: string;
   description: string;
-  image: { url: string; alt: string };
+  image?: SanityImageData | null;
 };
 
 export const AboutMenuItem: FC<AboutMenuItemProps> = ({

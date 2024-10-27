@@ -15,7 +15,7 @@ const programsMenuComparisonQuery = groq`*[_type == "comparison-page"][0]{
   heading,
   teaser,
   readMoreLabel,
-  previewImages[] { alt, asset -> { url } }
+  previewImages
 }`;
 
 export type OffersMenuProps = ComponentProps<"div"> & {};
@@ -34,12 +34,7 @@ export const OffersMenu: FC<OffersMenuProps> = async ({ className, ...restProps 
         >
           <StackedImageCard
             className="flex-[10rem] border border-neutral-100/10 bg-neutral-100/10 xl:flex-1"
-            images={
-              comparison?.previewImages?.map((image, index) => ({
-                url: image.asset?.url || "",
-                alt: image.alt || "",
-              })) || []
-            }
+            images={comparison?.previewImages || []}
           />
           <div className="p-6">
             <Heading tag="h3" size="sm" className="mt-8">
