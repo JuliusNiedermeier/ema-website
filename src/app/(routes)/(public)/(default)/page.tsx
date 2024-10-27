@@ -231,6 +231,7 @@ const HomePage: FC = async () => {
 
                 <Link
                   href={event.locationURL || ""}
+                  target="_blank"
                   className="flex w-full flex-1 items-center gap-4 border-t border-dashed border-neutral-900/40 bg-neutral-200 px-8 py-4 hover:brightness-95"
                 >
                   <MapPinIcon />
