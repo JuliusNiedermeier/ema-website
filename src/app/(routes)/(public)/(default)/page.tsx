@@ -1,4 +1,4 @@
-import { PlayIcon } from "lucide-react";
+import { MapPinIcon, PlayIcon, PlusIcon } from "lucide-react";
 import { groq } from "next-sanity";
 import { type ComponentProps, FC } from "react";
 import { Button, ButtonInteractionBubble } from "~/app/_components/primitives/button";
@@ -7,11 +7,13 @@ import { Heading, Label, Paragraph } from "~/app/_components/primitives/typograp
 import { sanityFetch } from "~/sanity/lib/client";
 import {
   EconomyXSocialPreviewQueryResult,
+  FeaturedEventsQueryResult,
   FeaturedPostsQueryResult,
   HomePageArtPreviewQueryResult,
-  HomePageComparisonPreviewQueryResult,
+  // HomePageComparisonPreviewQueryResult,
   HomePageMetaQueryResult,
   HomePageQueryResult,
+  HomePageTimeSuffixQueryResult,
 } from "../../../../../generated/sanity/types";
 import { PartnersBanner } from "~/app/_components/compounds/partners-banner";
 import { ArtEducation } from "~/app/_components/blocks/art-education";
@@ -27,8 +29,8 @@ import { InteractionBubble } from "~/app/_components/compounds/interaction-bubbl
 import { HeroVideo } from "~/app/_components/compounds/hero-video";
 import { Section } from "~/app/_components/primitives/section";
 import { ProgramGrid } from "~/app/_components/blocks/program-grid";
-import { StackedImageCard } from "~/app/_components/compounds/stacked-image-card";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
+import { Card } from "~/app/_components/primitives/card";
 
 const homePageQuery = groq`*[_type == "home-page"][0]{
   ...,
@@ -47,6 +49,12 @@ const featuredPostsQuery = groq`*[_type == "post"][0...3]{
   }
 }`;
 
+const featuredEventsQuery = groq`*[_type == "event"] | order(date asc) [0...3]`;
+
+const homePageTimeSuffixQuery = groq`*[_type == "website-settings"][0]{
+  timeSuffix
+}`;
+
 const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
   headingUpper,
   headingLower,
@@ -54,12 +62,12 @@ const economyXSocialPreviewQuery = groq`*[_type == "economy-social-page"][0]{
   readMoreLabel
 }`;
 
-const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
-  heading,
-  teaser,
-  readMoreLabel,
-  previewImages
-}`;
+// const homePageComparisonPreviewQuery = groq`*[_type == "comparison-page"][0]{
+//   heading,
+//   teaser,
+//   readMoreLabel,
+//   previewImages
+// }`;
 
 const homePageArtPreviewQuery = groq`*[_type == "art-page"][0]{
   heading,
@@ -94,8 +102,14 @@ const HomePage: FC = async () => {
     tags: ["economy-social-page"],
   });
 
-  const comparisonPreview = await sanityFetch<HomePageComparisonPreviewQueryResult>(homePageComparisonPreviewQuery, {
-    tags: ["comparison-page"],
+  // const comparisonPreview = await sanityFetch<HomePageComparisonPreviewQueryResult>(homePageComparisonPreviewQuery, {
+  //   tags: ["comparison-page"],
+  // });
+
+  const events = await sanityFetch<FeaturedEventsQueryResult>(featuredEventsQuery, { tags: ["event"] });
+
+  const websiteSettings = await sanityFetch<HomePageTimeSuffixQueryResult>(homePageTimeSuffixQuery, {
+    tags: ["website-settings"],
   });
 
   const artPreview = await sanityFetch<HomePageArtPreviewQueryResult>(homePageArtPreviewQuery, { tags: ["art-page"] });
@@ -186,26 +200,55 @@ const HomePage: FC = async () => {
       />
 
       <Section connect="bottom" className="mt-32 bg-primary-900">
-        <Container width="narrow" className="flex flex-col items-center py-32 text-center">
-          <Heading tag="h2" size="sm" className="text-neutral-900-text">
-            {comparisonPreview?.heading}
+        <Container width="narrow" className="flex flex-col items-center pt-24 text-center md:pt-48">
+          <Heading tag="h2" className="text-neutral-900-text">
+            {homePage.featuredEvents?.heading}
           </Heading>
-          <Paragraph className="mt-0 text-neutral-900-text-muted">{comparisonPreview?.teaser}</Paragraph>
-          <Button vairant="filled" className="mt-8 bg-primary-100 text-primary-100-text" href="/vergleich">
-            <Label>{comparisonPreview?.readMoreLabel}</Label>
-            <ButtonInteractionBubble />
-          </Button>
-          <StackedImageCard
-            className="mt-16 aspect-video w-full bg-neutral-100/10"
-            images={comparisonPreview?.previewImages || []}
-          />
+          <Paragraph className="mt-0 text-neutral-900-text-muted">{homePage.featuredEvents?.introduction}</Paragraph>
+        </Container>
+        <Container className="flex flex-wrap gap-4 pb-12 pt-20 md:pb-48">
+          {events.map((event, index) => {
+            const d = new Date(event.date || "");
+            return (
+              <Card key={index} className="relative min-w-min flex-1 overflow-hidden bg-primary-100 p-0">
+                <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-900" />
+
+                <div className="p-8">
+                  <Label className="text-primary-100-text-muted">
+                    {d.toLocaleDateString("de", { weekday: "long" })}
+                  </Label>
+                  <Heading className="m-0 text-primary-100-text">
+                    {d.toLocaleDateString("de", { day: "2-digit", month: "long" })}
+                  </Heading>
+                  <Label>
+                    {`${d.toLocaleTimeString("de", { hour: "numeric", minute: "2-digit" })} ${websiteSettings?.timeSuffix} - ${event.duration}`}
+                  </Label>
+                  <Heading size="sm" className="m-0 mt-8">
+                    {event.name}
+                  </Heading>
+                  <Paragraph className="text-neutral-100-text-muted">{event.teaser}</Paragraph>
+                </div>
+
+                <Link
+                  href={event.locationURL || ""}
+                  className="flex w-full flex-1 items-center gap-4 border-t border-dashed border-neutral-900/40 bg-neutral-200 px-8 py-4 hover:brightness-95"
+                >
+                  <MapPinIcon />
+                  <Label className="whitespace-nowrap">{event.location}</Label>
+                </Link>
+
+                <div className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 translate-y-1/2 rounded-full bg-primary-900" />
+              </Card>
+            );
+          })}
         </Container>
       </Section>
 
       <Section connect="both" className="bg-neutral-300">
-        <Container className="py-24">
+        <Container className="pt-2 md:py-24">
           <Link href="/about/kunst">
             <ArtEducation
+              className="rounded-t-3xl md:rounded-t-2xl"
               title={artPreview?.heading || ""}
               body={artPreview?.teaser || ""}
               actionLabel={artPreview?.readMoreLabel || ""}
@@ -215,7 +258,7 @@ const HomePage: FC = async () => {
             />
           </Link>
 
-          <Link href="/about/campus" className="mt-16 block">
+          <Link href="/about/campus" className="mt-8 md:mt-16 mb-8 block">
             <CampusCard />
           </Link>
         </Container>

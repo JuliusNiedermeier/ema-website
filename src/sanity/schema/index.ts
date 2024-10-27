@@ -44,6 +44,7 @@ import { educationalProgramTypeOrder } from "./internal/educational-program-type
 import { educationalProgramOrder } from "./internal/educational-program-order";
 import { educationalProgramTypePage } from "./dynamic-pages/educational-program-type-page";
 import { seoFieldsType } from "./internal/seo-fields";
+import { event } from "./dynamic-content/event";
 
 export type SchemaTypeDef = {
   type:
@@ -82,6 +83,7 @@ const typeDefs = [
   // Dynmaic content
   educationalProgramType,
   educationalProgram,
+  event,
   post,
   author,
   category,

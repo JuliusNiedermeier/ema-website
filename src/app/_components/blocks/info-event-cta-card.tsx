@@ -4,7 +4,11 @@ import { Card } from "../primitives/card";
 import { Heading, Label, Paragraph } from "../primitives/typography";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import { InfoEventCTACardQueryResult } from "../../../../generated/sanity/types";
+import {
+  InfoEventCTACardQueryResult,
+  InfoEventCTAEventsQueryResult,
+  InfoEventCTATimeSuffixQueryResult,
+} from "../../../../generated/sanity/types";
 import { InteractionBubble } from "../compounds/interaction-bubble";
 import { EventDateList } from "../compounds/event-date-list";
 
@@ -12,7 +16,11 @@ const infoEventCTACardQuery = groq`*[_type == "info-event-page"][0] {
   heading,
   teaser,
   readMoreLabel,
-  nextDates,
+}`;
+
+const infoEventCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+
+const infoEventCTATimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix
 }`;
 
@@ -21,7 +29,11 @@ export type InfoEventCTACardProps = ComponentProps<typeof Card> & {
 };
 
 export const InfoEventCTACard: FC<InfoEventCTACardProps> = async ({ className, stack = false, ...restProps }) => {
-  const data = await sanityFetch<InfoEventCTACardQueryResult>(infoEventCTACardQuery, { tags: ["info-event-page"] });
+  const [data, events, websiteSettings] = await Promise.all([
+    sanityFetch<InfoEventCTACardQueryResult>(infoEventCTACardQuery, { tags: ["info-event-page"] }),
+    sanityFetch<InfoEventCTAEventsQueryResult>(infoEventCTAEventsQuery, { tags: ["event"] }),
+    sanityFetch<InfoEventCTATimeSuffixQueryResult>(infoEventCTATimeSuffixQuery, { tags: ["website-settings"] }),
+  ]);
 
   return (
     <Card
@@ -42,7 +54,10 @@ export const InfoEventCTACard: FC<InfoEventCTACardProps> = async ({ className, s
           <Label>{data?.readMoreLabel}</Label>
         </div>
       </div>
-      <EventDateList timeSuffix={data?.timeSuffix || ""} dates={data?.nextDates?.map((date) => new Date(date)) || []} />
+      <EventDateList
+        timeSuffix={websiteSettings?.timeSuffix || ""}
+        dates={events?.map((event) => new Date(event.date || "")) || []}
+      />
     </Card>
   );
 };

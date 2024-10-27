@@ -9,8 +9,10 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
 import {
   BentoCTAConsultingQueryResult,
+  BentoCTAEventsQueryResult,
   BentoCTAInfoEventQueryResult,
   BentoCTAQueryResult,
+  BentoCTATimeSuffixQueryResult,
 } from "../../../../generated/sanity/types";
 import { InfoEventCTACard } from "../compounds/info-event-cta-card";
 import Link from "next/link";
@@ -25,7 +27,11 @@ const bentoCTAInfoEventQuery = groq`*[_type == "info-event-page"][0] {
   heading,
   teaser,
   readMoreLabel,
-  nextDates,
+}`;
+
+const bentoCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+
+const bentoCTATimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix
 }`;
 
@@ -39,15 +45,13 @@ const bentoCTAConsultingQuery = groq`*[_type == "consulting-page"][0] {
 export type BentoCTAProps = ComponentProps<"div"> & {};
 
 export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) => {
-  const data = await sanityFetch<BentoCTAQueryResult>(bentoCTAQuery, { tags: ["bento-cta-config", "testimonial"] });
-
-  const infoEvent = await sanityFetch<BentoCTAInfoEventQueryResult>(bentoCTAInfoEventQuery, {
-    tags: ["info-event-page"],
-  });
-
-  const consulting = await sanityFetch<BentoCTAConsultingQueryResult>(bentoCTAConsultingQuery, {
-    tags: ["consulting-page"],
-  });
+  const [data, infoEvent, events, websiteSettings, consulting] = await Promise.all([
+    sanityFetch<BentoCTAQueryResult>(bentoCTAQuery, { tags: ["bento-cta-config", "testimonial"] }),
+    sanityFetch<BentoCTAInfoEventQueryResult>(bentoCTAInfoEventQuery, { tags: ["info-event-page"] }),
+    sanityFetch<BentoCTAEventsQueryResult>(bentoCTAEventsQuery, { tags: ["event"] }),
+    sanityFetch<BentoCTATimeSuffixQueryResult>(bentoCTATimeSuffixQuery, { tags: ["website-settings"] }),
+    sanityFetch<BentoCTAConsultingQueryResult>(bentoCTAConsultingQuery, { tags: ["consulting-page"] }),
+  ]);
 
   return (
     <div className={cn("flex flex-col gap-4 xl:flex-row", className)} {...restProps}>
@@ -83,8 +87,8 @@ export const BentoCTA: FC<BentoCTAProps> = async ({ className, ...restProps }) =
               heading={infoEvent?.heading || ""}
               description={infoEvent?.teaser || ""}
               readMoreLabel={infoEvent?.readMoreLabel || ""}
-              timeSuffix={infoEvent?.timeSuffix || ""}
-              dates={infoEvent?.nextDates?.map((date) => new Date(date)) || []}
+              timeSuffix={websiteSettings?.timeSuffix || ""}
+              dates={events?.map((event) => new Date(event.date || "")) || []}
             />
           </Link>
         </div>

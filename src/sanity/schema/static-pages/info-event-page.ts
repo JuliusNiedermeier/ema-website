@@ -85,33 +85,6 @@ export const infoEventPage: SchemaTypeDef = {
       }),
 
       defineField({
-        name: "nextDates",
-        title: "Nächste Veranstaltungen",
-        description: getSizeString([1, 4], "Veranstaltungen. Daten der nächsten Veranstaltungen."),
-        type: "array",
-        validation: createArrayValidation([1, 4]),
-        of: [
-          defineArrayMember({
-            name: "event",
-            title: "Beginn der Infoveranstaltung",
-            type: "datetime",
-            validation: (r) => r.required(),
-          }),
-        ],
-      }),
-
-      defineField({
-        name: "timeSuffix",
-        title: "Uhrzeit-Suffix",
-        description: getSizeString(
-          "label",
-          `Zeichen. Der Text hinter der Uhrzeit einer Veranstaltung (meistens "Uhr").`,
-        ),
-        type: "string",
-        validation: createStringValidation("label"),
-      }),
-
-      defineField({
         name: "benefits",
         title: "Event Highlights/Vorteile",
         description: getSizeString([3, 6], "Einträge"),

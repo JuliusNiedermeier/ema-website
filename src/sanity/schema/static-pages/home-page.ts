@@ -109,7 +109,7 @@ export const homePage: SchemaTypeDef = {
           defineField({
             name: "heading",
             title: "Überschrift",
-            description: getSizeString("heading", "Zeichen. Überschrift des Bereichs."),
+            description: getSizeString("label", "Zeichen. Überschrift des Bereichs."),
             type: "string",
             validation: createStringValidation("label"),
           }),
@@ -120,6 +120,31 @@ export const homePage: SchemaTypeDef = {
             description: getSizeString("label", "Zeichen"),
             type: "string",
             validation: createStringValidation("label"),
+          }),
+        ],
+      }),
+
+      defineField({
+        name: "featuredEvents",
+        title: "Liste der nächsten Veranstaltungen",
+        description: "Bereich mit einer Vorschau der drei nächsten Veranstaltungen.",
+        type: "object",
+        validation: (r) => r.required(),
+        fields: [
+          defineField({
+            name: "heading",
+            title: "Überschrift",
+            description: getSizeString("heading", "Zeichen. Überschrift des Bereichs."),
+            type: "string",
+            validation: createStringValidation("heading"),
+          }),
+
+          defineField({
+            name: "introduction",
+            title: "Einleitung in die Events der EMA",
+            description: getSizeString("description", "Zeichen"),
+            type: "text",
+            validation: createStringValidation("description"),
           }),
         ],
       }),

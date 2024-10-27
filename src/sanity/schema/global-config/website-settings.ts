@@ -83,6 +83,17 @@ export const websiteSettingsType: SchemaTypeDef = {
           }),
         ],
       }),
+
+      defineField({
+        name: "timeSuffix",
+        title: "Uhrzeit-Suffix",
+        description: getSizeString(
+          "label",
+          `Zeichen. Der Text hinter der Uhrzeit einer Veranstaltung oder anderen Zeitangaben steht.`,
+        ),
+        type: "string",
+        validation: createStringValidation("label"),
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Website-Einstellungen" }),

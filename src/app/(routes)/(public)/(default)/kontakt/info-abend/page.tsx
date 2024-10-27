@@ -8,6 +8,8 @@ import {
   InfoEventPageQueryResult,
   InfoEventPageConsultingPageQueryResult,
   InfoEventPageMetaQueryResult,
+  InfoEventPageEventsQueryResult,
+  InfoEventPageTimeSuffixQueryResult,
 } from "../../../../../../../generated/sanity/types";
 import { EventDateList } from "~/app/_components/compounds/event-date-list";
 import { Button } from "~/app/_components/primitives/button";
@@ -17,7 +19,6 @@ import { cn } from "~/app/_utils/cn";
 import { AuthorTagImage } from "~/app/_components/primitives/author-tag";
 import { TestimonialCarousel } from "~/app/_components/blocks/testimonial-carousel";
 import { Card } from "~/app/_components/primitives/card";
-import Image from "next/image";
 import { EndOfPageCTA } from "~/app/_components/compounds/end-of-page-cta";
 import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 import { SanityImage } from "~/app/_components/primitives/sanity-image";
@@ -27,14 +28,18 @@ const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   teaser,
   directionsCTA,
   alternativeCTA,
-  nextDates,
-  timeSuffix,
   speaker,
   benefits[] {
     title,
     description,
     image
   }
+}`;
+
+const infoEventPageEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+
+const infoEventPageTimeSuffixQuery = groq`*[_type == "website-settings"][0]{
+  timeSuffix
 }`;
 
 const infoEventPageConsultingPageQuery = groq`*[_type == "consulting-page"][0] {
@@ -51,16 +56,23 @@ export const generateMetadata = createGenerateMetadata<InfoEventPageMetaQueryRes
 });
 
 const ContactPage: FC = async () => {
-  const infoEventPageData = await sanityFetch<InfoEventPageQueryResult>(infoEventPageQuery, {
-    tags: ["info-event-page"],
-  });
+  const [infoEventPageData, events, websiteSettings, consultingPageData] = await Promise.all([
+    sanityFetch<InfoEventPageQueryResult>(infoEventPageQuery, {
+      tags: ["info-event-page"],
+    }),
 
-  const consultingPageData = await sanityFetch<InfoEventPageConsultingPageQueryResult>(
-    infoEventPageConsultingPageQuery,
-    {
+    sanityFetch<InfoEventPageEventsQueryResult>(infoEventPageEventsQuery, {
+      tags: ["event"],
+    }),
+
+    sanityFetch<InfoEventPageTimeSuffixQueryResult>(infoEventPageTimeSuffixQuery, {
+      tags: ["website-settings"],
+    }),
+
+    sanityFetch<InfoEventPageConsultingPageQueryResult>(infoEventPageConsultingPageQuery, {
       tags: ["consulting-page"],
-    },
-  );
+    }),
+  ]);
 
   if (!infoEventPageData) notFound();
 
@@ -94,8 +106,8 @@ const ContactPage: FC = async () => {
 
           <EventDateList
             className="mt-12"
-            dates={infoEventPageData.nextDates?.map((date) => new Date(date)) || []}
-            timeSuffix={infoEventPageData.timeSuffix || ""}
+            dates={events?.map((event) => new Date(event.date || "")) || []}
+            timeSuffix={websiteSettings?.timeSuffix || ""}
           />
         </Container>
         <Container className="mt-20">
