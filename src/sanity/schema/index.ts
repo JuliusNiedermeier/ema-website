@@ -45,6 +45,7 @@ import { educationalProgramOrder } from "./internal/educational-program-order";
 import { educationalProgramTypePage } from "./dynamic-pages/educational-program-type-page";
 import { seoFieldsType } from "./internal/seo-fields";
 import { event } from "./dynamic-content/event";
+import { redirectsType } from "./global-config/redirects";
 
 export type SchemaTypeDef = {
   type:
@@ -99,6 +100,7 @@ const typeDefs = [
 
   // Global config
   websiteSettingsType,
+  redirectsType,
 
   // Emails
   applicationVerificationEmail,

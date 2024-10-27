@@ -2,7 +2,8 @@
   "path": [
     "'./src/app/**/*.{ts,tsx,js,jsx}'",
     "'./src/sanity/**/*.{ts,tsx,js,jsx}'",
-    "'./src/server/**/*.{ts,tsx,js,jsx}'"
+    "'./src/server/**/*.{ts,tsx,js,jsx}'",
+    "./src/middleware.ts"
   ],
   "schema": "./generated/sanity/schema.json",
   "generates": "./generated/sanity/types.ts"
