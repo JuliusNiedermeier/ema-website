@@ -210,7 +210,7 @@ export const SiteFooter: FC<SiteFooterProps> = async ({ className, ...restProps 
             <div className="flex flex-col-reverse justify-between gap-4 py-8 text-neutral-900-text sm:items-stretch lg:flex-row lg:items-center lg:gap-12">
               <div>
                 <Label className="text-[0.9rem] text-neutral-900-text-muted">{footerConfig?.fundingNotice}</Label>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-4">
                   {footerConfig?.fundingPartners?.map((partner) => (
                     <SanityImage image={partner} width="200" height="200" className="" />
                   ))}
