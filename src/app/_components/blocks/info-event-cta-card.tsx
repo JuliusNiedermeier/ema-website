@@ -18,7 +18,7 @@ const infoEventCTACardQuery = groq`*[_type == "info-event-page"][0] {
   readMoreLabel,
 }`;
 
-const infoEventCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+const infoEventCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true && dateTime(date) >= dateTime(now())] | order(date asc) [0..2]`;
 
 const infoEventCTATimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix

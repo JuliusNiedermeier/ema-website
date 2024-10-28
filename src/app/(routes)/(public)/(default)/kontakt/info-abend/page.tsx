@@ -36,7 +36,7 @@ const infoEventPageQuery = groq`*[_type == "info-event-page"][0] {
   }
 }`;
 
-const infoEventPageEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+const infoEventPageEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true && dateTime(date) >= dateTime(now())] | order(date asc) [0..2]`;
 
 const infoEventPageTimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix

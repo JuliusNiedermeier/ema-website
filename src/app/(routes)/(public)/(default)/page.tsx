@@ -49,7 +49,7 @@ const featuredPostsQuery = groq`*[_type == "post"][0...3]{
   }
 }`;
 
-const featuredEventsQuery = groq`*[_type == "event"] | order(date asc) [0...3]`;
+const featuredEventsQuery = groq`*[_type == "event" && dateTime(date) >= dateTime(now())] | order(date asc) [0...3]`;
 
 const homePageTimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix
@@ -259,7 +259,7 @@ const HomePage: FC = async () => {
             />
           </Link>
 
-          <Link href="/about/campus" className="mt-8 md:mt-16 mb-8 block">
+          <Link href="/about/campus" className="mb-8 mt-8 block md:mt-16">
             <CampusCard />
           </Link>
         </Container>

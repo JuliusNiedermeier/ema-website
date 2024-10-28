@@ -29,7 +29,7 @@ const bentoCTAInfoEventQuery = groq`*[_type == "info-event-page"][0] {
   readMoreLabel,
 }`;
 
-const bentoCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true] | order(date asc) [0..2]`;
+const bentoCTAEventsQuery = groq`*[_type == "event" && showOnInfoEventPage == true && dateTime(date) >= dateTime(now())] | order(date asc) [0..2]`;
 
 const bentoCTATimeSuffixQuery = groq`*[_type == "website-settings"][0]{
   timeSuffix
