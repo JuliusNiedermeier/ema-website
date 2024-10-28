@@ -1,5 +1,5 @@
 import { HistoryIcon, MailCheckIcon, PartyPopperIcon, ShieldAlertIcon } from "lucide-react";
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren, ReactNode } from "react";
 import { Heading, Label, Paragraph } from "~/app/_components/primitives/typography";
 import { cookies } from "next/headers";
 import { applicationCookieName } from "~/server/resources/application/application-cookie";
@@ -18,6 +18,10 @@ import {
   OnlineApplicationVerifyPageQueryResult,
 } from "../../../../../../generated/sanity/types";
 import { IconChip } from "~/app/_components/primitives/icon-chip";
+
+const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+  return <div className="flex flex-col justify-center p-4">{children}</div>;
+};
 
 const onlineApplicationVerifyPageQuery = groq`*[_type == "application-page"][0]{
   title,
@@ -55,7 +59,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
 
     if (!verifiedApplication) {
       return (
-        <div>
+        <Wrapper>
           <IconChip>
             <ShieldAlertIcon size={32} />
           </IconChip>
@@ -63,7 +67,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
             {data.error?.link?.heading}
           </Heading>
           <Paragraph className="text-neutral-900-text-muted">{data.error?.link?.description}</Paragraph>
-        </div>
+        </Wrapper>
       );
     }
 
@@ -72,7 +76,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
 
       if (!internalNotificationSent) {
         return (
-          <div>
+          <Wrapper>
             <IconChip>
               <HistoryIcon size={32} />
             </IconChip>
@@ -80,7 +84,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
               {data.error?.internal?.heading}
             </Heading>
             <Paragraph className="text-neutral-900-text-muted">{data.error?.internal?.description}</Paragraph>
-          </div>
+          </Wrapper>
         );
       }
     }
@@ -140,7 +144,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
         };
 
     return (
-      <div>
+      <Wrapper>
         <IconChip>{icon}</IconChip>
         <Heading tag="h1" className="text-primary-900-text">
           {heading}
@@ -156,11 +160,11 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
             <Label className="text-neutral-900-text-muted underline">{data.applyAgainLabel}</Label>
           </Button>
         </form>
-      </div>
+      </Wrapper>
     );
   } else {
     return (
-      <div>
+      <Wrapper>
         <IconChip>
           <MailCheckIcon size={32} />
         </IconChip>
@@ -170,7 +174,7 @@ const OnlineApplicationVerifyPage: FC<{ searchParams: { application?: string; to
         <Paragraph className="text-neutral-900-text-muted">
           {interpolate(data.verification?.description || "")}
         </Paragraph>
-      </div>
+      </Wrapper>
     );
   }
 };
