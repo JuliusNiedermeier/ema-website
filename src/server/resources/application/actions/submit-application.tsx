@@ -11,10 +11,18 @@ import { applicationCookieName } from "../application-cookie";
 import { env } from "~/env";
 import { groq } from "next-sanity";
 import { sanityFetch } from "~/sanity/lib/client";
-import { ApplicationVerificationEmailQueryResult } from "../../../../../generated/sanity/types";
+import {
+  ApplicationVerificationEmailQueryResult,
+  SubmitApplicationProgramQueryResult,
+} from "../../../../../generated/sanity/types";
 import { verifyTurnstileToken } from "~/server/utils/verify-turnstile-token";
 
 const applicationVerificationEmailQuery = groq`*[_type == "application-verification-email"][0]`;
+
+const submitApplicationProgramQuery = groq`*[_type == "educational-program" && _id == $ID][0]{
+  name,
+  "type": educationalProgramType -> name
+}`;
 
 export const submitApplication = async (input: z.infer<typeof applicationInputSchema>, turnstileToken: string) => {
   if (cookies().has(applicationCookieName)) return false;
@@ -24,11 +32,17 @@ export const submitApplication = async (input: z.infer<typeof applicationInputSc
   const [applicationRecord] = await drizzle.insert(applicationTable).values(input).returning();
   if (!applicationRecord) return false;
 
-  const emailContent = await sanityFetch<ApplicationVerificationEmailQueryResult>(applicationVerificationEmailQuery, {
-    tags: ["application-verification-email"],
-  });
+  const [emailContent, program] = await Promise.all([
+    sanityFetch<ApplicationVerificationEmailQueryResult>(applicationVerificationEmailQuery, {
+      tags: ["application-verification-email"],
+    }),
+    sanityFetch<SubmitApplicationProgramQueryResult>(submitApplicationProgramQuery, {
+      params: { ID: applicationRecord.programID },
+      tags: ["educational-program"],
+    }),
+  ]);
 
-  if (!emailContent) return false;
+  if (!emailContent || !program) return false;
 
   const verificationURL = new URL(`${env.NEXT_PUBLIC_SITE_URL}/online-bewerbung/bestaetigung`);
   verificationURL.searchParams.set("application", applicationRecord.ID);
@@ -41,7 +55,7 @@ export const submitApplication = async (input: z.infer<typeof applicationInputSc
     react: (
       <ApplicationVerificationMail
         name={applicationRecord.name}
-        programName={applicationRecord.programID}
+        programName={`${program.type} ${program.name}`}
         verificationURL={verificationURL.href}
         heading={emailContent.heading?.replaceAll("{name}", applicationRecord.name) || ""}
         body={emailContent.body?.replaceAll("{name}", applicationRecord.name) || ""}
