@@ -4,7 +4,6 @@ import { EmailFC } from "./types";
 export const InternalApplicationNotificationMail: EmailFC<{
   name: string;
   age: number;
-  motivation?: string;
   programName: string;
   email: string;
 }> = (props) => {
@@ -16,13 +15,6 @@ export const InternalApplicationNotificationMail: EmailFC<{
           <Text>
             {props.name} ({props.age} Jahre) hat sich für die {props.programName} angemeldet!
           </Text>
-
-          {props.motivation && (
-            <Section>
-              <Text>Motivation:</Text>
-              <Text>{props.motivation}</Text>
-            </Section>
-          )}
 
           <Section>
             <Text>Email:</Text>
