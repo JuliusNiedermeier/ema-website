@@ -161,6 +161,36 @@ export const feesPage: SchemaTypeDef = {
           }),
         ],
       }),
+
+      defineField({
+        name: "videoHeading",
+        title: "Video-Überschrift",
+        description: getSizeString("heading", "Zeichen"),
+        type: "string",
+        validation: createStringValidation("heading"),
+      }),
+
+      defineField({
+        name: "videoIntroduction",
+        title: "Video-Einleitung",
+        description: getSizeString("description", "Zeichen"),
+        type: "text",
+        validation: createStringValidation("description"),
+      }),
+
+      defineField({
+        name: "videoThumbnail",
+        title: "Video-Titelbild",
+        type: "image",
+        validation: (r) => r.required(),
+      }),
+
+      defineField({
+        name: "video",
+        title: "Video",
+        type: "file",
+        validation: (r) => r.required(),
+      }),
     ],
     preview: {
       prepare: () => ({ title: "Schulbeitrag" }),

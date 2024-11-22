@@ -18,7 +18,11 @@ import { createGenerateMetadata } from "~/app/_utils/create-generate-meta";
 
 const feesPageQuery = groq`*[_type == "fees-page"][0] {
   ...,
-  defaultProgram -> { _id }
+  defaultProgram -> { _id },
+  videoHeading,
+  videoIntroduction,
+  videoThumbnail { asset -> { url } },
+  video { asset -> { url } }
 }`;
 
 const feesPageProgramsQuery = groq`*[_type == "educational-program"] | order(order asc) {
@@ -29,7 +33,7 @@ const feesPageProgramsQuery = groq`*[_type == "educational-program"] | order(ord
     _id,
     name,
     color
-  }
+  },
 }`;
 
 const feesPageMetaQuery = groq`*[_type == "fees-page"][0]{
@@ -128,6 +132,15 @@ const FeesPage: FC = async () => {
           defaultProgramID={pageData.defaultProgram?._id || null}
           programFees={programFees}
         />
+      </Container>
+
+      <Container width="narrow" className="mt-40 text-center">
+        <Heading tag="h2">{pageData.videoHeading}</Heading>
+        <Paragraph>{pageData.videoIntroduction}</Paragraph>
+      </Container>
+
+      <Container className="mt-16 overflow-hidden rounded-2xl border border-neutral-100-text-muted shadow">
+        <video controls src={pageData.video?.asset?.url || ""} poster={pageData.videoThumbnail?.asset?.url || ""} />
       </Container>
     </>
   );
